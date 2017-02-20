@@ -87,6 +87,7 @@
     }
 }
 
+
 #pragma mark - set get
 - (NSArray *)titImageArr {
     return @[@"register_home",

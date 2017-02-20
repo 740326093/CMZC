@@ -39,7 +39,7 @@
     }
     return self;
 }
-
+#pragma clang diagnostic ignored "-Wobjc-missing-super-calls"
 - (void)awakeFromNib {
     [self showHubTacit];
     [self addRequestDataMeans];

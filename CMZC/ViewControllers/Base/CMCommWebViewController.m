@@ -29,9 +29,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+   
     if ([CMAccountTool sharedCMAccountTool].currentAccount.userName.length >0) {
         [[CMTokenTimer sharedCMTokenTimer] cm_cmtokenTimerRefreshSuccess:^{
+            
             [self loadWebViewData];
         } fail:^(NSError *error) {
             UINavigationController *nav = [UIStoryboard loginStoryboard].instantiateInitialViewController;
@@ -104,6 +105,7 @@
 
 - (void)loadWebViewData
 {
+    
     if (!CMIsLogin()) {
         NSURLRequest *request =[NSURLRequest requestWithURL:[NSURL URLWithString:_urlStr]];
         //4.查看请求头
@@ -111,16 +113,21 @@
         _webView.scrollView.bounces = NO;
         _webView.scalesPageToFit = YES;
     } else {
-        NSString *external =[NSString stringWithFormat:@"%@%@",kCMExternalLinksURL,_urlStr];
+       //NSString *external =[NSString stringWithFormat:@"%@%@",kCMExternalLinksURL,_urlStr];
+        NSString *external=_urlStr;
         NSString *name = GetDataFromNSUserDefaults(@"name");
         NSString *value = GetDataFromNSUserDefaults(@"value");
+        MyLog(@"+++%@++%@",name,value);
         NSURLRequest *request =[NSURLRequest requestWithURL:[NSURL URLWithString:external]];
-        NSMutableURLRequest *mutableRequest = [request mutableCopy];
-        NSString *cookieValue = [NSString stringWithFormat:@"%@=%@",name,value];
-        [mutableRequest addValue:cookieValue forHTTPHeaderField:@"cookie"];
-        request = [mutableRequest copy];
-        //4.查看请求头
+//        NSMutableURLRequest *mutableRequest = [request mutableCopy];
+//        NSString *cookieValue = [NSString stringWithFormat:@"%@=%@",name,value];
+//        [mutableRequest addValue:cookieValue forHTTPHeaderField:@"cookie"];
+//        request = [mutableRequest copy];
+                //4.查看请求头
+        [self cleanCacheAndCookie];
+        [self loadCookies];
         [_webView loadRequest:request];
+        
         _webView.scrollView.bounces = NO;
         _webView.scalesPageToFit = YES;
     }
@@ -130,7 +137,10 @@
 - (void)loadCookies{
     NSString *name = GetDataFromNSUserDefaults(@"name");
     NSString *value = GetDataFromNSUserDefaults(@"value");
-    
+    NSString *domain=GetDataFromNSUserDefaults(@"domain");
+    if (name==nil&&value==nil) {
+        return ;
+    }
     NSMutableDictionary *cookieDict = [NSMutableDictionary dictionary];
     [cookieDict setObject:name forKey:NSHTTPCookieName];
     [cookieDict setObject:value forKey:NSHTTPCookieValue];
@@ -138,8 +148,10 @@
                            name,NSHTTPCookieName,
                            value,NSHTTPCookieValue,
                            @"/",NSHTTPCookiePath,
-                           [NSURL URLWithString:kWebSocket_url],NSHTTPCookieOriginURL,
+                           @"0",NSHTTPCookieVersion,
+//                           [NSURL URLWithString:_urlStr],NSHTTPCookieOriginURL,
                            [NSDate dateWithTimeIntervalSinceNow:60],NSHTTPCookieExpires,
+                           domain,NSHTTPCookieDomain,
                            nil];
     
     NSHTTPCookie *cookie = [NSHTTPCookie cookieWithProperties:prop1];
@@ -197,5 +209,13 @@
     // Pass the selected object to the new view controller.
 }
 */
+- (void)cleanCacheAndCookie{
 
+    //清除UIWebView的缓存
+    [[NSURLCache sharedURLCache] removeAllCachedResponses];
+    NSURLCache * cache = [NSURLCache sharedURLCache];
+    [cache removeAllCachedResponses];
+    [cache setDiskCapacity:0];
+    [cache setMemoryCapacity:0];
+}
 @end

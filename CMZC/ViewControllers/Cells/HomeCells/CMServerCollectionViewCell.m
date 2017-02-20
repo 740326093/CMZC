@@ -12,6 +12,14 @@
 
 - (void)awakeFromNib {
      [super awakeFromNib];
+    UIImage *image=[UIImage imageNamed:@"strength_brand_home"];
+    [self.titleImage mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(image.size.height);
+        make.width.mas_equalTo(image.size.width);
+        make.center.equalTo(self);
+    }];
 }
+
+
 
 @end

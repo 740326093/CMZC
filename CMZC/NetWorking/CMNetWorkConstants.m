@@ -9,7 +9,7 @@
 
 
 
-#define kCM_URL @"https://api.xinjingban.com:443/" //线上测试
+#define kCM_URL @"https://api.xinjingban.com:443/" //线上正式
 
 NSString *const kWebSocket_url = @"ws://api.xinjingban.com:80/";// webscoke线上 测试
 

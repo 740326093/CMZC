@@ -71,6 +71,8 @@
     
     _footerView = [CMHomeTableFootView initByNibForClassName];
     _curTableView.tableFooterView = _footerView;
+    
+    
     //请求轮播图数据
     [self requestTitleBannesData];
     
@@ -101,6 +103,7 @@
     [_headerView restartScrollBanner];
     //开启websocket
     [self initWebSocket];
+     
 }
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
@@ -274,6 +277,7 @@
         //四个选项
         CMOptionTableViewCell *optionCell = [tableView dequeueReusableCellWithIdentifier:@"CMOptionTableViewCell" forIndexPath:indexPath];
         optionCell.delegate = self;
+       
         return optionCell;
     } else if (indexPath.row == 2) {
         //倍利宝
@@ -338,7 +342,7 @@
         tableCell.textLabel.font = [UIFont systemFontOfSize:14];
         tableCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         tableCell.textLabel.textColor = [UIColor cmTacitlyFontColor];
-        
+       
         return tableCell;
     }
     

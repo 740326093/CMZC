@@ -15,10 +15,10 @@
 
 
 
-@interface CMInstallViewController ()<UITableViewDelegate,UITableViewDataSource,CMSettingsViewDelegate,UIAlertViewDelegate>
+@interface CMInstallViewController ()<UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *curTableView;
 
-@property (strong, nonatomic) CMSettingsView *settingsView;
+//@property (strong, nonatomic) CMSettingsView *settingsView;
 
 @end
 
@@ -28,9 +28,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.title = @"设置";
-    _settingsView = [CMSettingsView initByNibForClassName];
-    _settingsView.delegate = self;
-    _curTableView.tableFooterView = _settingsView;
+//    _settingsView = [CMSettingsView initByNibForClassName];
+//    _settingsView.delegate = self;
+    _curTableView.tableFooterView = [[UIView alloc]initWithFrame:CGRectZero];
 }
 
 
@@ -106,7 +106,7 @@
     
 }
 
-
+/*
 #pragma mark - CMSettingsViewDelegate
 //退出
 - (void)cm_settingsViewDelegate:(CMSettingsView *)settings {
@@ -120,6 +120,7 @@
     }
     
 }
+ */
 #pragma mark setGet
 //cell data
 - (NSArray *)dataSourceArr {

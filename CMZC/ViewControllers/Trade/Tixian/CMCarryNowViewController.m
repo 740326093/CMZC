@@ -8,7 +8,7 @@
 
 #import "CMCarryNowViewController.h"
 #import "CMAlerTableView.h"
-#import "CMBankBlockList.h"
+
 #import "CMCarryDetailsViewController.h"
 #import "CMProvinceList.h"
 
@@ -29,12 +29,13 @@
 @property (weak, nonatomic) IBOutlet UITableView *curTableView;
 @property (weak, nonatomic) IBOutlet UILabel *bankLab; //银行卡lab
 @property (weak, nonatomic) IBOutlet UILabel *availableLab; //该卡课题金额
+@property (weak, nonatomic) IBOutlet UIImageView *attestation_tradeImageview;
 @property (weak, nonatomic) IBOutlet UITextField *subbranchText;
 
 @property (weak, nonatomic) IBOutlet UIView *titleView; //titleView
 @property (weak, nonatomic) IBOutlet UIView *functionView;
 
-@property (strong, nonatomic) CMBankBlockList *block;
+
 
 @property (strong, nonatomic) NSArray *backDataArr; //银行卡数组
 
@@ -102,8 +103,11 @@
     }
     
     if (self.type == CMCarryNowTypeSave) {
+        
         CMProvinceList *province = stateArr[indexPath.row];
+
          tableCell.textLabel.text = province.name;
+        MyLog(@"+++%@++%@",province.code,province.name);
     } else {
         CMProvinceList *province = _cityArr[indexPath.row];
         tableCell.textLabel.text = province.name;
@@ -120,6 +124,7 @@
             
             _proviceIndex = province.code;
             _saveLab.text = province.name;
+            
         }
             break;
         case CMCarryNowTypeCity:
@@ -171,13 +176,16 @@
 }
 //点击市
 - (IBAction)cityBtnClick:(UIButton *)sender {
-    if (stateArr.count == 0) {
+    
+    if (stateArr.count == 0 ||[_proviceIndex isEqualToString:@"-1"]) {
         [self showAutoHiddenHUDWithMessage:@"请先选择城市"];
         return;
     }
     
+  
     [CMRequestAPI cm_tradeFetchCityListProvincecode:_proviceIndex success:^(NSArray *cityArr) {
         _cityArr = cityArr;
+       
         [self bgViewHidden:NO alphe:0.5 bgColor:[UIColor cmBackgroundGrey]];
         [UIView animateWithDuration:2 animations:^{
             _tableViewHeightLayout.constant = self.view.height - 230;
@@ -191,7 +199,8 @@
 }
 //下一步
 - (IBAction)nextStepBtnClick:(UIButton *)sender {
-    if (_saveLab.text.length > 0 && _cityLab.text.length > 0 && _subbranchText.text.length >0) {
+   
+    if (![_saveLab.text isEqualToString:@"请选择" ] && ![_cityLab.text isEqualToString:@"请选择"] && _subbranchText.text.length>0) {
         CMCarryDetailsViewController *carryDetailsVC = (CMCarryDetailsViewController *)[CMCarryDetailsViewController initByStoryboard];
         carryDetailsVC.nameStr = self.realNameStr;
         carryDetailsVC.bankBlockList = _block;
@@ -222,6 +231,13 @@
         _bankLab.text = [NSString stringWithFormat:@"%@(%@)",title.banktype,bankStr];
         _availableLab.text = [NSString stringWithFormat:@"该卡可提金额%@",title.balance];
         _block = title;
+        
+        if (!title.authentication) {
+            _attestation_tradeImageview.hidden = YES;
+        } else {
+            _attestation_tradeImageview.hidden = NO;
+        }
+        
     }
     
 }

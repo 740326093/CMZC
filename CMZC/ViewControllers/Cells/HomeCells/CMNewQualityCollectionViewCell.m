@@ -33,7 +33,7 @@
 - (void)setDataArray:(NSArray *)dataArray {
     //_dataArray = dataArray;
     _redeemLab.attributedText = [NSMutableAttributedString cm_mutableAttributedString:@"6个月可赎回"
-                                                                            valueFont:10
+                                                                            valueFont:13
                                                                            valueColor:[UIColor cmThemeOrange]
                                                                              locRange:0
                                                                              lenRange:1];
@@ -71,7 +71,7 @@
     
     
     _redeemLab.attributedText = [NSMutableAttributedString cm_mutableAttributedString:[NSString stringWithFormat:@"%@个月可赎回",number.redemptionperiod]
-                                                                            valueFont:10
+                                                                            valueFont:13
                                                                            valueColor:[UIColor cmThemeOrange]
                                                                              locRange:0
                                                                              lenRange:number.redemptionperiod.length];

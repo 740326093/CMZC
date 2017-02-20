@@ -47,6 +47,7 @@
         _tableView.delegate = self;
         _tableView.dataSource = self;
         [_myTopView addSubview:_tableView];
+        _tableView.tableFooterView=[[UIView alloc]initWithFrame:CGRectZero];
         //SaveDataToNSUserDefaults(@"1", @"select");
     }
     return self;

@@ -10,7 +10,7 @@ typedef NS_ENUM(NSInteger,CMCarryNowType) {
     CMCarryNowTypeSave,//省
     CMCarryNowTypeCity //城市
 };
-
+#import "CMBankBlockList.h"
 #import "CMBaseViewController.h"
 
 @interface CMCarryNowViewController : CMBaseViewController
@@ -18,5 +18,7 @@ typedef NS_ENUM(NSInteger,CMCarryNowType) {
 @property (nonatomic,assign) CMCarryNowType type;
 
 @property (nonatomic,copy) NSString *realNameStr;//真实姓名
+@property (strong, nonatomic) CMBankBlockList *block;
+
 
 @end

@@ -36,8 +36,9 @@
     //初始化tab的title
     [self initTableViewTitleHeaderView];
     
-    [self addRequestDataMeans];
-    
+   [self addRequestDataMeans];
+  
+
     
 }
 #pragma mark - 数据请求

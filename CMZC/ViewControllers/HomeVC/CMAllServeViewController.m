@@ -76,7 +76,7 @@
     // 1.创建流水布局
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     // 2.设置每个格子的尺寸
-    layout.itemSize = CGSizeMake(self.view.width/3,100);
+    layout.itemSize = CGSizeMake(kCMScreen_width/3.0,100);
     layout.headerReferenceSize = CGSizeMake(0, 40);
     // 3.设置整个collectionView的内边距
     //    layout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
@@ -122,6 +122,11 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     CMServerCollectionViewCell *serverCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CMServerCollectionViewCell" forIndexPath:indexPath];
     serverCell.titleImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@",[self sourceDataArr][indexPath.section][indexPath.row]]];
+   
+    [serverCell.titleImage  mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(serverCell.titleImage.image.size.height);
+         make.width.mas_equalTo(serverCell.titleImage.image.size.width);
+    }];
     return serverCell;
 }
 

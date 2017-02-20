@@ -7,7 +7,7 @@
 //  设置的退出按钮
 
 #import <UIKit/UIKit.h>
-
+#import "CMFilletButton.h"
 @class CMSettingsView;
 @protocol CMSettingsViewDelegate <NSObject>
 /**
@@ -20,5 +20,7 @@
 @interface CMSettingsView : UIView
 
 @property (nonatomic,assign)id<CMSettingsViewDelegate>delegate;
+
+@property(nonatomic,strong)CMFilletButton *exitButton;
 
 @end

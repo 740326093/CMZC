@@ -19,8 +19,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self.navigationController.navigationBar setBarTintColor:[UIColor cmThemeOrange]];
-    [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName, nil]];
+  //  [self SetNavigationBar];
     NSArray *arr = self.navigationController.viewControllers;
     if (arr.count >1) {
         UIButton *leftBarBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -82,6 +81,16 @@
     tab.selectedIndex = tabIndex;
 }
 
+-(void)SetNavigationBar{
+    
+    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"UINavigationBar"]
+                                      forBarPosition:UIBarPositionAny
+                                          barMetrics:UIBarMetricsDefault];
+    
+    [[UINavigationBar appearance] setShadowImage:[UIImage new]];
+    [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName, nil]];
+    [self.navigationController.navigationBar setBarTintColor:[UIColor cmThemeOrange]];
+}
 /*
 #pragma mark - Navigation
 

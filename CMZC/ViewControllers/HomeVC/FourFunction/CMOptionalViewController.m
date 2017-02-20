@@ -157,7 +157,7 @@
     NSLog(@"Websocket Connected");
     //self.title = @"Connected!";
     //发送消息
-    [_webSocket send:@"range:desc:1:20"];
+    [self.webSocket send:@"range:desc:1:20"];
 }
 
 - (void)webSocket:(SRWebSocket *)webSocket didFailWithError:(NSError *)error{
@@ -172,20 +172,21 @@
     NSString *messag = message;
     
     NSString *contStr = [messag substringWithRange:NSMakeRange(2, messag.length - 2)];
+  
     if (contStr.length == 0) {
-        [_webSocket close];
+        [self.webSocket close];
         [self.view addSubview:self.errorView];
         return;
-    }
-    
-    
+    }    
     NSArray *marketArr = [contStr componentsSeparatedByString:@";"];
     for (NSString *dataStr in marketArr) {
         NSArray *marketIndexArr = [dataStr componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@","]];
         [self.optionalArr addObject:marketIndexArr];
     }
-    
+    [self.errorView removeFromSuperview];
     [_curTableView reloadData];
+  
+    
 }
 
 - (void)webSocket:(SRWebSocket *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean{

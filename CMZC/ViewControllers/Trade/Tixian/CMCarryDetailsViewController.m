@@ -58,6 +58,7 @@
 @property (strong, nonatomic) NSTimer *verifyPhoneTimer;
 @property (weak, nonatomic) IBOutlet UILabel *amountAvailable; //可用金额
 
+@property (weak, nonatomic) IBOutlet UIImageView *bankChange_imageView;
 
 
 
@@ -74,17 +75,20 @@
     if (self.proviceName != nil) {
         _blockList = self.bankBlockList;
         [self initTitleView];
+         _bankChange_imageView.hidden=YES;
     } else {
-        //获取折扣卷
-        [self requestCouponlist];
-        //银行卡列表请求
+               //银行卡列表请求
         [self addRequestDataMeans];
+         _bankChange_imageView.hidden=NO;
+        
     }
     
+ //获取折扣卷
+        [self requestCouponlist];
     
     //titleView
     //[self initTitleView];
-    
+    _curTableView.tableFooterView=[[UIView alloc]initWithFrame:CGRectZero];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -223,6 +227,7 @@
 //添加上啦加载下拉刷新
 - (void)addRequestDataMeans {
     [self showDefaultProgressHUD];
+   
     [CMRequestAPI cm_tradeWithdrawFetchBankBlockListSuccess:^(NSArray *bankBlockArr) {
         [self hiddenProgressHUD];
         [self titleViewBlockListArr:bankBlockArr];
@@ -245,7 +250,7 @@
     }
     _bgView.hidden = NO;
    // [self.view bringSubviewToFront:_bgView];
-   
+    _bgView.backgroundColor=[UIColor clearColor];
 }
 
 
@@ -341,7 +346,7 @@
         _approveImage.hidden = NO;
     }
     
-    
+   
 }
 - (void)cmAlerViewCellTitle:(CMBankBlockList *)title {
     if (title !=nil) {
@@ -394,6 +399,8 @@
     } else { //缺少
         self.carryType = CMCarryDetailsViewTypeneed; //需要填写
         CMCarryNowViewController *carryNowVC = (CMCarryNowViewController *)[[UIStoryboard mainStoryboard]viewControllerWithId:@"CMCarryNowViewController"];
+        carryNowVC.realNameStr=self.nameStr;
+        carryNowVC.block=self.bankBlockList;
         [self.navigationController pushViewController:carryNowVC animated:NO];
     }
 }

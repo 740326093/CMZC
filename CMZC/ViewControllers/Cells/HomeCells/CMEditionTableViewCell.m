@@ -46,6 +46,7 @@
 }
 - (IBAction)enterProductDetailsButClick:(UIButton *)sender {
     NSInteger senderTag = sender.tag;
+    MyLog(@"+++%ld++==%@",senderTag,_prictArr);
     NSArray *itemArr;
     switch (senderTag) {
         case 1000:
@@ -55,6 +56,7 @@
             break;
         case 1001:
         {
+            
             itemArr = _prictArr[1];
         }
             break;
@@ -66,9 +68,12 @@
         default:
             break;
     }
+    
+    
     if ([self.delegate respondsToSelector:@selector(cm_editionTableViewProductId:nameTitle:)]) {
         [self.delegate cm_editionTableViewProductId:itemArr[0] nameTitle:itemArr[1]];
     }
+    
 }
 - (void)setPrictArr:(NSArray *)prictArr {
     _prictArr = prictArr;
@@ -77,13 +82,14 @@
         return;
     }
     if (prictArr.count == 1) {//一个产品
-        self.whatLayoutConstraintLayout.constant =[UIScreen mainScreen].bounds.size.width-125;
+       self.whatLayoutConstraintLayout.constant =kCMScreen_width-kCMScreen_width/3.0;
         [self initFirstViewArr:prictArr.firstObject];
     } else if (prictArr.count == 2) { //两个产品
-        self.whatLayoutConstraintLayout.constant = kCMScreen_width/2-125;
+        self.whatLayoutConstraintLayout.constant = kCMScreen_width/2.0-kCMScreen_width/3.0;
         [self initFirstViewArr:prictArr.firstObject];
         [self initTwoViewArr:prictArr[1]];
     } else { //三个产品
+       self.whatLayoutConstraintLayout.constant=kCMScreen_width/3.0-kCMScreen_width/3.0;
         [self initFirstViewArr:prictArr.firstObject];
         [self initTwoViewArr:prictArr[1]];
         [self initLastArr:prictArr.lastObject];

@@ -18,8 +18,9 @@ PODS:
   - CYLTableViewPlaceHolder (1.0.8)
   - hpple (0.2.0)
   - IMYWebView (0.4)
+  - Masonry (1.0.1)
   - MBProgressHUD (0.9.2)
-  - MJRefresh (3.1.0)
+  - MJRefresh (3.1.12)
   - NJKWebViewProgress (0.2.3):
     - NJKWebViewProgress/Core (= 0.2.3)
     - NJKWebViewProgress/ProgressView (= 0.2.3)
@@ -38,8 +39,9 @@ DEPENDENCIES:
   - CYLTableViewPlaceHolder (~> 1.0.8)
   - hpple (~> 0.2.0)
   - IMYWebView
+  - Masonry (~> 1.0.1)
   - MBProgressHUD (~> 0.9.2)
-  - MJRefresh (~> 3.1.0)
+  - MJRefresh (~> 3.1.12)
   - NJKWebViewProgress
   - SDWebImage (~> 3.7.4)
   - SocketRocket (~> 0.5.0)
@@ -52,14 +54,15 @@ SPEC CHECKSUMS:
   CYLTableViewPlaceHolder: 44075c119aab78bbc514c75d771d6565e19938e8
   hpple: 3b765f96fc2cd56ad1a49aef6f7be5cb2aa64b57
   IMYWebView: 3756a04b2661ef2b374ea377bd5c705790e3cbca
+  Masonry: a1a931a0d08870ed8ae415a2ea5ea68ebcac77df
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
-  MJRefresh: 743e6404967d1c2c688472ea3ecfde247d872db4
+  MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
   NJKWebViewProgress: f481fd424cb5ecc27eacae11b5397db92fba9a4d
   SDWebImage: 69c6303e3348fba97e03f65d65d4fbc26740f461
   SocketRocket: 2c51efccd2d73c99a923407ca4b06e7e9da95dbf
   UMengSocial: 48b67179c492a8cf7803fbb0438b8f55432e2fc1
   YYModel: 794f0820a9a9703615bc166aa8e336abaf422c2b
 
-PODFILE CHECKSUM: 6d1f6abe179a41e1200f51f71a3c088784ccab68
+PODFILE CHECKSUM: 733a2424eb0fbb54e275b4c5233a2c34a2f44d47
 
 COCOAPODS: 1.0.1

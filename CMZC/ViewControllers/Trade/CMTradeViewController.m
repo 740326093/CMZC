@@ -276,11 +276,25 @@
             //删除
             DeleteDataFromNSUserDefaults(@"name");
             DeleteDataFromNSUserDefaults(@"value");
+            DeleteDataFromNSUserDefaults(@"domain");
             _tradeTitleView.tinfo = nil;
             [[NSNotificationCenter defaultCenter] postNotificationName:@"exitLogin" object:nil];
             UIWindow *window = [UIApplication sharedApplication].windows.firstObject;
             CMTabBarViewController *tab = (CMTabBarViewController *)window.rootViewController;
             tab.selectedIndex = 0;
+            NSHTTPCookieStorage *cookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+            NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies];
+            
+            //删除cookie
+            for (NSHTTPCookie *tempCookie in cookies) {
+                [cookieStorage deleteCookie:tempCookie];
+            }
+            [[NSURLCache sharedURLCache] removeAllCachedResponses];
+            NSURLCache * cache = [NSURLCache sharedURLCache];
+            [cache removeAllCachedResponses];
+            [cache setDiskCapacity:0];
+            [cache setMemoryCapacity:0];
+            
         }
     }
 }

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1108" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -32,12 +32,9 @@
                             <constraint firstAttribute="height" constant="1" id="SuQ-7s-guz"/>
                         </constraints>
                     </view>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="uN4-ar-hEb">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uN4-ar-hEb">
                         <rect key="frame" x="10" y="0.5" width="90" height="90"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="90" id="8D1-3v-5BU"/>
-                            <constraint firstAttribute="height" constant="90" id="8og-iW-5Kh"/>
-                        </constraints>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </imageView>
                 </subviews>
             </view>
@@ -47,9 +44,7 @@
                 <constraint firstAttribute="bottom" secondItem="W4p-i2-DwM" secondAttribute="bottom" id="AOu-qX-qsu"/>
                 <constraint firstItem="W4p-i2-DwM" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="Ggv-0U-j6B"/>
                 <constraint firstItem="k5V-aK-sHo" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Lon-1x-bZs"/>
-                <constraint firstItem="uN4-ar-hEb" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="Qxt-dl-Crm"/>
                 <constraint firstAttribute="trailing" secondItem="k5V-aK-sHo" secondAttribute="trailing" constant="1" id="TTS-pj-H9e"/>
-                <constraint firstItem="uN4-ar-hEb" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="Vnv-D7-cyg"/>
                 <constraint firstAttribute="bottom" secondItem="k5V-aK-sHo" secondAttribute="bottom" id="p5Q-Om-CSg"/>
             </constraints>
             <size key="customSize" width="120" height="102"/>
