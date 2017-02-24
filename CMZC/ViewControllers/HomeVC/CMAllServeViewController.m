@@ -32,6 +32,7 @@
 
 @interface CMAllServeViewController ()<UICollectionViewDelegate,UICollectionViewDataSource>
 @property (strong, nonatomic) UICollectionView *allServeCollectionView;
+@property(nonatomic,strong)UICollectionViewFlowLayout *layout;
 
 
 @end
@@ -73,42 +74,55 @@
 #pragma mark - 初始化布局
 
 - (void)initializationLayoutUI {
-    // 1.创建流水布局
-    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    // 2.设置每个格子的尺寸
-    layout.itemSize = CGSizeMake(kCMScreen_width/3.0,100);
-    layout.headerReferenceSize = CGSizeMake(0, 40);
-    // 3.设置整个collectionView的内边距
-    //    layout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
-//    // 4.设置每一行之间的间距
-    layout.minimumLineSpacing = 0.5;
-    // 设置cell之间的间距
-    layout.minimumInteritemSpacing = 0;
+       // 注册UICollectionViewCell
+//    [_allServeCollectionView registerNib:[UINib nibWithNibName:@"CMServerCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"CMServerCollectionViewCell"];
+    [self.allServeCollectionView registerClass:[CMServerCollectionViewCell class] forCellWithReuseIdentifier:@"CMServerCollectionViewCell"];
+    // 注册头部视图
+    [self.allServeCollectionView registerClass:[CMServeReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"CMServeReusableView"];
+    [self.view addSubview:self.allServeCollectionView];
     
-    _allServeCollectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
-   // iPhone5
-    if (iOS7) {
-        _allServeCollectionView.frame = CGRectMake(0, 67, CMScreen_width(), CMScreen_height()-66);
-    } else {
-        _allServeCollectionView.frame = self.view.frame;
+}
+-(UICollectionViewFlowLayout*)layout{
+    if (!_layout) {
+        // 1.创建流水布局
+        _layout = [[UICollectionViewFlowLayout alloc] init];
+        // 2.设置每个格子的尺寸
+        _layout.itemSize = CGSizeMake(kCMScreen_width/3.0-0.5,100);
+        _layout.headerReferenceSize = CGSizeMake(0, 40);
+        // 3.设置整个collectionView的内边距
+        //    layout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
+        //    // 4.设置每一行之间的间距
+        _layout.minimumLineSpacing = 0.5;
+        // 设置cell之间的间距
+        _layout.minimumInteritemSpacing = 0.5;
+        
+        // 设置头部并给定大小
+        [_layout setHeaderReferenceSize:CGSizeMake(self.view.width, 40)];
+       
     }
     
-    
-    _allServeCollectionView.backgroundColor = [UIColor cmBackgroundGrey];
-    // 设置头部并给定大小
-    [layout setHeaderReferenceSize:CGSizeMake(self.view.width, 40)];
-    
-    _allServeCollectionView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-    _allServeCollectionView.dataSource = self;
-    _allServeCollectionView.delegate = self;
-    
-    // 注册UICollectionViewCell
-    [_allServeCollectionView registerNib:[UINib nibWithNibName:@"CMServerCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"CMServerCollectionViewCell"];
-    
-    // 注册头部视图
-    [_allServeCollectionView registerClass:[CMServeReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"CMServeReusableView"];
-    [self.view addSubview:_allServeCollectionView];
-    
+    return _layout;
+}
+-(UICollectionView*)allServeCollectionView{
+    if (!_allServeCollectionView) {
+        _allServeCollectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:self.layout];
+        // iPhone5
+        if (iOS7) {
+            _allServeCollectionView.frame = CGRectMake(0, 67, CMScreen_width(), CMScreen_height()-66);
+        } else {
+            _allServeCollectionView.frame = self.view.frame;
+        }
+        
+        
+        _allServeCollectionView.backgroundColor = [UIColor cmBackgroundGrey];
+       
+        
+        _allServeCollectionView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+        _allServeCollectionView.dataSource = self;
+        _allServeCollectionView.delegate = self;
+        _allServeCollectionView.showsVerticalScrollIndicator=NO;
+    }
+    return _allServeCollectionView;
 }
 
 #pragma mark - UICollectionViewDelegate && UICollectionViewDataSource
@@ -121,12 +135,7 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     CMServerCollectionViewCell *serverCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CMServerCollectionViewCell" forIndexPath:indexPath];
-    serverCell.titleImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@",[self sourceDataArr][indexPath.section][indexPath.row]]];
-   
-    [serverCell.titleImage  mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.height.mas_equalTo(serverCell.titleImage.image.size.height);
-         make.width.mas_equalTo(serverCell.titleImage.image.size.width);
-    }];
+    serverCell.imageString=[self sourceDataArr][indexPath.section][indexPath.row];
     return serverCell;
 }
 
@@ -165,23 +174,29 @@
     switch (indexPath.row) {
         case 0:
         {//财猫实力
-            CMMoneyViewController *newGuideVC = (CMMoneyViewController *)[CMMoneyViewController initByStoryboard];
+            //CMMoneyViewController *newGuideVC = (CMMoneyViewController *)[CMMoneyViewController initByStoryboard];
+            CMMoneyViewController  *newGuideVC=[[CMMoneyViewController alloc]init];
             newGuideVC.titName = @"新经板实力";//strength_serve_home
-            viewController = newGuideVC;
-            [newGuideVC cm_moneyViewTitleName:@"新经板实力"
-                              bgImageViewName:@"strength_serve_home"
-                                  imageHeight:1400.0f - 400];
-            [self.navigationController pushViewController:viewController animated:YES];
+            newGuideVC.imageStr=@"strength_serve_home";
+            
+//            [newGuideVC cm_moneyViewTitleName:@"新经板实力"
+//                              bgImageViewName:@"strength_serve_home"
+//                                  imageHeight:1400.0f - 400];
+            [self.navigationController pushViewController:newGuideVC animated:YES];
+            
         }
             break;
         case 1:
         {//安全保障
-            CMMoneyViewController *newGuideVC = (CMMoneyViewController *)[CMMoneyViewController initByStoryboard];
-            viewController = newGuideVC;
-            [newGuideVC cm_moneyViewTitleName:@"安全保障"
-                              bgImageViewName:@"insurance_serve_home"
-                                  imageHeight:2900.0f - 400];
-            [self.navigationController pushViewController:viewController animated:YES];
+           
+            CMMoneyViewController  *newGuideVC=[[CMMoneyViewController alloc]init];
+            newGuideVC.titName = @"安全保障";//strength_serve_home
+            newGuideVC.imageStr=@"insurance_serve_home";
+            
+            //            [newGuideVC cm_moneyViewTitleName:@"新经板实力"
+            //                              bgImageViewName:@"strength_serve_home"
+            //                                  imageHeight:1400.0f - 400];
+            [self.navigationController pushViewController:newGuideVC animated:YES];
         }
             break;
         case 2:
@@ -211,9 +226,11 @@
 //融资服务
 - (void)financingServeIndexPath:(NSIndexPath *)indexPath {
     UIWindow *window = [UIApplication sharedApplication].windows.firstObject;
-    CMServerPromptView *serverView = [[NSBundle mainBundle] loadNibNamed:@"CMServerPromptView" owner:nil options:nil].firstObject;
-    serverView.center = window.center;
-    serverView.frame = CGRectMake(0, 0, CGRectGetWidth(window.frame), CGRectGetHeight(window.frame));
+//    CMServerPromptView *serverView = [[NSBundle mainBundle] loadNibNamed:@"CMServerPromptView" owner:nil options:nil].firstObject;
+//    serverView.center = window.center;
+//    serverView.frame = CGRectMake(0, 0, CGRectGetWidth(window.frame), CGRectGetHeight(window.frame));
+    
+    CMServerPromptView *serverView =[[CMServerPromptView alloc]init];
     switch (indexPath.row) {
         case 0:
             serverView.imageNameStr = @"prompt_serve_listed";

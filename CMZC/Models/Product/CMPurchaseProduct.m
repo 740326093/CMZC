@@ -49,7 +49,7 @@
 }
 - (NSMutableAttributedString *)mutableAttributeLenRange:(NSInteger)len {
     return [NSMutableAttributedString cm_mutableAttributedString:kAttributedStr
-                                                       valueFont:13
+                                                       valueFont:11
                                                       valueColor:[UIColor cmThemeOrange]
                                                         locRange:0
                                                         lenRange:len];

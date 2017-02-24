@@ -14,7 +14,7 @@
     BOOL _selectionSelect[20];
     
 }
-@property (weak, nonatomic) IBOutlet UITableView *curTableView;
+@property (strong, nonatomic)  UITableView *curTableView;
 
 @end
 
@@ -23,12 +23,23 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    [self.view addSubview:self.curTableView];
     self.title = _titleStr;
     //_crowdHeaderTitDataArr = @[@"什么是新经板?",@"新经板的运营模式是什么?",@"新经板上的项目来源?",@"在新经板申购是否受法律保护?"];
     _curTableView.tableFooterView = [[UIView alloc] init];
     
 }
-
+-(UITableView*)curTableView{
+    if (!_curTableView) {
+        _curTableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, CMScreen_width(), CMScreen_height()) style:UITableViewStylePlain];
+        _curTableView.showsVerticalScrollIndicator=NO;
+        _curTableView.delegate=self;
+        _curTableView.dataSource=self;
+        
+    }
+    return _curTableView;
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -83,14 +94,14 @@
     UIView *headerView = [[UIView alloc] init];
     headerView.backgroundColor = [UIColor whiteColor];
     //分割线
-    UIView *fgxView = [[UIView alloc] initWithFrame:CGRectMake(0, 40, CGRectGetWidth(_curTableView.frame), 1)];
+    UIView *fgxView = [[UIView alloc] initWithFrame:CGRectMake(0, 40, CGRectGetWidth(self.curTableView.frame), 1)];
     fgxView.backgroundColor = [UIColor cmDividerColor];
     //标题lab
-    UILabel *headerTitLab = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, CGRectGetWidth(_curTableView.frame), 40)];
+    UILabel *headerTitLab = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, CGRectGetWidth(self.curTableView.frame), 40)];
     headerTitLab.text = [_countArr[section] objectForKey:@"titName"];
     //选中but
     UIButton *headerBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    headerBtn.frame = CGRectMake(0, 0, CGRectGetWidth(_curTableView.frame), 40);
+    headerBtn.frame = CGRectMake(0, 0, CGRectGetWidth(self.curTableView.frame), 40);
     headerBtn.tag = section;
     [headerBtn addTarget:self action:@selector(headerBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [headerView addSubview:headerBtn];

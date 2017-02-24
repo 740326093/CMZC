@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface CMServerCollectionViewCell : UICollectionViewCell
-@property (weak, nonatomic) IBOutlet UILabel *titLab;
-@property (weak, nonatomic) IBOutlet UIImageView *titleImage;
 
+@property (strong, nonatomic)  UIImageView *titleImage;
+@property(copy,nonatomic)NSString *imageString;
 @end

@@ -7,19 +7,14 @@
 //
 
 #import "CMMoneyViewController.h"
-#import "CMTabBarViewController.h"
-
 
 @interface CMMoneyViewController ()<UIScrollViewDelegate>
 
-@property (nonatomic,copy) NSString *titleStr;
-@property (nonatomic,copy) NSString *imageName;
-@property (nonatomic,assign) CGFloat imageHeight;
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageHeightLayoutConstraint;
-@property (weak, nonatomic) IBOutlet UIImageView *titleImageView;
-@property (weak, nonatomic) IBOutlet UIScrollView *curScrollView;
-@property (weak, nonatomic) IBOutlet UIView *btoomView;
+@property (strong, nonatomic)  UIImageView *titleImageView;
+@property (strong, nonatomic)  UIScrollView *curScrollView;
+
+@property (strong, nonatomic)  UIButton *beignzhongChou;
 
 @end
 
@@ -28,36 +23,85 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    //self.title = _titName;
-    _curScrollView.delegate = self;
-    self.title = _titleStr;
-    _titleImageView.image = [UIImage imageNamed:_imageName];
-    _imageHeightLayoutConstraint.constant = _imageHeight;
+    
+       self.navigationItem.title = self.titName;
+    self.titleImageView.image = [UIImage imageNamed:_imageStr];
+    self.automaticallyAdjustsScrollViewInsets=NO;
+    [self.view addSubview:self.curScrollView];
+    [self.curScrollView addSubview:self.titleImageView];
+    self.curScrollView.contentSize=CGSizeMake(CMScreen_width(), f_i5real(self.titleImageView.image.size.height)+100);
+    [self.titleImageView  mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(f_i5real(self.titleImageView.image.size.height));
+        make.width.top.left.equalTo(self.curScrollView);
+       
+        
+    }];
+    [self.titleImageView addSubview:self.beignzhongChou];
+    [self.beignzhongChou mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.titleImageView.mas_left).offset(10);
+        make.bottom.equalTo(self.titleImageView);
+        make.right.equalTo(self.titleImageView.mas_right).offset(-10);
+        make.height.equalTo(@40);
+    }];
+    if ([self.imageStr isEqualToString:@"new_shou_yindao"]) {
+           [self.beignzhongChou addTarget:self action:@selector(openClick) forControlEvents:UIControlEventTouchUpInside];
+        
+    }
+   
     
 }
-
-- (void)cm_moneyViewTitleName:(NSString *)title bgImageViewName:(NSString *)name imageHeight:(CGFloat)height {
-    _titleStr = title;
-    _imageHeight = height;
-    _imageName = name;
+-(void)viewWillAppear:(BOOL)animated{
+    
+    [super viewWillAppear:animated];
+    if (self.hideTabBar==YES) {
+        
+        self.tabBarController.tabBar.hidden=YES;
+    }
+    
 }
-
-#pragma mark - UIScrollViewDelegate
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if ([_imageName isEqualToString:@"new_shou_yindao"]) {
-        CGFloat contentOf_y = scrollView.contentOffset.y;
-        if (contentOf_y > 1400) {
-            _btoomView.hidden = NO;
-        } else {
-            _btoomView.hidden = YES;
-        }
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    if (self.hideTabBar==YES) {
+        
+        self.tabBarController.tabBar.hidden=NO;
     }
 }
+
+-(UIScrollView*)curScrollView{
+    if (!_curScrollView) {
+        
+        _curScrollView=[[UIScrollView alloc]initWithFrame:CGRectMake(0, 64, CMScreen_width(), CMScreen_height())];
+        _curScrollView.showsVerticalScrollIndicator=NO;
+        
+
+    }
+    return _curScrollView;
+}
+-(UIImageView*)titleImageView{
+    if (!_titleImageView) {
+        
+        _titleImageView=[[UIImageView alloc]init];
+        _titleImageView.userInteractionEnabled=YES;
+    }
+    return _titleImageView;
+}
+
+-(UIButton*)beignzhongChou{
+    if (!_beignzhongChou) {
+       
+        _beignzhongChou=[UIButton buttonWithType:UIButtonTypeCustom];
+     
+    }
+    return _beignzhongChou;
+}
+
+
+
+
+
+
 //开启众筹
-- (IBAction)openClick:(UIButton *)sender {
-    UIWindow *window = [UIApplication sharedApplication].windows.firstObject;
-    CMTabBarViewController *tab = (CMTabBarViewController *)window.rootViewController;
-    tab.selectedIndex = 1;
+- (void)openClick {   MyLog(@"dianji");
     [self.navigationController popToRootViewControllerAnimated:NO];
     
 }

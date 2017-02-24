@@ -7,11 +7,11 @@
 //
 
 #define kCMExternalLinksURL @"http://m.xinjingban.com/GrantAccess?targetUrl="
-
+//#define kCMExternalLinksURL @"http://testing.xinjingban.com/GrantAccess?targetUrl="
 #import "CMCommWebViewController.h"
 #import "NJKWebViewProgressView.h"
 #import "NJKWebViewProgress.h"
-#import "IMYWebView.h"
+
 
 @interface CMCommWebViewController ()<UIWebViewDelegate,NJKWebViewProgressDelegate> {
     NJKWebViewProgressView *_progressView;
@@ -54,7 +54,7 @@
     CGRect barFrame = CGRectMake(0, navigaitonBarBounds.size.height - progressBarHeight, navigaitonBarBounds.size.width, progressBarHeight);
     _progressView = [[NJKWebViewProgressView alloc] initWithFrame:barFrame];
     _progressView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
-    
+  
     UIButton *leftBarBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     leftBarBtn.frame = CGRectMake(0, 0, 30, 40);
     [leftBarBtn setImage:[UIImage imageNamed:@"nav_back_left"] forState:UIControlStateNormal];
@@ -89,7 +89,10 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController.navigationBar addSubview:_progressView];
+    
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(refreshWebView) name:@"loginWin" object:nil];
 }
+
 
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
@@ -113,18 +116,18 @@
         _webView.scrollView.bounces = NO;
         _webView.scalesPageToFit = YES;
     } else {
-       //NSString *external =[NSString stringWithFormat:@"%@%@",kCMExternalLinksURL,_urlStr];
-        NSString *external=_urlStr;
+       NSString *external =[NSString stringWithFormat:@"%@%@",kCMExternalLinksURL,_urlStr];
+        
         NSString *name = GetDataFromNSUserDefaults(@"name");
         NSString *value = GetDataFromNSUserDefaults(@"value");
-        MyLog(@"+++%@++%@",name,value);
+        
         NSURLRequest *request =[NSURLRequest requestWithURL:[NSURL URLWithString:external]];
-//        NSMutableURLRequest *mutableRequest = [request mutableCopy];
-//        NSString *cookieValue = [NSString stringWithFormat:@"%@=%@",name,value];
-//        [mutableRequest addValue:cookieValue forHTTPHeaderField:@"cookie"];
-//        request = [mutableRequest copy];
+        NSMutableURLRequest *mutableRequest = [request mutableCopy];
+        NSString *cookieValue = [NSString stringWithFormat:@"%@=%@",name,value];
+        [mutableRequest addValue:cookieValue forHTTPHeaderField:@"cookie"];
+        request = [mutableRequest copy];
                 //4.查看请求头
-        [self cleanCacheAndCookie];
+    
         [self loadCookies];
         [_webView loadRequest:request];
         
@@ -137,7 +140,7 @@
 - (void)loadCookies{
     NSString *name = GetDataFromNSUserDefaults(@"name");
     NSString *value = GetDataFromNSUserDefaults(@"value");
-    NSString *domain=GetDataFromNSUserDefaults(@"domain");
+  
     if (name==nil&&value==nil) {
         return ;
     }
@@ -149,9 +152,8 @@
                            value,NSHTTPCookieValue,
                            @"/",NSHTTPCookiePath,
                            @"0",NSHTTPCookieVersion,
-//                           [NSURL URLWithString:_urlStr],NSHTTPCookieOriginURL,
+                           [NSURL URLWithString:_urlStr],NSHTTPCookieOriginURL,
                            [NSDate dateWithTimeIntervalSinceNow:60],NSHTTPCookieExpires,
-                           domain,NSHTTPCookieDomain,
                            nil];
     
     NSHTTPCookie *cookie = [NSHTTPCookie cookieWithProperties:prop1];
@@ -199,7 +201,10 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+-(void)dealloc{
+    
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
+}
 /*
 #pragma mark - Navigation
 
@@ -209,13 +214,5 @@
     // Pass the selected object to the new view controller.
 }
 */
-- (void)cleanCacheAndCookie{
 
-    //清除UIWebView的缓存
-    [[NSURLCache sharedURLCache] removeAllCachedResponses];
-    NSURLCache * cache = [NSURLCache sharedURLCache];
-    [cache removeAllCachedResponses];
-    [cache setDiskCapacity:0];
-    [cache setMemoryCapacity:0];
-}
 @end

@@ -14,6 +14,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *explainLab;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *viewHeigthLayout;
 
+
 @end
 
 @implementation CMStatementViewController
@@ -50,6 +51,7 @@
     _explainLab.text = titleStr;
     
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

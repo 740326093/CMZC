@@ -9,18 +9,10 @@
 #import "CMBaseViewController.h"
 
 @interface CMMoneyViewController : CMBaseViewController
-
+//导航标题
 @property (nonatomic,copy) NSString *titName;
-
-/**
- *  传入需要的数据
- *
- *  @param title  标题名字
- *  @param name   图片名字
- *  @param height 图片高度
- */
-- (void)cm_moneyViewTitleName:(NSString *)title
-              bgImageViewName:(NSString *)name
-                  imageHeight:(CGFloat)height;
+//图片名称
+@property (nonatomic,copy) NSString *imageStr;
+@property(nonatomic,assign)BOOL hideTabBar;
 
 @end

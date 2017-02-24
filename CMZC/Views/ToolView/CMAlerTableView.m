@@ -106,7 +106,7 @@
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    [self endEditing:YES];
+    //[self endEditing:YES];
     [self removeFromSuperview];
     [_myTopView removeFromSuperview];
     

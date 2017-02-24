@@ -8,7 +8,7 @@
 
 #import "CMOptionTableViewCell.h"
 #import "CMOptionCollectionViewCell.h"
-
+#import "CMNewActionHeadView.h"
 @interface CMOptionTableViewCell () <UICollectionViewDelegate,UICollectionViewDataSource>
 @property (weak, nonatomic) IBOutlet UIButton *registerBtn;//注册
 @property (weak, nonatomic) IBOutlet UIButton *optionalBtn; //自选
@@ -22,7 +22,7 @@
 
 @property (strong, nonatomic) NSArray *titImageArr; //图片名字
 @property (strong, nonatomic) NSArray *titLabNameArr;  //介绍名字
-
+@property(strong,nonatomic) CMNewActionHeadView *serveView;
 @end
 
 
@@ -35,8 +35,7 @@
     _collectionflowLayout.itemSize = CGSizeMake(CMScreen_width()/3, 100);
     _curCollectionView.delegate = self;
     _curCollectionView.dataSource = self;
-    
-    
+    [_curCollectionView registerClass:[CMNewActionHeadView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"CMServeReusableView"];
     
     /*
     if (CMIsLogin()) {
@@ -67,6 +66,7 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    
     [collectionView deselectItemAtIndexPath:indexPath animated:YES];
     if ([self.delegate respondsToSelector:@selector(cm_optionTableViewCellButTag:)]) {
         [self.delegate cm_optionTableViewCellButTag:indexPath.row];
@@ -75,6 +75,36 @@
 }
 
 
+-(UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+    
+        _serveView = (CMNewActionHeadView *)[collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"CMServeReusableView" forIndexPath:indexPath];
+         _serveView.delegate=self;
+    
+    return _serveView;
+}
+
+-(void)MoreButtonClick{
+    
+    if ([self.delegate respondsToSelector:@selector(cm_optionHeadMoreButtonEvent)]) {
+        [self.delegate cm_optionHeadMoreButtonEvent];
+    }
+}
+-(void)clickNewActionDetail:(NSInteger)index{
+    
+    MyLog(@"+++++%ld",index);
+    if ([self.delegate respondsToSelector:@selector(cm_optionHeadActinDetail:)]) {
+        [self.delegate cm_optionHeadActinDetail:index];
+    }
+}
+
+-(void)setGongGaoArr:(NSMutableArray *)gongGaoArr{
+    
+    if (gongGaoArr.count>0) {
+        [_collectionflowLayout setHeaderReferenceSize:CGSizeMake(CMScreen_width(), 30)];
+      
+    }
+    _serveView.titleArr=gongGaoArr;
+}
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

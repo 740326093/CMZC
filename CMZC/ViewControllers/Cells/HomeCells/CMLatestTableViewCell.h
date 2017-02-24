@@ -7,11 +7,11 @@
 //  最新动态
 
 #import <UIKit/UIKit.h>
-#import "CMNoticeModel.h"
 
+#import "CMNewShiModel.h"
 
 @interface CMLatestTableViewCell : UITableViewCell
 
-@property (strong, nonatomic) CMNoticeModel *notice;
-
+//@property (strong, nonatomic) CMNoticeModel *notice;
+@property (strong, nonatomic) CMNewShiModel *notice;
 @end

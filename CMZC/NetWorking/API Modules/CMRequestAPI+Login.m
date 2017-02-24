@@ -67,17 +67,12 @@
             NSDictionary *fields = [(NSHTTPURLResponse *)task.response allHeaderFields];
           //  NSLog(@"fields :%@",fields);
              NSArray *cookies = [NSHTTPCookie cookiesWithResponseHeaderFields:fields forURL:[NSURL URLWithString:kCMBaseApiURL]];
-            
-             NSArray *Onecookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies];
-       
-            NSLog(@"%@ +++++++++++++++++++%@",cookies,Onecookies);
-            
-            
-            NSHTTPCookie *cookie = Onecookies.firstObject;
+    
+            NSHTTPCookie *cookie = cookies.firstObject;
             //保存到本地
-            SaveDataToNSUserDefaults(@"cmall_hyid", @"name");
-            SaveDataToNSUserDefaults(@"SRftk6tbEWQ%3d", @"value");
-            SaveDataToNSUserDefaults(@".xinjingban.com", @"domain");
+            SaveDataToNSUserDefaults(cookie.name, @"name");
+            SaveDataToNSUserDefaults(cookie.value, @"value");
+           
             
             CMAccount *account = [[CMAccount alloc] initWithDict:responseObject];
             success(account);
@@ -143,16 +138,13 @@
             NSDictionary *fields = [(NSHTTPURLResponse *)task.response allHeaderFields];
             NSLog(@"fields :%@",fields);
             NSArray *cookies = [NSHTTPCookie cookiesWithResponseHeaderFields:fields forURL:[NSURL URLWithString:kCMBaseApiURL]];
-            NSArray *Onecookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies];
-            NSLog(@"%@ +++++++++++++++++++%@",cookies,Onecookies);
             
-            
-            NSHTTPCookie *cookie = Onecookies.firstObject;
+            NSHTTPCookie *cookie = cookies.firstObject;
             
             //保存到本地
             SaveDataToNSUserDefaults(cookie.name, @"name");
             SaveDataToNSUserDefaults(cookie.value, @"value");
-             SaveDataToNSUserDefaults(cookie.domain, @"domain");
+    
             
             CMAccount *account = [[CMAccount alloc] initWithDict:responseObject];
             account.userName = userName;

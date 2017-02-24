@@ -9,6 +9,8 @@
 #import "CMAboutViewController.h"
 
 @interface CMAboutViewController ()
+@property (weak, nonatomic) IBOutlet UILabel *VersionNumLabel;
+@property (weak, nonatomic) IBOutlet UILabel *servicePhoneNum;
 
 @end
 
@@ -18,6 +20,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.title = @"关于";
+    _VersionNumLabel.text=[NSString stringWithFormat:@"版本号:V%@", [[NSBundle mainBundle]objectForInfoDictionaryKey:@"CFBundleShortVersionString"]];
+   
+
 }
 
 - (void)didReceiveMemoryWarning {

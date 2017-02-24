@@ -33,10 +33,10 @@
 - (void)setDataArray:(NSArray *)dataArray {
     //_dataArray = dataArray;
     _redeemLab.attributedText = [NSMutableAttributedString cm_mutableAttributedString:@"6个月可赎回"
-                                                                            valueFont:13
+                                                                            valueFont:12
                                                                            valueColor:[UIColor cmThemeOrange]
                                                                              locRange:0
-                                                                             lenRange:1];
+                                                                             lenRange:3];
     
 }
 
@@ -71,10 +71,10 @@
     
     
     _redeemLab.attributedText = [NSMutableAttributedString cm_mutableAttributedString:[NSString stringWithFormat:@"%@个月可赎回",number.redemptionperiod]
-                                                                            valueFont:13
+                                                                            valueFont:12
                                                                            valueColor:[UIColor cmThemeOrange]
                                                                              locRange:0
-                                                                             lenRange:number.redemptionperiod.length];
+                                                                             lenRange:number.redemptionperiod.length+2];
     _earningsLab.text = number.incometype; //收益类型
     _startingLab.text = number.price;
     _bgImageView.image = [UIImage imageNamed:bgImage];

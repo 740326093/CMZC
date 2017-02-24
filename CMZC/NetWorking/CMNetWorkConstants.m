@@ -11,16 +11,18 @@
 
 #define kCM_URL @"https://api.xinjingban.com:443/" //线上正式
 
+#define Test_URL @"http://192.168.1.225:9000/" //本地
 NSString *const kWebSocket_url = @"ws://api.xinjingban.com:80/";// webscoke线上 测试
 
 // m站地址
 //NSString *const kCMMZWeb_url = @"http://mz.58cm.com/";
 //新的地址 m站地址
 NSString *const kCMMZWeb_url = @"http://m.xinjingban.com/"; //m站线上地址
+//NSString *const kCMMZWeb_url = @"http://testing.xinjingban.com/";//测试
 NSString *const kCMDefaultHeadPortrait = @"tupian.jpg";
 
 // 线上地址 http://zcapi.xinjingban.com
-//公共请求部分 //本店环境 http://192.168.1.12:9000/  //线上环境 http://zcapi.58cm.com/
+//公共请求部分 //本地环境 http://192.168.1.12:9000/  //线上环境 http://zcapi.58cm.com/
 NSString *const kCMBaseApiURL = kCM_URL;
 //获取短信验证码
 NSString *const kCMShortMessageURL = @"/api/message/sendsmsvercode";
@@ -69,6 +71,10 @@ NSString *const KCMAnalystsDetailsURL = @"/api/analyst/";
 NSString *const kCMTrendsMediaCoverURL = @"/api/news/medianews";
 // 公告
 NSString *const kCMTrendsNoticeURL = @"/api/news/notices";
+
+//新观点
+NSString *const kCMTrendsNewActionURL=@"/api/news/list";
+
 #pragma mark - 申购
 NSString *const kCMApplyListURL = @"/api/product/list";
 //产品详情

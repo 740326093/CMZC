@@ -50,11 +50,11 @@
 
 
 - (IBAction)logonButClick:(UIButton *)sender {
-    [self.view endEditing:YES];
+    //[self.view endEditing:YES];
     //存储当前账号
    // SaveDataToNSUserDefaults(_accountNumberTF.text, kAccountNumberKey);
     // [self showMainViewController];
-    _homeViewTopLayout.constant = 0.0f;
+ //   _homeViewTopLayout.constant = 0.0f;
     //线判断数据的有效性
     if ([self checkDataValidity]) {
         [self showDefaultProgressHUD];
@@ -90,15 +90,15 @@
 #pragma mark - UITextFieldDelegate
 //将要开始输入
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
-    if (iPhone5) {
-        if (_homeViewTopLayout.constant == -100) {
-            return;
-        }
-        [UIView animateWithDuration:0.2 animations:^{
-            _homeViewTopLayout.constant += -50;
-        }];
-    }
-    
+//    if (iPhone5) {
+//        if (_homeViewTopLayout.constant == -100) {
+//            return;
+//        }
+//        [UIView animateWithDuration:0.2 animations:^{
+//            _homeViewTopLayout.constant += -50;
+//        }];
+//    }
+//    
 }
 
 //将要结束输入
@@ -108,12 +108,12 @@
 
 
 #pragma mark - touch
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    _homeViewTopLayout.constant = 0.0f;
+//- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+//    _homeViewTopLayout.constant = 0.0f;
+//    
+//    [self.view endEditing:YES];
     
-    [self.view endEditing:YES];
-    
-}
+//}
 
 #pragma mark - self set
 

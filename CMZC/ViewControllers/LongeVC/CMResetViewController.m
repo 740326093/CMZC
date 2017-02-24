@@ -64,8 +64,8 @@
 }
 //获取验证码
 - (IBAction)verificationCodeBtnClick:(UIButton *)sender {
-    [self.view endEditing:YES];
-    _minViewTopLayout.constant = 0.0f;
+//    [self.view endEditing:YES];
+//    _minViewTopLayout.constant = 0.0f;
     //验证手机格式
     if ([self verifyThePhoneNumberFormat]) {
         self.phoneNumberTF.enabled = NO;
@@ -88,8 +88,8 @@
 
 //点击完成按钮的方法
 - (IBAction)finishButClick:(id)sender {
-    [self.view endEditing:YES];
-    _minViewTopLayout.constant = 0.0f;
+//    [self.view endEditing:YES];
+//    _minViewTopLayout.constant = 0.0f;
     
     //显示一个默认加载框
     [self showDefaultProgressHUD];
@@ -145,14 +145,14 @@
 #pragma mark - UITextFieldDelegate
 //将要开始输入
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
-    if (iPhone5) {
-        if (_minViewTopLayout.constant == -50) {
-            return;
-        }
-        [UIView animateWithDuration:1 animations:^{
-            _minViewTopLayout.constant += -50;
-        }];
-    }
+//    if (iPhone5) {
+//        if (_minViewTopLayout.constant == -50) {
+//            return;
+//        }
+//        [UIView animateWithDuration:1 animations:^{
+//            _minViewTopLayout.constant += -50;
+//        }];
+//    }
 }
 //正在输入的
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
@@ -221,10 +221,10 @@
 }
 
 #pragma mark - touch
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    [self.view endEditing:YES];
-    _minViewTopLayout.constant = 0.0f;
-}
+//- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+//    [self.view endEditing:YES];
+//    _minViewTopLayout.constant = 0.0f;
+//}
 /*
 #pragma mark - Navigation
 

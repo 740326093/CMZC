@@ -13,6 +13,7 @@
 #import "UMSocialWechatHandler.h"
 #import "UMSocialSinaSSOHandler.h"
 #import "JPUSHService.h"
+#import <IQKeyboardManager.h>
 
 #define kUMSocial_Appkey @"56f48900e0f55a1a4e001fdc" //友盟分享的key
 
@@ -37,6 +38,7 @@
 
 #define kJPushAppKey @"059c7efbd0eab9d7160a5761"   // 极光推送appk
 #define kJPushMesterSecret @"f0b54d9671d58d7a8fae7150" // secret 后台用。就记录下
+#define KJPushChannel @"Publish channel"
 
 
 #endif /* CMApp_Header_h */

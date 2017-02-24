@@ -175,7 +175,7 @@
             [CMCommonTool executeRunloop:^{
                 [self withdrawRequestWebCommentVC];
             } afterDelay:2];
-            
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"TiXianSuccess" object:self];
             [CMCommonTool executeRunloop:^{
                 [self.navigationController popoverPresentationController];
             } afterDelay:2];

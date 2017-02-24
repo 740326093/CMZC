@@ -26,13 +26,5 @@
     return self;
 }
 
--(instancetype)initWithFrame:(CGRect)frame{
-    self=[super initWithFrame:frame];
-    if (self) {
-        self.layer.masksToBounds = YES;
-        self.layer.cornerRadius = 5;
 
-    }
-    return self;
-}
 @end

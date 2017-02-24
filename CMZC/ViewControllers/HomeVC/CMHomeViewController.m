@@ -24,13 +24,15 @@
 #import "CMCommentTableViewCell.h"
 #import "CMWebSocket.h"
 #import "CMRegisterViewController.h"
-
+#import "CMNewShiModel.h"
 #import "CMProductDetails.h"
-#import "CMMediaNews.h"
-#import "CMNoticeModel.h"
+
+
 #import "CMSubscribeTableViewCell.h"
 #import "CMGoldMedalTableViewCell.h"
 #import "CMAnalystDetailsViewController.h"
+#import "CMApp_Header.h"
+
 
 @interface CMHomeViewController ()<UITableViewDelegate,UITableViewDataSource,CMEditionTableViewCellDelegate,CMOptionTableViewCellDelegate,CMNewQualityCellDelegate,CMWebSocketDelegate,CMAllServerViewControllerDelegate,CMGoldMedalTableViewCellDelegate,CMSubscribeTableViewCellDelegate> {
     NSString *_buyNumber; //多少人购买
@@ -53,6 +55,8 @@
 @property (strong, nonatomic) NSArray *purchaseArr; //申购数据arr
 
 @property (strong, nonatomic) NSArray *glodServiceArr; //金牌服务
+
+@property (strong, nonatomic) NSMutableArray *guanDianArr; //请求新观点
 
 @end
 
@@ -83,18 +87,21 @@
     
     //[self requestPrictThree];
     //广告
-   [self requestTrends];
+    [self requestTrends];
     //申购
     [self requestPurchase];
     //金牌服务
     [self requestGlodService];
+    //新视点
+    [self requestNewGuanDian];
     
     //监听登陆成功
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginSuccessful) name:@"loginWin" object:nil];
     //监听退出
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginSuccessful) name:@"exitLogin" object:nil];
     
-    
+   
+
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -136,7 +143,17 @@
 }
 
 
-
+-(void)requestNewGuanDian{
+    
+    [CMRequestAPI cm_trendsNewDataPage:1 withType:@"16" success:^(NSArray *dataArr, BOOL isPage) {
+        [self.guanDianArr removeAllObjects];
+        [self.guanDianArr addObjectsFromArray:dataArr];
+        [_curTableView reloadData];
+    } fail:^(NSError *error) {
+        MyLog(@"最新动态请求失败");
+    }];
+    
+}
 
 - (void)requestTrends {
     
@@ -146,7 +163,7 @@
 //        
 //    }];
     
-    [CMRequestAPI cm_trendsFetchNoticeDataPage:1 success:^(NSArray *dataArr, BOOL isPage) {
+    [CMRequestAPI cm_trendsNewDataPage:1 withType:@"8" success:^(NSArray *dataArr, BOOL isPage) {
         [self.trendsArr removeAllObjects];
         [self.trendsArr addObjectsFromArray:dataArr];
         [_curTableView reloadData];
@@ -154,6 +171,9 @@
          MyLog(@"最新动态请求失败");
     }];
 }
+
+
+
 
 - (void)requestProductFundlist {
     
@@ -225,11 +245,13 @@
 }
 
 #pragma mark - UITableViewDelegate && UITableViewDataSource
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (self.trendsArr.count >3) {
-        return 5+self.purchaseArr.count+3;
+   
+    if (self.guanDianArr.count >4) {
+        return 5+self.purchaseArr.count+4;
     } else{
-        return 5+self.purchaseArr.count+self.trendsArr.count;
+        return 5+self.purchaseArr.count+self.guanDianArr.count;
     }
     
 }
@@ -242,7 +264,11 @@
             return 111;
         }
     } else if (indexPath.row == 1) {
-        return 208;
+        if(self.trendsArr.count>0){
+            return 230;
+        }else{
+        return 210;
+        }
     } else if (indexPath.row == 2) { //倍利宝
         return 231;
     } else if (indexPath.row == 3) {
@@ -276,6 +302,7 @@
     } else if (indexPath.row == 1) {
         //四个选项
         CMOptionTableViewCell *optionCell = [tableView dequeueReusableCellWithIdentifier:@"CMOptionTableViewCell" forIndexPath:indexPath];
+        optionCell.gongGaoArr=self.trendsArr;
         optionCell.delegate = self;
        
         return optionCell;
@@ -326,8 +353,8 @@
         //最新动态
         CMLatestTableViewCell *latestCell = [tableView dequeueReusableCellWithIdentifier:@"CMLatestTableViewCell" forIndexPath:indexPath];
         latestCell.selectionStyle = UITableViewCellSelectionStyleNone;
-        if (self.trendsArr.count > 0) {
-            latestCell.notice = self.trendsArr[0];
+        if (self.guanDianArr.count > 0) {
+            latestCell.notice = self.guanDianArr[0];
         }
         return latestCell;
     } else {
@@ -335,8 +362,8 @@
         if (!tableCell) {
             tableCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
         }
-        if (_trendsArr.count !=0) {
-            CMNoticeModel *media = self.trendsArr[indexPath.row - 5 - self.purchaseArr.count];
+        if (_guanDianArr.count !=0) {
+            CMNewShiModel *media = self.guanDianArr[indexPath.row - 5 - self.purchaseArr.count];
             tableCell.textLabel.text = media.title;
         }
         tableCell.textLabel.font = [UIFont systemFontOfSize:14];
@@ -358,9 +385,9 @@
         webVC.urlStr = CMStringWithPickFormat(kCMMZWeb_url,CMStringWithPickFormat(@"/Products/Detail?pid=",CMStringWithFormat(product.productId)));
         [self.navigationController pushViewController:webVC animated:YES];
     } else if (indexPath.row >= 5+self.purchaseArr.count) { // 最新动态
-        CMNoticeModel *media = self.trendsArr[indexPath.row- 5 - self.purchaseArr.count];
+        CMNewShiModel *media = self.guanDianArr[indexPath.row- 5 - self.purchaseArr.count];
         CMCommWebViewController *commWebVC = (CMCommWebViewController *)[[UIStoryboard mainStoryboard] viewControllerWithId:@"CMCommWebViewController"];
-        NSString *strUrl = CMStringWithPickFormat(kCMMZWeb_url,[NSString stringWithFormat:@"Account/MessageDetail?nid=%ld",(long)media.noticId])
+        NSString *strUrl = CMStringWithPickFormat(kCMMZWeb_url,[NSString stringWithFormat:@"Account/MessageDetail?nid=%ld",(long)media.mediaId])
         ;
         commWebVC.urlStr = strUrl;
         [self.navigationController pushViewController:commWebVC animated:YES];
@@ -387,6 +414,26 @@
     [self.navigationController pushViewController:webVC animated:YES];
 }
 
+#pragma mark 最新公告
+-(void)cm_optionHeadMoreButtonEvent{
+    CMBulletinViewController *bulletin = (CMBulletinViewController *)[CMBulletinViewController initByStoryboard];
+    [self.navigationController pushViewController:bulletin animated:YES];
+    
+}
+-(void)cm_optionHeadActinDetail:(NSInteger)index{
+    
+    CMCommWebViewController *webVC = (CMCommWebViewController *)[CMCommWebViewController initByStoryboard];
+    
+    CMNewShiModel*model=self.trendsArr[index];
+    MyLog(@"最新公告详情+++%ld_______%ld",model.mediaId,index);
+    NSString *strUrl = CMStringWithPickFormat(kCMMZWeb_url,[NSString stringWithFormat:@"Account/MessageDetail?nid=%ld",(long)model.mediaId])
+    ;
+    webVC.urlStr =strUrl;
+    [self.navigationController pushViewController:webVC animated:YES];
+   
+}
+
+
 #pragma mark - CMGoldMedalTableViewCellDelegate
 - (void)cm_goldMedalAnalystsId:(NSInteger)analystsId {
     CMAnalystDetailsViewController  *analystVC = (CMAnalystDetailsViewController *)[CMAnalystDetailsViewController initByStoryboard];
@@ -406,6 +453,8 @@
     switch (btTag) {
         case 0://登录或者注册
             [self cm_homeLoginOrAccountMethods];
+            
+
             break;
         case 1://自选
             [self cm_homeOptionalMethods];
@@ -493,11 +542,11 @@
 //跳转到web站 
 - (void)cm_commWebViewURL:(NSString *)url {
     if ([url isEqualToString:CMStringWithPickFormat(kCMMZWeb_url, @"/About/Description")]) {
-        CMMoneyViewController *newGuideVC = (CMMoneyViewController *)[CMMoneyViewController initByStoryboard];
+
+        CMMoneyViewController  *newGuideVC=[[CMMoneyViewController alloc]init];
         newGuideVC.titName = @"新经板实力";//strength_serve_home
-        [newGuideVC cm_moneyViewTitleName:@"新经板实力"
-                          bgImageViewName:@"strength_serve_home"
-                              imageHeight:1400.0f - 400];
+        newGuideVC.imageStr=@"strength_serve_home";
+        newGuideVC.hideTabBar=YES;
         [self.navigationController pushViewController:newGuideVC animated:YES];
     } else {
         CMCommWebViewController *webVC = (CMCommWebViewController *)[CMCommWebViewController initByStoryboard];
@@ -531,6 +580,12 @@
         _trendsArr = [NSMutableArray array];
     }
     return _trendsArr;
+}
+- (NSMutableArray *)guanDianArr {
+    if (!_guanDianArr) {
+        _guanDianArr = [NSMutableArray array];
+    }
+    return _guanDianArr;
 }
 //三个
 - (NSMutableArray *)proictArr {

@@ -7,9 +7,8 @@
 //
 
 #import "CMMediaNewsView.h"
-#import "CMMediaOrNoticeTableViewCell.h"
-#import "CMMediaTableViewCell.h"
 
+#import "CMNewShiCell.h"
 @interface CMMediaNewsView ()<UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *curTableView;
 
@@ -35,7 +34,9 @@
         [self addSubview:cmMedia];
         cmMedia.translatesAutoresizingMaskIntoConstraints = NO;
         [self viewLayoutAllEdgesOfSubview:cmMedia];
-        _curTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        //_curTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+         _curTableView.tableFooterView=[[UIView alloc]initWithFrame:CGRectZero];
+        
     }
     return self;
 }
@@ -71,7 +72,8 @@
 }
 //数据请求
 - (void)requestListWithPageNo:(NSInteger)page {
-    [CMRequestAPI cm_trendsFetchMediaCoverDataPage:page pageSize:10 success:^(NSArray *dataArr,BOOL isPage) {
+    [CMRequestAPI cm_trendsNewDataPage:page withType:@"11" success:^(NSArray *dataArr,BOOL isPage) {
+
         [self hideHubTacit];
         [_curTableView endRefresh];
         kCurTableView_foot//根据返回回来的数据，判断footview的区别
@@ -82,6 +84,7 @@
             //结束刷新
             _curTableView.hidden = NO;
         }
+
         [self.mediaDataArr addObjectsFromArray:dataArr];
         [_curTableView reloadData];
     } fail:^(NSError *error) {
@@ -96,12 +99,12 @@
     return self.mediaDataArr.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    CMMediaTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CMMediaTableViewCell"];
+    CMNewShiCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CMMediaTableViewCell"];
     if (!cell) {
-        cell = [CMMediaTableViewCell initByNibForClassName];
+        cell = [CMNewShiCell initByNibForClassName];
     }
     //没数据先注销
-    cell.mediaNews = self.mediaDataArr[indexPath.row];
+    cell.ShiModel = self.mediaDataArr[indexPath.row];
     
     return cell;
 }
@@ -109,8 +112,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    CMMediaNews *media = _mediaDataArr[indexPath.row];
-    NSLog(@"..%@",media.link);
+    CMNewShiModel *media = _mediaDataArr[indexPath.row];
+
     //取出来webURL的链接
     if ([self.delegate respondsToSelector:@selector(cm_mediaNewsViewSendWebURL:)]) {
         [self.delegate cm_mediaNewsViewSendWebURL:media.link];//传入webURL

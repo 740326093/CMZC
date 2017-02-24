@@ -129,8 +129,11 @@ extern NSString *const kCMTrendsMediaCoverURL;
  */
 extern NSString *const kCMTrendsNoticeURL;
 
-
-
+/**
+ *  动态公告
+ *
+ */
+extern NSString *const kCMTrendsNewActionURL;
 #pragma mark - 申购
 /**
  *  申购列表页

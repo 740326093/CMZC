@@ -14,7 +14,7 @@ pod 'UMengSocial', '~> 5.0'
 pod 'NJKWebViewProgress'
 pod 'CYLTableViewPlaceHolder', '~> 1.0.8'
 pod 'SocketRocket', '~> 0.5.0'
-pod 'IMYWebView'
 pod 'hpple', '~> 0.2.0'
 pod 'Masonry', '~> 1.0.1'
+pod 'IQKeyboardManager'
 end

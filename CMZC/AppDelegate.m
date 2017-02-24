@@ -7,11 +7,12 @@
 //
 
 #import "AppDelegate.h"
+#import "CMThirdPartlyCommad.h"
+#import "CMGuideController.h"
 #import "JPUSHService.h"
-
-
-#import "CMApp_Header.h"
-
+#ifdef NSFoundationVersionNumber_iOS_9_x_Max
+#import <UserNotifications/UserNotifications.h> // 这里是iOS10需要用到的框架
+#endif
 @interface AppDelegate ()
 
 @end
@@ -27,19 +28,26 @@
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     [[UITabBar appearance] setTintColor:[UIColor cmThemeOrange]];
-   
+    
     //***********    调试登录
     
     
     //由于分享要真机。不然会出现错误。所哟，先注销掉。测试时在借助
-     [self umsocialData];
+    [CMThirdPartlyCommad umsocialData];
     
     //显示引导页
     [self showWelcome];
     
     //推送
-    [self jpushService:launchOptions];
-    
+    NSDictionary *isJpushMessage=[[CMThirdPartlyCommad sharedCMThirdPartlyCommad] setupWithOptions:launchOptions WithDlelegate:self];
+    if (isJpushMessage) {
+        MyLog(@"有消息");
+    }else{
+        
+    }
+    //配置键盘回收
+    [CMThirdPartlyCommad configureBoardManager];
+    MyLog(@"启动");
     [self SetNavigationBar];
     return YES;
 }
@@ -53,6 +61,7 @@
     [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName, nil]];
     [[UINavigationBar appearance] setBarTintColor:[UIColor cmThemeOrange]];
 }
+
 //程序将要进入后台的时候
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -83,28 +92,18 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
-//友盟
-- (void)umsocialData {
-    [UMSocialData setAppKey:kUMSocial_Appkey];
-    //设置分享到QQ/Qzone的应用Id，和分享url 链接
-    [UMSocialQQHandler setQQWithAppId:kUMSocial_QQAppId appKey:kUMSocail_QQAppKey url:kUMSocial_url];
-    //设置微信AppId、appSecret，分享url
-    [UMSocialWechatHandler setWXAppId:kUMSocial_WechatId appSecret:kUMSocial_wechatSecret url:kUMSocial_url];
-    //第一个参数为新浪appkey,第二个参数为新浪secret，第三个参数是新浪微博回调地址，这里必须要和你在新浪微博后台设置的回调地址一致。
-    [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:kUMSocial_sinaAppKey
-                                              secret:kUMSocial_sinaAppSecret
-                                         RedirectURL:kUMSocial_url];
-}
+
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     
     
     // Required 注册要处理的远程通知类型
-    [JPUSHService registerDeviceToken:deviceToken];
+    [CMThirdPartlyCommad registerDeviceToken:deviceToken];
 }
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     
@@ -112,7 +111,7 @@
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
-    NSLog(@" %@",[userInfo description]);
+    MyLog(@" %@",[userInfo description]);
     NSDictionary *aps = [userInfo valueForKey:@"aps"];
     NSString *content = [aps valueForKey:@"alert"]; //推送显示的内容
      NSMutableArray *contentArr = [NSMutableArray array];
@@ -126,9 +125,52 @@
     SaveDataToNSUserDefaults(contentArr, @"alertArr");
     
     // IOS 7 Support Required
-    [JPUSHService handleRemoteNotification:userInfo]; //处理收到的 APNs 消息
-    completionHandler(UIBackgroundFetchResultNewData);
+    [CMThirdPartlyCommad  handleRemoteNotification:userInfo completion:completionHandler]; //处理收到的 APNs 消息
+    
 }
+
+
+#pragma mark - iOS10: 收到推送消息调用(iOS10是通过Delegate实现的回调)
+#pragma mark- JPUSHRegisterDelegate
+#ifdef NSFoundationVersionNumber_iOS_9_x_Max
+// 当程序在前台时, 收到推送弹出的通知
+- (void)jpushNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(NSInteger))completionHandler {
+    
+    NSDictionary * userInfo = notification.request.content.userInfo;
+    
+    if([notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]])
+    {
+        [JPUSHService handleRemoteNotification:userInfo];
+        
+        NSString *message = [NSString stringWithFormat:@"will%@", [userInfo[@"aps"] objectForKey:@"alert"]];
+        MyLog(@"iOS10程序在前台时收到的推送: %@", message);
+        
+    }
+    
+    completionHandler(UNNotificationPresentationOptionAlert); // 需要执行这个方法，选择是否提醒用户，有Badge、Sound、Alert三种类型可以选择设置
+}
+
+
+// 程序关闭后, 通过点击推送弹出的通知
+- (void)jpushNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler {
+    
+    NSDictionary * userInfo = response.notification.request.content.userInfo;
+    
+    if([response.notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]])
+    {
+        [JPUSHService handleRemoteNotification:userInfo];
+        NSString *message = [NSString stringWithFormat:@"did%@", [userInfo[@"aps"] objectForKey:@"alert"]];
+        MyLog(@"iOS10程序关闭后通过点击推送进入程序弹出的通知: %@", message);
+        
+    }
+    
+    completionHandler();  // 系统要求执行这个方法
+}
+#endif
+
+
+
+
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
     
@@ -136,29 +178,6 @@
     NSLog(@"did Fail To Register For Remote Notifications With 《，Error: %@", error);
 }
 
-- (void)jpushService:(NSDictionary *)launchOptions {
-    // Required
-    if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
-        //可以添加自定义categories
-        [JPUSHService registerForRemoteNotificationTypes:(UIUserNotificationTypeBadge |
-                                                          UIUserNotificationTypeSound |
-                                                          UIUserNotificationTypeAlert)
-                                              categories:nil];
-    } else {
-        //categories 必须为nil
-        [JPUSHService registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |
-                                                          UIRemoteNotificationTypeSound |
-                                                          UIRemoteNotificationTypeAlert)
-                                              categories:nil];
-    }
-    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
-    // Required
-    //如需兼容旧版本的方式，请依旧使用[JPUSHService setupWithOption:launchOptions]方式初始化和同时使用pushConfig.plist文件声明appKey等配置内容。
-    [JPUSHService setupWithOption:launchOptions appKey:@"059c7efbd0eab9d7160a5761" channel:nil apsForProduction:NO];
-    
-    
-   
-}
 - (void)networkDidReceiveMessage:(NSNotification *)notification {
     
     
@@ -171,12 +190,15 @@
  *  显示引导页
  */
 - (void)showWelcome {
-    NSString *localVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
-    NSString *versionKey = [NSString stringWithFormat:@"%@_isFirstRun",localVersion];
+//    NSString *localVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
+    NSString *versionKey = [NSString stringWithFormat:@"isFirstRun"];
     BOOL isFirstRunThisVersion = [GetDataFromNSUserDefaults(versionKey) boolValue];
     if (!isFirstRunThisVersion) {
+       
+    
+        
         self.viewController = self.window.rootViewController;
-        self.window.rootViewController = [[UIStoryboard loginStoryboard] viewControllerWithId:@"CMGuideViewController"];
+        self.window.rootViewController=[[CMGuideController alloc]init];
         SaveDataToNSUserDefaults([NSNumber numberWithBool:YES], versionKey);
     }
     

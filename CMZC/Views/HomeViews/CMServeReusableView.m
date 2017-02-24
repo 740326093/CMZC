@@ -13,15 +13,24 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
+       
+        self.titleLab.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
+      
+        [self addSubview:self.titleLab];
+        
+    }
+    return self;
+}
+
+-(UILabel*)titleLab{
+    if (!_titleLab) {
+        
         _titleLab = [[UILabel alloc]init];
-        _titleLab.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
         _titleLab.textAlignment = NSTextAlignmentCenter;
         _titleLab.font = [UIFont systemFontOfSize:16];
         _titleLab.backgroundColor = [UIColor colorWithRed:239/255.0 green:239/255.0 blue:244/255.0 alpha:1.0];
         _titleLab.textColor = [UIColor cmTacitlyFontColor];
-        [self addSubview:_titleLab];
-        
     }
-    return self;
+    return _titleLab;
 }
 @end

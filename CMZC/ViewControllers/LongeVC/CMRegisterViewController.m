@@ -101,8 +101,8 @@
 #pragma mark - but click
 //获取验证码
 - (IBAction)gainNumberButClick:(UIButton *)sender {
-    [self.view endEditing:YES];
-    _registryViewTopLayout.constant = 0.0f;
+//    [self.view endEditing:YES];
+//    _registryViewTopLayout.constant = 0.0f;
     //验证手机格式
     if ([self verifyThePhoneNumberFormat]) {
 //        self.phoneNumberTF.enabled = NO;
@@ -128,8 +128,8 @@
 
 //注册
 - (IBAction)registerBtnClick:(id)sender {
-    [self.view endEditing:YES];
-    _registryViewTopLayout.constant = 0.0f;
+//    [self.view endEditing:YES];
+//    _registryViewTopLayout.constant = 0.0f;
     if ([self checkDataValidity]) {
         [self showDefaultProgressHUD];
         [CMRequestAPI cm_loginTransferDataPhoneNumber:[_phoneNumberTF.text integerValue] phoneVercode:[_testingNumberTF.text integerValue] password:_passwordTextField.text  confimPassword:_affirmPasswordTF.text success:^(BOOL isSucceed) {
@@ -186,14 +186,14 @@
 #pragma mark - UITextFieldDelegate
 //将要开始输入
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
-    if (iPhone5) {
-        if (_registryViewTopLayout.constant == -150) {
-            return;
-        }
-        [UIView animateWithDuration:1 animations:^{
-            _registryViewTopLayout.constant += -50.0f;
-        }];
-    }
+//    if (iPhone5) {
+//        if (_registryViewTopLayout.constant == -150) {
+//            return;
+//        }
+//        [UIView animateWithDuration:1 animations:^{
+//            _registryViewTopLayout.constant += -50.0f;
+//        }];
+//    }
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
@@ -219,19 +219,19 @@
 }
 
 #pragma mark -
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    [self.view endEditing:YES];
-    _registryViewTopLayout.constant = 0.0f;
-    if (_affirmPasswordTF.text.length >0) {
-        //_registerBtn.alpha = 1.0f;
-       // _registerBtn.enabled = YES;
-    } else {
-       // _registerBtn.enabled = NO;
-        //_registerBtn.alpha = 0.5f;
-    }
-    
-    
-}
+//- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+//    [self.view endEditing:YES];
+//    _registryViewTopLayout.constant = 0.0f;
+//    if (_affirmPasswordTF.text.length >0) {
+//        //_registerBtn.alpha = 1.0f;
+//       // _registerBtn.enabled = YES;
+//    } else {
+//       // _registerBtn.enabled = NO;
+//        //_registerBtn.alpha = 0.5f;
+//    }
+//    
+//    
+//}
 
 - (void)dealloc {
     if (_verifyPhoneTimer && _verifyPhoneTimer.isValid) {

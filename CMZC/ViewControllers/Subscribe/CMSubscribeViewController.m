@@ -152,25 +152,46 @@
     _subscribeView.titleBlock = ^(NSInteger index) {
         if (index == 1000) {
             //新手指引
-            CMMoneyViewController *moneyVC = (CMMoneyViewController *)[[UIStoryboard mainStoryboard] viewControllerWithId:@"CMMoneyViewController"];
-            [moneyVC cm_moneyViewTitleName:@"新手指引"
-                              bgImageViewName:@"new_shou_yindao"
-                                  imageHeight:1980.0f - 400];
-            [weakSelef.navigationController pushViewController:moneyVC animated:YES];
+//            CMMoneyViewController *moneyVC = (CMMoneyViewController *)[[UIStoryboard mainStoryboard] viewControllerWithId:@"CMMoneyViewController"];
+//            [moneyVC cm_moneyViewTitleName:@"新手指引"
+//                              bgImageViewName:@"new_shou_yindao"
+//                                  imageHeight:1980.0f - 400];
+//            [weakSelef.navigationController pushViewController:moneyVC animated:YES];
+            CMMoneyViewController  *newGuideVC=[[CMMoneyViewController alloc]init];
+            newGuideVC.titName = @"新手指引";//strength_serve_home
+            newGuideVC.hideTabBar=YES;
+            newGuideVC.imageStr=@"new_shou_yindao";
+            [weakSelef.navigationController pushViewController:newGuideVC animated:YES];
+         
         } else if(index == 1001) {
             //新手指引
-            CMMoneyViewController *moneyVC = (CMMoneyViewController *)[[UIStoryboard mainStoryboard] viewControllerWithId:@"CMMoneyViewController"];
-            [moneyVC cm_moneyViewTitleName:@"赚钱秘籍"
-                              bgImageViewName:@"make_money_serve"
-                                  imageHeight:850.0f - 400];
-            [weakSelef.navigationController pushViewController:moneyVC animated:YES];
-        } else {
-            CMMoneyViewController *newGuideVC = (CMMoneyViewController *)[CMMoneyViewController initByStoryboard];
-            newGuideVC.titName = @"新经板实力";//strength_serve_home
-            [newGuideVC cm_moneyViewTitleName:@"新经板实力"
-                              bgImageViewName:@"strength_serve_home"
-                                  imageHeight:1400.0f - 400];
+//            CMMoneyViewController *moneyVC = (CMMoneyViewController *)[[UIStoryboard mainStoryboard] viewControllerWithId:@"CMMoneyViewController"];
+//            UIImage *image=[UIImage imageNamed:@"make_money_serve"];
+//            [moneyVC cm_moneyViewTitleName:@"赚钱秘籍"
+//                              bgImageViewName:@"make_money_serve"
+//                                  imageHeight:image.size.height-520];
+//            [weakSelef.navigationController pushViewController:moneyVC animated:YES];
+            
+            CMMoneyViewController  *newGuideVC=[[CMMoneyViewController alloc]init];
+            newGuideVC.titName = @"赚钱秘籍";//strength_serve_home
+            newGuideVC.imageStr=@"make_money_serve";
+            newGuideVC.hideTabBar=YES;
             [weakSelef.navigationController pushViewController:newGuideVC animated:YES];
+            
+        } else {
+//            CMMoneyViewController *newGuideVC = (CMMoneyViewController *)[CMMoneyViewController initByStoryboard];
+//            newGuideVC.titName = @"新经板实力";//strength_serve_home
+//             UIImage *image=[UIImage imageNamed:@"strength_serve_home"];
+//            [newGuideVC cm_moneyViewTitleName:@"新经板实力"
+//                              bgImageViewName:@"strength_serve_home"
+//                                  imageHeight:image.size.height];
+//            [weakSelef.navigationController pushViewController:newGuideVC animated:YES];
+            
+            CMMoneyViewController  *newGuideVC=[[CMMoneyViewController alloc]init];
+            newGuideVC.titName = @"新经板实力";//strength_serve_home
+            newGuideVC.imageStr=@"strength_serve_home";
+            [weakSelef.navigationController pushViewController:newGuideVC animated:YES];
+            
         }
         
     };

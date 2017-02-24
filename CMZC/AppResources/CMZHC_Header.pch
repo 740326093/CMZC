@@ -62,13 +62,16 @@
 //***************先放到这里。测试用。到时候再改地址。如果忘记了。后来人请改位置
 //格式化打印
 #ifdef DEBUG // 调试
-#define MyLog(format, ...) do {                                                                          \
-fprintf(stderr, "<%s : %d> %s\n",                                           \
-[[[NSString stringWithUTF8String:__FILE__] lastPathComponent] UTF8String],  \
-__LINE__, __func__);                                                        \
-(NSLog)((format), ##__VA_ARGS__);                                           \
-fprintf(stderr, "-------\n");                                               \
-} while (0)
+//#define MyLog(format, ...) do {                                                                          \
+//fprintf(stderr, "<%s : %d> %s\n",                                           \
+//[[[NSString stringWithUTF8String:__FILE__] lastPathComponent] UTF8String],  \
+//__LINE__, __func__);                                                        \
+//(NSLog)((format), ##__VA_ARGS__);                                           \
+//fprintf(stderr, "-------\n");                                               \
+//} while (0)
+
+#define MyLog(...) NSLog(__VA_ARGS__)
+#define  NSLog(format, ...) printf("[%s] %s %s\n", __TIME__, __FUNCTION__,[[NSString stringWithFormat:format, ## __VA_ARGS__] UTF8String]);
 #else // 发布打包
 #define MyLog(...)
 #endif
@@ -82,7 +85,7 @@ fprintf(stderr, "-------\n");                                               \
 #define kVerifyStarDateKey @"kVerifyStarDateKey"
 
 
-
+#define f_i5real(f)         (((int)((kCMScreen_width * ((f)/320.f))*2))/2.f)
 
 
 

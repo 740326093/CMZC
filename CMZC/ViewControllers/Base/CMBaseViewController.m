@@ -19,7 +19,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-  //  [self SetNavigationBar];
+   [self SetNavigationBar];
     NSArray *arr = self.navigationController.viewControllers;
     if (arr.count >1) {
         UIButton *leftBarBtn = [UIButton buttonWithType:UIButtonTypeCustom];

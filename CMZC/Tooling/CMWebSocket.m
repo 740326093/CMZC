@@ -76,7 +76,7 @@
 }
 
 - (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(id)message{
-    NSLog(@"---%@",message);
+  //  NSLog(@"---%@",message);
     if ([self.delegate respondsToSelector:@selector(cm_webScketMessage:)]) {
         [self.delegate cm_webScketMessage:message];
     }

@@ -7,9 +7,8 @@
 //
 
 #import "CMNoticeView.h"
-#import "CMMediaOrNoticeTableViewCell.h"
-#import "CMNoticeView.h"
 
+#import "CMNewShiCell.h"
 
 @interface CMNoticeView ()
 @property (weak, nonatomic) IBOutlet UITableView *curTableView;
@@ -35,7 +34,8 @@
         [self addSubview:cmMedia];
         cmMedia.translatesAutoresizingMaskIntoConstraints = NO;
         [self viewLayoutAllEdgesOfSubview:cmMedia];
-        _curTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        //_curTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _curTableView.tableFooterView=[[UIView alloc]initWithFrame:CGRectZero];
     }
     return self;
 }
@@ -69,13 +69,14 @@
 }
 //数据请求
 - (void)requestListWithPageNo:(NSInteger)page {
-    [CMRequestAPI cm_trendsFetchNoticeDataPage:page success:^(NSArray *dataArr,BOOL isPage) {
+    [CMRequestAPI cm_trendsNewDataPage:page withType:@"8" success:^(NSArray *dataArr,BOOL isPage) {
         //结束刷新
         [_curTableView endRefresh];
         kCurTableView_foot//根据返回回来的数据，判断footview的区别
         if (page == 1) {
             [self.noticDataArr removeAllObjects];
         }
+
         [self.noticDataArr addObjectsFromArray:dataArr];
         [_curTableView reloadData];
     } fail:^(NSError *error) {
@@ -89,11 +90,11 @@
     return _noticDataArr.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    CMMediaOrNoticeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CMMediaOrNoticeTableViewCell"];
+    CMNewShiCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CMMediaOrNoticeTableViewCell"];
     if (!cell) {
-        cell = [CMMediaOrNoticeTableViewCell initByNibForClassName];
+        cell = [CMNewShiCell initByNibForClassName];
     }
-    cell.notice = _noticDataArr[indexPath.row];
+    cell.ShiModel = _noticDataArr[indexPath.row];
     return cell;
 }
 

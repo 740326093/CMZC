@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@class  CMNoticeModel;
+@class  CMNewShiModel;
 
 @protocol CMNoticeViewDeleagte <NSObject>
 /**
@@ -16,7 +16,7 @@
  *
  *  @param webURL webRUL
  */
-- (void)cm_noticeViewSendNoticeModel:(CMNoticeModel *)notice;
+- (void)cm_noticeViewSendNoticeModel:(CMNewShiModel *)notice;
 
 @end
 

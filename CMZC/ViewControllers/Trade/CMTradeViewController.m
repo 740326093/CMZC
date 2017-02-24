@@ -52,7 +52,13 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginSuccessed) name:@"loginWin" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(productPurchase) name:@"productPurchase" object:nil];
+    
 }
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(loginSuccessed) name:@"TiXianSuccess" object:nil];
+}
+
 - (void)loginSuccessed {
     [_curTableView beginHeaderRefreshing];
 }
@@ -276,7 +282,7 @@
             //删除
             DeleteDataFromNSUserDefaults(@"name");
             DeleteDataFromNSUserDefaults(@"value");
-            DeleteDataFromNSUserDefaults(@"domain");
+           
             _tradeTitleView.tinfo = nil;
             [[NSNotificationCenter defaultCenter] postNotificationName:@"exitLogin" object:nil];
             UIWindow *window = [UIApplication sharedApplication].windows.firstObject;
@@ -289,11 +295,7 @@
             for (NSHTTPCookie *tempCookie in cookies) {
                 [cookieStorage deleteCookie:tempCookie];
             }
-            [[NSURLCache sharedURLCache] removeAllCachedResponses];
-            NSURLCache * cache = [NSURLCache sharedURLCache];
-            [cache removeAllCachedResponses];
-            [cache setDiskCapacity:0];
-            [cache setMemoryCapacity:0];
+           
             
         }
     }

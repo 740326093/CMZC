@@ -177,8 +177,8 @@
 //点击市
 - (IBAction)cityBtnClick:(UIButton *)sender {
     
-    if (stateArr.count == 0 ||[_proviceIndex isEqualToString:@"-1"]) {
-        [self showAutoHiddenHUDWithMessage:@"请先选择城市"];
+    if (stateArr.count == 0 ||[_proviceIndex isEqualToString:@"-1"]||[_saveLab.text isEqualToString:@"请选择" ]) {
+        [self showAutoHiddenHUDWithMessage:@"请先选择省份"];
         return;
     }
     

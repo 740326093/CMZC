@@ -10,16 +10,34 @@
 
 @implementation CMServerCollectionViewCell
 
-- (void)awakeFromNib {
-     [super awakeFromNib];
-    UIImage *image=[UIImage imageNamed:@"strength_brand_home"];
+
+
+-(id)initWithFrame:(CGRect)frame{
+    self=[super initWithFrame:frame];
+    if (self) {
+        self.backgroundColor=[UIColor whiteColor];
+        [self addSubview:self.titleImage];
+        
+    }
+    
+    return self;
+}
+-(UIImageView *)titleImage{
+    if (!_titleImage) {
+        _titleImage=[[UIImageView alloc]init];
+    }
+    return _titleImage;
+    
+}
+-(void)setImageString:(NSString *)imageString{
+    
+   self.titleImage.image=[UIImage imageNamed:imageString];
+    
     [self.titleImage mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.mas_equalTo(image.size.height);
-        make.width.mas_equalTo(image.size.width);
+        make.height.mas_equalTo(self.titleImage.image.size.height);
+        make.width.mas_equalTo(self.titleImage.image.size.width);
         make.center.equalTo(self);
     }];
 }
-
-
 
 @end

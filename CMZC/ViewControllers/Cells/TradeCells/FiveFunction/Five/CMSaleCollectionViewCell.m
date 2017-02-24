@@ -181,9 +181,9 @@
         _buyNumber.hidden = YES;
     }
 }
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    [self endEditing:YES];
-}
+//- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+//    [self endEditing:YES];
+//}
 - (void)calculateMaxBuyNumber {
     _buyNumber.hidden = NO;
     CGFloat price = [_priceTextField.text floatValue];

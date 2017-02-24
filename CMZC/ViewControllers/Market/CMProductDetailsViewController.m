@@ -1047,6 +1047,15 @@
     
 }
 
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    
+    NSLog(@"开始拖拽");
+    if (scrollView.contentOffset.y>CMScreen_height()/2.0) {
+         
+    }
+    
+}
+
 /*
 #pragma mark - Navigation
 
