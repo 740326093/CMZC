@@ -46,29 +46,27 @@
     _attendPersionLab.text = CMStringWithPickFormat(number.attendPersionCount, @"人");
     
     //NSArray *priceArr = [number.price componentsSeparatedByString:@"."];
-    _priceLab.text = number.price;
-    if ([number.price isEqualToString:@"100"]) {
-        _netWorthLab.hidden = YES;
-    } else {
-        _netWorthLab.hidden = NO;
-    }
+    _priceLab.text = [NSString stringWithFormat:@"%.2f",[number.price floatValue]];
+   // if ([number.price isEqualToString:@"100"]) {
+        //_netWorthLab.hidden = YES;
+   // } else {
+    //    _netWorthLab.hidden = NO;
+    //}
    // NSLog(@"---%@",priceArr.firstObject);
 //    if (priceArr.count > 1) {
 //        _netWorthLab.text = [NSString stringWithFormat:@".%.0f%%",[priceArr.lastObject floatValue]];
 //    }
-    NSArray *lisArr = [number.floatingprofitloss componentsSeparatedByString:@"."];
-    _makeLab.text = lisArr.firstObject;
-    if (lisArr.count > 1) {
-        NSString *lastStr = lisArr.lastObject;
-        if (lastStr.length > 2) {
-            lastStr = [lastStr substringToIndex:2];
-            _decimalPointLab.text = [NSString stringWithFormat:@".%@",lastStr];
-        } else {
-            _decimalPointLab.text = [NSString stringWithFormat:@".%.0f%%",[lisArr.lastObject floatValue]];
-            
-        }
-    }
-    
+    //NSArray *lisArr = [number.floatingprofitloss componentsSeparatedByString:@"."];
+    //MyLog(@"listArr+++%.2f",[number.floatingprofitloss  floatValue]);
+    _makeLab.text = [NSString stringWithFormat:@"%d",[number.floatingprofitloss  intValue]];
+
+    float shouyi=[number.floatingprofitloss  floatValue];
+    NSString *shouYiString=[NSString stringWithFormat:@"%.2f",shouyi];
+    NSRange rang=[shouYiString rangeOfString:@"."];
+   
+   _decimalPointLab.text = [[shouYiString substringWithRange:NSMakeRange(rang.location, 3)] stringByAppendingString:@"%"];
+     
+   
     
     _redeemLab.attributedText = [NSMutableAttributedString cm_mutableAttributedString:[NSString stringWithFormat:@"%@个月可赎回",number.redemptionperiod]
                                                                             valueFont:12

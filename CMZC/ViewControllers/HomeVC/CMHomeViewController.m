@@ -75,26 +75,11 @@
     
     _footerView = [CMHomeTableFootView initByNibForClassName];
     _curTableView.tableFooterView = _footerView;
-    
-    
     //请求轮播图数据
     [self requestTitleBannesData];
-    
-    //请求数据
-    //[self addRequestDataMeans];
-    //众筹宝
-    [self requestProductFundlist];
-    
-    //[self requestPrictThree];
-    //广告
-    [self requestTrends];
-    //申购
-    [self requestPurchase];
-    //金牌服务
-    [self requestGlodService];
-    //新视点
-    [self requestNewGuanDian];
-    
+    [self addRequestDataMeans];
+   
+    [_curTableView beginHeaderRefreshing];
     //监听登陆成功
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginSuccessful) name:@"loginWin" object:nil];
     //监听退出
@@ -103,6 +88,7 @@
    
 
 }
+
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -129,23 +115,32 @@
 #pragma mark - 数据请求
 //添加上啦加载下拉刷新
 - (void)addRequestDataMeans {
-    //显示菊花
-    [self requestListWithPageNo:1];
+
+    [self showDefaultProgressHUD];
+
     //添加下拉刷新
     [_curTableView addHeaderWithFinishBlock:^{
-        [self requestListWithPageNo:1];
+       
+        //众筹宝
+        [self requestProductFundlist];
+        
+        //[self requestPrictThree];
+        //广告
+        [self requestTrends];
+        //申购
+        [self requestPurchase];
+        //金牌服务
+        [self requestGlodService];
+        //新视点
+        [self requestNewGuanDian];
     }];
 }
-//数据请求
-- (void)requestListWithPageNo:(NSInteger)page {
-    
-    
-}
-
 
 -(void)requestNewGuanDian{
     
     [CMRequestAPI cm_trendsNewDataPage:1 withType:@"16" success:^(NSArray *dataArr, BOOL isPage) {
+        [self hiddenProgressHUD];
+        [_curTableView endRefresh];//结束刷新
         [self.guanDianArr removeAllObjects];
         [self.guanDianArr addObjectsFromArray:dataArr];
         [_curTableView reloadData];
@@ -164,6 +159,7 @@
 //    }];
     
     [CMRequestAPI cm_trendsNewDataPage:1 withType:@"8" success:^(NSArray *dataArr, BOOL isPage) {
+     
         [self.trendsArr removeAllObjects];
         [self.trendsArr addObjectsFromArray:dataArr];
         [_curTableView reloadData];
@@ -178,6 +174,7 @@
 - (void)requestProductFundlist {
     
     [CMRequestAPI cm_homeFetchProductFundlistPageSize:3 success:^(NSArray *fundlistArr) {
+       
         [self.manyFulfilArr removeAllObjects];
         [_curTableView beginUpdates];
         [self.manyFulfilArr addObjectsFromArray:fundlistArr];
@@ -203,6 +200,7 @@
 //请求轮播图
 - (void)requestTitleBannesData {
     [CMRequestAPI cm_homeFetchBannersSuccess:^(NSArray *bannersArr) {
+       
         _headerView.banners = bannersArr;
         [_curTableView reloadData];
     } fail:^(NSError *error) {
@@ -213,6 +211,7 @@
 - (void)requestPrictThree {
     
     [CMRequestAPI cm_homeFetchProductThreePageSize:3 success:^(NSArray *threeArr) {
+       
         [self.proictArr removeAllObjects];
         [self.proictArr addObjectsFromArray:threeArr];
         [_curTableView beginUpdates];
@@ -228,6 +227,7 @@
 //申购列表
 - (void)requestPurchase {
     [CMRequestAPI cm_applyFetchProductListOnPageIndex:0 pageSize:3 success:^(NSArray *productArr, BOOL isPage) {
+        
         self.purchaseArr = productArr;
         [_curTableView reloadData];
     } fail:^(NSError *error) {
@@ -237,6 +237,7 @@
 //金牌理财师
 - (void)requestGlodService {
     [CMRequestAPI cm_homeDefaultPageGlodServiceSuccess:^(NSArray *adminis) {
+       
         self.glodServiceArr = adminis;
         [_curTableView reloadData];
     } fail:^(NSError *error) {
@@ -302,7 +303,10 @@
     } else if (indexPath.row == 1) {
         //四个选项
         CMOptionTableViewCell *optionCell = [tableView dequeueReusableCellWithIdentifier:@"CMOptionTableViewCell" forIndexPath:indexPath];
-        optionCell.gongGaoArr=self.trendsArr;
+      
+        if (self.trendsArr.count>0) {
+          optionCell.gongGaoArr=self.trendsArr;
+        }
         optionCell.delegate = self;
        
         return optionCell;
@@ -380,8 +384,9 @@
     if (indexPath.row == 3) { //申购更多
         [self showTabBarViewControllerType:1];
     } else if (indexPath.row > 3 && indexPath.row <=self.purchaseArr.count +3) { //申购详情
-        CMProductDetails *product = self.purchaseArr[indexPath.row-4];
+        CMPurchaseProduct *product = self.purchaseArr[indexPath.row-4];
         CMCommWebViewController *webVC = (CMCommWebViewController *)[CMCommWebViewController initByStoryboard];
+        webVC.PurchaseProduct=product;
         webVC.urlStr = CMStringWithPickFormat(kCMMZWeb_url,CMStringWithPickFormat(@"/Products/Detail?pid=",CMStringWithFormat(product.productId)));
         [self.navigationController pushViewController:webVC animated:YES];
     } else if (indexPath.row >= 5+self.purchaseArr.count) { // 最新动态
@@ -414,9 +419,11 @@
     [self.navigationController pushViewController:webVC animated:YES];
 }
 
-#pragma mark 最新公告
+#pragma mark 最新公告动态
 -(void)cm_optionHeadMoreButtonEvent{
     CMBulletinViewController *bulletin = (CMBulletinViewController *)[CMBulletinViewController initByStoryboard];
+    bulletin.selectIndex=2;
+    
     [self.navigationController pushViewController:bulletin animated:YES];
     
 }
@@ -463,7 +470,7 @@
             [self cm_homeOptionAnalyst];
             break;
         case 3://动态
-            [self cm_homeOptionBulletin];
+            [self cm_optionHeadMoreButtonEvent];
             break;
         case 4://众筹宝
         {
@@ -472,8 +479,14 @@
 //                UINavigationController *nav = [UIStoryboard loginStoryboard].instantiateInitialViewController;
 //                [self presentViewController:nav animated:YES completion:nil];
 //            } else {http://192.168.1.225:8886/Products/FundList
-                [self cm_commWebViewURL:CMStringWithPickFormat(kCMMZWeb_url, @"Products/FundList")];
+              [self cm_commWebViewURL:CMStringWithPickFormat(kCMMZWeb_url, @"Products/FundList")];
            // }
+            
+            //CMBeiLiBaoController
+            
+//            CMBeiLiBaoController *webVC = (CMBeiLiBaoController *)[CMBeiLiBaoController initByStoryboard];
+//            
+//            [self.navigationController pushViewController:webVC animated:YES];
         }
             break;
         default://更多
@@ -534,9 +547,10 @@
     CMAnalystViewController *analystVC = (CMAnalystViewController *)[CMAnalystViewController initByStoryboard];
     [self.navigationController pushViewController:analystVC animated:YES];
 }
-//动态 公告
+//新观点
 - (void)cm_homeOptionBulletin {
     CMBulletinViewController *bulletin = (CMBulletinViewController *)[CMBulletinViewController initByStoryboard];
+      bulletin.selectIndex=1;
     [self.navigationController pushViewController:bulletin animated:YES];
 }
 //跳转到web站 

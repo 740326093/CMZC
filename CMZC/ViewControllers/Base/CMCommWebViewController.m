@@ -11,9 +11,11 @@
 #import "CMCommWebViewController.h"
 #import "NJKWebViewProgressView.h"
 #import "NJKWebViewProgress.h"
+#import <JavaScriptCore/JavaScriptCore.h>
+#import "CMShareView.h"
+#import <TFHpple.h>
 
-
-@interface CMCommWebViewController ()<UIWebViewDelegate,NJKWebViewProgressDelegate> {
+@interface CMCommWebViewController ()<UIWebViewDelegate,NJKWebViewProgressDelegate,CMJSProtocol> {
     NJKWebViewProgressView *_progressView;
     NJKWebViewProgress *_progressProxy;
 }
@@ -21,15 +23,16 @@
 @property (strong,nonatomic)NSString *currentURL;
 @property (strong,nonatomic)NSString *currentTitle;
 @property (nonatomic,copy) NSString *nextURL;
-
-
+@property (strong,nonatomic) JSContext *context;
+@property (copy,nonatomic) NSString *realUrl;
 @end
 
 @implementation CMCommWebViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-   
+ 
+    
     if ([CMAccountTool sharedCMAccountTool].currentAccount.userName.length >0) {
         [[CMTokenTimer sharedCMTokenTimer] cm_cmtokenTimerRefreshSuccess:^{
             
@@ -41,7 +44,7 @@
     } else {
         [self loadWebViewData];
     }
-    
+ 
     _webView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
     
     _progressProxy = [[NJKWebViewProgress alloc] init];
@@ -69,7 +72,24 @@
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:rightBarBtn];
     self.navigationItem.rightBarButtonItem = rightItem;
     
-    
+    self.realUrl=_urlStr;
+   
+//    NSData  * data     = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.realUrl]];
+//    TFHpple * doc      = [[TFHpple alloc] initWithHTMLData:data];
+//    NSArray * elements = [doc searchWithXPathQuery:@"//div"];
+//    for (TFHppleElement *happleEm in elements) {
+//        
+//        
+//        if ([[happleEm objectForKey:@"class"]isEqualToString:@"page-header navbar navbar-default navbar-static-top"]) {
+//            
+//            MyLog(@"有导航");
+//            return;
+//        }else{
+//            MyLog(@"没有导航");
+//            
+//        }
+//    }
+
 }
 //http://m.xinjingban.com/Account/Recharge
 
@@ -109,6 +129,8 @@
 - (void)loadWebViewData
 {
     
+  //  _urlStr=@"http://192.168.1.225:8886/Products/Detail?pid=55463";
+   // _urlStr=@"http://m.58ycf.com/promo/group/mydevelopamount";
     if (!CMIsLogin()) {
         NSURLRequest *request =[NSURLRequest requestWithURL:[NSURL URLWithString:_urlStr]];
         //4.查看请求头
@@ -126,8 +148,7 @@
         NSString *cookieValue = [NSString stringWithFormat:@"%@=%@",name,value];
         [mutableRequest addValue:cookieValue forHTTPHeaderField:@"cookie"];
         request = [mutableRequest copy];
-                //4.查看请求头
-    
+        //4.查看请求头
         [self loadCookies];
         [_webView loadRequest:request];
         
@@ -161,10 +182,27 @@
     [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookieAcceptPolicy:NSHTTPCookieAcceptPolicyAlways];
     
 }
+-(void)shareView{
+    
+    MyLog(@"+++分享");
+    
+    UIWindow *window = [UIApplication sharedApplication].windows.firstObject;
+//    CMShareView *shareView = [[NSBundle mainBundle] loadNibNamed:@"CMShareView" owner:nil options:nil].firstObject;
+    CMShareView *shareView=[[CMShareView alloc]initWithFrame:CGRectMake(0, 0, CMScreen_width(), CMScreen_height())];
+    shareView.center = window.center;
+    shareView.frame = CGRectMake(0, 0, CGRectGetWidth(window.frame), CGRectGetHeight(window.frame));
+   shareView.contentUrl =self.realUrl;
+    shareView.titleConten = self.PurchaseProduct.title;
+   NSString *content = [NSString stringWithFormat:@"一起来众筹,100%%保底保息,预期收益%@(包含保底年收益+浮动)[%@];",self.PurchaseProduct.income,self.PurchaseProduct.descri];
+   shareView.contentStr = content;
+   shareView.ShareImageName=[NSData dataWithContentsOfURL:[NSURL URLWithString:self.PurchaseProduct.picture]];
+    [window addSubview:shareView];
 
+}
 - (void)refreshWebView
 {
     [self loadWebViewData];
+    
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
@@ -174,9 +212,31 @@
     // 获取当前页面的title
     self.title = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
     self.currentURL = webView.request.URL.absoluteString;
+     self.context=[self.webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
+    self.context.exceptionHandler = ^(JSContext *con, JSValue *exception) {
+        NSLog(@"%@", exception);
+        con.exception = exception;
+    };
     
+    
+    
+    
+    
+//    CMJSProtocol *jsPro=[[CMJSProtocol alloc]init];
+//    self.context[@"ycfapp"]=jsPro;
+//    jsPro.delegate=self;
 }
 
+//- (void)share:(NSString *)title describeContent:(NSString *)content interlnkageSite:(NSString *)siteUrl pictureStie:(NSString *)pictureUrl {
+//    
+//    
+//    
+//    [self shareView];
+//    
+//}
+//-(void)showShareView{
+//    [self shareView];
+//}
 #pragma mark - webDelegate
 - (void)webViewDidStartLoad:(UIWebView *)webView {
     //包含登录页面
@@ -186,6 +246,8 @@
         UINavigationController *nav = [UIStoryboard loginStoryboard].instantiateInitialViewController;
         [self presentViewController:nav animated:YES completion:nil];
     }
+    
+    
 }
 
 

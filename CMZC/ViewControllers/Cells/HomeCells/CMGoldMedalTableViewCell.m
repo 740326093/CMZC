@@ -34,6 +34,8 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    self.analystsTitleImage.layer.cornerRadius=55/2.0;
+    self.analystsTitleImage.layer.masksToBounds=YES;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

@@ -15,6 +15,7 @@
 
 @property (strong, nonatomic) NSMutableArray *noticDataArr;
 
+
 @end
 
 
@@ -70,6 +71,7 @@
 //数据请求
 - (void)requestListWithPageNo:(NSInteger)page {
     [CMRequestAPI cm_trendsNewDataPage:page withType:@"8" success:^(NSArray *dataArr,BOOL isPage) {
+        
         //结束刷新
         [_curTableView endRefresh];
         kCurTableView_foot//根据返回回来的数据，判断footview的区别

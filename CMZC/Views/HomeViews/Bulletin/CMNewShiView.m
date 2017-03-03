@@ -59,6 +59,8 @@
 //数据请求
 - (void)requestListWithPageNo:(NSInteger)page {
     [CMRequestAPI cm_trendsNewDataPage:page withType:@"16" success:^(NSArray *dataArr,BOOL isPage) {
+        
+        MyLog(@"page+++++%ld++%d",page,isPage);
         [self hideHubTacit];
         [_curTableView endRefresh];
         kCurTableView_foot//根据返回回来的数据，判断footview的区别
@@ -70,7 +72,7 @@
             //结束刷新
             _curTableView.hidden = NO;
         }
-     
+          
         [self.NewShiDataArr addObjectsFromArray:dataArr];
         [_curTableView reloadData];
     } fail:^(NSError *error) {
@@ -92,7 +94,7 @@
     
     //没数据先注销
   cell.ShiModel =self.NewShiDataArr[indexPath.row];
-    MyLog(@"新视点+++%@+++%ld",cell.ShiModel.link,cell.ShiModel.mediaId);
+   // MyLog(@"新视点+++%@+++%ld",cell.ShiModel.link,cell.ShiModel.mediaId);
     return cell;
 }
 

@@ -71,17 +71,24 @@
                                 };
    
     [CMRequestAPI postDataFromURLScheme:kCMTrendsNewActionURL argumentsDictionary:arguments success:^(id responseObject) {
-        //MyLog(@"+++++%@+++++",responseObject);
+       
         NSArray *noticeArr = responseObject[@"data"][@"rows"];
         NSMutableArray *noticeModeArr = [NSMutableArray array];
         for (NSDictionary *dict in noticeArr) {
             CMNewShiModel *not = [CMNewShiModel yy_modelWithDictionary:dict];
             [noticeModeArr addObject:not];
         }
+        
+        
         NSInteger total = page * 10;
         BOOL isPage = NO;
         if (total > [responseObject[@"total"] integerValue]) {
             isPage = YES;
+             if ([responseObject[@"data"][@"page"] integerValue]*noticeModeArr.count<total) {
+                 isPage = NO;
+            }
+            
+            
         }
         success(noticeModeArr,isPage);
         

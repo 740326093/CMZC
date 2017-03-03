@@ -27,13 +27,14 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-         [super awakeFromNib];
+        // [super awakeFromNib];
         self.titleWidth = frame.size.width;
         self.titleHeight = frame.size.height;
         NSLog(@"--------%f",self.titleHeight);
         self.hairline = [[UIView alloc] initWithFrame:CGRectMake(0, self.titleHeight-kDefaultHairLineHeight, 0, kDefaultHairLineHeight)];
         //self.hairline.backgroundColor = [UIColor cmDividerColor];
         [self addSubview:self.hairline];
+       
     }
     
     
@@ -117,6 +118,8 @@
 
 -(void)setSelectBtnIndex:(NSInteger)selectBtnIndex
 {
+    
+
     self.currentBtn.selected = NO;
     UIButton *btn = self.subviews[selectBtnIndex];
     btn.selected = YES;
@@ -130,6 +133,7 @@
     }];
 }
 
+
 -(void)clickTab:(UIButton *)btn
 {
     NSInteger index = [self.subviews indexOfObject:btn];
@@ -138,6 +142,7 @@
     if (self.delegate && [self.delegate respondsToSelector:@selector(clickTitleViewAtIndex:andTab:)]) {
         [self.delegate clickTitleViewAtIndex:index andTab:btn];
     }
+   
 }
 
 - (void)setSelectTitleByIndex:(NSInteger)index andTitle:(NSString *)title
@@ -145,6 +150,7 @@
     UIButton *btn = self.subviews[index];
     [btn setTitle:title forState:UIControlStateNormal];
 }
+
 
 /*
 // Only override drawRect: if you perform custom drawing.

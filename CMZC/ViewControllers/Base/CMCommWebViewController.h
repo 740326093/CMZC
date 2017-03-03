@@ -7,9 +7,12 @@
 //
 
 #import "CMBaseViewController.h"
-
+#import "CMPurchaseProduct.h"
+#import "CMJSProtocol.h"
 @interface CMCommWebViewController : CMBaseViewController
 
 @property (nonatomic,copy) NSString *urlStr;
+@property(nonatomic,strong)CMPurchaseProduct  *PurchaseProduct;
+
 
 @end

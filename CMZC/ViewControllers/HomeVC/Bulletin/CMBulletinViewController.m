@@ -7,14 +7,9 @@
 //
 
 #import "CMBulletinViewController.h"
-#import "CMMediaNewsView.h"
-#import "CMNoticeView.h"
 
-#import "CMCommWebViewController.h"
-#import "CMNewShiView.h"
-#import "CMNewShiModel.h"
-@interface CMBulletinViewController ()<TitleViewDelegate,CMNoticeViewDeleagte,CMMediaNewsViewDelegate>
-@property (strong, nonatomic) TitleView *titleView;
+@interface CMBulletinViewController ()<TitleViewDelegate,CMNewShiViewDelegate,CMNoticeViewDeleagte,CMMediaNewsViewDelegate>
+
 @property (weak, nonatomic) IBOutlet UIScrollView *curScrollView;
 @property (weak, nonatomic) IBOutlet CMMediaNewsView *mediaView;//媒体报道
 @property (weak, nonatomic) IBOutlet CMNoticeView *noticeView;//公告
@@ -32,18 +27,19 @@
     _curScrollView.scrollEnabled = NO;
     _mediaView.delegate = self;
     _noticeView.delegate = self;
-    _ShiView.delegate=self;
+    _ShiView.delegate = self;
     
     _curScrollView.contentSize=CGSizeMake(3*CMScreen_width(), 553);
     _titleView = [[TitleView alloc] initWithFrame:CGRectMake(0, 0, kScreen_width, 40)];
     [_contTitleView addSubview:_titleView];
     [self loadTitleView];
+    [self clickTitleViewAtIndex:self.selectIndex];
 }
 
 
 #pragma mark - TitleViewDelegate 
 - (void)clickTitleViewAtIndex:(NSInteger)index andTab:(UIButton *)tab {
-    MyLog(@"===%ld",index);
+  
     CGRect rect = CGRectMake(index *CGRectGetWidth(_curScrollView.frame), 0, CGRectGetWidth(_curScrollView.frame), CGRectGetHeight(_curScrollView.frame));
     [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionTransitionFlipFromLeft animations:^{
         [_curScrollView scrollRectToVisible:rect animated:NO];
@@ -51,6 +47,15 @@
     }];
     
     
+}
+- (void)clickTitleViewAtIndex:(NSInteger)index{
+    
+    self.titleView.selectBtnIndex=index;
+    CGRect rect = CGRectMake(index *CGRectGetWidth(_curScrollView.frame), 0, CGRectGetWidth(_curScrollView.frame), CGRectGetHeight(_curScrollView.frame));
+    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionTransitionFlipFromLeft animations:^{
+        [_curScrollView scrollRectToVisible:rect animated:NO];
+    } completion:^(BOOL finished) {
+    }];
 }
 
 #pragma makr - CMNoticeViewDeleagte && CMMediaNewsViewDelegate
@@ -89,6 +94,7 @@
     
     //公告
     UIButton *sortHotButton = [UIButton cm_customBtnTitle:@"公告"];
+   // self.titleView.selectBtnIndex=self.selectIndex;
     [self.titleView addTabWithoutSeparator:sortNewButton];
     [self.titleView addTabWithoutSeparator:sortNewShiButton];
 

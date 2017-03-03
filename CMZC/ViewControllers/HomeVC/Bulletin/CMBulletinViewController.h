@@ -9,5 +9,7 @@
 #import "CMBaseViewController.h"
 
 @interface CMBulletinViewController : CMBaseViewController
+@property (strong, nonatomic) TitleView *titleView;
 
+@property (assign, nonatomic) NSInteger selectIndex;
 @end

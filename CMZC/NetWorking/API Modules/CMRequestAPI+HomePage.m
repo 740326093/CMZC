@@ -11,7 +11,7 @@
 #import "CMAnalystMode.h"
 #import "CMAnalystAnswer.h"
 #import "CMAnalystPoint.h"
-#import "CMNumberous.h"
+
 
 
 @implementation CMRequestAPI (HomePage)
@@ -51,7 +51,7 @@
                            @"pagesize":CMNumberWithFormat(page)
                            };
     [CMRequestAPI postDataFromURLScheme:kCMHomeFundlistURL argumentsDictionary:dict success:^(id responseObject) {
-        
+     // MyLog(@"++++++++%@+++++",responseObject);
         NSArray *contArr = responseObject[@"data"][@"rows"];
         NSMutableArray *dataArr = [NSMutableArray array];
         for (NSDictionary *dic in contArr) {
@@ -245,6 +245,7 @@
 
 + (void)cm_homeDefaultPageGlodServiceSuccess:(void (^)(NSArray *))success fail:(void (^)(NSError *))fail {
     [CMRequestAPI postDataFromURLScheme:kCMHomeAnalystDefaultURL argumentsDictionary:nil success:^(id responseObject) {
+        //MyLog(@"++++++%@+++",responseObject);
         NSMutableArray *adminArr = [NSMutableArray array];
         NSArray *dataRow = responseObject[@"data"][@"row"];
         for (NSDictionary *dict in dataRow) {

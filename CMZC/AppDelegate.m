@@ -47,7 +47,7 @@
     }
     //配置键盘回收
     [CMThirdPartlyCommad configureBoardManager];
-    MyLog(@"启动");
+   
     [self SetNavigationBar];
     return YES;
 }

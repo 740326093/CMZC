@@ -26,7 +26,7 @@
     
     NSString *path = [[NSBundle mainBundle] pathForResource:@"brief" ofType:@"plist"];
     NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:path];
-    
+   
 //    brief
     switch (_baserType) {
         case CMBaseViewDistinctionTypeStatement://声明
@@ -37,6 +37,8 @@
         case CMBaseViewDistinctionTypeDetails: //详情
         {
             titleStr = dict[@"rule"];
+            
+            
         }
             break;
         default:

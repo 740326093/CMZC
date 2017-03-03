@@ -100,14 +100,14 @@
         subscribeCell = [[NSBundle mainBundle] loadNibNamed:@"CMSubscribeTableViewCell" owner:nil options:nil].firstObject;
     }
     subscribeCell.delegate = self;
-    subscribeCell.product = _productDataArr[indexPath.row];
+    subscribeCell.product = self.productDataArr[indexPath.row];
     subscribeCell.selectionStyle = UITableViewCellSelectionStyleNone;
     return subscribeCell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     //http://192.168.1.225:8084/Products/Detail?pid=43011
-   CMPurchaseProduct *product = _productDataArr[indexPath.row];
+   CMPurchaseProduct *product = self.productDataArr[indexPath.row];
     
 //    if (product.isNextPage) {
 //        if (!CMIsLogin()) {
@@ -117,7 +117,9 @@
 //        } else {
     
             CMCommWebViewController *webVC = (CMCommWebViewController *)[CMCommWebViewController initByStoryboard];
-            webVC.urlStr = CMStringWithPickFormat(kCMMZWeb_url,CMStringWithPickFormat(@"/Products/Detail?pid=",CMStringWithFormat(product.productId)));
+    webVC.PurchaseProduct=product;
+    webVC.urlStr = CMStringWithPickFormat(kCMMZWeb_url,CMStringWithPickFormat(@"/Products/Detail?pid=",CMStringWithFormat(product.productId)));
+    
     //[NSString stringWithFormat:@"%@%ld",@"http://mz.58cm.com/Products/Detail?pid=",(long)product.productId];
             [self.navigationController pushViewController:webVC animated:YES];
 //        }
@@ -157,12 +159,16 @@
 //                              bgImageViewName:@"new_shou_yindao"
 //                                  imageHeight:1980.0f - 400];
 //            [weakSelef.navigationController pushViewController:moneyVC animated:YES];
-            CMMoneyViewController  *newGuideVC=[[CMMoneyViewController alloc]init];
-            newGuideVC.titName = @"新手指引";//strength_serve_home
-            newGuideVC.hideTabBar=YES;
-            newGuideVC.imageStr=@"new_shou_yindao";
-            [weakSelef.navigationController pushViewController:newGuideVC animated:YES];
-         
+//            CMMoneyViewController  *newGuideVC=[[CMMoneyViewController alloc]init];
+//            newGuideVC.titName = @"新手指引";//strength_serve_home
+//            newGuideVC.hideTabBar=YES;
+//            newGuideVC.imageStr=@"new_shou_yindao";
+//            [weakSelef.navigationController pushViewController:newGuideVC animated:YES];
+            
+            CMCommWebViewController *webVC = (CMCommWebViewController *)[CMCommWebViewController initByStoryboard];
+            webVC.urlStr = @"http://m.xinjingban.com/invesment.aspx";
+            [weakSelef.navigationController pushViewController:webVC animated:YES];
+        //
         } else if(index == 1001) {
             //新手指引
 //            CMMoneyViewController *moneyVC = (CMMoneyViewController *)[[UIStoryboard mainStoryboard] viewControllerWithId:@"CMMoneyViewController"];
@@ -211,7 +217,16 @@
     // Dispose of any resources that can be recreated.
 }
 
-
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    
+    CGFloat sectionHeaderHeight = 50; //sectionHeaderHeight
+    if (scrollView.contentOffset.y<=sectionHeaderHeight&&scrollView.contentOffset.y>=0) {
+        scrollView.contentInset = UIEdgeInsetsMake(-scrollView.contentOffset.y, 0, 0, 0);
+    } else if (scrollView.contentOffset.y>=sectionHeaderHeight) {
+        scrollView.contentInset = UIEdgeInsetsMake(-sectionHeaderHeight, 0, 0, 0);
+    }
+    
+}
 #pragma mark - Navigation
 /*
 // In a storyboard-based application, you will often want to do a little preparation before navigation

@@ -18,6 +18,7 @@
 @interface TitleView : UIView
 
 @property (nonatomic,assign) NSInteger selectBtnIndex;
+
 - (void)setSelectTitleByIndex:(NSInteger)index andTitle:(NSString *)title;
 
 - (void)addTab:(UIButton *)tab;
@@ -29,5 +30,6 @@
 //- (void)setSelectTitleByIndex:(int)index andTitle:(NSString *)title;
 
 @property (nonatomic ,weak) id<TitleViewDelegate> delegate;
+
 
 @end

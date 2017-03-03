@@ -91,7 +91,6 @@
 }
 -(void)clickNewActionDetail:(NSInteger)index{
     
-    MyLog(@"+++++%ld",index);
     if ([self.delegate respondsToSelector:@selector(cm_optionHeadActinDetail:)]) {
         [self.delegate cm_optionHeadActinDetail:index];
     }
