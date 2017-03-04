@@ -301,11 +301,9 @@
         {
            
                 //自选 http://m.xinjingban.com/Products/FundList
-                CMCommWebViewController *webVC = (CMCommWebViewController *)[CMCommWebViewController initByStoryboard];
-                
-                webVC.urlStr = CMStringWithPickFormat(kCMMZWeb_url, @"/Products/FundList");
-                [self.navigationController pushViewController:webVC animated:YES];
+            CMBeiLiBaoController *webVC = (CMBeiLiBaoController *)[CMBeiLiBaoController initByStoryboard];
             
+            [self.navigationController pushViewController:webVC animated:YES];
         }
             break;
         case 5:

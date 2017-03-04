@@ -18,7 +18,7 @@
         [self addSubview:self.bottomLabel];
         [self.topImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.height.mas_equalTo(36);
-            make.width.mas_equalTo(34);
+            make.width.mas_equalTo(36);
             make.centerX.equalTo(self);
             make.top.equalTo(self);
             
@@ -26,7 +26,7 @@
         [self.bottomLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.height.mas_equalTo(14);
             make.centerX.width.equalTo(self);
-            make.top.equalTo(self.topImageView.mas_bottom).offset(2);
+            make.top.equalTo(self.topImageView.mas_bottom).offset(10);
             
         }];
        
@@ -53,7 +53,7 @@
 
         _bottomLabel=[[UILabel alloc]init];
         _bottomLabel.font=[UIFont systemFontOfSize:13.0];
-        _bottomLabel.textColor=[UIColor clmHex:0x333333];
+        _bottomLabel.textColor=[UIColor clmHex:0x666666];
         _bottomLabel.textAlignment=NSTextAlignmentCenter;
         
     }

@@ -479,14 +479,14 @@
 //                UINavigationController *nav = [UIStoryboard loginStoryboard].instantiateInitialViewController;
 //                [self presentViewController:nav animated:YES completion:nil];
 //            } else {http://192.168.1.225:8886/Products/FundList
-              [self cm_commWebViewURL:CMStringWithPickFormat(kCMMZWeb_url, @"Products/FundList")];
+              //[self cm_commWebViewURL:CMStringWithPickFormat(kCMMZWeb_url, @"Products/FundList")];
            // }
             
             //CMBeiLiBaoController
             
-//            CMBeiLiBaoController *webVC = (CMBeiLiBaoController *)[CMBeiLiBaoController initByStoryboard];
-//            
-//            [self.navigationController pushViewController:webVC animated:YES];
+            CMBeiLiBaoController *webVC = (CMBeiLiBaoController *)[CMBeiLiBaoController initByStoryboard];
+            
+            [self.navigationController pushViewController:webVC animated:YES];
         }
             break;
         default://更多

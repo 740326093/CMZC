@@ -34,16 +34,17 @@
         for (int i=0; i<titileArr.count; i++) {
             
             UIButton  *buttonLabel=[UIButton  buttonWithType:UIButtonTypeCustom];
-            buttonLabel.frame=CGRectMake(i%titileArr.count*(CMScreen_width()/4.0),0, CMScreen_width()/4.0,40);
+            buttonLabel.frame=CGRectMake(i%titileArr.count*(CMScreen_width()/4.0),0, CMScreen_width()/4.0,45);
             [buttonLabel setTitle:titileArr[i] forState:UIControlStateNormal];
             [buttonLabel setTitleColor:[UIColor clmHex:0x333333] forState:UIControlStateNormal];
+            [buttonLabel setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
             buttonLabel.titleLabel.font=[UIFont systemFontOfSize:14.0];
             [buttonLabel addTarget:self action:@selector(clickBtn:) forControlEvents:UIControlEventTouchUpInside];
             buttonLabel.tag=i+10;
              if (i==0) {
              buttonLabel.selected = YES;
              _isSelected=buttonLabel;
-                 [buttonLabel setBackgroundColor:[UIColor cmThemeCheng]];
+                 [buttonLabel setBackgroundImage:[UIImage imageNamed:@"beilIBaoButton"] forState:UIControlStateNormal];
              }
             [self addSubview:buttonLabel];
             
@@ -59,11 +60,11 @@
         return;
     }
     _isSelected.selected=NO;
-    [_isSelected setBackgroundColor:[UIColor whiteColor]];
+     [_isSelected setBackgroundImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
     
     sender.selected=YES;
     _isSelected=sender;
-    [_isSelected setBackgroundColor:[UIColor cmThemeCheng]];
+    [_isSelected setBackgroundImage:[UIImage imageNamed:@"beilIBaoButton"] forState:UIControlStateNormal];
     
     
     switch (sender.tag) {
@@ -153,16 +154,19 @@
 
     cell.textLabel.text=arr[indexPath.row];
     cell.textLabel.font=[UIFont systemFontOfSize:12.0];
+    cell.textLabel.textColor=[UIColor clmHex:0x666666];
     cell.textLabel.numberOfLines=0;
     return cell;
 
 }
 -(UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    UILabel *label=[[UILabel alloc]initWithFrame:CGRectMake(8, 0, CMScreen_width()-8, 20)];
+    UIView *bgView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, CMScreen_width(), 20)];
+    UILabel *label=[[UILabel alloc]initWithFrame:CGRectMake(10, 0, CMScreen_width()-10, 20)];
     label.text=_keys[section];
     label.font=[UIFont systemFontOfSize:14.0];
     label.textColor=[UIColor clmHex:0x333333];
-    return label;
+    [bgView addSubview:label];
+    return bgView;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 20;
@@ -174,11 +178,11 @@
     attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12.0]} context:nil];
     
     
-    return rect.size.height + 20 ;
+    return rect.size.height + 15 ;
 }
 -(UITableView*)currTablview{
     if (!_currTablview) {
-        _currTablview=[[UITableView alloc]initWithFrame:CGRectMake(0, 40, CMScreen_width(), 380) style:UITableViewStylePlain];
+        _currTablview=[[UITableView alloc]initWithFrame:CGRectMake(0,60, CMScreen_width(), 200) style:UITableViewStylePlain];
         _currTablview.separatorStyle=UITableViewCellSeparatorStyleNone;
         _currTablview.delegate=self;
         _currTablview.dataSource=self;
@@ -187,6 +191,16 @@
         
     }
     return _currTablview;
+}
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    
+    CGFloat sectionHeaderHeight = 20; //sectionHeaderHeight
+    if (scrollView.contentOffset.y<=sectionHeaderHeight&&scrollView.contentOffset.y>=0) {
+        scrollView.contentInset = UIEdgeInsetsMake(-scrollView.contentOffset.y, 0, 0, 0);
+    } else if (scrollView.contentOffset.y>=sectionHeaderHeight) {
+        scrollView.contentInset = UIEdgeInsetsMake(-sectionHeaderHeight, 0, 0, 0);
+    }
+    
 }
 
 @end

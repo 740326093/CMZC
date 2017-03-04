@@ -247,6 +247,8 @@
         [self presentViewController:nav animated:YES completion:nil];
     }
     
+   
+    
     
 }
 
@@ -255,6 +257,26 @@
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
     self.nextURL = request.URL.absoluteString;
     NSLog(@"----%@",request.URL.absoluteString);
+    if ([self.nextURL containsString:CMStringWithPickFormat(kCMMZWeb_url,@"Products/FundList")]) {
+        //跳转到登录
+        [webView stopLoading];
+        NSMutableArray  *arr=[[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
+        for (UIViewController *vc in arr) {
+            if ([vc isKindOfClass:[self class]]) {
+                
+                [arr removeObject:vc];
+                break;
+            }
+            
+        }
+        self.navigationController.viewControllers=arr;
+        
+        
+        CMBeiLiBaoController *webVC = (CMBeiLiBaoController *)[CMBeiLiBaoController initByStoryboard];
+        [self.navigationController pushViewController:webVC animated:NO];
+        
+        return NO;
+    }
     return YES;
 }
 

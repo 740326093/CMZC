@@ -13,18 +13,23 @@
     self=[super initWithFrame:frame];
     if (self) {
         
-        UILabel *title=[[UILabel alloc]initWithFrame:CGRectMake(10, 10, 60, 15)];
+        UILabel *title=[[UILabel alloc]initWithFrame:CGRectMake(10, 0, 150, 40)];
         title.text=@"投资流程";
-        title.font=[UIFont systemFontOfSize:14.0];
-        title.textColor=[UIColor clmHex:0x333333];
+        title.font=[UIFont systemFontOfSize:17.0];
+        title.textColor=[UIColor clmHex:0x111111];
         [self addSubview:title];
     
-        
+        UIImage *imagebg=[UIImage imageNamed:@"add_img1-06"];
         UIImageView *image=[[UIImageView alloc]init];
-        image.image=[UIImage imageNamed:@"add_img1-06"];
-        image.frame=CGRectMake(40,30, 310, 245/2.0);
-        
+        image.image=imagebg;
+  
         [self addSubview:image];
+        [image mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.centerX.equalTo(self.mas_centerX).offset(25);
+            make.width.mas_equalTo(imagebg.size.width);
+            make.height.mas_equalTo(imagebg.size.height);
+            make.top.equalTo(title.mas_bottom);
+        }];
         
         
     }

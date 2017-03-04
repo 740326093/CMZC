@@ -31,8 +31,8 @@
         [self.bottomLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.mas_left).offset(10);
             make.right.equalTo(self.mas_right).offset(-10);
-            make.top.equalTo(self.midLabel.mas_bottom).offset(2);
-            make.height.equalTo(@60);
+            make.top.equalTo(self.midLabel.mas_bottom).offset(5);
+            make.height.equalTo(@90);
             
         }];
        
@@ -51,8 +51,8 @@
     if (!_midLabel) {
         _midLabel=[[UILabel alloc]init];
         _midLabel.textAlignment=NSTextAlignmentCenter;
-        _midLabel.font=[UIFont systemFontOfSize:12.0];
-        _midLabel.textColor=[UIColor clmHex:0x333333];
+        _midLabel.font=[UIFont systemFontOfSize:14.0];
+        _midLabel.textColor=[UIColor clmHex:0x111111];
     }
     return _midLabel;
 }
@@ -60,9 +60,10 @@
     if (!_bottomLabel) {
         _bottomLabel=[[UILabel alloc]init];
         _bottomLabel.textAlignment=NSTextAlignmentCenter;
-        _bottomLabel.font=[UIFont systemFontOfSize:10.0];
-        _bottomLabel.textColor=[UIColor clmHex:0x8e8d93];
-        _bottomLabel.numberOfLines=3;
+        _bottomLabel.font=[UIFont systemFontOfSize:11.0];
+        _bottomLabel.textColor=[UIColor clmHex:0x666666];
+        _bottomLabel.numberOfLines=4;
+        _bottomLabel.contentMode=UIViewContentModeTop;
 
     }
     return _bottomLabel;
