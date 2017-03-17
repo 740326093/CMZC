@@ -6,7 +6,7 @@
 //  Copyright © 2016年 郑浩然. All rights reserved.
 //  公告
 
-#import "CMBaseViewController.h"
+#import "TitleView.h"
 
 @interface CMBulletinViewController : CMBaseViewController
 @property (strong, nonatomic) TitleView *titleView;

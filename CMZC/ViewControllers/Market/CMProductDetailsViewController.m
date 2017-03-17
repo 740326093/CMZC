@@ -135,6 +135,7 @@
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isOK"];
     
 }
 - (void)viewDidAppear:(BOOL)animated {
@@ -150,14 +151,14 @@
     if (_timer) {
         [_timer close];
     }
-    
+   
 }
 
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     
-    
+     [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isOK"];
 }
 #pragma mark - 数据请求
 //添加上啦加载下拉刷新
@@ -351,7 +352,7 @@
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
             if (_isShow) {
-                return 136;
+            return 137;
             } else {
                 return 256;
             }
@@ -421,6 +422,8 @@
             productCell.selectionStyle = UITableViewCellSelectionStyleNone;
             productCell.productArr = self.productArr;
             productCell.delegate = self;
+          
+            
             return productCell;
         } else {
             CMChartTableViewCell *chartCell = [tableView dequeueReusableCellWithIdentifier:@"CMChartTableViewCell" forIndexPath:indexPath];
@@ -730,9 +733,9 @@
     shareView.center = window.center;
     shareView.frame = CGRectMake(0, 0, CGRectGetWidth(window.frame), CGRectGetHeight(window.frame));
     shareView.contentUrl = CMStringWithPickFormat(kCMMZWeb_url, CMStringWithPickFormat(@"/Products/Detail?pcode=",self.codeName));
-    shareView.titleConten = CMStringWithPickFormat(_versionPatch, @",100%安全投资，优质好项目10倍收益赚不停");
+   shareView.titleConten = CMStringWithPickFormat(_versionPatch, @",100%安全投资，优质好项目10倍收益赚不停");
     NSString *content = [NSString stringWithFormat:@"预期收益%@(包含保底年收益%@+浮动)%@,具有多倍增值空间--新经版，只赚不赔的10倍原始股",_earnings,_guaranteed,_versionPatch];
-    shareView.contentStr = CMStringWithPickFormat(@"100%安全和新经板，只赚不赔的10原始股是固定的",content);
+  shareView.contentStr = CMStringWithPickFormat(@"100%安全和新经板，只赚不赔的10原始股是固定的",content);
     shareView.ShareImageName=[UIImage imageNamed:@"share_image"];
     [window addSubview:shareView];
 }
@@ -746,9 +749,11 @@
         _bottomLayoutConstraint.constant = 0.0f;
     }];
     if (_isSearchOrReply) {
+        if (![_numberTextField.text isEqualToString:@""]) {
         CMProductDetailsViewController *productVC = (CMProductDetailsViewController *)[CMProductDetailsViewController initByStoryboard];
         productVC.codeName = _numberTextField.text;
         [self.navigationController pushViewController:productVC animated:YES];
+        }
     } else {
         _isSearchOrReply = YES;
         [CMRequestAPI cm_marketFetchReplyCreateTopicId:_topicId content:_numberTextField.text success:^(BOOL isWin) {
@@ -768,11 +773,11 @@
 }
 //团出键盘
 - (void)keyboardWillShow:(NSNotification *)aNotification {
-    NSDictionary *userInfo = [aNotification userInfo];
-    NSValue *aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
-    CGRect keyboardRect = [aValue CGRectValue];
-    NSInteger height = keyboardRect.size.height;
-     _bottomLayoutConstraint.constant = height;
+//    NSDictionary *userInfo = [aNotification userInfo];
+//    NSValue *aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
+//    CGRect keyboardRect = [aValue CGRectValue];
+//    NSInteger height = keyboardRect.size.height;
+     _bottomLayoutConstraint.constant = 50;
     
 }
 - (void)keyboardWillHide:(NSNotification *)aNotification {
@@ -977,6 +982,7 @@
 //        
 //        //  NSLog(@"---marketArrmarketArr-%ld",self.marketArr.count);
 //    }
+    
     [_curTableView reloadData];
 }
 
@@ -1050,14 +1056,6 @@
     
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    
-    NSLog(@"开始拖拽");
-    if (scrollView.contentOffset.y>CMScreen_height()/2.0) {
-         
-    }
-    
-}
 
 /*
 #pragma mark - Navigation

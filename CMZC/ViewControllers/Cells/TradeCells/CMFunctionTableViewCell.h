@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface CMFunctionTableViewCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UILabel *messageLabel;
+
 /**
  *  传入数据
  *

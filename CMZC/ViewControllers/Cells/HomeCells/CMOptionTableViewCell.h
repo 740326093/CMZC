@@ -16,21 +16,6 @@
  */
 - (void)cm_optionTableViewCellButTag:(NSInteger)btTag;
 
-/**
- *
- * 最新公告进入更多
- *
- */
-- (void)cm_optionHeadMoreButtonEvent;
-/**
- *
- * 最新公告进入详情
- *  @param  index 详情的索引
-
- */
-
-- (void)cm_optionHeadActinDetail:(NSInteger)index;
-
 @end
 
 
@@ -39,5 +24,7 @@
 @property (assign, nonatomic) id<CMOptionTableViewCellDelegate>delegate;
 
 @property(nonatomic,strong)NSMutableArray *gongGaoArr;
+
+@property(nonatomic,strong)CMBaseViewController *baseController;
 
 @end

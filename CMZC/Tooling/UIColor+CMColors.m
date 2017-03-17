@@ -95,7 +95,7 @@
 
 //背景灰色
 + (UIColor *)cmBackgroundGrey {
-    return [UIColor colorWithHex:0xeeeeee];     //234-234-234
+    return [UIColor colorWithHex:0xEFEFF4];     //234-234-234
 }
 //tabbar
 + (UIColor *)cmtabBarGreyColor {

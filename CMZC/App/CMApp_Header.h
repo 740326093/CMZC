@@ -34,7 +34,7 @@
 #define kUMSocial_sinaAppSecret @"f41e14fb0c5e91d60f5811666a4800f0"  //app secret
 
 
-//*************JP
+//*************JP 
 
 #define kJPushAppKey @"059c7efbd0eab9d7160a5761"   // 极光推送appk
 #define kJPushMesterSecret @"f0b54d9671d58d7a8fae7150" // secret 后台用。就记录下

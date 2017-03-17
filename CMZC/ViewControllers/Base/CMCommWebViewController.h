@@ -13,6 +13,6 @@
 
 @property (nonatomic,copy) NSString *urlStr;
 @property(nonatomic,strong)CMPurchaseProduct  *PurchaseProduct;
-
+@property (nonatomic,assign) BOOL isJPush;
 
 @end

@@ -21,7 +21,7 @@
 #import "CMCommWebViewController.h"
 #import "CMTabBarViewController.h"
 #import "CMCarryDetailsViewController.h"
-
+#import "CMMessageViewController.h"
 @interface CMTradeViewController ()<UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate,CMTradeMeansTableViewCellDelegate,CMTradeTitleViewDelegate>{
     NSArray *_titImageArr;//头图片Image
     NSArray *_titLabNameArr;//名字lab
@@ -137,6 +137,28 @@
         } else {
             tableCell.tradeImage.hidden = YES;
         }
+//        if (indexPath.row==2) {
+//            
+//            if ([[NSFileManager defaultManager]fileExistsAtPath:[CMDataMessage getFilePath]]) {
+//                
+//                if ([CMMessageDao selectCount].count>0) {
+//                    
+//                    tableCell.messageLabel.hidden=NO;
+//                    tableCell.messageLabel.text=[NSString stringWithFormat:@"%ld",[CMMessageDao selectCount].count];
+//                    [self.tabBarController.tabBar showBadgeOnItemIndex:3];
+//                }else{
+//                    
+//                    [self.tabBarController.tabBar hideBadgeOnItemIndex:3];
+//                    
+//                }
+//            }
+//            
+//            
+//        }else{
+//            tableCell.messageLabel.hidden = YES;
+//            
+//        }
+        
         
         tableCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         return tableCell;
@@ -167,7 +189,15 @@
             }
                 break;
             case 2://我的消息
-                [self performSegueWithIdentifier:idMessageViewController sender:self];
+            {
+                 CMMessageViewController *statementVC = (CMMessageViewController *)[[UIStoryboard mainStoryboard] viewControllerWithId:@"CMMessageViewController"];
+                
+                statementVC.block=^{
+                    [self.curTableView reloadData];
+                };
+                commonalityVC = statementVC;
+               // [self performSegueWithIdentifier:idMessageViewController sender:self];
+            }
                 break;
             case 3://新手交易指南
             {

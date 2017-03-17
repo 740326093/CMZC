@@ -310,7 +310,9 @@
         {
             //公告
             CMBulletinViewController *bulletinVC = (CMBulletinViewController *)[[UIStoryboard mainStoryboard] viewControllerWithId:@"CMBulletinViewController"];
+            bulletinVC.selectIndex=2;
             [self.navigationController pushViewController:bulletinVC animated:YES];
+            
         }
             break;
         case 4:

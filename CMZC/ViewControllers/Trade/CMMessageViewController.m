@@ -12,7 +12,7 @@
 
 @interface CMMessageViewController ()<UITableViewDelegate,UITableViewDataSource> {
     
-    NSArray     *_dataArr;
+    NSMutableArray     *_dataArr;
     
 }
 
@@ -26,10 +26,21 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    _dataArr = GetDataFromNSUserDefaults(@"alertArr");
+    
+  //  [CMMessageDao createTable];
+    
+    if ([[NSFileManager defaultManager]fileExistsAtPath:[CMDataMessage getFilePath]]) {
+        
+        _dataArr=[CMMessageDao selectAllMessage];
+    
+    }
+  
     if (_dataArr.count == 0) {
         _bgView.hidden = NO;
+     
     } else {
+        
+    
         _bgView.hidden = YES;
     }
     _curTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -42,7 +53,8 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    CGFloat height = [_dataArr[indexPath.row] getHeightIncomingWidth:CMScreen_width() -66-18 incomingFont:14];
+    CMMessage *messge=_dataArr[indexPath.row];
+    CGFloat height = [messge.message getHeightIncomingWidth:CMScreen_width() -66-18 incomingFont:14];
     
     return 70-14+height;
 }
@@ -50,13 +62,33 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     CMMessageTableViewCell *messageCell = [tableView dequeueReusableCellWithIdentifier:@"CMMessageTableViewCell" forIndexPath:indexPath];
-    messageCell.titleNameStr = _dataArr[indexPath.row];
+    CMMessage *messge=_dataArr[indexPath.row];
+    messageCell.titleNameStr = messge.message;
     return messageCell;
 }
 
 
 
-
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+  
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    
+    
+    
+    CMMessage *message=_dataArr[indexPath.row];
+    
+    [CMMessageDao setNoReadBecomeIsRead:@"0"andBtnTag:message.messageId];
+    
+    if (message.url!=nil) {
+        CMCommWebViewController *webVC = (CMCommWebViewController *)[CMCommWebViewController initByStoryboard];
+        webVC.urlStr=message.url;
+        [self.navigationController pushViewController:webVC animated:YES];
+    }
+    
+    self.block();
+    
+}
 
 
 

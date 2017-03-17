@@ -27,6 +27,7 @@
     if (iPhone7) {
         _devImageHeightLayout.constant = 473.0f;
     }
+    
 }
 
 -(id)init{

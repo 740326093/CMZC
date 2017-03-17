@@ -89,15 +89,15 @@
     
     [self.prMonthLabel  mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.equalTo(@15);
-        make.left.equalTo(self.BuyInButton);
+        
         make.bottom.equalTo(self.BuyInButton.mas_top).offset(-15);
         make.width.mas_equalTo(@150);
+        make.centerX.equalTo(self.BuyInButton);
     }];
     [self.prBeginSaleLabel  mas_makeConstraints:^(MASConstraintMaker *make) {
       
         make.height.width.bottom.equalTo(self.prMonthLabel);
-        make.centerX.equalTo(self.BuyInButton);
-       
+       make.left.equalTo(self.BuyInButton);
     }];
     
     [self.prBuyNumLabel  mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -173,13 +173,14 @@
 
     self.prTitleLabel.text=Numberous.title;
     self.prDecLabel.text=Numberous.descri;
-    self.prBuyNumLabel.text=[NSString stringWithFormat:@"%@人购买",Numberous.attendPersionCount];
-    [self DoubleStringChangeColer:self.prBuyNumLabel andFromStr:@"购" ToStr:@"买" withColor:[UIColor clmHex:0x666666] withLength:2];
+    self.prBuyNumLabel.text=[NSString stringWithFormat:@"%@人参与",Numberous.attendPersionCount];
+    [self DoubleStringChangeColer:self.prBuyNumLabel andFromStr:@"参" ToStr:@"与" withColor:[UIColor clmHex:0x666666] withLength:2];
    
     self.prMonthLabel.text=[NSString stringWithFormat:@"%@个月可赎回",Numberous.redemptionperiod];
     [self DoubleStringChangeColer:self.prMonthLabel andFromStr:@"可" ToStr:@"回" withColor:[UIColor clmHex:0x666666] withLength:3];
-    self.prBeginSaleLabel.text=[NSString stringWithFormat:@"%.2f元起",[Numberous.price floatValue]];
-    [self loneStringChangeColer:self.prBeginSaleLabel andFromStr:@"起" WithColor:[UIColor clmHex:0x666666]];
+    self.prBeginSaleLabel.text=[NSString stringWithFormat:@"昨净值%.2f",[Numberous.price floatValue]];
+    [self DoubleStringChangeColer:self.prBeginSaleLabel andFromStr:@"昨" ToStr:@"值" withColor:[UIColor clmHex:0x666666] withLength:3];
+   // [self loneStringChangeColer:self.prBeginSaleLabel andFromStr:@"起" WithColor:[UIColor clmHex:0x666666]];
     float shouyi=[Numberous.floatingprofitloss  floatValue];
     NSString *shouYiString=[NSString stringWithFormat:@"%.2f",shouyi];
     NSRange rang=[shouYiString rangeOfString:@"."];
@@ -308,7 +309,7 @@
         _prMonthLabel=[[UILabel alloc]init];
         _prMonthLabel.textColor=BackColor;
         _prMonthLabel.font=[UIFont systemFontOfSize:14.0];
-        
+        _prMonthLabel.textAlignment=NSTextAlignmentCenter;
     }
     return _prMonthLabel;
 }
@@ -317,7 +318,7 @@
         _prBeginSaleLabel=[[UILabel alloc]init];
         _prBeginSaleLabel.textColor=BackColor;
         _prBeginSaleLabel.font=[UIFont systemFontOfSize:14.0];
-        _prBeginSaleLabel.textAlignment=NSTextAlignmentCenter;
+       
     }
     return _prBeginSaleLabel;
 }

@@ -22,7 +22,7 @@
     self=[super initWithFrame:frame];
     if (self) {
 
-        NSArray *titileArr=@[@"注册开户",@"资金管理",@"买入赎回",@"收益分配"];
+        
         _TitleDict=@{@"如何成为注册用户?":@[@"在注册页面，填写您真实的邮箱或手机号、密码并同意相关协议，点击‘注册'按钮即可完成注册。"],
                      @"什么是倍利宝？":@[@"倍利宝是一种创新型的投资产品，主要有三种产品组合，一种是一级市场众筹计划的组合，一种是二级市场综合投资的组合，还有一种是一级市场和二级市场资金错配进行组合的产品。可灵活赎回，不可 进入二级市场进行交易。"],
                      @"如何开户绑卡？储蓄卡吗？":@[@" 准备一张您常用的银行储蓄卡，通过后台绑定银行卡及收款人，就轻松完成开户了。"]
@@ -31,24 +31,35 @@
         _keys=@[@"如何成为注册用户?",
                 @"什么是倍利宝？",
                 @"如何开户绑卡？储蓄卡吗？"];
-        for (int i=0; i<titileArr.count; i++) {
+ 
+            NSArray *titileArr=@[@"注册开户",@"资金管理",@"买入赎回",@"收益分配"];
+            for (int i=0; i<titileArr.count; i++) {
+                
+                UIButton  *buttonLabel=[UIButton  buttonWithType:UIButtonTypeCustom];
+                buttonLabel.frame=CGRectMake(i%titileArr.count*(CMScreen_width()/4.0),0, CMScreen_width()/4.0,45);
+                [buttonLabel setTitle:titileArr[i] forState:UIControlStateNormal];
+                [buttonLabel setTitleColor:[UIColor clmHex:0x333333] forState:UIControlStateNormal];
+                [buttonLabel setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
+                buttonLabel.titleLabel.font=[UIFont systemFontOfSize:14.0];
+                [buttonLabel addTarget:self action:@selector(clickBtn:) forControlEvents:UIControlEventTouchUpInside];
+                buttonLabel.tag=i+10;
+                if (i==0) {
+                    buttonLabel.selected = YES;
+                    _isSelected=buttonLabel;
+                    [buttonLabel setBackgroundImage:[UIImage imageNamed:@"beilIBaoButton"] forState:UIControlStateNormal];
+                }
+             
+                    
+                    
+                       [self addSubview:buttonLabel];
+        
+           
+                
+            }
+
+           
             
-            UIButton  *buttonLabel=[UIButton  buttonWithType:UIButtonTypeCustom];
-            buttonLabel.frame=CGRectMake(i%titileArr.count*(CMScreen_width()/4.0),0, CMScreen_width()/4.0,45);
-            [buttonLabel setTitle:titileArr[i] forState:UIControlStateNormal];
-            [buttonLabel setTitleColor:[UIColor clmHex:0x333333] forState:UIControlStateNormal];
-            [buttonLabel setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
-            buttonLabel.titleLabel.font=[UIFont systemFontOfSize:14.0];
-            [buttonLabel addTarget:self action:@selector(clickBtn:) forControlEvents:UIControlEventTouchUpInside];
-            buttonLabel.tag=i+10;
-             if (i==0) {
-             buttonLabel.selected = YES;
-             _isSelected=buttonLabel;
-                 [buttonLabel setBackgroundImage:[UIImage imageNamed:@"beilIBaoButton"] forState:UIControlStateNormal];
-             }
-            [self addSubview:buttonLabel];
-            
-        }
+      
         [self addSubview:self.currTablview];
       
         

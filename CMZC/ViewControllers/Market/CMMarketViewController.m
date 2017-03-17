@@ -74,10 +74,10 @@
                                              selector:@selector(keyboardWillShow:)
                                                  name:UIKeyboardWillShowNotification
                                                object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillHide:)
-                                                 name:UIKeyboardWillHideNotification
-                                               object:nil];
+   [[NSNotificationCenter defaultCenter] addObserver:self
+                                            selector:@selector(keyboardWillHide:)
+                                                name:UIKeyboardWillHideNotification
+                                              object:nil];
     _curTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 }
 
@@ -213,19 +213,20 @@
 
 - (void)keyboardWillShow:(NSNotification *)aNotification {
     //获取键盘的高度
-    NSDictionary *userInfo = [aNotification userInfo];
-    NSValue *aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
-    CGRect keyboardRect = [aValue CGRectValue];
-    NSInteger height = keyboardRect.size.height;
+//    NSDictionary *userInfo = [aNotification userInfo];
+//    NSValue *aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
+//    CGRect keyboardRect = [aValue CGRectValue];
+//    NSInteger height = keyboardRect.size.height;
     [UIView animateWithDuration:0.25 animations:^{
-        _botmViewbtomLayout.constant = height;
+        _botmViewbtomLayout.constant = 49.0f;
     }];
-
 }
 - (void)keyboardWillHide:(NSNotification *)aNotification {
-    _botmViewbtomLayout.constant = 0.0f;
+   _botmViewbtomLayout.constant = 0.0f;
     _bottmView.hidden = YES;
-    _bgView.hidden = YES;
+   _bgView.hidden = YES;
+   
+    
 }
 
 
@@ -240,12 +241,18 @@
     [self.view endEditing:YES];
     _bottmView.hidden = YES;
     _bgView.hidden = YES;
+ 
     [UIView animateWithDuration:0.25 animations:^{
         _botmViewbtomLayout.constant = 0.0f;
     }];
+    if (![_codeTextField.text isEqualToString:@""]) {
+        
+    
     CMProductDetailsViewController *productVC = (CMProductDetailsViewController *)[CMProductDetailsViewController initByStoryboard];
     productVC.codeName = _codeTextField.text;
     [self.navigationController pushViewController:productVC animated:YES];
+   }
+    
 }
 
 

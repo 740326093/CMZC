@@ -15,10 +15,10 @@
 @property(nonatomic,strong)UIButton *moreBtn;
 @property (strong, nonatomic) NSTimer *curTimer;
 @property(nonatomic,weak) id delegate;
-@property (nonatomic,assign) NSInteger pageIndex;
+
 @property(nonatomic,strong) NSMutableArray *titleArr;
 
-//@property(nonatomic,strong) NSMutableArray *titleReceiveArr;
+@property(nonatomic,strong) NSArray *DataArr;
 
 @end
 

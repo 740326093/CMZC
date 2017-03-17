@@ -27,7 +27,7 @@
         
        
         
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+       // dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             NSArray *imageArr=@[@"zcb-details-cl-02",@"zcb-details-cl-03",@"zcb-details-cl-04",@"zcb-details-cl-05"];
             
             NSArray *titileArr=@[@"新三板",@"互联网+",@"新经济",@"典藏艺术"];
@@ -37,17 +37,17 @@
                 CMButtonLabelView  *buttonLabel=[[CMButtonLabelView  alloc]initWithFrame:CGRectMake(i%imageArr.count*( CMScreen_width()/4.0), 50, CMScreen_width()/4.0,60)];
                 buttonLabel.topImageView.image=[UIImage imageNamed:imageArr[i]];
                 buttonLabel.bottomLabel.text=titileArr[i];
-                dispatch_async(dispatch_get_main_queue(), ^{
+             //   dispatch_async(dispatch_get_main_queue(), ^{
                     
                 [self addSubview:buttonLabel];
                  
                     
-                });
+               // });
               
             }
            
             
-        });
+       // });
       
         
         

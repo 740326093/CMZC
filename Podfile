@@ -3,7 +3,7 @@ platform :ios, '7.0'
 
 target ‘CMZC’ do
 
-
+pod 'FMDB', '~> 2.6.2'
 pod 'AFNetworking', '~> 3.0'
 pod 'MBProgressHUD', '~> 0.9.2'
 pod 'SDWebImage', '~>3.7.4'

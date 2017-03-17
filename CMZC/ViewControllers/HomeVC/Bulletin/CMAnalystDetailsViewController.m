@@ -75,11 +75,11 @@
 }
 //团出键盘
 - (void)keyboardWillShow:(NSNotification *)aNotification {
-    NSDictionary *userInfo = [aNotification userInfo];
-    NSValue *aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
-    CGRect keyboardRect = [aValue CGRectValue];
-    NSInteger height = keyboardRect.size.height;
-    _btmViewLayoutConstraint.constant = height;
+//    NSDictionary *userInfo = [aNotification userInfo];
+//    NSValue *aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
+//    CGRect keyboardRect = [aValue CGRectValue];
+//    NSInteger height = keyboardRect.size.height;
+    _btmViewLayoutConstraint.constant = 20;
     _bgView.hidden = NO;
     [self showShirk]; //当键盘弹出来的时候，让titleview上移
     

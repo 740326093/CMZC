@@ -42,6 +42,7 @@
 }
 
 - (void)setProduct:(CMPurchaseProduct *)product {
+   
     _product = product;
     [_titPictureImage sd_setImageWithURL:[NSURL URLWithString:product.picture] placeholderImage:kCMDefault_imageName];
     _growthValueLab.attributedText = product.attributed;
@@ -49,6 +50,10 @@
     _descriptionLab.text = product.descri;
     _targetAmountLab.text = product.targetamount;
     _currentAmountLab.text = product.currentamount;
+    if ([product.currentamount isEqualToString:@"0份"]) {
+         _currentAmountLab.text=@"--";
+    }
+    
     _leadInvestorNameLab.text = product.leadinvestor;
     _titleLab.text = product.title;
     NSString * incomeString = [product.income substringToIndex:product.income.length-1];

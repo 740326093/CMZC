@@ -10,20 +10,22 @@
 #import "CMApp_Header.h"
 
 static BOOL isProduction = YES;
-#ifdef NSFoundationVersionNumber_iOS_9_x_Max
-#import <UserNotifications/UserNotifications.h> // 这里是iOS10需要用到的框架
-#endif
+//#ifdef NSFoundationVersionNumber_iOS_9_x_Max
+//#import <UserNotifications/UserNotifications.h> // 这里是iOS10需要用到的框架
+//#endif
 @implementation CMThirdPartlyCommad
 singleton_implementation(CMThirdPartlyCommad)
 - (NSDictionary*)setupWithOptions:(NSDictionary *)launchOptions WithDlelegate:(id)Delegate {
-    if ([[UIDevice currentDevice].systemVersion floatValue] >= 10.0) {
-      #ifdef NSFoundationVersionNumber_iOS_9_x_Max
-            JPUSHRegisterEntity * entity = [[JPUSHRegisterEntity alloc] init];
-            entity.types = UNAuthorizationOptionAlert|UNAuthorizationOptionBadge|UNAuthorizationOptionSound;
-            [JPUSHService registerForRemoteNotificationConfig:entity delegate:Delegate];
-        #endif
-          }
-   else if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
+//    if ([[UIDevice currentDevice].systemVersion floatValue] >= 10.0) {
+//      #ifdef NSFoundationVersionNumber_iOS_9_x_Max
+//            JPUSHRegisterEntity * entity = [[JPUSHRegisterEntity alloc] init];
+//            entity.types = UNAuthorizationOptionAlert|UNAuthorizationOptionBadge|UNAuthorizationOptionSound;
+//            [JPUSHService registerForRemoteNotificationConfig:entity delegate:Delegate];
+//        #endif
+//          }
+//  else
+    
+      if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
         //可以添加自定义categories
         [JPUSHService registerForRemoteNotificationTypes:(UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert) categories:nil];
     } else {
@@ -60,6 +62,7 @@ singleton_implementation(CMThirdPartlyCommad)
     if (completion) {
         completion(UIBackgroundFetchResultNewData);
     }
+    
     return;
 }
 
@@ -71,7 +74,7 @@ singleton_implementation(CMThirdPartlyCommad)
     manager.enable = YES;
     manager.shouldResignOnTouchOutside = YES;
     manager.shouldToolbarUsesTextFieldTintColor = YES;
-    manager.enableAutoToolbar = YES;
+    manager.enableAutoToolbar = NO;
     
 }
 

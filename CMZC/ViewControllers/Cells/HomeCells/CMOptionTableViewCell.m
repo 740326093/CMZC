@@ -22,7 +22,7 @@
 
 @property (strong, nonatomic) NSArray *titImageArr; //图片名字
 @property (strong, nonatomic) NSArray *titLabNameArr;  //介绍名字
-@property(strong,nonatomic) CMNewActionHeadView *serveView;
+
 @end
 
 
@@ -32,7 +32,7 @@
      [super awakeFromNib];
      
    //注册
-    _collectionflowLayout.itemSize = CGSizeMake(CMScreen_width()/3, 100);
+    _collectionflowLayout.itemSize = CGSizeMake(CMScreen_width()/3.0, 100);
     _curCollectionView.delegate = self;
     _curCollectionView.dataSource = self;
     [_curCollectionView registerClass:[CMNewActionHeadView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"CMServeReusableView"];
@@ -51,6 +51,7 @@
     [_raiseMoneyBtn cm_setButtonRevealStyleImageName:@"many_home" titleName:@"众筹宝"];
     [_moreBtn cm_setButtonRevealStyleImageName:@"more_home" titleName:@"更多"];
     */
+    [self requestTrends];
 }
 #pragma mark - UICollectionViewDataSource && UICollectionViewDelegate
 
@@ -77,32 +78,44 @@
 
 -(UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
     
-        _serveView = (CMNewActionHeadView *)[collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"CMServeReusableView" forIndexPath:indexPath];
-         _serveView.delegate=self;
-    
-    return _serveView;
-}
-
--(void)MoreButtonClick{
-    
-    if ([self.delegate respondsToSelector:@selector(cm_optionHeadMoreButtonEvent)]) {
-        [self.delegate cm_optionHeadMoreButtonEvent];
+    if (kind==UICollectionElementKindSectionHeader) {
+      CMNewActionHeadView  *serveView = (CMNewActionHeadView *)[collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"CMServeReusableView" forIndexPath:indexPath];
+        serveView.delegate=self;
+        serveView.titleArr=self.gongGaoArr;
+        return serveView;
+    }else{
+        return nil;
     }
+    
 }
+#pragma mark 公告更多
+-(void)MoreButtonClick{
+  
+    CMBulletinViewController *bulletin = (CMBulletinViewController *)[CMBulletinViewController initByStoryboard];
+    bulletin.selectIndex=2;
+    [self.baseController.navigationController pushViewController:bulletin animated:YES];
+}
+#pragma mark 公告详情
 -(void)clickNewActionDetail:(NSInteger)index{
     
-    if ([self.delegate respondsToSelector:@selector(cm_optionHeadActinDetail:)]) {
-        [self.delegate cm_optionHeadActinDetail:index];
-    }
+
+    CMCommWebViewController *webVC = (CMCommWebViewController *)[CMCommWebViewController initByStoryboard];
+    
+    CMNewShiModel*model=self.gongGaoArr[index];
+    MyLog(@"最新公告详情+++%ld_______%ld",model.mediaId,index);
+    NSString *strUrl = CMStringWithPickFormat(kCMMZWeb_url,[NSString stringWithFormat:@"Account/MessageDetail?nid=%ld",(long)model.mediaId])
+    ;
+    webVC.urlStr =strUrl;
+    [self.baseController.navigationController pushViewController:webVC animated:YES];
+    
 }
 
--(void)setGongGaoArr:(NSMutableArray *)gongGaoArr{
-    
-    if (gongGaoArr.count>0) {
-        [_collectionflowLayout setHeaderReferenceSize:CGSizeMake(CMScreen_width(), 30)];
-      
+
+-(NSMutableArray*)gongGaoArr{
+    if (!_gongGaoArr) {
+        _gongGaoArr=[NSMutableArray arrayWithCapacity:0];
     }
-    _serveView.titleArr=gongGaoArr;
+    return _gongGaoArr;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -115,6 +128,27 @@
         [self.delegate cm_optionTableViewCellButTag:sender.tag];
     }
 }
+
+
+
+- (void)requestTrends {
+    
+    
+    [CMRequestAPI cm_trendsNewDataPage:1 withType:@"8" success:^(NSArray *dataArr, BOOL isPage) {
+        
+        [self.gongGaoArr removeAllObjects];
+        [self.gongGaoArr addObjectsFromArray:dataArr];
+        
+        if (self.gongGaoArr.count>0) {
+   [_collectionflowLayout setHeaderReferenceSize:CGSizeMake(CMScreen_width(), 30)];
+            [self.curCollectionView reloadData];
+        }
+        
+    } fail:^(NSError *error) {
+        MyLog(@"最新动态请求失败");
+    }];
+}
+
 
 
 #pragma mark - set get

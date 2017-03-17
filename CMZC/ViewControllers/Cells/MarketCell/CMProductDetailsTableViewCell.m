@@ -33,6 +33,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *marketLab; //市值
 
 
+
 @end
 
 
@@ -40,6 +41,8 @@
 
 - (void)awakeFromNib {
      [super awakeFromNib];
+ 
+
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -173,6 +176,19 @@
         _marketLab.text = maketStr;   //市值
     }
     
+    BOOL isOK =[[NSUserDefaults standardUserDefaults]boolForKey:@"isOK"];
+    
+    
+    
+    if (isOK==NO) {
+         _sharkImageView.image=[UIImage imageNamed:@"btn_Image_up"];
+        
+        
+    } else {
+     
+        _sharkImageView.image=[UIImage imageNamed:@"btn_Image_line"];
+    }
+    
 }
 
 - (void)setProductCode:(NSString *)productCode {
@@ -204,6 +220,25 @@
 
 //点击展开
 - (IBAction)shrinkageBtnClick:(UIButton *)sender {
+    
+     BOOL isOK =[[NSUserDefaults standardUserDefaults]boolForKey:@"isOK"];
+ 
+   
+    
+    if (isOK==NO) {
+       
+         _sharkImageView.image=[UIImage imageNamed:@"btn_Image_up"];
+         [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isOK"];
+        [[NSUserDefaults standardUserDefaults]synchronize];
+    } else {
+        
+       
+        _sharkImageView.image=[UIImage imageNamed:@"btn_Image_line"];
+         [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isOK"];
+         [[NSUserDefaults standardUserDefaults]synchronize];
+    }
+   
+
     if ([self.delegate respondsToSelector:@selector(cm_productOptionType:)]) {
         [self.delegate cm_productOptionType:CMProductOptionTypeShow];//删除自选
     }

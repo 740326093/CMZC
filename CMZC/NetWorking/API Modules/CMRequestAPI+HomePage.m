@@ -245,7 +245,7 @@
 
 + (void)cm_homeDefaultPageGlodServiceSuccess:(void (^)(NSArray *))success fail:(void (^)(NSError *))fail {
     [CMRequestAPI postDataFromURLScheme:kCMHomeAnalystDefaultURL argumentsDictionary:nil success:^(id responseObject) {
-        //MyLog(@"++++++%@+++",responseObject);
+    //MyLog(@"++++++%@+++",responseObject);
         NSMutableArray *adminArr = [NSMutableArray array];
         NSArray *dataRow = responseObject[@"data"][@"row"];
         for (NSDictionary *dict in dataRow) {

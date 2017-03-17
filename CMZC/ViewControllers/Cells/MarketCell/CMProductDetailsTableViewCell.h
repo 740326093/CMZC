@@ -44,4 +44,7 @@ typedef void(^CMProductBlock)();
 
 @property (nonatomic,assign) CMProductOptionType type;
 
+
+@property (weak, nonatomic) IBOutlet UIImageView *sharkImageView;
+
 @end

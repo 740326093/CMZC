@@ -11,6 +11,8 @@
 @interface CMFunctionTableViewCell ()
 @property (weak, nonatomic) IBOutlet UIImageView *titleImage;
 @property (weak, nonatomic) IBOutlet UILabel *nameLab;
+
+
 @end
 
 
@@ -19,6 +21,9 @@
 - (void)awakeFromNib {
      
      [super awakeFromNib];
+    _messageLabel.layer.cornerRadius=10.0;
+    _messageLabel.clipsToBounds=YES;
+    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

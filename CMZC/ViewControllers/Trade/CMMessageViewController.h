@@ -10,4 +10,6 @@
 
 @interface CMMessageViewController : CMBaseViewController
 
+@property(nonatomic,copy)void(^block)(void);
+
 @end

@@ -32,7 +32,7 @@
         [self addSubview:title1];
       
         
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        //dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             NSArray *imageArr=@[@"add_img1-02",@"add_img1-03",@"add_img1-04",@"add_img1-05"];
             
             NSArray *titileArr=@[@"资金银行托管安全",@"风控安全",@"项目安全",@"机构保障安全"];
@@ -68,16 +68,16 @@
                         make.height.mas_equalTo(rect.size.height+8);
                     }];
                 }
-                dispatch_async(dispatch_get_main_queue(), ^{
+              //  dispatch_async(dispatch_get_main_queue(), ^{
                     
                     [self addSubview:iconView];
                     
                     
-                });
+               // });
             }
         
             
-        });
+       // });
         
         
     }

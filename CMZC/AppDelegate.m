@@ -10,11 +10,14 @@
 #import "CMThirdPartlyCommad.h"
 #import "CMGuideController.h"
 #import "JPUSHService.h"
-#ifdef NSFoundationVersionNumber_iOS_9_x_Max
-#import <UserNotifications/UserNotifications.h> // 这里是iOS10需要用到的框架
-#endif
-@interface AppDelegate ()
+#import "CMTabBarViewController.h"
+#import "CMTradeViewController.h"
 
+//#ifdef NSFoundationVersionNumber_iOS_9_x_Max
+//#import <UserNotifications/UserNotifications.h> // 这里是iOS10需要用到的框架
+//#endif
+@interface AppDelegate ()
+@property(nonatomic,strong)NSDictionary *userDict;
 @end
 
 @implementation AppDelegate
@@ -39,7 +42,7 @@
     [self showWelcome];
     
     //推送
-    NSDictionary *isJpushMessage=[[CMThirdPartlyCommad sharedCMThirdPartlyCommad] setupWithOptions:launchOptions WithDlelegate:self];
+    NSDictionary *isJpushMessage=[[CMThirdPartlyCommad sharedCMThirdPartlyCommad] setupWithOptions:launchOptions WithDlelegate:nil];
     if (isJpushMessage) {
         MyLog(@"有消息");
     }else{
@@ -47,9 +50,13 @@
     }
     //配置键盘回收
     [CMThirdPartlyCommad configureBoardManager];
-   
+    
+
+
     [self SetNavigationBar];
-    return YES;
+    
+    [CMMessageDao createTable];
+        return YES;
 }
 -(void)SetNavigationBar{
     
@@ -92,6 +99,19 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+//    if ([[UIDevice currentDevice].systemVersion floatValue] < 10.0 || application.applicationState > 0)
+//    {
+ if (self.isAppIconLaunching==NO) {
+        if (self.userDict.allKeys!=0) {
+             NSString *urlStr = [self.userDict valueForKey:@"ext"];
+             [self pushWebviewWithURL:urlStr];
+            self.isAppIconLaunching=YES;
+        }
+        
+        
+    //}
+    }
+    
     [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
 }
 
@@ -112,24 +132,107 @@
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     MyLog(@" %@",[userInfo description]);
+  
     NSDictionary *aps = [userInfo valueForKey:@"aps"];
+    NSString *urlStr = [userInfo valueForKey:@"ext"];
     NSString *content = [aps valueForKey:@"alert"]; //推送显示的内容
-     NSMutableArray *contentArr = [NSMutableArray array];
-    [contentArr addObject:content];
-    NSArray *alertArr = GetDataFromNSUserDefaults(@"alertArr");
-    if (alertArr.count > 0) {
-        for (NSString *alert in alertArr) {
-            [contentArr addObject:alert];
-        }
-    }
-    SaveDataToNSUserDefaults(contentArr, @"alertArr");
+    NSString *time=[NSString currentDateFormatter:@"yyyy/MM/dd HH:mm:ss"];
+    self.userDict=userInfo;
+
+   // if ([[UIDevice currentDevice].systemVersion floatValue] < 10.0 || application.applicationState > 0)
+    //{
+    if(application.applicationState == UIApplicationStateActive){
+
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"收到推送消息"
+                                                        message:userInfo[@"aps"][@"alert"]
+                                                       delegate:self
+                                              cancelButtonTitle:@"忽略"
+                                              otherButtonTitles:@"查看", nil];
+        alert.tag=101;
+        [alert show];
+   
+        
+        NSString *page=[NSString dictionaryToJson:self.userDict];
+        
+      
+        [CMMessageDao insertWithMessage:content andMessageUrl:urlStr andTime:time andIsread:@"1" andPage:page];
+        
+        
+    }else{
+        
+        static BOOL isOk;
+        if (isOk==NO) {
+         
+
+            NSString *page=[NSString dictionaryToJson:userInfo];
     
-    // IOS 7 Support Required
+            [CMMessageDao insertWithMessage:content andMessageUrl:urlStr andTime:time andIsread:@"1" andPage:page];
+            
+            self.isAppIconLaunching=NO;
+          
+            
+        }else{
+ 
+            
+            [self pushWebviewWithURL:urlStr];
+            self.isAppIconLaunching=YES;
+           
+            
+        }
+        isOk =!isOk;
+        
+  
+
+//        
+//        NSString *page=[NSString dictionaryToJson:self.userDict];
+//        [CMMessageDao insertWithMessage:content andMessageUrl:urlStr andTime:time andIsread:@"1" andPage:page];
+//        
+//         [self pushWebviewWithURL:urlStr];
+        
+        
+        
+    }
+    
+  //  }
+    
     [CMThirdPartlyCommad  handleRemoteNotification:userInfo completion:completionHandler]; //处理收到的 APNs 消息
+
+    
     
 }
 
-
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    
+    
+    
+    if (buttonIndex==1) {
+        
+       NSString *urlStr = [self.userDict objectForKey:@"ext"];
+        [self pushWebviewWithURL:urlStr];
+        
+        
+       
+    }
+    
+    
+}
+-(void)pushWebviewWithURL:(NSString*)urlStr{
+    if (urlStr!=nil) {
+        
+   
+    CMTabBarViewController *tabBar=(CMTabBarViewController*)self.window.rootViewController;
+    UINavigationController *nvc=(UINavigationController*)tabBar.selectedViewController;
+    CMBaseViewController * baseVC = (CMBaseViewController *)nvc.visibleViewController;
+    CMCommWebViewController *vc = (CMCommWebViewController *)[[UIStoryboard mainStoryboard] viewControllerWithId:@"CMCommWebViewController"];
+    //vc.hidesBottomBarWhenPushed=YES;
+    vc.urlStr=urlStr;
+    vc.isJPush=YES;
+    [baseVC.navigationController pushViewController:vc animated:NO];
+    
+    }
+}
+/*
 #pragma mark - iOS10: 收到推送消息调用(iOS10是通过Delegate实现的回调)
 #pragma mark- JPUSHRegisterDelegate
 #ifdef NSFoundationVersionNumber_iOS_9_x_Max
@@ -145,9 +248,32 @@
         NSString *message = [NSString stringWithFormat:@"will%@", [userInfo[@"aps"] objectForKey:@"alert"]];
         MyLog(@"iOS10程序在前台时收到的推送: %@", message);
         
+        
+        NSDictionary *aps = [userInfo valueForKey:@"aps"];
+        NSString *urlStr = [userInfo valueForKey:@"ext"];
+        NSString *content = [aps valueForKey:@"alert"]; //推送显示的内容
+        NSString *time=[NSString currentDateFormatter:@"yyyy/MM/dd HH:mm:ss"];
+        
+        
+        NSString *page=[NSString dictionaryToJson:self.userDict];
+        
+        [CMMessageDao insertWithMessage:content andMessageUrl:urlStr andTime:time andIsread:@"1" andPage:page];
+        self.userDict=userInfo;
+        
+        [self pushWebviewWithURL:urlStr];
+//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"收到推送消息"
+//                                                        message:userInfo[@"aps"][@"alert"]
+//                                                       delegate:self
+//                                              cancelButtonTitle:@"忽略"
+//                                              otherButtonTitles:@"查看", nil];
+//        alert.tag=101;
+//        [alert show];
+//
+//        
+        
     }
     
-    completionHandler(UNNotificationPresentationOptionAlert); // 需要执行这个方法，选择是否提醒用户，有Badge、Sound、Alert三种类型可以选择设置
+    completionHandler(UNNotificationPresentationOptionBadge|UNNotificationPresentationOptionSound|UNNotificationPresentationOptionAlert);// 需要执行这个方法，选择是否提醒用户，有Badge、Sound、Alert三种类型可以选择设置
 }
 
 
@@ -161,7 +287,13 @@
         [JPUSHService handleRemoteNotification:userInfo];
         NSString *message = [NSString stringWithFormat:@"did%@", [userInfo[@"aps"] objectForKey:@"alert"]];
         MyLog(@"iOS10程序关闭后通过点击推送进入程序弹出的通知: %@", message);
-        
+        NSString *page=[NSString dictionaryToJson:self.userDict];
+        NSDictionary *aps = [userInfo valueForKey:@"aps"];
+        NSString *urlStr = [userInfo valueForKey:@"ext"];
+        NSString *content = [aps valueForKey:@"alert"]; //推送显示的内容
+        NSString *time=[NSString currentDateFormatter:@"yyyy/MM/dd HH:mm:ss"];
+        [self pushWebviewWithURL:urlStr];
+        [CMMessageDao insertWithMessage:content andMessageUrl:urlStr andTime:time andIsread:@"1" andPage:page];
     }
     
     completionHandler();  // 系统要求执行这个方法
@@ -169,7 +301,7 @@
 #endif
 
 
-
+*/
 
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {

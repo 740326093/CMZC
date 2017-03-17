@@ -77,7 +77,8 @@
     NSString *unit = @"";
     if (value >=1000000 ) {
         value /= 1000000.0;
-        unit = @"百万";
+        value/=100.0;
+        unit = @"亿";
     } else if (value >= 10000) {
         value /= 10000.0;
         unit = @"万";

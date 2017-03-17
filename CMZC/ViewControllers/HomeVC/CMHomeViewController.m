@@ -44,8 +44,6 @@
 
 @property (strong, nonatomic) CMHomeTableFootView *footerView;//表尾
 
-@property (strong, nonatomic) NSMutableArray *trendsArr; //请求动态
-
 @property (nonatomic,strong) NSMutableArray *proictArr; //三个动态
 
 @property (strong, nonatomic) NSMutableArray *manyFulfilArr; //众筹宝
@@ -79,7 +77,7 @@
     [self requestTitleBannesData];
     [self addRequestDataMeans];
    
-    [_curTableView beginHeaderRefreshing];
+    //[_curTableView beginHeaderRefreshing];
     //监听登陆成功
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginSuccessful) name:@"loginWin" object:nil];
     //监听退出
@@ -107,42 +105,46 @@
 }
 
 
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
-   
-}
+
 
 #pragma mark - 数据请求
 //添加上啦加载下拉刷新
 - (void)addRequestDataMeans {
 
     [self showDefaultProgressHUD];
-
+    [self addData];
     //添加下拉刷新
     [_curTableView addHeaderWithFinishBlock:^{
        
-        //众筹宝
-        [self requestProductFundlist];
-        
-        //[self requestPrictThree];
-        //广告
-        [self requestTrends];
-        //申购
-        [self requestPurchase];
-        //金牌服务
-        [self requestGlodService];
-        //新视点
-        [self requestNewGuanDian];
+        [self addData];
     }];
+}
+-(void)addData{
+    
+    
+    //众筹宝
+    [self requestProductFundlist];
+    
+    //[self requestPrictThree];
+    
+    //申购
+    [self requestPurchase];
+    //金牌服务
+    [self requestGlodService];
+    //新视点
+    [self requestNewGuanDian];
+    
 }
 
 -(void)requestNewGuanDian{
     
     [CMRequestAPI cm_trendsNewDataPage:1 withType:@"16" success:^(NSArray *dataArr, BOOL isPage) {
-        [self hiddenProgressHUD];
-        [_curTableView endRefresh];//结束刷新
+      
         [self.guanDianArr removeAllObjects];
+        
         [self.guanDianArr addObjectsFromArray:dataArr];
+ 
+        [_curTableView endRefresh];
         [_curTableView reloadData];
     } fail:^(NSError *error) {
         MyLog(@"最新动态请求失败");
@@ -150,24 +152,27 @@
     
 }
 
-- (void)requestTrends {
-    
-//    [CMRequestAPI cm_trendsFetchMediaCoverDataPage:1 pageSize:4 success:^(NSArray *dataArr, BOOL isPage) {
+//- (void)requestTrends {
+//    
+//    
+//    [CMRequestAPI cm_trendsNewDataPage:1 withType:@"8" success:^(NSArray *dataArr, BOOL isPage) {
+//     
+//        [self.trendsArr removeAllObjects];
+//        [self.trendsArr addObjectsFromArray:dataArr];
+//        
+//        if (self.trendsArr.count>0) {
+//            [self hiddenProgressHUD];
+//            
+//            [_curTableView endRefresh];//结束刷新
+//            
+//            [_curTableView reloadData];
+//        }
 //        
 //    } fail:^(NSError *error) {
-//        
+//         MyLog(@"最新动态请求失败");
 //    }];
-    
-    [CMRequestAPI cm_trendsNewDataPage:1 withType:@"8" success:^(NSArray *dataArr, BOOL isPage) {
-     
-        [self.trendsArr removeAllObjects];
-        [self.trendsArr addObjectsFromArray:dataArr];
-        [_curTableView reloadData];
-    } fail:^(NSError *error) {
-         MyLog(@"最新动态请求失败");
-    }];
-}
-
+//}
+//
 
 
 
@@ -176,12 +181,13 @@
     [CMRequestAPI cm_homeFetchProductFundlistPageSize:3 success:^(NSArray *fundlistArr) {
        
         [self.manyFulfilArr removeAllObjects];
-        [_curTableView beginUpdates];
-        [self.manyFulfilArr addObjectsFromArray:fundlistArr];
         
-        NSIndexPath *index = [NSIndexPath indexPathForRow:2 inSection:0];
-        [_curTableView reloadRowsAtIndexPaths:@[index] withRowAnimation:UITableViewRowAnimationNone];
-        [_curTableView endUpdates];
+        [self.manyFulfilArr addObjectsFromArray:fundlistArr];
+        [self hiddenProgressHUD];
+        [_curTableView reloadData];
+//        NSIndexPath *index = [NSIndexPath indexPathForRow:2 inSection:0];
+//        [_curTableView reloadRowsAtIndexPaths:@[index] withRowAnimation:UITableViewRowAnimationNone];
+//        [_curTableView endUpdates];
     } fail:^(NSError *error) {
         MyLog(@"众筹产品请求失败");
     }];
@@ -189,7 +195,7 @@
     
     [CMRequestAPI cm_homeProductPurchaseNumberSuccess:^(NSString *buyNumber) {
         _buyNumber = buyNumber;
-        [_curTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:2 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+       [_curTableView reloadData];
     } fail:^(NSError *error) {
         MyLog(@"人数请求失败");
     }];
@@ -202,7 +208,7 @@
     [CMRequestAPI cm_homeFetchBannersSuccess:^(NSArray *bannersArr) {
        
         _headerView.banners = bannersArr;
-        [_curTableView reloadData];
+       
     } fail:^(NSError *error) {
         MyLog(@"轮播图请求失败");
     }];
@@ -213,12 +219,12 @@
     [CMRequestAPI cm_homeFetchProductThreePageSize:3 success:^(NSArray *threeArr) {
        
         [self.proictArr removeAllObjects];
-        [self.proictArr addObjectsFromArray:threeArr];
+        if (threeArr.count>=3) {
+          [self.proictArr addObjectsFromArray:threeArr];
+        }
+       
         [_curTableView beginUpdates];
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:2 inSection:0];
-        
-        [_curTableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-        [_curTableView endUpdates];
+         [_curTableView reloadData];
         
     } fail:^(NSError *error) {
         MyLog(@"请求三个产品失败");
@@ -239,6 +245,7 @@
     [CMRequestAPI cm_homeDefaultPageGlodServiceSuccess:^(NSArray *adminis) {
        
         self.glodServiceArr = adminis;
+        
         [_curTableView reloadData];
     } fail:^(NSError *error) {
         MyLog(@"金牌理财师请求失败");
@@ -265,13 +272,11 @@
             return 111;
         }
     } else if (indexPath.row == 1) {
-        if(self.trendsArr.count>0){
+       
             return 230;
-        }else{
-        return 210;
-        }
+     
     } else if (indexPath.row == 2) { //倍利宝
-        return 231;
+        return 241;
     } else if (indexPath.row == 3) {
         return 39;
     } else if (indexPath.row > 3 && indexPath.row <= self.purchaseArr.count + 3) { //申购
@@ -303,10 +308,8 @@
     } else if (indexPath.row == 1) {
         //四个选项
         CMOptionTableViewCell *optionCell = [tableView dequeueReusableCellWithIdentifier:@"CMOptionTableViewCell" forIndexPath:indexPath];
-      
-        if (self.trendsArr.count>0) {
-          optionCell.gongGaoArr=self.trendsArr;
-        }
+        
+        optionCell.baseController=self;
         optionCell.delegate = self;
        
         return optionCell;
@@ -427,18 +430,7 @@
     [self.navigationController pushViewController:bulletin animated:YES];
     
 }
--(void)cm_optionHeadActinDetail:(NSInteger)index{
-    
-    CMCommWebViewController *webVC = (CMCommWebViewController *)[CMCommWebViewController initByStoryboard];
-    
-    CMNewShiModel*model=self.trendsArr[index];
-    MyLog(@"最新公告详情+++%ld_______%ld",model.mediaId,index);
-    NSString *strUrl = CMStringWithPickFormat(kCMMZWeb_url,[NSString stringWithFormat:@"Account/MessageDetail?nid=%ld",(long)model.mediaId])
-    ;
-    webVC.urlStr =strUrl;
-    [self.navigationController pushViewController:webVC animated:YES];
-   
-}
+
 
 
 #pragma mark - CMGoldMedalTableViewCellDelegate
@@ -589,12 +581,7 @@
 }
 
 #pragma mark - set get
-- (NSMutableArray *)trendsArr {
-    if (!_trendsArr) {
-        _trendsArr = [NSMutableArray array];
-    }
-    return _trendsArr;
-}
+
 - (NSMutableArray *)guanDianArr {
     if (!_guanDianArr) {
         _guanDianArr = [NSMutableArray array];
@@ -618,7 +605,7 @@
 //
 
 - (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self forKeyPath:@"loginWin"];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - cmwebSocket
@@ -638,10 +625,13 @@
     [self.proictArr removeAllObjects];
     NSString *contStr = [message substringWithRange:NSMakeRange(2, message.length - 2)];
     NSArray *marketArr = [contStr componentsSeparatedByString:@";"];
-    for (NSString *dataStr in marketArr) {
-        NSArray *marketIndexArr = [dataStr componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@","]];
-        [self.proictArr addObject:marketIndexArr];
+    if (marketArr.count>=3) {
+        for (NSString *dataStr in marketArr) {
+            NSArray *marketIndexArr = [dataStr componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@","]];
+            [self.proictArr addObject:marketIndexArr];
+        }
     }
+   
     [_curTableView beginUpdates];
     NSIndexPath *index = [NSIndexPath indexPathForRow:0 inSection:0];
     [_curTableView reloadRowsAtIndexPaths:@[index] withRowAnimation:UITableViewRowAnimationNone];

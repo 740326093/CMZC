@@ -76,6 +76,7 @@
             _curTableView.hidden = NO;
         } else {
             [self showHubView:self messageStr:@"该分析师暂时没有观点" time:2];
+            
         }
         //区分显示教view
         kCurTableView_foot

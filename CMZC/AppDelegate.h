@@ -15,6 +15,9 @@
 @property (strong, nonatomic) UIViewController *viewController;
 
 + (AppDelegate *)shareDelegate;
+@property (strong, nonatomic) NSMutableArray *DataArr;
 
+
+@property (assign, nonatomic) BOOL isAppIconLaunching;
 @end
 

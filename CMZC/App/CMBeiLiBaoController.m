@@ -85,9 +85,15 @@
     return 10.0f;
 }
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section{
-      //view.tintColor = [UIColor clmHex:0xbbbbbb];
+      view.tintColor = [UIColor clmHex:0xEFEFF4];
+}
+-(void)tableView:(UITableView *)tableView willDisplayFooterView:(UIView *)view forSection:(NSInteger)section{
+     view.tintColor = [UIColor clmHex:0xEFEFF4];
 }
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    
+    
     if (indexPath.section==0) {
         static NSString *cellID=@"indexPath";
         UITableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:cellID];
@@ -95,46 +101,51 @@
             cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
             cell.selectionStyle=UITableViewCellSelectionStyleNone;
         }
-        
-        cell.textLabel.text=@"倍利宝是新经板推出的类基金产品,顶级专业机构管理,只投优选10倍股,收益有保底,每年保证分红,预期最高可达十倍收益,开放净值型,本金安全有保证,信息披露及时,是资本市场的明星产品。";
-        cell.textLabel.font=[UIFont systemFontOfSize:14.0];
-        cell.textLabel.textColor=[UIColor clmHex:0x333333];
-        cell.textLabel.numberOfLines=0;
+       
+                cell.textLabel.text=@"倍利宝是新经板推出的类基金产品,顶级专业机构管理,只投优选10倍股,收益有保底,每年保证分红,预期最高可达十倍收益,开放净值型,本金安全有保证,信息披露及时,是资本市场的明星产品。";
+                cell.textLabel.font=[UIFont systemFontOfSize:14.0];
+                cell.textLabel.textColor=[UIColor clmHex:0x333333];
+                cell.textLabel.numberOfLines=0;
+     
         return cell;
-    }else if (indexPath.section==self.dataArr.count+1){
-        static NSString *cellID=@"CMSafeKeepView";
-        UITableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:cellID];
+    }
+   
+    else if (indexPath.section==self.dataArr.count+1){
+        static NSString *SafeKeep=@"CMSafeKeepView";
+        UITableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:SafeKeep ];
         if (!cell) {
-            cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
+            cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:SafeKeep];
             cell.selectionStyle=UITableViewCellSelectionStyleNone;
+            CMSafeKeepView *safe=[[CMSafeKeepView alloc]initWithFrame:CGRectMake(0, 0, CMScreen_width(), 300)];
+            [cell addSubview:safe];
         }
         
-        CMSafeKeepView *safe=[[CMSafeKeepView alloc]initWithFrame:CGRectMake(0, 0, CMScreen_width(), 300)];
-        [cell addSubview:safe];
+        
         return cell;
         
         
     }
     else if (indexPath.section==self.dataArr.count+2){
-        static NSString *cellID=@"CMTouCeView";
-        UITableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:cellID];
+        static NSString *TouCe=@"CMTouCeView";
+        UITableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:TouCe];
         if (!cell) {
-            cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
+            cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:TouCe];
             cell.selectionStyle=UITableViewCellSelectionStyleNone;
+            CMTouCeView *safe=[[CMTouCeView alloc]initWithFrame:cell.frame];
+            
+            [cell addSubview:safe];
         }
         
-        CMTouCeView *safe=[[CMTouCeView alloc]initWithFrame:cell.frame];
-        
-        [cell addSubview:safe];
+       
         return cell;
         
         
     }
     else if (indexPath.section==self.dataArr.count+3){
-        static NSString *cellID=@"CMLiuCheng";
-        UITableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:cellID];
+        static NSString *LiuCheng=@"CMLiuCheng";
+        UITableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:LiuCheng];
         if (!cell) {
-            cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
+            cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:LiuCheng];
             cell.selectionStyle=UITableViewCellSelectionStyleNone;
         }
         
@@ -145,21 +156,7 @@
         
         
     }
-//    else if (indexPath.section==self.dataArr.count+4){
-//        static NSString *cellID=@"CMIntrouctionView";
-//        UITableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:cellID];
-//        if (!cell) {
-//            cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
-//            cell.selectionStyle=UITableViewCellSelectionStyleNone;
-//        }
-//        
-//        CMIntrouctionView *safe=[[CMIntrouctionView alloc]initWithFrame:cell.frame];
-//        
-//        [cell addSubview:safe];
-//        return cell;
-//        
-//        
-//    }
+
     
     
     else{
@@ -233,8 +230,11 @@
     } else if (scrollView.contentOffset.y>=sectionHeaderHeight) {
         scrollView.contentInset = UIEdgeInsetsMake(-sectionHeaderHeight, 0, 0, 0);
     }
+   
+    
     
 }
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

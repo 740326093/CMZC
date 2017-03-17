@@ -205,11 +205,12 @@
     [self.view bringSubviewToFront:_btmView];
     _btmView.hidden = NO;
     _clickBgView.hidden = NO;//因为需要点击屏幕让键盘下落，而屏幕上方是个表。所以只能在键盘弹出的瞬间在window上放一个view
-    [UIView animateWithDuration:0.25 animations:^{
-        //由于这边只有一个数字几盘。切高度不会切换，所以，就固定一个高度了。如果是多中键盘，就不能这么搞
-        _btomViewBotLayout.constant = 216.0f;
-    }];
+//    [UIView animateWithDuration:0.25 animations:^{
+//        //由于这边只有一个数字几盘。切高度不会切换，所以，就固定一个高度了。如果是多中键盘，就不能这么搞
+//        _btomViewBotLayout.constant = 216.0f;
+//    }];
 }
+    
 //点击确定按钮
 - (IBAction)confirmBtnClick:(UIButton *)sender {
     

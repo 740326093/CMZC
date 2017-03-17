@@ -15,7 +15,7 @@
 #import "CMShareView.h"
 #import <TFHpple.h>
 
-@interface CMCommWebViewController ()<UIWebViewDelegate,NJKWebViewProgressDelegate,CMJSProtocol> {
+@interface CMCommWebViewController ()<UIWebViewDelegate,NJKWebViewProgressDelegate> {
     NJKWebViewProgressView *_progressView;
     NJKWebViewProgress *_progressProxy;
 }
@@ -74,21 +74,7 @@
     
     self.realUrl=_urlStr;
    
-//    NSData  * data     = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.realUrl]];
-//    TFHpple * doc      = [[TFHpple alloc] initWithHTMLData:data];
-//    NSArray * elements = [doc searchWithXPathQuery:@"//div"];
-//    for (TFHppleElement *happleEm in elements) {
-//        
-//        
-//        if ([[happleEm objectForKey:@"class"]isEqualToString:@"page-header navbar navbar-default navbar-static-top"]) {
-//            
-//            MyLog(@"有导航");
-//            return;
-//        }else{
-//            MyLog(@"没有导航");
-//            
-//        }
-//    }
+
 
 }
 //http://m.xinjingban.com/Account/Recharge
@@ -255,32 +241,63 @@
 
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+    
     self.nextURL = request.URL.absoluteString;
+    
     NSLog(@"----%@",request.URL.absoluteString);
     if ([self.nextURL containsString:CMStringWithPickFormat(kCMMZWeb_url,@"Products/FundList")]) {
         //跳转到登录
         [webView stopLoading];
-        NSMutableArray  *arr=[[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
-        for (UIViewController *vc in arr) {
-            if ([vc isKindOfClass:[self class]]) {
-                
-                [arr removeObject:vc];
-                break;
-            }
-            
+
+        if (!_isJPush) {
+          [self removeController];
         }
-        self.navigationController.viewControllers=arr;
+
         
-        
-        CMBeiLiBaoController *webVC = (CMBeiLiBaoController *)[CMBeiLiBaoController initByStoryboard];
+        CMBeiLiBaoController *webVC = (CMBeiLiBaoController *)[[UIStoryboard mainStoryboard] viewControllerWithId:@"CMBeiLiBaoController"];
         [self.navigationController pushViewController:webVC animated:NO];
-        
+        if (_isJPush) {
+            [self removeController];
+        }
+      
+   
+    
         return NO;
     }
+    
+    
+    
+     if ([self.nextURL containsString:CMStringWithPickFormat(kCMMZWeb_url,@"Products/List")]) {
+        [webView stopLoading];
+         UIWindow *window = [UIApplication sharedApplication].windows.firstObject;
+         CMTabBarViewController *tab = (CMTabBarViewController *)window.rootViewController;
+         tab.selectedIndex = 1;
+         if (_isJPush) {
+             [self removeController];
+         }
+         
+         return NO;
+     }
+    
+ 
+    
+    
     return YES;
 }
 
-
+-(void)removeController{
+    NSMutableArray  *arr=[[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
+    for (UIViewController *vc in arr) {
+        if ([vc isKindOfClass:[self class]]) {
+            
+            [arr removeObject:vc];
+            break;
+        }
+        
+    }
+    self.navigationController.viewControllers=arr;
+    
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
