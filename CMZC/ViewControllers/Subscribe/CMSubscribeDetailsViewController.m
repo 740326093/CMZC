@@ -38,7 +38,7 @@
     
     [self requestDataList];
     
-}
+};
 - (void)requestDataList {
     [self showDefaultProgressHUD];
     [CMRequestAPI cm_applyFetchProductDetailsListProductId:self.productId success:^(CMProductDetails *listArr) {

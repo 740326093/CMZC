@@ -84,7 +84,7 @@
         UIImage *placeholder = [UIImage imageNamed:@"title_log"];
         [imageView sd_setImageWithURL:[NSURL URLWithString:banner.pictureurl] placeholderImage:placeholder];
         
-      //  [imageView sd_setImageWithURL:[NSURL URLWithString:banner.pictureurl] placeholderImage:placeholder options:(SDWebImageAllowInvalidSSLCertificates)];
+        [imageView sd_setImageWithURL:[NSURL URLWithString:banner.pictureurl] placeholderImage:placeholder options:(SDWebImageAllowInvalidSSLCertificates)];
         imageView.userInteractionEnabled = YES;
         imageView.contentMode = UIViewContentModeScaleAspectFill;
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapImageView:)];

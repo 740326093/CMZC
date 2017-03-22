@@ -36,7 +36,7 @@
         [self addSubview:cmMedia];
         cmMedia.translatesAutoresizingMaskIntoConstraints = NO;
         [self viewLayoutAllEdgesOfSubview:cmMedia];
-        _marketView.frame = CGRectMake(0, CGRectGetHeight(_allBtn.frame)+3, CGRectGetWidth(_allBtn.frame), 2);
+        _marketView.frame = CGRectMake(0, CGRectGetHeight(_allBtn.frame), CGRectGetWidth(_allBtn.frame), 2);
     }
     return self;
 }

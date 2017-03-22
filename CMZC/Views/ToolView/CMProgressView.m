@@ -15,7 +15,8 @@
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
-    if([super initWithFrame:frame])
+    self=[super initWithFrame:frame];
+    if(self)
     {
         self.backgroundColor = [UIColor clearColor];
         [self initData];
@@ -25,7 +26,9 @@
 
 - (instancetype)init
 {
-    if([super init])
+    
+    self=[super init];
+    if(self)
     {
         [self initData];
     }
@@ -34,7 +37,8 @@
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder
 {
-    if([super initWithCoder:aDecoder])
+    self=[super initWithCoder:aDecoder];
+    if(self)
     {
         [self initData];
     }

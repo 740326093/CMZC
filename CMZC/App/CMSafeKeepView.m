@@ -65,7 +65,7 @@
                 if (i==0) {
                     CGRect rect=[ detailArr[i] boundingRectWithSize:CGSizeMake(CMScreen_width()-20, 90) options:NSStringDrawingUsesFontLeading |NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:11.0]} context:nil];
                     [iconView.bottomLabel mas_updateConstraints:^(MASConstraintMaker *make) {
-                        make.height.mas_equalTo(rect.size.height+8);
+                        make.height.mas_equalTo(rect.size.height+3);
                     }];
                 }
               //  dispatch_async(dispatch_get_main_queue(), ^{

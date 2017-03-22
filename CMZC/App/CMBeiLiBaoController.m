@@ -37,7 +37,10 @@
     [self requestData];
      _currentTableView.hidden = YES;
      _currentTableView.tableHeaderView=[CMBarHeadView barHeadViewWithImage:@"BLBHead@2x"];
-    _currentTableView.tableFooterView=[[CMIntrouctionView alloc]initWithFrame:CGRectMake(0, 0, CMScreen_width(), 270)];
+    
+    CMIntrouctionView *footView=[[CMIntrouctionView alloc]initWithFrame:CGRectMake(0, 0, CMScreen_width(), f_i5real(300))];
+  
+    _currentTableView.tableFooterView=footView;
  
         //添加下拉刷新
    [_currentTableView addHeaderWithFinishBlock:^{
@@ -49,6 +52,7 @@
 }
 -(void)requestData{
     [CMRequestAPI cm_homeFetchProductFundlistPageSize:3 success:^(NSArray *fundlistArr) {
+       
         [self hiddenProgressHUD];
          _currentTableView.hidden = NO;
         [_currentTableView endRefresh];
@@ -224,14 +228,21 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
+    if ([scrollView isKindOfClass:[self.currentTableView class]]) {
+
     CGFloat sectionHeaderHeight = 20; //sectionHeaderHeight
     if (scrollView.contentOffset.y<=sectionHeaderHeight&&scrollView.contentOffset.y>=0) {
         scrollView.contentInset = UIEdgeInsetsMake(-scrollView.contentOffset.y, 0, 0, 0);
     } else if (scrollView.contentOffset.y>=sectionHeaderHeight) {
         scrollView.contentInset = UIEdgeInsetsMake(-sectionHeaderHeight, 0, 0, 0);
     }
+        
+        
+        
    
+    }
     
+
     
 }
 

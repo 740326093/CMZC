@@ -35,7 +35,7 @@
 
 
 @interface CMHomeViewController ()<UITableViewDelegate,UITableViewDataSource,CMEditionTableViewCellDelegate,CMOptionTableViewCellDelegate,CMNewQualityCellDelegate,CMWebSocketDelegate,CMAllServerViewControllerDelegate,CMGoldMedalTableViewCellDelegate,CMSubscribeTableViewCellDelegate> {
-    NSString *_buyNumber; //多少人购买
+    //NSString *_buyNumber; //多少人购买
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *curTableView;//表
@@ -148,6 +148,7 @@
         [_curTableView reloadData];
     } fail:^(NSError *error) {
         MyLog(@"最新动态请求失败");
+          [_curTableView endRefresh];
     }];
     
 }
@@ -192,14 +193,14 @@
         MyLog(@"众筹产品请求失败");
     }];
     
-    
+    /*
     [CMRequestAPI cm_homeProductPurchaseNumberSuccess:^(NSString *buyNumber) {
         _buyNumber = buyNumber;
        [_curTableView reloadData];
     } fail:^(NSError *error) {
         MyLog(@"人数请求失败");
     }];
-    
+    */
 }
 
 
@@ -318,8 +319,25 @@
         CMNewQualityTableViewCell *qualityCell = [tableView dequeueReusableCellWithIdentifier:@"CMNewQualityTableViewCell" forIndexPath:indexPath];
         if (self.manyFulfilArr.count > 0) {
             qualityCell.munyArr = self.manyFulfilArr;
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                 __block int number=0;
+                [self.manyFulfilArr enumerateObjectsUsingBlock:^(CMNumberous *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    
+                    int num=[obj.attendPersionCount intValue];
+                    number +=num;
+                }];
+                
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        
+                     qualityCell.buyNumber = [NSString stringWithFormat:@"%d",number];   
+                        
+                    });
+                
+                 
+            });
+            
         }
-        qualityCell.buyNumber = _buyNumber;
+       
         qualityCell.delegate = self;
         qualityCell.selectionStyle = UITableViewCellSelectionStyleNone;
         return qualityCell;

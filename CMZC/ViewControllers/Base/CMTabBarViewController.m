@@ -41,11 +41,9 @@
             return  NO;
         }
     } else if (viewController == [tabBarController.viewControllers objectAtIndex:0]) {
-     NSArray *contArr = self.navigationController.viewControllers;
-       NSLog(@"%ld",(unsigned long)contArr.count);
-        
-    
-   
+    // NSArray *contArr = self.navigationController.viewControllers;
+      // NSLog(@"%ld",(unsigned long)contArr.count);
+
         return YES;
     }
     

@@ -51,7 +51,7 @@
                            @"pagesize":CMNumberWithFormat(page)
                            };
     [CMRequestAPI postDataFromURLScheme:kCMHomeFundlistURL argumentsDictionary:dict success:^(id responseObject) {
-     // MyLog(@"++++++++%@+++++",responseObject);
+ //  MyLog(@"++++++++%@+++++",responseObject);
         NSArray *contArr = responseObject[@"data"][@"rows"];
         NSMutableArray *dataArr = [NSMutableArray array];
         for (NSDictionary *dic in contArr) {

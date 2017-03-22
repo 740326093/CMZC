@@ -808,8 +808,8 @@
 		384EEEE31CB75158000078F9 /* CMBankBlockList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMBankBlockList.m; sourceTree = "<group>"; };
 		384EEF281CB79C2B000078F9 /* CMAlerTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMAlerTableView.h; sourceTree = "<group>"; };
 		384EEF291CB79C2B000078F9 /* CMAlerTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMAlerTableView.m; sourceTree = "<group>"; };
-		38529F011CCB23F3002300AE /* CMNumberous.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMNumberous.h; sourceTree = "<group>"; };
-		38529F021CCB23F3002300AE /* CMNumberous.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMNumberous.m; sourceTree = "<group>"; };
+		38529F011CCB23F3002300AE /* CMNumberous.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CMNumberous.h; path = ../Models/Home/CMNumberous.h; sourceTree = "<group>"; };
+		38529F021CCB23F3002300AE /* CMNumberous.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CMNumberous.m; path = ../Models/Home/CMNumberous.m; sourceTree = "<group>"; };
 		3854922F1D0674B8009B8176 /* CMRefreshHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMRefreshHeader.h; sourceTree = "<group>"; };
 		385492301D0674B8009B8176 /* CMRefreshHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMRefreshHeader.m; sourceTree = "<group>"; };
 		3854EA7D1C891CC00036DFB6 /* CMTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMTextField.h; sourceTree = "<group>"; };
@@ -1074,9 +1074,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		043277621E82827E00B83C1D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				38529F011CCB23F3002300AE /* CMNumberous.h */,
+				38529F021CCB23F3002300AE /* CMNumberous.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		0468FCFC1E67B9E6001A6013 /* 倍利宝 */ = {
 			isa = PBXGroup;
 			children = (
+				043277621E82827E00B83C1D /* Model */,
 				0468FD041E67F455001A6013 /* View */,
 				0468FCFD1E67BA1F001A6013 /* Controller */,
 			);
@@ -1124,8 +1134,6 @@
 				04697D641E7637DB000AD8D9 /* View */,
 				04697D631E7637C6000AD8D9 /* Model */,
 				04697D621E7637B2000AD8D9 /* Cotroller */,
-				3831CABD1CA51629009F0963 /* CMMessageViewController.h */,
-				3831CABE1CA51629009F0963 /* CMMessageViewController.m */,
 			);
 			name = "我的消息";
 			sourceTree = "<group>";
@@ -1133,6 +1141,8 @@
 		04697D621E7637B2000AD8D9 /* Cotroller */ = {
 			isa = PBXGroup;
 			children = (
+				3831CABD1CA51629009F0963 /* CMMessageViewController.h */,
+				3831CABE1CA51629009F0963 /* CMMessageViewController.m */,
 			);
 			name = Cotroller;
 			sourceTree = "<group>";
@@ -2117,8 +2127,6 @@
 				386C3B2C1CACCD2B000B7B16 /* CMAnalystAnswer.m */,
 				386AFA7C1CB5EEEA00B678A9 /* CMAnalystPoint.h */,
 				386AFA7D1CB5EEEA00B678A9 /* CMAnalystPoint.m */,
-				38529F011CCB23F3002300AE /* CMNumberous.h */,
-				38529F021CCB23F3002300AE /* CMNumberous.m */,
 				3840C9E01CE48D4B0079D65B /* CMAppVersion.h */,
 				3840C9E11CE48D4B0079D65B /* CMAppVersion.m */,
 				3819BF2C1E1CE2FB00053009 /* CMAdministrator.h */,

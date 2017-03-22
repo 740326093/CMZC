@@ -11,7 +11,7 @@
 
 #define kCM_URL @"https://api.xinjingban.com:443/" //线上正式
 
-#define Test_URL @"http://192.168.1.225:9000/" //本地
+#define Test_URL @"http://192.168.1.49:9000/" //本地
 NSString *const kWebSocket_url = @"ws://api.xinjingban.com:80/";// webscoke线上 测试
 
 // m站地址

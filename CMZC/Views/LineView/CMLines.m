@@ -89,11 +89,11 @@
 -(void)drawKWithContext:(CGContextRef)context height:(CGPoint)heightPoint Low:(CGPoint)lowPoint open:(CGPoint)openPoint close:(CGPoint)closePoint width:(CGFloat)width{
     CGContextSetShouldAntialias(context, NO);
     // 首先判断是绿的还是红的，根据开盘价和收盘价的坐标来计算
-    BOOL isKong = NO;
+    //BOOL isKong = NO;
     CMColorModel *colormodel = [UIColor RGBWithHexString:@"#FF0000" withAlpha:self.alpha]; // 设置默认红色
     // 如果开盘价坐标在收盘价坐标上方 则为绿色 即空
     if (openPoint.y<closePoint.y) {
-        isKong = YES;
+       // isKong = YES;
         colormodel = [UIColor RGBWithHexString:@"#00FFFF" withAlpha:self.alpha]; // 设置为绿色
     }
     // 设置颜色

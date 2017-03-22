@@ -35,7 +35,7 @@
 #import "CMTopicReplyViewController.h"
 
 
-@interface CMProductDetailsViewController ()<UITableViewDelegate,UITableViewDataSource,CMCommentTableViewCellDelegate,SRWebSocketDelegate,CMProductDetailsDelegate,CMoptionReleaseTableViewCellDelegate,CMReplyTableViewCellDelegate> {
+@interface CMProductDetailsViewController ()<UITableViewDelegate,UITableViewDataSource,CMCommentTableViewCellDelegate,SRWebSocketDelegate,CMProductDetailsDelegate,CMoptionReleaseTableViewCellDelegate,CMReplyTableViewCellDelegate,UIGestureRecognizerDelegate> {
     BOOL _isFirst;
     BOOL _isShow; //展示全部
     NSString *_htmlStr; //html数据
@@ -115,12 +115,12 @@
                                                  name:UIKeyboardWillHideNotification
                                                object:nil];
     _isFirst = NO; //这个是为了判断数据请求是否是第一次，同一个界面的数据，非得给两个不同的接口来需要。不懂~！
-    [_curTableView addHeaderWithFinishBlock:^{
-        [CMCommonTool executeRunloop:^{
-            [_curTableView endRefresh];
-        }afterDelay:2];
-    }];
-    
+//    [_curTableView addHeaderWithFinishBlock:^{
+//        [CMCommonTool executeRunloop:^{
+//            [_curTableView endRefresh];
+//        }afterDelay:2];
+//    }];
+//    
     
     
     _titleSectionView = [[NSBundle mainBundle] loadNibNamed:@"CMTitleView" owner:nil options:nil].firstObject;
@@ -416,15 +416,25 @@
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
             CMProductDetailsTableViewCell *productCell = [tableView dequeueReusableCellWithIdentifier:@"CMProductDetailsTableViewCell" forIndexPath:indexPath];
-            if (!productCell) {
-                
-            }
+    
             productCell.selectionStyle = UITableViewCellSelectionStyleNone;
             productCell.productArr = self.productArr;
             productCell.delegate = self;
-          
+            UISwipeGestureRecognizer*swipeGestureUp=[[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipeGesture:)];
+            swipeGestureUp.direction=UISwipeGestureRecognizerDirectionUp;
             
-            return productCell;
+    
+             swipeGestureUp.delegate=self;
+             [productCell addGestureRecognizer:swipeGestureUp];
+            
+             UISwipeGestureRecognizer*swipeGestureDown=[[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipeGesture:)];
+             swipeGestureDown.direction=UISwipeGestureRecognizerDirectionDown;
+
+            swipeGestureDown.delegate=self;
+            [productCell addGestureRecognizer:swipeGestureDown];
+            
+            
+                     return productCell;
         } else {
             CMChartTableViewCell *chartCell = [tableView dequeueReusableCellWithIdentifier:@"CMChartTableViewCell" forIndexPath:indexPath];
             chartCell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -804,15 +814,7 @@
         [self.navigationController pushViewController:tradeSonVC animated:YES];
     }
 }
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    [self.view endEditing:YES];
-    _btmView.hidden = YES;
-    _bgView.hidden = YES;
-    [UIView animateWithDuration:0.25 animations:^{
-        _bottomLayoutConstraint.constant = 0.0f;
-    }];
-    
-}
+
 
 #pragma mark - CMCommentTableViewCellDelegate
 //跳转到M站 详情<<
@@ -1053,6 +1055,50 @@
         default:
             break;
     }
+    
+}
+-(void)handleSwipeGesture:(UISwipeGestureRecognizer*)sender
+{
+    
+     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+     CMProductDetailsTableViewCell *cell=[_curTableView cellForRowAtIndexPath:indexPath];
+    if(sender.direction==UISwipeGestureRecognizerDirectionUp)
+         {
+            
+             _isShow=YES;
+             _curTableView.scrollEnabled=NO;
+            
+             cell.sharkImageView.image=[UIImage imageNamed:@"btn_Image_up"];
+             [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isOK"];
+             [[NSUserDefaults standardUserDefaults]synchronize];
+             }
+    else if(sender.direction==UISwipeGestureRecognizerDirectionDown)
+   {
+       
+       cell.sharkImageView.image=[UIImage imageNamed:@"btn_Image_line"];
+       [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isOK"];
+       [[NSUserDefaults standardUserDefaults]synchronize];
+       _isShow=NO;
+       
+       _curTableView.scrollEnabled=NO;
+         }
+   
+    [_curTableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    _curTableView.scrollEnabled=YES;
+}
+//当self为UIScrollerView或其子类时,比如为UITableView添加手势时,必须添加此行代码,详见下方参考链接
+-(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer{
+   
+    return YES;
+}
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+//    [self.view endEditing:YES];
+//    _btmView.hidden = YES;
+//    _bgView.hidden = YES;
+//    [UIView animateWithDuration:0.25 animations:^{
+//        _bottomLayoutConstraint.constant = 0.0f;
+//    }];
+    MyLog(@"+++%@",[touches allObjects])
     
 }
 
