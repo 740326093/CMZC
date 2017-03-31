@@ -43,8 +43,8 @@
     _tradeTitleView.delegate = self;
     _curTableView.tableHeaderView = _tradeTitleView;
     
-    _titLabNameArr = @[@"安全认证",@"我的消息",@"新手交易指南",@"设置"];
-    _titImageArr = @[@"bankCard_trade",@"message_trade",@"new_trade",@"set_trade"];
+    _titLabNameArr = @[@"我的基金",@"安全认证",@"我的收藏",@"我的消息",@"新手交易指南",@"设置"];
+    _titImageArr = @[@"funds_trade",@"bankCard_trade",@"collection_trade",@"message_trade",@"new_trade",@"set_trade"];
     //判断一下是否登录
     //if (CMIsLogin()) {
         [self addRequestDataMeans];
@@ -109,7 +109,7 @@
 
 #pragma mark - UITableViewDelegate && UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 5;
+    return _titLabNameArr.count+1;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row == 0) {
@@ -132,7 +132,7 @@
         [tableCell cm_functionTileLabNameStr:_titLabNameArr[indexPath.row-1]
                               titleImageName:_titImageArr[indexPath.row - 1]];
         
-        if (indexPath.row == 3) {
+        if (indexPath.row == 5) {
             tableCell.tradeImage.hidden = NO;
         } else {
             tableCell.tradeImage.hidden = YES;
@@ -175,7 +175,12 @@
         
     } else {
         switch (indexPath.row) {
-            case 1://银行卡认证
+                case 1: //我的基金
+            {
+                 [self pushCommWebViewVCUrlStr:CMStringWithPickFormat(kCMMZWeb_url, @"Account/CouponsList")];
+            }
+                break;
+            case 2://银行卡认证
                 //这里需要坐下判断，是否登录过，是否是认证过的。如果是，跳转到详情，如果不是，就不跳转
             {
 //                if (_tinfo.bankcardisexists) {
@@ -184,11 +189,16 @@
 //                    commonalityVC = bankCardVC;
 //                } else {
                     //没有绑定过银行卡。现在还没有m站地址
-                    [self pushCommWebViewVCUrlStr:CMStringWithPickFormat(kCMMZWeb_url, @"/Account/SecurityCertification")];
+                    [self pushCommWebViewVCUrlStr:CMStringWithPickFormat(kCMMZWeb_url, @"Account/SecurityCertification")];
 //                }
             }
                 break;
-            case 2://我的消息
+                
+            case 3:{
+                [self pushCommWebViewVCUrlStr:CMStringWithPickFormat(kCMMZWeb_url, @"Account/collectList.aspx")];
+            }
+                break;
+            case 4://我的消息
             {
                  CMMessageViewController *statementVC = (CMMessageViewController *)[[UIStoryboard mainStoryboard] viewControllerWithId:@"CMMessageViewController"];
                 
@@ -199,7 +209,7 @@
                // [self performSegueWithIdentifier:idMessageViewController sender:self];
             }
                 break;
-            case 3://新手交易指南
+            case 5://新手交易指南
             {
                 CMStatementViewController *statementVC = (CMStatementViewController *)[[UIStoryboard mainStoryboard] viewControllerWithId:@"CMStatementViewController"];
                 statementVC.baserType = CMBaseViewDistinctionTypeDetails;
@@ -208,7 +218,7 @@
             }
                 
                 break;
-            case 4://设置
+            case 6://设置
             {
                 //设置
                 CMInstallViewController *installVC = (CMInstallViewController *)[[UIStoryboard mainStoryboard] viewControllerWithId:@"CMInstallViewController"];
@@ -266,7 +276,10 @@
     commWebVC.urlStr = url;
     [self.navigationController pushViewController:commWebVC animated:YES];
 }
-
+-(void)cm_tradeViewControllerMoneyRecord{
+    
+     [self pushCommWebViewVCUrlStr: CMStringWithPickFormat(kCMMZWeb_url, [NSString stringWithFormat:@"Account/CapitalRecords"])];
+}
 #pragma mark - CMTradeMeansTableViewCellDelegate
 - (void)cm_tradeMeadsTableViewIndex:(NSInteger)index {
     //跳转到界面

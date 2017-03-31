@@ -21,11 +21,11 @@
 }
 
 - (BOOL)checkPhoneNumInput {
-    
+    /*
     //NSString * MOBILE = @"^1([0-9][0-9]|5[0-35-9]|8[025-9])\\d{8}$";
     NSString *CM_NUM = @"^((13[4-9])|(147)|(15[0-2,7-9])|(178)|(18[2-4,7-8]))\\d{8}|(1705)\\d{7}$"; //移动
     NSString *CU_NUM = @"^((13[0-2])|(145)|(15[5-6])|(176)|(18[5,6]))\\d{8}|(1709)\\d{7}$"; //联通
-    NSString *CT_NUM = @"^((133)|(153)|(177)|(18[0,1,9]))\\d{8}$"; //电信
+    NSString *CT_NUM = @"^((133)|(153)|(177)|(170)|(18[0,1,9]))\\d{8}$"; //电信
     // NSString * PHS = @"^0(10|2[0-5789]|\\d{3})\\d{7,8}$";
     
     //NSPredicate *regextestmobile = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", MOBILE];
@@ -37,6 +37,18 @@
     BOOL res3 = [regextestcu evaluateWithObject:self];
     BOOL res4 = [regextestct evaluateWithObject:self];
     if (res2 || res3 || res4 )
+    {
+        return YES;
+    }
+    else
+    {
+        return NO;
+    }
+    */
+    NSString *pattern = @"^1+[34578]+\\d{9}";
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", pattern];
+    BOOL isMatch = [pred evaluateWithObject:self];
+    if (isMatch )
     {
         return YES;
     }

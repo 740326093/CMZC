@@ -124,25 +124,30 @@
         _webView.scrollView.bounces = NO;
         _webView.scalesPageToFit = YES;
     } else {
-       NSString *external =[NSString stringWithFormat:@"%@%@",kCMExternalLinksURL,_urlStr];
-        
-        NSString *name = GetDataFromNSUserDefaults(@"name");
-        NSString *value = GetDataFromNSUserDefaults(@"value");
-        
-        NSURLRequest *request =[NSURLRequest requestWithURL:[NSURL URLWithString:external]];
-        NSMutableURLRequest *mutableRequest = [request mutableCopy];
-        NSString *cookieValue = [NSString stringWithFormat:@"%@=%@",name,value];
-        [mutableRequest addValue:cookieValue forHTTPHeaderField:@"cookie"];
-        request = [mutableRequest copy];
-        //4.查看请求头
-        [self loadCookies];
-        [_webView loadRequest:request];
-        
-        _webView.scrollView.bounces = NO;
-        _webView.scalesPageToFit = YES;
+        [self LoadWebViewWithCookieAndUrl:_urlStr];
     }
     
    
+}
+
+-(void)LoadWebViewWithCookieAndUrl:(NSString*)urlStr{
+    
+    NSString *external =[NSString stringWithFormat:@"%@%@",kCMExternalLinksURL,urlStr];
+    
+    NSString *name = GetDataFromNSUserDefaults(@"name");
+    NSString *value = GetDataFromNSUserDefaults(@"value");
+    
+    NSURLRequest *request =[NSURLRequest requestWithURL:[NSURL URLWithString:external]];
+    NSMutableURLRequest *mutableRequest = [request mutableCopy];
+    NSString *cookieValue = [NSString stringWithFormat:@"%@=%@",name,value];
+    [mutableRequest addValue:cookieValue forHTTPHeaderField:@"cookie"];
+    request = [mutableRequest copy];
+    //4.查看请求头
+    [self loadCookies];
+    [_webView loadRequest:request];
+    
+    _webView.scrollView.bounces = NO;
+    _webView.scalesPageToFit = YES;
 }
 - (void)loadCookies{
     NSString *name = GetDataFromNSUserDefaults(@"name");
@@ -279,12 +284,44 @@
          return NO;
      }
     
- 
-    
+    if (![self.nextURL containsString:CMStringWithPickFormat(kCMMZWeb_url,@"Account/RechargeRecords")]) {
+        if ([self.nextURL containsString:CMStringWithPickFormat(kCMMZWeb_url,@"Account/Recharge")]) {
+            UIButton *rightBarBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+            rightBarBtn.frame = CGRectMake(0, 0, 100, 40);
+            rightBarBtn.titleLabel.font=[UIFont systemFontOfSize:14.0];
+            [rightBarBtn setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
+            [rightBarBtn setTitle:@"充值记录" forState:UIControlStateNormal];
+            [rightBarBtn addTarget:self action:@selector(intoRecharegeRecode) forControlEvents:UIControlEventTouchUpInside];
+            UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:rightBarBtn];
+            self.navigationItem.rightBarButtonItem = rightItem;
+            
+            
+        }else{
+            UIButton *rightBarBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+            rightBarBtn.frame = CGRectMake(0, 0, 30, 40);
+            [rightBarBtn setImage:[UIImage imageNamed:@"refresh_line_thren"] forState:UIControlStateNormal];
+            [rightBarBtn addTarget:self action:@selector(refreshWebView) forControlEvents:UIControlEventTouchUpInside];
+            UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:rightBarBtn];
+            self.navigationItem.rightBarButtonItem = rightItem;
+        }
+        
+        
+
+    }else{
+        UIButton *rightBarBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        rightBarBtn.frame = CGRectMake(0, 0, 30, 40);
+        [rightBarBtn setImage:[UIImage imageNamed:@"refresh_line_thren"] forState:UIControlStateNormal];
+        [rightBarBtn addTarget:self action:@selector(refreshWebView) forControlEvents:UIControlEventTouchUpInside];
+        UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:rightBarBtn];
+        self.navigationItem.rightBarButtonItem = rightItem;
+    }
     
     return YES;
 }
-
+-(void)intoRecharegeRecode{
+    
+    [self LoadWebViewWithCookieAndUrl:CMStringWithPickFormat(kCMMZWeb_url,@"Account/RechargeRecords")];
+}
 -(void)removeController{
     NSMutableArray  *arr=[[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
     for (UIViewController *vc in arr) {

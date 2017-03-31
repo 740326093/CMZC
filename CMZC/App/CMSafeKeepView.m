@@ -20,17 +20,28 @@
     self=[super initWithFrame:frame];
     if (self) {
 
-        UILabel *title=[[UILabel alloc]initWithFrame:CGRectMake(10, 10, 80, 18)];
+        UILabel *title=[[UILabel alloc]init];
         title.text=@"安全保障";
         title.font=[UIFont systemFontOfSize:17.0];
         title.textColor=[UIColor clmHex:0x111111];
         [self addSubview:title];
-        UILabel *title1=[[UILabel alloc]initWithFrame:CGRectMake(90, 12, 180, 13)];
+        [title mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(@80);
+            make.height.equalTo(@18);
+            make.left.equalTo(self.mas_left).offset(15);
+            make.top.equalTo(self.mas_top).offset(15);
+        }];
+        UILabel *title1=[[UILabel alloc]init];
         title1.text=@"多重安全机制确保100%安全";
         title1.font=[UIFont systemFontOfSize:12.0];
         title1.textColor=[UIColor clmHex:0x666666];
         [self addSubview:title1];
-      
+        [title1 mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(@180);
+            make.height.equalTo(@13);
+            make.left.equalTo(title.mas_right);
+            make.centerY.equalTo(title);
+        }];
         
         //dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             NSArray *imageArr=@[@"add_img1-02",@"add_img1-03",@"add_img1-04",@"add_img1-05"];

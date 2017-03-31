@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *profitLab;//总盈亏
 
 
+@property (weak, nonatomic) IBOutlet UIButton *moneyRecordBtn;
 
 
 
@@ -37,6 +38,15 @@
     if (!CMIsLogin()) {
         _loginView.hidden = NO;
     }
+    
+    
+    [_moneyRecordBtn mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(_moneyRecordBtn.imageView.image.size.width);
+        make.height.mas_equalTo(_moneyRecordBtn.imageView.image.size.height);
+    }];
+    
+    
+    
 }
 //充值
 - (IBAction)topUpBtnClick:(UIButton *)sender {
@@ -82,6 +92,13 @@
     }
     
     
+}
+//资金流水
+- (IBAction)intoMoneyRecord:(UIButton *)sender {
+    
+    if ([self.delegate respondsToSelector:@selector(cm_tradeViewControllerMoneyRecord)]) {
+        [self.delegate cm_tradeViewControllerMoneyRecord];
+    }
 }
 
 @end

@@ -35,6 +35,10 @@ typedef NS_ENUM(NSInteger,CMTradeTitleViewType){
  */
 - (void)cm_tradeViewControllerRecharge:(CMTradeTitleView *)titleView;
 
+/**
+ *  点击资金流水
+ */
+- (void)cm_tradeViewControllerMoneyRecord;
 
 @end
 

@@ -65,8 +65,8 @@
     
     [self.prTitleLabel  mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.equalTo(@18);
-        make.left.equalTo(self.mas_left).offset(10);
-        make.top.equalTo(self.mas_top).offset(10);
+        make.left.equalTo(self.mas_left).offset(15);
+        make.top.equalTo(self.mas_top).offset(15);
         make.width.mas_equalTo(@80);
     }];
     

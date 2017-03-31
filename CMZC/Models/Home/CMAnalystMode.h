@@ -18,7 +18,7 @@
 @property (nonatomic,copy) NSString *fulldescription; //分析师的详细介绍
 @property (nonatomic,assign) NSInteger topiccount;//分析师的观点书
 @property (nonatomic,assign) NSInteger replycount; //回答数
-@property (strong, nonatomic) NSString *lastpublished; //最近回答日期
+@property (copy, nonatomic) NSString *lastpublished; //最近回答日期
 @property (nonatomic,copy) NSString *title;
 
 

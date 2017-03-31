@@ -136,7 +136,7 @@
             DeleteDataFromNSUserDefaults(@"value");
             //获得cookies
             NSDictionary *fields = [(NSHTTPURLResponse *)task.response allHeaderFields];
-            NSLog(@"fields :%@",fields);
+            //NSLog(@"fields :%@",fields);
             NSArray *cookies = [NSHTTPCookie cookiesWithResponseHeaderFields:fields forURL:[NSURL URLWithString:kCMBaseApiURL]];
             
             NSHTTPCookie *cookie = cookies.firstObject;

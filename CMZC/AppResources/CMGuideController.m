@@ -19,7 +19,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    NSArray *array = @[@"one_guidance.jpg", @"two_guidance.jpg", @"three_guidance.jpg",@"four_guidance.jpg"];
+    NSArray *array = @[@"one_guidance.jpg", @"two_guidance.jpg", @"three_guidance.jpg",@"four_guidance"];
     //如果是第一次启动的话,使用UserGuideViewController (用户引导页面) 作为根视图
     CMGuideView *GuideView = [[CMGuideView alloc] init:array];
     GuideView.delegate=self;
