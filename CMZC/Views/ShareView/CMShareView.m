@@ -5,13 +5,11 @@
 //  Created by 郑浩然 on 17/1/10.
 //  Copyright © 2017年 郑浩然. All rights reserved.
 //
-#define kCMShareTitle @"新经板-只赚不赔的“原始股"
 
 
 #import "CMShareView.h"
-#import "CMSortwareShareViewController.h"
-#import "UMSocialQQHandler.h"
-#import "UMSocial.h"
+
+
 @interface CMShareView ()
 
 @property (strong, nonatomic) UIView *bgView;//分享主view
@@ -148,35 +146,40 @@
 }
 //qq
 - (void)qqShareBtnClick {
-    [UMSocialData defaultData].extConfig.qqData.title = _titleConten;
-    [UMSocialData defaultData].extConfig.qqData.url = self.contentUrl;
-    [self umsocialDataServicPostSNSWithTypes:@[UMShareToQQ] Withimage:self.ShareImageName];
+//    [UMSocialData defaultData].extConfig.qqData.title = _titleConten;
+//    [UMSocialData defaultData].extConfig.qqData.url = self.contentUrl;
+//    [self umsocialDataServicPostSNSWithTypes:@[UMShareToQQ] Withimage:self.ShareImageName];
+   [self umsocialToPlatformType:UMSocialPlatformType_QQ];
     [self removeFromSuperview];
 }
 //qq空间
 - (void)qzoneBtnClick{
-    [UMSocialData defaultData].extConfig.qzoneData.title = _titleConten;
-    [UMSocialData defaultData].extConfig.qzoneData.url = self.contentUrl;
-    [self umsocialDataServicPostSNSWithTypes:@[UMShareToQzone] Withimage:self.ShareImageName];
+//    [UMSocialData defaultData].extConfig.qzoneData.title = _titleConten;
+//    [UMSocialData defaultData].extConfig.qzoneData.url = self.contentUrl;
+//    [self umsocialDataServicPostSNSWithTypes:@[UMShareToQzone] Withimage:self.ShareImageName];
+   [self umsocialToPlatformType:UMSocialPlatformType_Qzone];
     [self removeFromSuperview];
 }
 //微信
 - (void)wechatBtnClick {
-    [UMSocialData defaultData].extConfig.wechatSessionData.title = _titleConten;
-    [UMSocialData defaultData].extConfig.wechatSessionData.url = self.contentUrl;
-    [self umsocialDataServicPostSNSWithTypes:@[UMShareToWechatSession] Withimage:self.ShareImageName];
+//    [UMSocialData defaultData].extConfig.wechatSessionData.title = _titleConten;
+//    [UMSocialData defaultData].extConfig.wechatSessionData.url = self.contentUrl;
+//    [self umsocialDataServicPostSNSWithTypes:@[UMShareToWechatSession] Withimage:self.ShareImageName];
+[self umsocialToPlatformType:UMSocialPlatformType_WechatSession];
     [self removeFromSuperview];
 }
 //朋友圈
 - (void)wechatTimeBtnClick {
-    [UMSocialData defaultData].extConfig.wechatTimelineData.title = _titleConten;
-    [UMSocialData defaultData].extConfig.wechatTimelineData.url = self.contentUrl;
-    [self umsocialDataServicPostSNSWithTypes:@[UMShareToWechatTimeline] Withimage:self.ShareImageName];
+//    [UMSocialData defaultData].extConfig.wechatTimelineData.title = _titleConten;
+//    [UMSocialData defaultData].extConfig.wechatTimelineData.url = self.contentUrl;
+//    [self umsocialDataServicPostSNSWithTypes:@[UMShareToWechatTimeline] Withimage:self.ShareImageName];
+  [self umsocialToPlatformType:UMSocialPlatformType_WechatTimeLine];
     [self removeFromSuperview];
 }
 //微博
 - (void)sinaBtnClick {
-    [self umsocialDataServicPostSNSWithTypes:@[UMShareToSina] Withimage:self.ShareImageName];
+ // [self umsocialDataServicPostSNSWithTypes:@[UMShareToSina] Withimage:self.ShareImageName];
+   [self umsocialToPlatformType:UMSocialPlatformType_Sina];
     [self removeFromSuperview];
 }
 //取消
@@ -184,6 +187,7 @@
     [self removeFromSuperview];
 }
 //分享内容
+/*
 - (void)umsocialDataServicPostSNSWithTypes:(NSArray *)typeArr Withimage:(id)imageName {
     [[UMSocialDataService defaultDataService]  postSNSWithTypes:typeArr
                                                         content:self.contentStr
@@ -196,6 +200,54 @@
                                                          //                                                    NSLog(@"分享成功！");
                                                          //                                                }
                                                      }];
+}
+ */
+- (void)umsocialToPlatformType:(UMSocialPlatformType)platformType {
+    //创建分享消息对象
+    UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
+    
+    NSString *title = _titleConten;
+    NSString *descr = self.contentStr;
+    NSString *webpageUrl =self.contentUrl;
+    
+    //创建网页内容对象
+    UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:title descr:descr thumImage:_ShareImageName];
+    //设置网页地址
+    shareObject.webpageUrl =webpageUrl;
+    
+    //分享消息对象设置分享内容对象
+    messageObject.shareObject = shareObject;
+    
+    //调用分享接口
+    [[UMSocialManager defaultManager] shareToPlatform:platformType messageObject:messageObject currentViewController:_controller completion:^(id data, NSError *error) {
+        if (error) {
+            MyLog(@"************Share fail with error %ld*********",error.code);
+            if (error.code==2008) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示"
+                                                                message:@"应用未安装"
+                                                               delegate:nil
+                                                      cancelButtonTitle:@"取消"
+                                                      otherButtonTitles:nil, nil];
+              
+                [alert show];
+                
+            }
+        }else{
+            if ([data isKindOfClass:[UMSocialShareResponse class]]) {
+                UMSocialShareResponse *resp = data;
+                //分享结果消息
+                MyLog(@"response message is %@",resp.message);
+                //第三方原始返回的数据
+                MyLog(@"response originalResponse data is %@",resp.originalResponse);
+                
+            }else{
+                MyLog(@"response data is %@",data);
+            }
+        }
+        
+    }];
+    
+    
 }
 
 - (void)remove {

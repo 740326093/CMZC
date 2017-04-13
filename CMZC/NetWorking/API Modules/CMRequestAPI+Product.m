@@ -21,8 +21,9 @@
                            };
     
     [CMRequestAPI postDataFromURLScheme:kCMApplyListURL argumentsDictionary:dict success:^(id responseObject) {
-        
+     //   MyLog(@"________%@+++++",responseObject);
         NSArray *dataArr = responseObject[@"data"][@"rows"];
+       
         NSMutableArray *analysArr = [NSMutableArray array];
         for (NSDictionary *dict in dataArr) {
             CMPurchaseProduct *analys = [CMPurchaseProduct yy_modelWithDictionary:dict];
@@ -58,7 +59,22 @@
     }];
     
 }
-
++ (void)cm_applyFetchProductDetailsCollectWithType:(NSInteger)type andProductID:(NSInteger)producID success:(void (^)(id isSuccess))success fail:(void (^)(NSError *))fail{
+    
+    NSDictionary *dict = @{
+                           @"type":CMNumberWithFormat(type),
+                           @"hyid":[CMAccountTool sharedCMAccountTool].currentAccount.userId,
+                           @"cpid":CMNumberWithFormat(producID),
+                           };
+    NSLog(@"collect+++%@",dict);
+    [CMRequestAPI postTradeFromURLScheme:kCMProductCollectCreateURL argumentsDictionary:dict success:^(id responseObject) {
+         
+        success(responseObject);
+    } fail:^(NSError *error) {
+        fail(error);
+    }];
+    
+}
 @end
 
 

@@ -132,7 +132,7 @@
         [tableCell cm_functionTileLabNameStr:_titLabNameArr[indexPath.row-1]
                               titleImageName:_titImageArr[indexPath.row - 1]];
         
-        if (indexPath.row == 5) {
+        if (indexPath.row == 3) {
             tableCell.tradeImage.hidden = NO;
         } else {
             tableCell.tradeImage.hidden = YES;
@@ -159,7 +159,7 @@
 //            
 //        }
         
-        
+    
         tableCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         return tableCell;
     }

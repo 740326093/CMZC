@@ -20,6 +20,11 @@
 - (void)cm_optionCollectionCellTitleImageName:(NSString *)titleName nameLabStr:(NSString *)nameStr {
     _titleImage.image = [UIImage imageNamed:titleName];
     _nameLab.text = nameStr;
+    [_titleImage mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(_titleImage.image.size.height);
+        make.width.mas_equalTo(_titleImage.image.size.width);
+        make.centerX.equalTo(self);
+    }];
 }
 
 @end

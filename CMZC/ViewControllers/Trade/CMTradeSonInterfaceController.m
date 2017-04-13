@@ -175,13 +175,19 @@ static NSString *const inquireIdentifer = @"CMInquireCollectionViewCell";
         switch (indexPath.row) {
             case 0:
             {
-                UIWindow *window = [UIApplication sharedApplication].windows.firstObject;
-                CMTabBarViewController *tab = (CMTabBarViewController *)window.rootViewController;
-                if (tab.selectedIndex == 2) {
-                    tab.selectedIndex = 3;
-                } else {
-                    [self.navigationController popViewControllerAnimated:YES];
-                }
+//                UIWindow *window = [UIApplication sharedApplication].windows.firstObject;
+//                CMTabBarViewController *tab = (CMTabBarViewController *)window.rootViewController;
+//                if (tab.selectedIndex == 2) {
+//                    tab.selectedIndex = 3;
+//                } else {
+//                    [self.navigationController popViewControllerAnimated:YES];
+//                }
+                
+                CMCommWebViewController *commWebVC = (CMCommWebViewController *)[[UIStoryboard mainStoryboard] viewControllerWithId:@"CMCommWebViewController"];
+                commWebVC.urlStr = CMStringWithPickFormat(kCMMZWeb_url, [NSString stringWithFormat:@"Account/CapitalRecords"]);
+                [self.navigationController pushViewController:commWebVC animated:YES];
+                
+               
             }
                 break;
             case 1:

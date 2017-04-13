@@ -463,6 +463,16 @@
     webVC.urlStr = liveUrl;
     [self.navigationController pushViewController:webVC animated:YES];
 }
+
+-(void)cm_checkImmediatelySubscribeEventWithPid:(NSInteger)productID{
+    
+    CMCommWebViewController *webVC = (CMCommWebViewController *)[CMCommWebViewController initByStoryboard];
+    webVC.urlStr = [NSString stringWithFormat:@"%@Invest/Confirm?pid=%ld",kCMMZWeb_url,productID];
+    [self.navigationController pushViewController:webVC animated:YES];
+}
+
+
+
 #pragma mark - CMOptionTableViewCellDelegate 
 //四个选项
 - (void)cm_optionTableViewCellButTag:(NSInteger)btTag {

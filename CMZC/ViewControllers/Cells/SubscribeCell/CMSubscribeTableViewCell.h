@@ -14,7 +14,7 @@
 @protocol CMSubscribeTableViewCellDelegate <NSObject>
 
 - (void)cm_checkRoadshowLiveUrl:(NSString *)liveUrl;
-
+-(void)cm_checkImmediatelySubscribeEventWithPid:(NSInteger)productID;
 @end
 
 

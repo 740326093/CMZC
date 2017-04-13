@@ -17,7 +17,7 @@
 #import "SDWebImageManager.h"
 #import "UIImageView+WebCache.h"
 #import "MJRefresh.h"
-#import "YYModel.h"
+#import <YYModel.h>
 #import "CYLTableViewPlaceHolder.h"
 #import <Masonry.h>
 #import <FMDB.h>
@@ -40,4 +40,5 @@
 #import "CMBaseViewController.h"
 #import "CMBulletinViewController.h"
 #import "TitleView.h"
+#import "CMApp_Header.h"
 #endif /* CMImportHeader_h */

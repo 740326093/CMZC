@@ -143,7 +143,12 @@
     webVC.urlStr = liveUrl;
     [self.navigationController pushViewController:webVC animated:YES];
 }
-
+-(void)cm_checkImmediatelySubscribeEventWithPid:(NSInteger)productID{
+    
+    CMCommWebViewController *webVC = (CMCommWebViewController *)[CMCommWebViewController initByStoryboard];
+    webVC.urlStr = [NSString stringWithFormat:@"%@Invest/Confirm?pid=%ld",kCMMZWeb_url,productID];
+    [self.navigationController pushViewController:webVC animated:YES];
+}
 
 #pragma mark - strGet
 //初始化tab的头

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="Frg-RQ-I4f" customClass="CMAboutFootView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="250"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="微信公众号 : xinjingban" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1jX-fs-zDl">
+                    <rect key="frame" x="0.0" y="15" width="375" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="20" id="Ttl-A2-89T"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" red="0.23137254901960785" green="0.23137254901960785" blue="0.22352941176470587" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="weiChatQR" translatesAutoresizingMaskIntoConstraints="NO" id="Kyw-9R-xGq">
+                    <rect key="frame" x="117.5" y="45" width="140" height="140"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="140" id="iox-aO-go9"/>
+                        <constraint firstAttribute="width" constant="140" id="weT-4w-pzh"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="扫码了解更多" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LjT-VS-FDE">
+                    <rect key="frame" x="0.0" y="195" width="375" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="20" id="5m2-MY-0BU"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" red="0.23137254901960785" green="0.23137254901960785" blue="0.22352941176470587" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="1jX-fs-zDl" firstAttribute="leading" secondItem="Frg-RQ-I4f" secondAttribute="leading" id="AqN-Wp-7Kw"/>
+                <constraint firstItem="LjT-VS-FDE" firstAttribute="top" secondItem="Kyw-9R-xGq" secondAttribute="bottom" constant="10" id="PRL-a2-A6S"/>
+                <constraint firstItem="Kyw-9R-xGq" firstAttribute="top" secondItem="1jX-fs-zDl" secondAttribute="bottom" constant="10" id="bWj-aQ-xad"/>
+                <constraint firstAttribute="trailing" secondItem="1jX-fs-zDl" secondAttribute="trailing" id="dBT-xw-tK6"/>
+                <constraint firstItem="LjT-VS-FDE" firstAttribute="leading" secondItem="Frg-RQ-I4f" secondAttribute="leading" id="ggL-pz-iwY"/>
+                <constraint firstAttribute="trailing" secondItem="LjT-VS-FDE" secondAttribute="trailing" id="n9y-ct-f32"/>
+                <constraint firstItem="1jX-fs-zDl" firstAttribute="top" secondItem="Frg-RQ-I4f" secondAttribute="top" constant="15" id="oxx-IX-OJO"/>
+                <constraint firstItem="Kyw-9R-xGq" firstAttribute="centerX" secondItem="1jX-fs-zDl" secondAttribute="centerX" id="vMj-e4-Un7"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="209.5" y="159"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="weiChatQR" width="140" height="140"/>
+    </resources>
+</document>

@@ -15,4 +15,5 @@
 @property (nonatomic,copy) NSString *contentStr; //n内容
 @property (nonatomic,strong) id ShareImageName; //n内容
 - (void)remove;
+@property (nonatomic,strong) CMBaseViewController *controller; //n内容
 @end

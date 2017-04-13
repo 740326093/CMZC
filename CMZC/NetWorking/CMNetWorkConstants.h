@@ -299,7 +299,10 @@ extern NSString *const kCMProductCreateproductTopic;
  */
 extern NSString *const kCMProductReplyCreateURL;
 
-
+/**
+ *  申购产品收藏
+ */
+extern NSString *const kCMProductCollectCreateURL;
 
 
 

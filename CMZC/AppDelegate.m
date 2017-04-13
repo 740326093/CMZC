@@ -309,7 +309,14 @@
     //Optional
     NSLog(@"did Fail To Register For Remote Notifications With 《，Error: %@", error);
 }
-
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    BOOL result = [[UMSocialManager defaultManager] handleOpenURL:url];
+    if (result == FALSE) {
+        //调用其他SDK，例如支付宝SDK等
+    }
+    return result;
+}
 - (void)networkDidReceiveMessage:(NSNotification *)notification {
     
     

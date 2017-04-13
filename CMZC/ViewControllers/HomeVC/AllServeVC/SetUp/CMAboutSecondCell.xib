@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="CMAboutSecondCell" id="KGk-i7-Jjw" customClass="CMAboutSecondCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="150"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="149.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="客户服务" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3NP-hJ-pXM">
+                        <rect key="frame" x="18" y="18" width="294" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="y9z-kk-nfb"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="免费电话 : 400-999-3972 ( 免长途费 )" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ozK-vi-gPQ">
+                        <rect key="frame" x="28" y="58" width="284" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="Idh-Ar-vhM"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="工作日 :  8:30-18:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YI4-AE-mop">
+                        <rect key="frame" x="88" y="78" width="224" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="3aP-i5-lgk"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="客服邮箱 :  kf@58cm.com" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UXF-7D-gvu">
+                        <rect key="frame" x="28" y="103" width="284" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="Tgl-Yg-kgB"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="UXF-7D-gvu" firstAttribute="top" secondItem="ozK-vi-gPQ" secondAttribute="bottom" constant="25" id="8mr-k5-PZa"/>
+                    <constraint firstItem="UXF-7D-gvu" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="20" id="GZP-Gz-kS8"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="ozK-vi-gPQ" secondAttribute="trailing" id="Mrb-m8-82d"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="UXF-7D-gvu" secondAttribute="trailing" id="MtA-so-Woi"/>
+                    <constraint firstItem="YI4-AE-mop" firstAttribute="top" secondItem="ozK-vi-gPQ" secondAttribute="bottom" id="NGB-vM-gC5"/>
+                    <constraint firstItem="3NP-hJ-pXM" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="10" id="QQC-eo-CZA"/>
+                    <constraint firstItem="ozK-vi-gPQ" firstAttribute="top" secondItem="3NP-hJ-pXM" secondAttribute="bottom" constant="20" id="XxI-Tu-Y5l"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="3NP-hJ-pXM" secondAttribute="trailing" id="ZO6-TR-bUq"/>
+                    <constraint firstItem="3NP-hJ-pXM" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="10" id="gPd-WQ-CZa"/>
+                    <constraint firstItem="ozK-vi-gPQ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="20" id="rAf-jv-arO"/>
+                    <constraint firstItem="YI4-AE-mop" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="80" id="w8U-Mi-Kge"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="YI4-AE-mop" secondAttribute="trailing" id="wuG-0R-rTi"/>
+                </constraints>
+            </tableViewCellContentView>
+        </tableViewCell>
+    </objects>
+</document>

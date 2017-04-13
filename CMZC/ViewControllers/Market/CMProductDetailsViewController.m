@@ -743,7 +743,8 @@
     shareView.center = window.center;
     shareView.frame = CGRectMake(0, 0, CGRectGetWidth(window.frame), CGRectGetHeight(window.frame));
     shareView.contentUrl = CMStringWithPickFormat(kCMMZWeb_url, CMStringWithPickFormat(@"/Products/Detail?pcode=",self.codeName));
-   shareView.titleConten = CMStringWithPickFormat(_versionPatch, @",100%安全投资，优质好项目10倍收益赚不停");
+    shareView.titleConten = CMStringWithPickFormat(_versionPatch, @",100%安全投资，优质好项目10倍收益赚不停");
+    shareView.controller=self;
     NSString *content = [NSString stringWithFormat:@"预期收益%@(包含保底年收益%@+浮动)%@,具有多倍增值空间--新经版，只赚不赔的10倍原始股",_earnings,_guaranteed,_versionPatch];
   shareView.contentStr = CMStringWithPickFormat(@"100%安全和新经板，只赚不赔的10原始股是固定的",content);
     shareView.ShareImageName=[UIImage imageNamed:@"share_image"];

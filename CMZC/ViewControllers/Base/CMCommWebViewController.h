@@ -9,7 +9,9 @@
 #import "CMBaseViewController.h"
 #import "CMPurchaseProduct.h"
 #import "CMJSProtocol.h"
-@interface CMCommWebViewController : CMBaseViewController
+#import "CMProductDetailBottomView.h"
+#import "CMConsultingAlertView.h"
+@interface CMCommWebViewController : CMBaseViewController<CMProductDetailBottomViewDelegate>
 
 @property (nonatomic,copy) NSString *urlStr;
 @property(nonatomic,strong)CMPurchaseProduct  *PurchaseProduct;

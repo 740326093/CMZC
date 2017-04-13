@@ -22,11 +22,12 @@
 @property (weak, nonatomic) IBOutlet UILabel *leadInvestorNameLab; //领头人
 @property (weak, nonatomic) IBOutlet UILabel *incomeLab; //预期收益
 @property (weak, nonatomic) IBOutlet UILabel *openingDeadlineLab; //期限年份
-@property (weak, nonatomic) IBOutlet UIView *applyView; //背景
-@property (weak, nonatomic) IBOutlet UILabel *applyLab;
+//@property (weak, nonatomic) IBOutlet UIView *applyView; //背景
+//@property (weak, nonatomic) IBOutlet UILabel *applyLab;
 @property (weak, nonatomic) IBOutlet UILabel *littleTimeLab; //剩余时间
 @property (weak, nonatomic) IBOutlet UIButton *liveBtn; //路演直播
 @property (weak, nonatomic) IBOutlet UILabel *jyCodeLab;
+@property (weak, nonatomic) IBOutlet UIButton *applyBtn;
 
 
 @end
@@ -37,8 +38,8 @@
 - (void)awakeFromNib {
      [super awakeFromNib];
     
-    _applyView.layer.masksToBounds = YES;
-    _applyView.layer.cornerRadius = 5.0f;
+    _applyBtn.layer.masksToBounds = YES;
+    _applyBtn.layer.cornerRadius = 5.0f;
 }
 
 - (void)setProduct:(CMPurchaseProduct *)product {
@@ -59,19 +60,23 @@
     NSString * incomeString = [product.income substringToIndex:product.income.length-1];
     _incomeLab.text = incomeString;
     _openingDeadlineLab.text = [NSString stringWithFormat:@"%@可转让",product.deadline];
-    _applyLab.text = product.status;
-   
+ 
+    [_applyBtn setTitle:product.status forState:UIControlStateNormal];
     if (product.isNextPage) {
         //_applyLab.textColor = [UIColor whiteColor];
         if ([product.status isEqualToString:@"立即申购"]) {
-            _applyView.backgroundColor = [UIColor cmThemeOrange];
+            
+            [_applyBtn setBackgroundColor:[UIColor clmHex:0xff6400]];
+            [_applyBtn addTarget:self action:@selector(subscribeEventClcik) forControlEvents:UIControlEventTouchUpInside];
+            
         } else {
-            _applyView.backgroundColor = [UIColor cmThemeCheng];
+           
+            [_applyBtn setBackgroundColor:[UIColor clmHex:0xff6400]];
         }
         
     } else {
-        _applyView.backgroundColor = [UIColor cmBackgroundGrey];
-       // _applyLab.textColor = [UIColor cmBlockColor];
+       
+        [_applyBtn setBackgroundColor:[UIColor clmHex:0xcccccc]];
     }
     
     self.littleTimeLab.text = product.littleTime;
@@ -84,11 +89,19 @@
 }
 //直播
 - (IBAction)liveLock:(UIButton *)sender {
+  
     if ([self.delegate respondsToSelector:@selector(cm_checkRoadshowLiveUrl:)]) {
         [self.delegate cm_checkRoadshowLiveUrl:_product.liveVideoUrl];
     }
+    
 }
-
+//立即申购
+-(void)subscribeEventClcik{
+    if ([self.delegate respondsToSelector:@selector(cm_checkImmediatelySubscribeEventWithPid:)]) {
+        [self.delegate cm_checkImmediatelySubscribeEventWithPid:_product.productId];
+    }
+    
+}
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

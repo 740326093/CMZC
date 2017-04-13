@@ -6,19 +6,21 @@
 //  Copyright © 2016年 郑浩然. All rights reserved.
 //
 
+  #define kCM_URL @"https://api.xinjingban.com:443/" //线上正式api
+  //#define kCM_URL @"http://192.168.1.225:9000/" //本地测试api
 
-
-
-#define kCM_URL @"https://api.xinjingban.com:443/" //线上正式
-
-#define Test_URL @"http://192.168.1.49:9000/" //本地
-NSString *const kWebSocket_url = @"ws://api.xinjingban.com:80/";// webscoke线上 测试
+  #define kCMWeb_URL @"http://m.xinjingban.com/" //线上M站地址
+ //#define kCMWeb_URL @"http://192.168.1.225:8886/" //线上M站地址
+ #define Test_URL @"http://192.168.1.49:9000/" //本地
 
 // m站地址
 //NSString *const kCMMZWeb_url = @"http://mz.58cm.com/";
-//新的地址 m站地址
-NSString *const kCMMZWeb_url = @"http://m.xinjingban.com/"; //m站线上地址
+//NSString *const kCMMZWeb_url = @"http://192.168.1.225:8886/";
 //NSString *const kCMMZWeb_url = @"http://testing.xinjingban.com/";//测试
+
+//新的地址 m站地址
+NSString *const kCMMZWeb_url = kCMWeb_URL; //m站线上地址
+NSString *const kWebSocket_url = @"ws://api.xinjingban.com:80/";// webscoke线上 测试
 NSString *const kCMDefaultHeadPortrait = @"tupian.jpg";
 
 // 线上地址 http://zcapi.xinjingban.com
@@ -159,7 +161,8 @@ NSString *const kCMProductCreateproductTopic = @"/api/topic/createproducttopic";
 //回复列表
 NSString *const kCMProductReplyCreateURL = @"/api/reply/create";
 
-
+//申购产品收藏
+NSString *const kCMProductCollectCreateURL=@"/api/product/collect";
 
 
 

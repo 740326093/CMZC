@@ -142,6 +142,8 @@
 			</dict>
 			<key>sina.cn</key>
 			<dict>
+                <key>NSExceptionMinimumTLSVersion</key>
+                <string>TLSv1.0</string>
 				<key>NSIncludesSubdomains</key>
 				<true/>
 				<key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
@@ -185,6 +187,8 @@
 			</dict>
 			<key>weibo.cn</key>
 			<dict>
+                <key>NSExceptionMinimumTLSVersion</key>
+                <string>TLSv1.0</string>
 				<key>NSIncludesSubdomains</key>
 				<true/>
 				<key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
@@ -192,6 +196,8 @@
 			</dict>
 			<key>weibo.com</key>
 			<dict>
+                <key>NSExceptionMinimumTLSVersion</key>
+                <string>TLSv1.0</string>
 				<key>NSIncludesSubdomains</key>
 				<true/>
 				<key>NSThirdPartyExceptionAllowsInsecureHTTPLoads</key>

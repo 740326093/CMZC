@@ -301,7 +301,10 @@
                            @"pcode":pcode,
                            @"content":content
                            };
+  
     [CMRequestAPI postTradeFromURLScheme:kCMProductCreateproductTopic argumentsDictionary:dict success:^(id responseObject) {
+        
+          MyLog(@"pcode+++%@++%@",dict,responseObject);
         success(YES);
     } fail:^(NSError *error) {
         fail(error);

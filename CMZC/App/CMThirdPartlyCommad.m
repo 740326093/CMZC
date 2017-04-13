@@ -80,15 +80,26 @@ singleton_implementation(CMThirdPartlyCommad)
 
 +(void)umsocialData{
     
-    [UMSocialData setAppKey:kUMSocial_Appkey];
+    [[UMSocialManager defaultManager]openLog:YES];
+  [[UMSocialManager defaultManager] setUmSocialAppkey:kUMSocial_Appkey];
+    //  [UMSocialData setAppKey:kUMSocial_Appkey];
     //设置分享到QQ/Qzone的应用Id，和分享url 链接
-    [UMSocialQQHandler setQQWithAppId:kUMSocial_QQAppId appKey:kUMSocail_QQAppKey url:kUMSocial_url];
+  [[UMSocialManager defaultManager]setPlaform:UMSocialPlatformType_QQ appKey:kUMSocial_QQAppId appSecret:kUMSocail_QQAppKey redirectURL:kUMSocial_url];
+     [[UMSocialManager defaultManager]setPlaform:UMSocialPlatformType_Qzone appKey:kUMSocial_QQAppId appSecret:kUMSocail_QQAppKey redirectURL:kUMSocial_url];
+ //[UMSocialQQHandler setQQWithAppId:kUMSocial_QQAppId appKey:kUMSocail_QQAppKey url:kUMSocial_url];
+    
+    
     //设置微信AppId、appSecret，分享url
-    [UMSocialWechatHandler setWXAppId:kUMSocial_WechatId appSecret:kUMSocial_wechatSecret url:kUMSocial_url];
+//[UMSocialWechatHandler setWXAppId:kUMSocial_WechatId appSecret:kUMSocial_wechatSecret url:kUMSocial_url];
+     [[UMSocialManager defaultManager]setPlaform:UMSocialPlatformType_WechatSession  appKey:kUMSocial_WechatId appSecret:kUMSocial_wechatSecret redirectURL:kUMSocial_url];
+    [[UMSocialManager defaultManager]setPlaform:UMSocialPlatformType_WechatTimeLine  appKey:kUMSocial_WechatId appSecret:kUMSocial_wechatSecret redirectURL:kUMSocial_url];
+//    
     //第一个参数为新浪appkey,第二个参数为新浪secret，第三个参数是新浪微博回调地址，这里必须要和你在新浪微博后台设置的回调地址一致。
-    [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:kUMSocial_sinaAppKey
-                                              secret:kUMSocial_sinaAppSecret
-                                         RedirectURL:kUMSocial_url];
+  // [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:kUMSocial_sinaAppKey
+                              //                secret:kUMSocial_sinaAppSecret
+                               //   RedirectURL:kUMSocial_url];
+  
+    [[UMSocialManager defaultManager]setPlaform:UMSocialPlatformType_Sina  appKey:kUMSocial_sinaAppKey appSecret:kUMSocial_sinaAppSecret redirectURL:kUMSocial_url];
 }
 
 

@@ -3,7 +3,7 @@ This application makes use of the following third party libraries:
 
 ## AFNetworking
 
-Copyright (c) 2011–2015 Alamofire Software Foundation (http://alamofire.org/)
+Copyright (c) 2011–2016 Alamofire Software Foundation (http://alamofire.org/)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -128,6 +128,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 
+## JCore
+
+Copyright jpush.cn
+
+## JPush
+
+Copyright jpush.cn
+
 ## MBProgressHUD
 
 Copyright (c) 2009-2015 Matej Bukovinski
@@ -221,7 +229,7 @@ THE SOFTWARE.
 
 ## SDWebImage
 
-Copyright (c) 2009 Olivier Poitrey <rs@dailymotion.com>
+Copyright (c) 2016 Olivier Poitrey rs@dailymotion.com
  
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -262,9 +270,9 @@ THE SOFTWARE.
 
 
 
-## UMengSocial
+## UMengUShare
 
-Copyright 2011 - 2016 UMeng.com. All rights reserved.
+Copyright 2011 - 2017 UMeng.com. All rights reserved.
 
 
 ## YYModel

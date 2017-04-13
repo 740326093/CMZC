@@ -27,4 +27,13 @@
                                          success:(void(^)(CMProductDetails *listArr))success
                                             fail:(void(^)(NSError *error))fail;
 
+
+/**
+ *  获得申购产品收藏
+ *
+ *  @param type    0 查询是否收藏 1 收藏 2取消收藏
+ *  @param hyid    会员编码
+    @param cpid    产品编码
+ */
++ (void)cm_applyFetchProductDetailsCollectWithType:(NSInteger)type andProductID:(NSInteger)producID success:(void (^)(id isSuccess))success fail:(void (^)(NSError *))fail;
 @end

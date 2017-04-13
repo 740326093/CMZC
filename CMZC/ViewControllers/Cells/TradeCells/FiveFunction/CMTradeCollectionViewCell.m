@@ -25,6 +25,11 @@
     _nameLab.text = name;
     _introduceLab.text = introduce;
     _titleImage.image = [UIImage imageNamed:titImage];
+    [_titleImage mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(_titleImage.image.size.height);
+        make.width.mas_equalTo(_titleImage.image.size.width);
+        make.centerY.equalTo(self);
+    }];
 }
 
 
