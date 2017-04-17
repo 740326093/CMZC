@@ -14,14 +14,47 @@
 
 @implementation CMRequestAPI (Product)
 
-+ (void)cm_applyFetchProductListOnPageIndex:(NSInteger)page pageSize:(NSInteger)size success:(void (^)(NSArray *, BOOL))success fail:(void (^)(NSError *))fail {
++ (void)cm_applyFetchProductListOnPageIndex:(NSInteger)page
+                                  pageSize:(NSInteger)size success:(void (^)(NSArray *, BOOL))success fail:(void (^)(NSError *))fail {
     NSDictionary *dict = @{
                            @"pageindex":CMNumberWithFormat(page),
                            @"pagesize":CMNumberWithFormat(size)
                            };
     
     [CMRequestAPI postDataFromURLScheme:kCMApplyListURL argumentsDictionary:dict success:^(id responseObject) {
-     //   MyLog(@"________%@+++++",responseObject);
+
+        NSArray *dataArr = responseObject[@"data"][@"rows"];
+        
+        NSMutableArray *analysArr = [NSMutableArray array];
+        for (NSDictionary *dict in dataArr) {
+            CMPurchaseProduct *analys = [CMPurchaseProduct yy_modelWithDictionary:dict];
+            [analysArr addObject:analys];
+        }
+        
+        BOOL isPage = NO;
+        if (page < [responseObject[@"data"][@"page"] integerValue]) {
+            isPage = YES;
+        }
+        success(analysArr,isPage);
+        
+    } fail:^(NSError *error) {
+        fail(error);
+    }];
+    
+}
+
+
+
+
++ (void)cm_applyFetchCollectProductListOnPageIndex:(NSInteger)page pageSize:(NSInteger)size isCollect:(NSInteger)collect success:(void (^)(NSArray *, BOOL))success fail:(void (^)(NSError *))fail {
+    NSDictionary *dict = @{
+                           @"pageindex":CMNumberWithFormat(page),
+                           @"pagesize":CMNumberWithFormat(size),
+                           @"collect":CMNumberWithFormat(collect)
+                           };
+    
+    [CMRequestAPI postTradeFromURLScheme:kCMApplyListURL argumentsDictionary:dict success:^(id responseObject) {
+  // MyLog(@"________%@+++++",responseObject);
         NSArray *dataArr = responseObject[@"data"][@"rows"];
        
         NSMutableArray *analysArr = [NSMutableArray array];
@@ -48,6 +81,7 @@
     
     NSString *str = [NSString stringWithFormat:@"%@/%ld",kCMProductDetailsURL,(long)productId];
     [CMRequestAPI postDataFromURLScheme:str argumentsDictionary:dict success:^(id responseObject) {
+        
         CMProductDetails *details ;
         if ([responseObject[@"errcode"] integerValue] == 0) {
             NSDictionary *dict = responseObject[@"data"];
@@ -63,12 +97,11 @@
     
     NSDictionary *dict = @{
                            @"type":CMNumberWithFormat(type),
-                           @"hyid":[CMAccountTool sharedCMAccountTool].currentAccount.userId,
+                         //  @"hyid":[CMAccountTool sharedCMAccountTool].currentAccount.userId,
                            @"cpid":CMNumberWithFormat(producID),
                            };
-    NSLog(@"collect+++%@",dict);
+   
     [CMRequestAPI postTradeFromURLScheme:kCMProductCollectCreateURL argumentsDictionary:dict success:^(id responseObject) {
-         
         success(responseObject);
     } fail:^(NSError *error) {
         fail(error);

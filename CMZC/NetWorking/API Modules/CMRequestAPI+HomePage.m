@@ -95,6 +95,7 @@
     
     
     [CMRequestAPI postDataFromURLScheme:kCMAnalysListURL argumentsDictionary:arguments success:^(id responseObject) {
+        MyLog(@"CMRequestAPI+++___%@+++",responseObject);
         NSArray *dataArr = responseObject[@"data"][@"rows"];
         NSMutableArray *analysArr = [NSMutableArray array];
         for (NSDictionary *dict in dataArr) {

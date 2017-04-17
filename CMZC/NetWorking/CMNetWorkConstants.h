@@ -23,10 +23,8 @@ extern NSString *const kWebSocket_url;
  */
 extern NSString *const kCMMZWeb_url;
 
-/**
- *  默认头像地址
- */
-extern NSString *const kCMDefaultHeadPortrait;
+
+
 //公共请求部分
 extern NSString *const kCMBaseApiURL;
 

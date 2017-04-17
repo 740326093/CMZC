@@ -10,13 +10,12 @@
 
 @implementation CMJSProtocol
 
--(void)showShareView{
-    
-    [self.delegate showShareView];
-}
-- (void)share:(NSString *)title describeContent:(NSString *)content interlnkageSite:(NSString *)siteUrl pictureStie:(NSString *)pictureUrl {
-    [self.delegate share:title describeContent:content interlnkageSite:siteUrl pictureStie:pictureUrl];
-}
 
+
+- (void)share:(NSString *)key{
+   
+     [self.delegate share:key];
+    
+}
 
 @end

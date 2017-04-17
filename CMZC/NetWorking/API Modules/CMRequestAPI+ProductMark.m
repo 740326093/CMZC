@@ -240,6 +240,7 @@
                            @"pageindex":CMNumberWithFormat(page)
                            };
     [CMRequestAPI postDataFromURLScheme:kCMProductNoticeURL argumentsDictionary:dict success:^(id responseObject) {
+       // MyLog(@"信息披露+++%@",responseObject);
         NSArray *dataArr = responseObject[@"data"][@"rows"];
         NSMutableArray *comArr = [NSMutableArray array];
         for (NSDictionary *dict in dataArr) {
@@ -304,7 +305,22 @@
   
     [CMRequestAPI postTradeFromURLScheme:kCMProductCreateproductTopic argumentsDictionary:dict success:^(id responseObject) {
         
-          MyLog(@"pcode+++%@++%@",dict,responseObject);
+    
+        success(YES);
+    } fail:^(NSError *error) {
+        fail(error);
+    }];
+    
+}
++ (void)cm_marketFetchCreateDetailProductPcode:(NSString *)pcode content:(NSString *)content success:(void (^)(BOOL))success fail:(void (^)(NSError *))fail {
+    NSDictionary *dict = @{
+                           @"productid":pcode,
+                           @"content":content
+                           };
+    
+    [CMRequestAPI postTradeFromURLScheme:kCMProductCreateproductTopic argumentsDictionary:dict success:^(id responseObject) {
+        
+        
         success(YES);
     } fail:^(NSError *error) {
         fail(error);

@@ -102,7 +102,7 @@
        // [_subscribeStateBtn setTitle:@"申购结束" forState:UIControlStateNormal];
        [_subscribeStateBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_subscribeStateBtn setBackgroundColor:[UIColor cmThemeOrange]];
-        _subscribeStateBtn.titleLabel.font=[UIFont systemFontOfSize:14.0];
+        _subscribeStateBtn.titleLabel.font=[UIFont systemFontOfSize:18.0];
        _subscribeStateBtn.tag=13;
        
     }
@@ -136,13 +136,13 @@
                                 [alert show];
 
               [self.collectBtn setImage:[UIImage imageNamed:@"collect"] forState:UIControlStateNormal];
-                 // [self cancleCollectOrCollectWithType:2];
+               [self cancleCollectOrCollectWithType:2];
 
             }else{ //未收藏
                 [self.collectBtn setImage:[UIImage imageNamed:@"collect_select"] forState:UIControlStateNormal];
                 UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"提示" message:@"收藏成功" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
                                   [alert show];
-               // [self cancleCollectOrCollectWithType:1];
+              [self cancleCollectOrCollectWithType:1];
                 
             }
                  self.collectBtn.selected=!self.collectBtn.selected;
@@ -165,35 +165,38 @@
     
     
 }
--(void)setProduct:(CMPurchaseProduct *)product{
-    _product=product;
-    [self.subscribeStateBtn setTitle:product.status forState:UIControlStateNormal];
-    if (product.isNextPage) {
-        if ([product.status isEqualToString:@"立即申购"]) {
-            [self.subscribeStateBtn setBackgroundColor:[UIColor clmHex:0xff6400]];
-             [self.subscribeStateBtn addTarget:self action:@selector(productDetailbtnClickEvent:) forControlEvents:UIControlEventTouchUpInside];
-        } else {        [self.subscribeStateBtn setBackgroundColor:[UIColor clmHex:0xff6400]];
-        }
 
-        
-    } else {
+-(void)setProductDetails:(CMProductDetails *)ProductDetails{
+    _ProductDetails =ProductDetails;
+    [self.subscribeStateBtn setTitle:ProductDetails.status forState:UIControlStateNormal];
+
+        if ([ProductDetails.status isEqualToString:@"立即申购"]) {
+            [self.subscribeStateBtn setBackgroundColor:[UIColor clmHex:0xff6400]];
+            [self.subscribeStateBtn addTarget:self action:@selector(productDetailbtnClickEvent:) forControlEvents:UIControlEventTouchUpInside];
+        } else if([ProductDetails.status isEqualToString:@"路演中"])
+        {        [self.subscribeStateBtn setBackgroundColor:[UIColor clmHex:0xff6400]];
+        }else {
         [self.subscribeStateBtn setBackgroundColor:[UIColor clmHex:0xcccccc]];
     }
-   // [self cheackIsCollectWithProductID:product.productId];
-  
-      //[self.collectBtn setImage:[UIImage imageNamed:@"collect_select"] forState:UIControlStateNormal];
-  //self.collectBtn.selected=YES;
+       
+    [self cheackIsCollectWithProductID:ProductDetails.productId];
     
+
 }
+
 
 #pragma mark 判断是否收藏
 -(void)cheackIsCollectWithProductID:(NSInteger)prodctID{
     if (CMIsLogin()) {
         [CMRequestAPI cm_applyFetchProductDetailsCollectWithType:0 andProductID:prodctID success:^(id isSuccess) {
             
-            NSLog(@"collect+++%@",isSuccess);
-            
-            
+           
+            if ([[isSuccess objectForKey:@"errmsg"]isEqualToString:@"已收藏"]) {
+                
+                        [self.collectBtn setImage:[UIImage imageNamed:@"collect_select"] forState:UIControlStateNormal];
+                        self.collectBtn.selected=YES;
+            }
+          
         } fail:^(NSError *error) {
             
         }];
@@ -202,15 +205,18 @@
 }
 -(void)cancleCollectOrCollectWithType:(NSInteger)type{
     
-    [CMRequestAPI cm_applyFetchProductDetailsCollectWithType:type andProductID:_product.productId success:^(id isSuccess) {
+    [CMRequestAPI cm_applyFetchProductDetailsCollectWithType:type andProductID:_ProductDetails.productId success:^(id isSuccess) {
         
-        NSLog(@"取消或者收藏+++%@",isSuccess);
-        
+        MyLog(@"取消或者收藏+++%@",[isSuccess objectForKey:@"errmsg"]);
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"cancleCollectOrCollect" object:self];
         
     } fail:^(NSError *error) {
         
     }];
     
 }
-
+-(void)dealloc{
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
+    
+}
 @end

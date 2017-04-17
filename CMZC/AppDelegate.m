@@ -56,6 +56,16 @@
     [self SetNavigationBar];
     
     [CMMessageDao createTable];
+    
+    UIWebView* tempWebView = [[UIWebView alloc] initWithFrame:CGRectZero];
+    NSString *oldAgent = [tempWebView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
+   // NSLog(@"old agent :%@", oldAgent);
+    //add my info to the new agent
+    NSString *newAgent  = [NSString stringWithFormat:@"%@ xjbapp",oldAgent];;
+    NSDictionary *dictionnary = [[NSDictionary alloc] initWithObjectsAndKeys:newAgent, @"UserAgent",nil];
+    [[NSUserDefaults standardUserDefaults] registerDefaults:dictionnary];
+   // NSLog(@"new agent :%@", newAgent);
+    
         return YES;
 }
 -(void)SetNavigationBar{

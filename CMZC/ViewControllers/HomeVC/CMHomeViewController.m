@@ -407,8 +407,8 @@
     } else if (indexPath.row > 3 && indexPath.row <=self.purchaseArr.count +3) { //申购详情
         CMPurchaseProduct *product = self.purchaseArr[indexPath.row-4];
         CMCommWebViewController *webVC = (CMCommWebViewController *)[CMCommWebViewController initByStoryboard];
-        webVC.PurchaseProduct=product;
-        webVC.urlStr = CMStringWithPickFormat(kCMMZWeb_url,CMStringWithPickFormat(@"/Products/Detail?pid=",CMStringWithFormat(product.productId)));
+        webVC.ProductId=product.productId;
+        webVC.urlStr = CMStringWithPickFormat(kCMMZWeb_url,CMStringWithPickFormat(@"Products/Detail?pid=",CMStringWithFormat(product.productId)));
         [self.navigationController pushViewController:webVC animated:YES];
     } else if (indexPath.row >= 5+self.purchaseArr.count) { // 最新动态
         CMNewShiModel *media = self.guanDianArr[indexPath.row- 5 - self.purchaseArr.count];

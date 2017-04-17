@@ -50,9 +50,22 @@
 }
 //充值
 - (IBAction)topUpBtnClick:(UIButton *)sender {
+    /*
     if ([self.delegate respondsToSelector:@selector(cm_tradeViewControllerRecharge:)]) {
         [self.delegate cm_tradeViewControllerRecharge:self];
     }
+    */
+    if (_tinfo.bankcardisexists) {
+        if ([self.delegate respondsToSelector:@selector(cm_tradeViewControllerRechargeEvent:)]) {
+            [self.delegate cm_tradeViewControllerRechargeEvent:CMTradeTitleViewTypeCertification];//方便演示，先传入认证过的
+        }
+    } else {
+        if ([self.delegate respondsToSelector:@selector(cm_tradeViewControllerRechargeEvent:)]) {
+            [self.delegate cm_tradeViewControllerRechargeEvent:CMTradeTitleViewTypeNotCertification];//方便演示，先传入认证过的
+        }
+    }
+    
+    
     
 }
 //登录

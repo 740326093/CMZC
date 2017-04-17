@@ -107,12 +107,8 @@
             _allServeCollectionView.frame = CGRectMake(0, 67, CMScreen_width(), CMScreen_height()-66);
         } else {
             _allServeCollectionView.frame = self.view.frame;
-        }
-        
-        
+        }   
         _allServeCollectionView.backgroundColor = [UIColor cmBackgroundGrey];
-       
-        
         _allServeCollectionView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
         _allServeCollectionView.dataSource = self;
         _allServeCollectionView.delegate = self;

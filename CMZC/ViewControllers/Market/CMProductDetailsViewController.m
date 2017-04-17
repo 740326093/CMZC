@@ -212,7 +212,7 @@
         MyLog(@"行情评论信息请求是吧");
     }];
 }
-//公告
+//信息披露
 - (void)requestAnnouncement {
     [CMRequestAPI cm_marketFetchProductNoticePCode:_codeName pageIndex:1 success:^(NSArray *noticeArr) {
         _commDataArr = noticeArr;
@@ -646,7 +646,16 @@
         
             break;
         case CMProductSelectTypeNounce: //信息披露
-            //[self cm_commentViewControllProductNotion:_commDataArr[indexPath.row]];
+           // [self cm_commentViewControllProductNotion:_commDataArr[indexPath.row]];
+        {
+          
+            CMCommWebViewController *webVC = (CMCommWebViewController *)[CMCommWebViewController initByStoryboard];
+    
+            CMProductNotion *notice=_commDataArr[indexPath.row];
+            webVC.urlStr=[NSString stringWithFormat:@"%@Account/MessageDetail?nid=%ld",kCMMZWeb_url,notice.notionId];
+            [self.navigationController pushViewController:webVC animated:YES];
+            
+        }
             break;
         case CMProductSelectTypeEnterprise: //公司概况
             
@@ -822,7 +831,9 @@
 - (void)cm_commentCellSkipBoundary {
 //#warning 这个先这样。到时候该
     CMCommWebViewController *webVC = (CMCommWebViewController *)[CMCommWebViewController initByStoryboard];
+    webVC.ProductId=[self.codeName integerValue];
     webVC.urlStr = CMStringWithPickFormat(kCMMZWeb_url, CMStringWithPickFormat(@"/Products/Detail?pcode=",self.codeName));
+    
 //    [NSString stringWithFormat:@"%@%d",@"http://192.168.1.15:8384/Products/Detail?pcode=",2010];
     [self.navigationController pushViewController:webVC animated:YES];
 }

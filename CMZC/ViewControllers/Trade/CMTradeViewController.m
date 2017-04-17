@@ -42,6 +42,7 @@
     _tradeTitleView = [CMTradeTitleView initByNibForClassName];
     _tradeTitleView.delegate = self;
     _curTableView.tableHeaderView = _tradeTitleView;
+    _curTableView.tableFooterView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, CMScreen_width(), 5)];
     
     _titLabNameArr = @[@"我的基金",@"安全认证",@"我的收藏",@"我的消息",@"新手交易指南",@"设置"];
     _titImageArr = @[@"funds_trade",@"bankCard_trade",@"collection_trade",@"message_trade",@"new_trade",@"set_trade"];
@@ -195,7 +196,11 @@
                 break;
                 
             case 3:{
-                [self pushCommWebViewVCUrlStr:CMStringWithPickFormat(kCMMZWeb_url, @"Account/collectList.aspx")];
+                //我的收藏
+               // [self pushCommWebViewVCUrlStr:CMStringWithPickFormat(kCMMZWeb_url, @"Account/collectList.aspx")];
+        
+                CMMyCollectController *collectController = (CMMyCollectController *)[CMMyCollectController initByStoryboard];
+               commonalityVC = collectController;
             }
                 break;
             case 4://我的消息
@@ -268,9 +273,34 @@
     
 }
 //充值
+/*
 - (void)cm_tradeViewControllerRecharge:(CMTradeTitleView *)titleView {
     [self pushCommWebViewVCUrlStr: CMStringWithPickFormat(kCMMZWeb_url, [NSString stringWithFormat:@"Account/Recharge"])];
 }
+ */
+//充值
+-(void)cm_tradeViewControllerRechargeEvent:(CMTradeTitleViewType)type{
+    
+    switch (type) {
+        case CMTradeTitleViewTypeCertification: //认证过
+        {
+              [self pushCommWebViewVCUrlStr: CMStringWithPickFormat(kCMMZWeb_url, [NSString stringWithFormat:@"Account/Recharge"])];
+        }
+            break;
+        case CMTradeTitleViewTypeNotCertification:  //没有认证过
+        {
+            UIAlertView *aler = [[UIAlertView alloc] initWithTitle:@"请先认证银行卡" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+            aler.tag = 2008;
+            [aler show];
+            
+        }
+            break;
+        default:
+            break;
+    }
+
+}
+
 - (void)pushCommWebViewVCUrlStr:(NSString *)url {
     CMCommWebViewController *commWebVC = (CMCommWebViewController *)[[UIStoryboard mainStoryboard] viewControllerWithId:@"CMCommWebViewController"];
     commWebVC.urlStr = url;

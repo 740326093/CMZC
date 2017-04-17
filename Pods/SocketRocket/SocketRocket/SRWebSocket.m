@@ -496,7 +496,7 @@ static __strong NSData *CRLFCRLF;
         }
     }];
 }
-
+#pragma clang diagnostic ignored "-Wunused-result"
 - (void)didConnect;
 {
     SRFastLog(@"Connected");

@@ -117,7 +117,7 @@
 //        } else {
     
             CMCommWebViewController *webVC = (CMCommWebViewController *)[CMCommWebViewController initByStoryboard];
-    webVC.PurchaseProduct=product;
+    webVC.ProductId=product.productId;
     webVC.urlStr = CMStringWithPickFormat(kCMMZWeb_url,CMStringWithPickFormat(@"/Products/Detail?pid=",CMStringWithFormat(product.productId)));
     
     //[NSString stringWithFormat:@"%@%ld",@"http://mz.58cm.com/Products/Detail?pid=",(long)product.productId];

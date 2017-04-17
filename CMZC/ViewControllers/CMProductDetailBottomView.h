@@ -14,12 +14,12 @@ typedef enum : NSInteger {
 } ProductDetailbtnType;
 
 #import <UIKit/UIKit.h>
-
+#import "CMProductDetails.h"
 @interface CMProductDetailBottomView : UIView
 @property(nonatomic,assign)ProductDetailbtnType type;
 @property(nonatomic,assign)id delegate;
 
-@property(nonatomic,strong)CMPurchaseProduct *product;
+@property(nonatomic,strong)CMProductDetails *ProductDetails;
 @property(nonatomic,strong)UIButton *collectBtn;//收藏
 
 @end

@@ -171,7 +171,15 @@
                                    success:(void(^)(BOOL isWin))success
                                       fail:(void(^)(NSError *error))fail;
 
-
+/**
+ 申购详情咨询发布话题
+ 
+ @param topicId 产品id
+ @param content 内容
+ @param success
+ @param fail
+ */
++ (void)cm_marketFetchCreateDetailProductPcode:(NSString *)pcode content:(NSString *)content success:(void (^)(BOOL))success fail:(void (^)(NSError *))fail;
 /**
  回复接口
 

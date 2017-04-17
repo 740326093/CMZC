@@ -69,6 +69,9 @@
 		04C7ABCA1E6A9572005252B6 /* add_img1-05@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04C7ABC21E6A9572005252B6 /* add_img1-05@3x.png */; };
 		04C7ABCD1E6AA44B005252B6 /* beilIBaoButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04C7ABCB1E6AA44B005252B6 /* beilIBaoButton@2x.png */; };
 		04C7ABCE1E6AA44B005252B6 /* beilIBaoButton@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04C7ABCC1E6AA44B005252B6 /* beilIBaoButton@3x.png */; };
+		04F6319C1EA06FE00032378C /* CMMyCollectController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F6319A1EA06FE00032378C /* CMMyCollectController.m */; };
+		04F631A21EA074D30032378C /* CMCollectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F631A01EA074D30032378C /* CMCollectCell.m */; };
+		04F631A61EA0B4780032378C /* CMNoCollectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F631A51EA0B4780032378C /* CMNoCollectView.m */; };
 		380004021D01899A00D79F3A /* CMMayRemove.m in Sources */ = {isa = PBXBuildFile; fileRef = 380004011D01899A00D79F3A /* CMMayRemove.m */; };
 		38081AB61E2089B000EA4E13 /* CMWebHtmlTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 38081AB41E2089B000EA4E13 /* CMWebHtmlTableViewCell.m */; };
 		38081AB71E2089B000EA4E13 /* CMWebHtmlTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38081AB51E2089B000EA4E13 /* CMWebHtmlTableViewCell.xib */; };
@@ -479,6 +482,7 @@
 		048C1B821E5EEA0000519896 /* CMNewShiView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMNewShiView.h; sourceTree = "<group>"; };
 		048C1B831E5EEA0000519896 /* CMNewShiView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMNewShiView.m; sourceTree = "<group>"; };
 		048C1B851E5EEF9B00519896 /* CMNewShiView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CMNewShiView.xib; sourceTree = "<group>"; };
+		049B4EE71EA4551A0053D5B7 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		04A863861E9791B300A47944 /* CMProductDetailBottomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMProductDetailBottomView.h; sourceTree = "<group>"; };
 		04A863871E9791B300A47944 /* CMProductDetailBottomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMProductDetailBottomView.m; sourceTree = "<group>"; };
 		04A8C1131E63ACF300061D09 /* CMImportHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMImportHeader.h; sourceTree = "<group>"; };
@@ -504,6 +508,12 @@
 		04C7ABC21E6A9572005252B6 /* add_img1-05@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add_img1-05@3x.png"; sourceTree = "<group>"; };
 		04C7ABCB1E6AA44B005252B6 /* beilIBaoButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "beilIBaoButton@2x.png"; sourceTree = "<group>"; };
 		04C7ABCC1E6AA44B005252B6 /* beilIBaoButton@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "beilIBaoButton@3x.png"; sourceTree = "<group>"; };
+		04F631991EA06FE00032378C /* CMMyCollectController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMMyCollectController.h; sourceTree = "<group>"; };
+		04F6319A1EA06FE00032378C /* CMMyCollectController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMMyCollectController.m; sourceTree = "<group>"; };
+		04F6319F1EA074D30032378C /* CMCollectCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMCollectCell.h; sourceTree = "<group>"; };
+		04F631A01EA074D30032378C /* CMCollectCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMCollectCell.m; sourceTree = "<group>"; };
+		04F631A41EA0B4780032378C /* CMNoCollectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMNoCollectView.h; sourceTree = "<group>"; };
+		04F631A51EA0B4780032378C /* CMNoCollectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMNoCollectView.m; sourceTree = "<group>"; };
 		380004001D01899A00D79F3A /* CMMayRemove.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMMayRemove.h; sourceTree = "<group>"; };
 		380004011D01899A00D79F3A /* CMMayRemove.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMMayRemove.m; sourceTree = "<group>"; };
 		38081AB31E2089B000EA4E13 /* CMWebHtmlTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMWebHtmlTableViewCell.h; sourceTree = "<group>"; };
@@ -1363,6 +1373,28 @@
 			name = "倍利宝图片";
 			sourceTree = "<group>";
 		};
+		04F631981EA06F9E0032378C /* 我的收藏 */ = {
+			isa = PBXGroup;
+			children = (
+				04F631991EA06FE00032378C /* CMMyCollectController.h */,
+				04F6319A1EA06FE00032378C /* CMMyCollectController.m */,
+				04F6319E1EA0749E0032378C /* view */,
+			);
+			name = "我的收藏";
+			path = Subscribe;
+			sourceTree = "<group>";
+		};
+		04F6319E1EA0749E0032378C /* view */ = {
+			isa = PBXGroup;
+			children = (
+				04F6319F1EA074D30032378C /* CMCollectCell.h */,
+				04F631A01EA074D30032378C /* CMCollectCell.m */,
+				04F631A41EA0B4780032378C /* CMNoCollectView.h */,
+				04F631A51EA0B4780032378C /* CMNoCollectView.m */,
+			);
+			name = view;
+			sourceTree = "<group>";
+		};
 		38081AB81E20D46300EA4E13 /* optionCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -1611,6 +1643,7 @@
 				38DB1BDE1C8598700069D289 /* Base */,
 				3854EA831C893BC30036DFB6 /* 首页 */,
 				3854EA861C893BC30036DFB6 /* LongeVC */,
+				04F631981EA06F9E0032378C /* 我的收藏 */,
 				38499B631C964406000C5763 /* 申购 */,
 			);
 			path = ViewControllers;
@@ -2442,6 +2475,7 @@
 		8E1778AE79EDAEEC7C517308 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				049B4EE71EA4551A0053D5B7 /* JavaScriptCore.framework */,
 				045AED491E57F7D3005495A3 /* libxml2.tbd */,
 				D88A9833A24E70854957B10F /* libPods-CMZC.a */,
 			);
@@ -2802,6 +2836,7 @@
 				38FF3D3F1E2612D7007A81C5 /* CMTopicList.m in Sources */,
 				38CCA2241D9CE8AA00DBFD1A /* CMSubscribeDetailsViewController.m in Sources */,
 				384EB0611C8E6758001D311F /* CMRequestAPI+Trends.m in Sources */,
+				04F631A21EA074D30032378C /* CMCollectCell.m in Sources */,
 				38081ABC1E20D48700EA4E13 /* CMoptionReleaseTableViewCell.m in Sources */,
 				38241B0B1C858630005E5134 /* UIColor+CMColors.m in Sources */,
 				04697D6D1E76386C000AD8D9 /* CMDataMessage.m in Sources */,
@@ -2957,6 +2992,7 @@
 				3836D72B1CE0160A009A37D8 /* CMLineView.m in Sources */,
 				383AE59F1C9D455D005CB2C3 /* CMPointTableViewCell.m in Sources */,
 				0475C0AC1E6921C90011015E /* CMTouCeView.m in Sources */,
+				04F6319C1EA06FE00032378C /* CMMyCollectController.m in Sources */,
 				384279EE1CFEDDCD008730AC /* CMProductNotion.m in Sources */,
 				385F0AAD1C90FA300035CE22 /* CMTradeSonInterfaceController.m in Sources */,
 				383681511D139B6A00F572F7 /* CMProvinceList.m in Sources */,
@@ -3011,6 +3047,7 @@
 				38DFE21D1C86734600FE6736 /* CMTabBarViewController.m in Sources */,
 				384EEF2A1CB79C2B000078F9 /* CMAlerTableView.m in Sources */,
 				38D010981C980B5C007268B5 /* ChartModel.m in Sources */,
+				04F631A61EA0B4780032378C /* CMNoCollectView.m in Sources */,
 				38529F031CCB23F3002300AE /* CMNumberous.m in Sources */,
 				0471A5511E5FDA6300F001DE /* CMNewShiModel.m in Sources */,
 				383C48411C8D109C00CD9E2D /* CMAboutViewController.m in Sources */,
@@ -3176,12 +3213,6 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
-					"-l\"iconv\"",
-					"-l\"icucore\"",
-					"-l\"sqlite3\"",
-					"-l\"stdc++\"",
-					"-l\"xml2\"",
-					"-l\"z\"",
 					"-w",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.caim.CMZC;
@@ -3215,12 +3246,6 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
-					"-l\"iconv\"",
-					"-l\"icucore\"",
-					"-l\"sqlite3\"",
-					"-l\"stdc++\"",
-					"-l\"xml2\"",
-					"-l\"z\"",
 					"-w",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.caim.CMZC;

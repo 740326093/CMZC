@@ -22,6 +22,14 @@
                                     success:(void(^)(NSArray *productArr,BOOL isPage))success
                                        fail:(void(^)(NSError *error))fail;
 
+/**
+ *  获得我的收藏列表数据
+ *
+ *  @param page    页码
+ *  @param size
+ */
++ (void)cm_applyFetchCollectProductListOnPageIndex:(NSInteger)page pageSize:(NSInteger)size isCollect:(NSInteger)collect success:(void (^)(NSArray *, BOOL))success fail:(void (^)(NSError *))fail;
+
 
 + (void)cm_applyFetchProductDetailsListProductId:(NSInteger)productId
                                          success:(void(^)(CMProductDetails *listArr))success

@@ -41,4 +41,6 @@
 #import "CMBulletinViewController.h"
 #import "TitleView.h"
 #import "CMApp_Header.h"
+#import "CMMyCollectController.h"
+#import "CMProductDetails.h"
 #endif /* CMImportHeader_h */

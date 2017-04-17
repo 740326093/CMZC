@@ -11,10 +11,13 @@
 #import "CMJSProtocol.h"
 #import "CMProductDetailBottomView.h"
 #import "CMConsultingAlertView.h"
+
+
+
 @interface CMCommWebViewController : CMBaseViewController<CMProductDetailBottomViewDelegate>
 
 @property (nonatomic,copy) NSString *urlStr;
-@property(nonatomic,strong)CMPurchaseProduct  *PurchaseProduct;
+@property(nonatomic,assign)NSInteger  ProductId;
 @property (nonatomic,assign) BOOL isJPush;
 
 @end
