@@ -3,7 +3,7 @@
 //  QDCLM
 //
 //  Created by Zheng on 16/1/11.
-//  Copyright © 2016年 郑浩然. All rights reserved.
+//  Copyright © 2016年 MAC. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

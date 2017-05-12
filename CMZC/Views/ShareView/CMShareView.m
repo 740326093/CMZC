@@ -2,8 +2,8 @@
 //  CMShareView.m
 //  CMZC
 //
-//  Created by 郑浩然 on 17/1/10.
-//  Copyright © 2017年 郑浩然. All rights reserved.
+//  Created by MAC on 17/1/10.
+//  Copyright © 2017年 MAC. All rights reserved.
 //
 
 
@@ -234,11 +234,11 @@
             }
         }else{
             if ([data isKindOfClass:[UMSocialShareResponse class]]) {
-                UMSocialShareResponse *resp = data;
+              //  UMSocialShareResponse *resp = data;
                 //分享结果消息
-                MyLog(@"response message is %@",resp.message);
-                //第三方原始返回的数据
-                MyLog(@"response originalResponse data is %@",resp.originalResponse);
+               // MyLog(@"response message is %@",resp.message);
+                ///第三方原始返回的数据
+              // MyLog(@"response originalResponse data is %@",resp.originalResponse);
                 
             }else{
                 MyLog(@"response data is %@",data);

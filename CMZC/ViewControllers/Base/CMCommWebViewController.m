@@ -3,7 +3,7 @@
 //  CMZC
 //
 //  Created by 财猫 on 16/3/26.
-//  Copyright © 2016年 郑浩然. All rights reserved.
+//  Copyright © 2016年 MAC. All rights reserved.
 //
 
 //#define kCMExternalLinksURL @"http://m.xinjingban.com/GrantAccess?targetUrl="
@@ -14,19 +14,20 @@
 #import "NJKWebViewProgress.h"
 
 #import "CMShareView.h"
-#import <TFHpple.h>
 
-@interface CMCommWebViewController ()<UIWebViewDelegate,NJKWebViewProgressDelegate,CMConsultingAlertViewDelegate,CMJSProtocolDelegate> {
+@interface CMCommWebViewController ()<UIWebViewDelegate,NJKWebViewProgressDelegate,CMConsultingAlertViewDelegate,CMBLBDetailBottomViewDelegate> {
     NJKWebViewProgressView *_progressView;
     NJKWebViewProgress *_progressProxy;
 }
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
-@property (strong,nonatomic)NSString *currentURL;
-@property (strong,nonatomic)NSString *currentTitle;
+
+
+//@property (strong,nonatomic)NSString *currentTitle;
 @property (nonatomic,copy) NSString *nextURL;
 @property (strong,nonatomic)CMProductDetails *ProductDetails;
 @property (copy,nonatomic) NSString *realUrl;
 @property (strong,nonatomic) CMProductDetailBottomView*DetailBottomView;
+@property(strong,nonatomic)CMBLBDetailBottomView *BLBDetailBottomView;
 @end
 
 @implementation CMCommWebViewController
@@ -49,7 +50,8 @@
     }
  
     _webView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-    
+    _webView.scrollView.showsVerticalScrollIndicator=NO;
+    _webView.scrollView.showsHorizontalScrollIndicator=NO;
     _progressProxy = [[NJKWebViewProgress alloc] init];
     _webView.delegate = _progressProxy;
     _progressProxy.webViewProxyDelegate = self;
@@ -60,7 +62,9 @@
     CGRect barFrame = CGRectMake(0, navigaitonBarBounds.size.height - progressBarHeight, navigaitonBarBounds.size.width, progressBarHeight);
     _progressView = [[NJKWebViewProgressView alloc] initWithFrame:barFrame];
     _progressView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
-  
+    [_progressView setProgress:0 animated:YES];
+    
+    
     UIButton *leftBarBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     leftBarBtn.frame = CGRectMake(0, 0, 30, 40);
     [leftBarBtn setImage:[UIImage imageNamed:@"nav_back_left"] forState:UIControlStateNormal];
@@ -70,16 +74,16 @@
    
     UIButton *rightBarBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     rightBarBtn.frame = CGRectMake(0, 0, 30, 40);
-    [rightBarBtn setImage:[UIImage imageNamed:@"refresh_line_thren"] forState:UIControlStateNormal];
-    [rightBarBtn addTarget:self action:@selector(refreshWebView) forControlEvents:UIControlEventTouchUpInside];
+    [rightBarBtn setImage:[UIImage imageNamed:@"newShare"] forState:UIControlStateNormal];
+    [rightBarBtn addTarget:self action:@selector(pageShareView) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:rightBarBtn];
     self.navigationItem.rightBarButtonItem = rightItem;
-    
+     self.navigationController.navigationBar.titleTextAttributes=@{NSForegroundColorAttributeName: [UIColor whiteColor], NSFontAttributeName: [UIFont boldSystemFontOfSize:17.0]};
     self.realUrl=_urlStr;
-
+    _webView.hidden=YES;
     [self getProductDetaiWithProductID];
 }
-//http://m.xinjingban.com/Account/Recharge
+
 
 - (void)leftBarBtnClick {
     if ([self.webView canGoBack]) {
@@ -106,19 +110,20 @@
     [super viewWillDisappear:animated];
     [_webView stopLoading];
     [_progressView removeFromSuperview];
+    [[NSURLCache sharedURLCache]removeAllCachedResponses];
 }
 #pragma mark - NJKWebViewProgressDelegate
 -(void)webViewProgress:(NJKWebViewProgress *)webViewProgress updateProgress:(float)progress
 {
     [_progressView setProgress:progress animated:YES];
+      self.title = [_webView stringByEvaluatingJavaScriptFromString:@"document.title"];
 }
 
 
 - (void)loadWebViewData
 {
     
-  //  _urlStr=@"http://192.168.1.225:8886/Products/Detail?pid=55463";
-  // _urlStr=@"https://mp.58ycf.com/live/home/details?liveid=306";
+ 
     if (!CMIsLogin()) {
         NSURLRequest *request =[NSURLRequest requestWithURL:[NSURL URLWithString:_urlStr]];
 
@@ -129,8 +134,7 @@
     } else {
         [self LoadWebViewWithCookieAndUrl:_urlStr];
     }
-    
-   
+     [self showDefaultProgressHUD];
 }
 
 -(void)LoadWebViewWithCookieAndUrl:(NSString*)urlStr{
@@ -151,8 +155,8 @@
   //  MyLog(@"allHTTPHeaderFields++%@",request.allHTTPHeaderFields);
     _webView.scrollView.bounces = NO;
     _webView.scalesPageToFit = YES;
-    
-    
+   
+   
     
 }
 - (void)loadCookies{
@@ -197,6 +201,23 @@
     [window addSubview:shareView];
 
 }
+-(void)pageShareView{
+    
+    
+    UIWindow *window = [UIApplication sharedApplication].windows.firstObject;
+    //    CMShareView *shareView = [[NSBundle mainBundle] loadNibNamed:@"CMShareView" owner:nil options:nil].firstObject;
+    CMShareView *shareView=[[CMShareView alloc]initWithFrame:CGRectMake(0, 0, CMScreen_width(), CMScreen_height())];
+    shareView.center = window.center;
+    shareView.frame = CGRectMake(0, 0, CGRectGetWidth(window.frame), CGRectGetHeight(window.frame));
+    shareView.contentUrl =self.realUrl;
+    shareView.titleConten = self.title;
+    shareView.controller=self;
+    NSString *content = [NSString stringWithFormat:@"%@ %@",shareView.contentUrl,shareView.titleConten];
+    shareView.contentStr = content;
+    shareView.ShareImageName=[UIImage imageNamed:@"share_image"];
+    [window addSubview:shareView];
+    
+}
 - (void)refreshWebView
 {
    [self loadWebViewData];
@@ -210,7 +231,13 @@
     }
     return _DetailBottomView;
 }
-
+-(CMBLBDetailBottomView*)BLBDetailBottomView{
+    if (!_BLBDetailBottomView) {
+        _BLBDetailBottomView=[[CMBLBDetailBottomView  alloc]initWithFrame:CGRectMake(0, CMScreen_height()-50, CMScreen_width(), 50)];
+        _BLBDetailBottomView.delegate=self;
+    }
+    return _BLBDetailBottomView;
+}
 
 #pragma mark - webDelegate
 - (void)webViewDidStartLoad:(UIWebView *)webView {
@@ -222,41 +249,78 @@
         [self presentViewController:nav animated:YES completion:nil];
     }
     
-   
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-    self.currentTitle = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
-    // 获取当前页面的title
-    self.title = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
-    self.currentURL = webView.request.URL.absoluteString;
- 
-    if ([webView.request.URL.path containsString:@"/Products/Detail"]&&![self.currentTitle containsString:@"倍利宝"]) {
-        
-        self.DetailBottomView.ProductDetails=self.ProductDetails;
-     [self.view addSubview: self.DetailBottomView];
-        [self.view bringSubviewToFront:self.DetailBottomView];
-        self.DetailBottomView.hidden=NO;
-        [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.getElementsByClassName('xq-footer')[0].style.display='none'"];
-        
-        
-        
-    }    else{
-        self.DetailBottomView.hidden=YES;
+    [self hiddenProgressHUD];
+   //隐藏页面导航
+    [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.getElementsByClassName('page-header navbar navbar-default navbar-static-top')[0].hidden=true"];
+    [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.getElementsByClassName('live_headbg')[0].hidden=true"];
+    [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.getElementsByClassName('header')[0].hidden=true"];
+    
+    if (!webView.loading) {
+        [self performSelector:@selector(webViewHiddenNot:) withObject:webView afterDelay:1.5];
         
     }
-   
+
+    self.title = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
+
+    if ([webView.request.URL.absoluteString containsString:CMStringWithPickFormat(kCMMZWeb_url,@"about/TradingGuideNew.aspx")]) {
+        
+        [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.getElementsByClassName('join-in')[0].hidden=true"];
+        [self TradingGuideNewButton];
+    }
     
+    if ([webView.request.URL.absoluteString containsString:CMStringWithPickFormat(kCMMZWeb_url,@"About/APPClient")]) {
+        
+        [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.getElementsByClassName('footer')[0].hidden=true"];
+        
+       
+    }
 }
+//隐藏底部footer
+-(void)webViewHiddenNot:(id)objc{
+    UIWebView *web=(UIWebView*)objc;
+    if ([web.request.URL.path containsString:@"/Products/Detail"]) {
+      
+        if (![self.title containsString:@"倍利宝"]) {
+            
+            
+            self.DetailBottomView.ProductDetails=self.ProductDetails;
+            [self.view addSubview: self.DetailBottomView];
+            [self.view bringSubviewToFront:self.DetailBottomView];
+            self.DetailBottomView.hidden=NO;
+            self.BLBDetailBottomView.hidden=YES;
+            [web  stringByEvaluatingJavaScriptFromString:@"document.documentElement.getElementsByClassName('xq-footer')[0].style.display='none'"];
+            
+        } else{
+//            self.BLBDetailBottomView.ProductDetails=self.ProductDetails;
+//            [self.view addSubview: self.BLBDetailBottomView];
+//            [self.view bringSubviewToFront:self.BLBDetailBottomView];
+//            self.BLBDetailBottomView.hidden=NO;
+            self.DetailBottomView.hidden=YES;
+            
+        }
+        
+    } else{
+        
+        self.DetailBottomView.hidden=YES;
+        self.BLBDetailBottomView.hidden=YES;
+        
+    }
 
-
+    
+     _webView.hidden=NO;
+}
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
     
+    
+    
     self.nextURL = request.URL.absoluteString;
-   
+     [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.getElementsByClassName('page-header navbar navbar-default navbar-static-top')[0].hidden=true"];
     if ([self.nextURL containsString:CMStringWithPickFormat(kCMMZWeb_url,@"Products/FundList")]) {
         //跳转到登录
         [webView stopLoading];
@@ -281,15 +345,42 @@
     
      if ([self.nextURL containsString:CMStringWithPickFormat(kCMMZWeb_url,@"Products/List")]) {
         [webView stopLoading];
-         UIWindow *window = [UIApplication sharedApplication].windows.firstObject;
-         CMTabBarViewController *tab = (CMTabBarViewController *)window.rootViewController;
-         tab.selectedIndex = 1;
+         CMSubscribeViewController *webVC = (CMSubscribeViewController *)[[UIStoryboard mainStoryboard] viewControllerWithId:@"CMSubscribeViewController"];
+         
+         [self.navigationController pushViewController:webVC animated:YES];
          if (_isJPush) {
              [self removeController];
          }
          
          return NO;
      }
+    
+   
+    if ([self.nextURL containsString:CMStringWithPickFormat(kCMMZWeb_url,@"Register")]) {
+        [webView stopLoading];
+        CMRegisterViewController *registerController=(CMRegisterViewController*)[[UIStoryboard loginStoryboard]viewControllerWithId:@"CMRegisterViewController"];
+        [self.navigationController pushViewController:registerController animated:YES];
+        return NO;
+    }
+    
+    
+    if([self.nextURL containsString:CMStringWithPickFormat(kCMMZWeb_url, @"Login")]){
+        [webView stopLoading];
+        UINavigationController *nav = [UIStoryboard loginStoryboard].instantiateInitialViewController;
+        [self presentViewController:nav animated:YES completion:nil];
+        return NO;
+    }
+    
+    if ([self.nextURL containsString:CMStringWithPickFormat(kCMMZWeb_url, @"ApplicationService.html")]) {
+        [webView stopLoading];
+        CMServiceApplicationViewController *serviceVC = (CMServiceApplicationViewController *)[CMServiceApplicationViewController initByStoryboard];
+        [self.navigationController pushViewController:serviceVC animated:YES];
+        return NO;
+    }
+   
+    
+    
+    
     
     if (![self.nextURL containsString:CMStringWithPickFormat(kCMMZWeb_url,@"Account/RechargeRecords")]) {
         if ([self.nextURL containsString:CMStringWithPickFormat(kCMMZWeb_url,@"Account/Recharge")]) {
@@ -306,8 +397,8 @@
         }else{
             UIButton *rightBarBtn = [UIButton buttonWithType:UIButtonTypeCustom];
             rightBarBtn.frame = CGRectMake(0, 0, 30, 40);
-            [rightBarBtn setImage:[UIImage imageNamed:@"refresh_line_thren"] forState:UIControlStateNormal];
-            [rightBarBtn addTarget:self action:@selector(refreshWebView) forControlEvents:UIControlEventTouchUpInside];
+            [rightBarBtn setImage:[UIImage imageNamed:@"newShare"] forState:UIControlStateNormal];
+            [rightBarBtn addTarget:self action:@selector(pageShareView) forControlEvents:UIControlEventTouchUpInside];
             UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:rightBarBtn];
             self.navigationItem.rightBarButtonItem = rightItem;
         }
@@ -317,29 +408,16 @@
     }else{
         UIButton *rightBarBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         rightBarBtn.frame = CGRectMake(0, 0, 30, 40);
-        [rightBarBtn setImage:[UIImage imageNamed:@"refresh_line_thren"] forState:UIControlStateNormal];
-        [rightBarBtn addTarget:self action:@selector(refreshWebView) forControlEvents:UIControlEventTouchUpInside];
+        [rightBarBtn setImage:[UIImage imageNamed:@"newShare"] forState:UIControlStateNormal];
+        [rightBarBtn addTarget:self action:@selector(pageShareView) forControlEvents:UIControlEventTouchUpInside];
         UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:rightBarBtn];
         self.navigationItem.rightBarButtonItem = rightItem;
     }
-    if ([webView.request.URL.path containsString:@"/Products/Detail"]&&![[webView stringByEvaluatingJavaScriptFromString:@"document.title"] containsString:@"倍利宝"]) {
-        
-        [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.getElementsByClassName('xq-footer')[0].style.display='none'"];
-        
-        
-        
-    }
-    
+   
     return YES;
 }
 
-- (void)share:(NSString *)key{
-      MyLog(@"Get:%@", key);
-  
-
-    
-}
-
+       
 -(void)intoRecharegeRecode{
     
     [self LoadWebViewWithCookieAndUrl:CMStringWithPickFormat(kCMMZWeb_url,@"Account/RechargeRecords")];
@@ -365,6 +443,45 @@
     
     [[NSNotificationCenter defaultCenter]removeObserver:self];
 }
+#pragma mark CMBLBDetailBottomViewDelegate
+-(void)CMBLBDetailBottomViewBtnEventWith:(BLBDetailBtnType)type{
+    
+    switch (type) {
+        case ConsultBtnClick:
+            if (CMIsLogin()) {
+                [self sendMesage];
+            } else {
+                UINavigationController *nav = [UIStoryboard loginStoryboard].instantiateInitialViewController;
+                [self presentViewController:nav animated:YES completion:nil];
+            }
+            break;
+        case CollectClick:
+            if (CMIsLogin()) {
+            } else {
+                UINavigationController *nav = [UIStoryboard loginStoryboard].instantiateInitialViewController;
+                [self presentViewController:nav animated:YES completion:nil];
+            }
+            break;
+        case TransferClick: //转让
+            self.BLBDetailBottomView.hidden=YES;
+            _urlStr=[NSString stringWithFormat:@"%@Invest/Confirm?pid=%ld&pcont=1",kCMMZWeb_url,(long)self.ProductId];
+            
+            [self loadWebViewData];
+            break;
+        case RedeemClick: //赎回
+            self.BLBDetailBottomView.hidden=YES;
+            _urlStr=[NSString stringWithFormat:@"%@Account/FundSubcribeRedeem?productId=%ld",kCMMZWeb_url,(long)self.ProductId];
+            [self loadWebViewData];
+            break;
+            
+            
+        default:
+            break;
+    }
+    
+    
+}
+#pragma mark CMProductDetailBottomViewDelegate
 -(void)CMProductDetailBottomViewBtnEventWith:(ProductDetailbtnType)type{
     
     
@@ -443,6 +560,7 @@
 -(void)getProductDetaiWithProductID{
     
     if (self.ProductId) {
+    
     [CMRequestAPI cm_applyFetchProductDetailsListProductId:self.ProductId success:^(CMProductDetails *listArr) {
   
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -463,5 +581,25 @@
           }
 }
 
-
+-(void)TradingGuideNewButton{
+    UIButton *CancleBtn=[UIButton buttonWithType:UIButtonTypeCustom];
+    CancleBtn.frame=CGRectMake(0, CMScreen_height()-53, CMScreen_width(), 53);
+    CancleBtn.titleLabel.font=[UIFont systemFontOfSize:18.0];
+    [CancleBtn setBackgroundColor:[UIColor clmHex:0xff5b2a]];
+    [CancleBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [CancleBtn setTitle:@"加入新经板" forState:UIControlStateNormal];
+    [CancleBtn addTarget:self action:@selector(TradingGuideNewButtonEvent) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:CancleBtn];
+    [self.view bringSubviewToFront:CancleBtn];
+    
+}
+-(void)TradingGuideNewButtonEvent{
+    if (CMIsLogin()) {
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    } else {
+        CMRegisterViewController *registerController=(CMRegisterViewController*)[[UIStoryboard loginStoryboard]viewControllerWithId:@"CMRegisterViewController"];
+        [self.navigationController pushViewController:registerController animated:YES];
+    }
+    
+}
 @end

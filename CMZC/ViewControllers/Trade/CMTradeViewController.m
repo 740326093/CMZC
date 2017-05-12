@@ -3,7 +3,7 @@
 //  CMZC
 //
 //  Created by 财猫 on 16/3/9.
-//  Copyright © 2016年 郑浩然. All rights reserved.
+//  Copyright © 2016年 MAC. All rights reserved.
 //
 
 #import "CMTradeViewController.h"
@@ -42,7 +42,7 @@
     _tradeTitleView = [CMTradeTitleView initByNibForClassName];
     _tradeTitleView.delegate = self;
     _curTableView.tableHeaderView = _tradeTitleView;
-    _curTableView.tableFooterView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, CMScreen_width(), 5)];
+    _curTableView.tableFooterView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, CMScreen_width(), 10  )];
     
     _titLabNameArr = @[@"我的基金",@"安全认证",@"我的收藏",@"我的消息",@"新手交易指南",@"设置"];
     _titImageArr = @[@"funds_trade",@"bankCard_trade",@"collection_trade",@"message_trade",@"new_trade",@"set_trade"];
@@ -52,7 +52,7 @@
     //}
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginSuccessed) name:@"loginWin" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(productPurchase) name:@"productPurchase" object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(productPurchase) name:@"productPurchase" object:nil];
     
 }
 -(void)viewWillAppear:(BOOL)animated{
@@ -63,6 +63,7 @@
 - (void)loginSuccessed {
     [_curTableView beginHeaderRefreshing];
 }
+/*
 - (void)productPurchase {
     //已登录显示账户
     UIWindow *window = [UIApplication sharedApplication].windows.firstObject;
@@ -70,6 +71,7 @@
     tab.selectedIndex = 1;
     
 }
+ */
 #pragma mark - 数据请求
 //添加上啦加载下拉刷新
 - (void)addRequestDataMeans {
@@ -138,30 +140,8 @@
         } else {
             tableCell.tradeImage.hidden = YES;
         }
-//        if (indexPath.row==2) {
-//            
-//            if ([[NSFileManager defaultManager]fileExistsAtPath:[CMDataMessage getFilePath]]) {
-//                
-//                if ([CMMessageDao selectCount].count>0) {
-//                    
-//                    tableCell.messageLabel.hidden=NO;
-//                    tableCell.messageLabel.text=[NSString stringWithFormat:@"%ld",[CMMessageDao selectCount].count];
-//                    [self.tabBarController.tabBar showBadgeOnItemIndex:3];
-//                }else{
-//                    
-//                    [self.tabBarController.tabBar hideBadgeOnItemIndex:3];
-//                    
-//                }
-//            }
-//            
-//            
-//        }else{
-//            tableCell.messageLabel.hidden = YES;
-//            
-//        }
-        
+
     
-        tableCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         return tableCell;
     }
 }
@@ -358,9 +338,14 @@
            
             _tradeTitleView.tinfo = nil;
             [[NSNotificationCenter defaultCenter] postNotificationName:@"exitLogin" object:nil];
-            UIWindow *window = [UIApplication sharedApplication].windows.firstObject;
+            if (_isHidebottom) {
+                [self.navigationController  popViewControllerAnimated:YES];
+            }else{
+                 UIWindow *window = [UIApplication sharedApplication].windows.firstObject;
             CMTabBarViewController *tab = (CMTabBarViewController *)window.rootViewController;
             tab.selectedIndex = 0;
+            }
+           
             NSHTTPCookieStorage *cookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
             NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies];
             

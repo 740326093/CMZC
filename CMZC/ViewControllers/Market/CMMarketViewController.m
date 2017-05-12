@@ -3,7 +3,7 @@
 //  CMZC
 //
 //  Created by 财猫 on 16/3/14.
-//  Copyright © 2016年 郑浩然. All rights reserved.
+//  Copyright © 2016年 MAC. All rights reserved.
 //
 
 #import "CMMarketViewController.h"
@@ -125,6 +125,7 @@
 - (void)requestListWithPageNo:(NSInteger)page code:(NSString *)code sorting:(NSString *)sort{
     
     [CMRequestAPI cm_marketFetchProductMarketCcode:code sizePage:page sorting:sort success:^(NSArray *marketArr, BOOL isPage) {
+      //  MyLog(@"++%@",marketArr);
         [self hiddenProgressHUD];
         [_curTableView endRefresh];//结束刷新
         _curTableView.hidden = NO;
@@ -166,6 +167,7 @@
     //为了测试。先注销了。
     
     NSArray *dataArr = self.marketArr[indexPath.row];
+    
     CMProductDetailsViewController *productVC = (CMProductDetailsViewController *)[CMProductDetailsViewController initByStoryboard];
     productVC.titleName = dataArr[1];
     productVC.codeName = dataArr[0];

@@ -3,7 +3,7 @@
 //  CMZC
 //
 //  Created by 财猫 on 16/3/2.
-//  Copyright © 2016年 郑浩然. All rights reserved.
+//  Copyright © 2016年 MAC. All rights reserved.
 //  home表头
 
 #import <UIKit/UIKit.h>

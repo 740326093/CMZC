@@ -3,7 +3,7 @@
 //  CMZC
 //
 //  Created by 财猫 on 16/4/7.
-//  Copyright © 2016年 郑浩然. All rights reserved.
+//  Copyright © 2016年 MAC. All rights reserved.
 //
 
 #import "CMRequestAPI+Product.h"
@@ -54,7 +54,7 @@
                            };
     
     [CMRequestAPI postTradeFromURLScheme:kCMApplyListURL argumentsDictionary:dict success:^(id responseObject) {
-  // MyLog(@"________%@+++++",responseObject);
+ //MyLog(@"________%@+++++",responseObject);
         NSArray *dataArr = responseObject[@"data"][@"rows"];
        
         NSMutableArray *analysArr = [NSMutableArray array];
@@ -102,6 +102,8 @@
                            };
    
     [CMRequestAPI postTradeFromURLScheme:kCMProductCollectCreateURL argumentsDictionary:dict success:^(id responseObject) {
+        
+        MyLog(@"shoucang__%@++%@",dict,responseObject);
         success(responseObject);
     } fail:^(NSError *error) {
         fail(error);

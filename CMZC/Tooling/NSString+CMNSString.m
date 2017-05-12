@@ -3,7 +3,7 @@
 //  CMZC
 //
 //  Created by WangWei on 17/3/13.
-//  Copyright © 2017年 郑浩然. All rights reserved.
+//  Copyright © 2017年 MAC. All rights reserved.
 //
 
 #import "NSString+CMNSString.h"

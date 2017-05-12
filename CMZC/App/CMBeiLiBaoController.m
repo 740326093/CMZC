@@ -3,7 +3,7 @@
 //  CMZC
 //
 //  Created by WangWei on 17/3/2.
-//  Copyright © 2017年 郑浩然. All rights reserved.
+//  Copyright © 2017年 MAC. All rights reserved.
 //
 
 #import "CMBeiLiBaoController.h"
@@ -197,6 +197,7 @@
         CMCommWebViewController *webVC = (CMCommWebViewController *)[CMCommWebViewController initByStoryboard];
         NSString *webUrl = CMStringWithPickFormat(kCMMZWeb_url, [NSString stringWithFormat:@"Products/Detail?pid=%@",Numberous.berId]);
         webVC.urlStr = webUrl;
+        webVC.ProductId=[Numberous.berId integerValue];
         [self.navigationController pushViewController:webVC animated:YES];
     }
     
@@ -246,19 +247,6 @@
     
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

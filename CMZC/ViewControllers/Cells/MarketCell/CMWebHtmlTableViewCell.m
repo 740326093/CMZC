@@ -2,8 +2,8 @@
 //  CMWebHtmlTableViewCell.m
 //  CMZC
 //
-//  Created by 郑浩然 on 17/1/7.
-//  Copyright © 2017年 郑浩然. All rights reserved.
+//  Created by MAC on 17/1/7.
+//  Copyright © 2017年 MAC. All rights reserved.
 //
 
 #import "CMWebHtmlTableViewCell.h"

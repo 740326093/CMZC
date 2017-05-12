@@ -3,7 +3,7 @@
 //  CMZC
 //
 //  Created by WangWei on 17/2/27.
-//  Copyright © 2017年 郑浩然. All rights reserved.
+//  Copyright © 2017年 MAC. All rights reserved.
 //
 
 #ifndef CMImportHeader_h
@@ -26,7 +26,7 @@
 #import "CMCommWebViewController.h"
 #import "CMNewShiView.h"
 #import "CMNewShiModel.h"
-
+#import "CMRegisterViewController.h"
 #import "CMBeiLiBaoController.h"
 #import "CMNumberous.h"
 #import "CMMessage.h"
@@ -39,8 +39,9 @@
 #import "UITabBar+CMBadage.h"
 #import "CMBaseViewController.h"
 #import "CMBulletinViewController.h"
-#import "TitleView.h"
-#import "CMApp_Header.h"
+#import "CMServiceApplicationViewController.h"
 #import "CMMyCollectController.h"
 #import "CMProductDetails.h"
+#import "CMMarketViewController.h"
+#import "CMTradeViewController.h"
 #endif /* CMImportHeader_h */

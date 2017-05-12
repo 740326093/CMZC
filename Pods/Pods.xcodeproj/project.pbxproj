@@ -364,6 +364,7 @@
 		107D9E932672D8A64212C89D4C310AB5 /* FMDatabasePool.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMDatabasePool.h; path = src/fmdb/FMDatabasePool.h; sourceTree = "<group>"; };
 		1086C7CBF138351A5BD3FAB356405A78 /* MJRefreshConst.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MJRefreshConst.m; path = MJRefresh/MJRefreshConst.m; sourceTree = "<group>"; };
 		10A4D05B46B83E0342056887AC5D53C9 /* MASLayoutConstraint.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MASLayoutConstraint.h; path = Masonry/MASLayoutConstraint.h; sourceTree = "<group>"; };
+		10F848F2D5C4EB495E5017B5943628D4 /* libjcore-ios-1.1.3.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; path = "libjcore-ios-1.1.3.a"; sourceTree = "<group>"; };
 		117B5DF2F11D64C919C35B1171146967 /* FMResultSet.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMResultSet.h; path = src/fmdb/FMResultSet.h; sourceTree = "<group>"; };
 		11D169EC0E001D478B538FC33E7EDE5E /* APNumberPadStyle.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = APNumberPadStyle.h; path = APNumberPad/APNumberPad/APNumberPadStyle.h; sourceTree = "<group>"; };
 		1402FC72EBFDD7B8D1AFDFA47D106D64 /* APNumberPadDefaultStyle.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = APNumberPadDefaultStyle.m; path = APNumberPad/APNumberPad/APNumberPadDefaultStyle.m; sourceTree = "<group>"; };
@@ -463,7 +464,6 @@
 		6708B914E3549AC3179C821E9220B23A /* YYClassInfo.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = YYClassInfo.h; path = YYModel/YYClassInfo.h; sourceTree = "<group>"; };
 		682A45EDBE73A75F7044606D938780F6 /* UIView+MJExtension.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIView+MJExtension.h"; path = "MJRefresh/UIView+MJExtension.h"; sourceTree = "<group>"; };
 		689B25F108E876352488AEC9E3986CAE /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/ImageIO.framework; sourceTree = DEVELOPER_DIR; };
-		68E247201A089961A072D6E7FDAED8DE /* libjcore-ios-1.1.2.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; path = "libjcore-ios-1.1.2.a"; sourceTree = "<group>"; };
 		6A27A62B9E7284EB4DE37523A3DE2DFC /* IQUIViewController+Additions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "IQUIViewController+Additions.m"; path = "IQKeyBoardManager/Categories/IQUIViewController+Additions.m"; sourceTree = "<group>"; };
 		6A3C311D561C73747ABE5E1E4BE6485F /* IQUITextFieldView+Additions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "IQUITextFieldView+Additions.h"; path = "IQKeyBoardManager/Categories/IQUITextFieldView+Additions.h"; sourceTree = "<group>"; };
 		6A40ECE58A4BF6E7A125F03135CE2ABE /* Pods-CMZC-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-CMZC-frameworks.sh"; sourceTree = "<group>"; };
@@ -550,6 +550,7 @@
 		AEAA0F2CE38BB310B9A5BAA75168E099 /* MJRefreshHeader.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MJRefreshHeader.h; path = MJRefresh/Base/MJRefreshHeader.h; sourceTree = "<group>"; };
 		B1396FD011AAD16EF51091E00C5C1C75 /* FMDatabaseQueue.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMDatabaseQueue.h; path = src/fmdb/FMDatabaseQueue.h; sourceTree = "<group>"; };
 		B2A996AB96F9211BF150BF4A25FE84AB /* AFHTTPSessionManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFHTTPSessionManager.h; path = AFNetworking/AFHTTPSessionManager.h; sourceTree = "<group>"; };
+		B43994CEADBC81767C9050123AEDE142 /* libjpush-ios-3.0.5.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; path = "libjpush-ios-3.0.5.a"; sourceTree = "<group>"; };
 		B4B781D46F55BE314A759FBAABE6EFCE /* AFNetworkReachabilityManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFNetworkReachabilityManager.h; path = AFNetworking/AFNetworkReachabilityManager.h; sourceTree = "<group>"; };
 		B694CB52EB2947372587D72DBA2D28FC /* FMDatabaseAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FMDatabaseAdditions.m; path = src/fmdb/FMDatabaseAdditions.m; sourceTree = "<group>"; };
 		B72E2249A180705D462C1EBC90BEC28F /* AFAutoPurgingImageCache.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFAutoPurgingImageCache.h; path = "UIKit+AFNetworking/AFAutoPurgingImageCache.h"; sourceTree = "<group>"; };
@@ -573,7 +574,6 @@
 		CCF14C3516C0091A5BFABC90DC2530AA /* NSObject+YYModel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSObject+YYModel.m"; path = "YYModel/NSObject+YYModel.m"; sourceTree = "<group>"; };
 		CD6D42653DC22FE622432B116BD99EA9 /* MASViewAttribute.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MASViewAttribute.h; path = Masonry/MASViewAttribute.h; sourceTree = "<group>"; };
 		CFFF33DB9160E442D0ECE92AFBFCB2E3 /* SDWebImage-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SDWebImage-prefix.pch"; sourceTree = "<group>"; };
-		D0029327ADDD7C27773A4A1FDEB65EF9 /* libjpush-ios-3.0.3.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; path = "libjpush-ios-3.0.3.a"; sourceTree = "<group>"; };
 		D030B019E942CA2C9896488D56689432 /* hpple-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "hpple-dummy.m"; sourceTree = "<group>"; };
 		D0F59B12E4837CEA2A5246374268658A /* NSData+ImageContentType.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSData+ImageContentType.h"; path = "SDWebImage/NSData+ImageContentType.h"; sourceTree = "<group>"; };
 		D39267D74AF95A4340149F620FCDB747 /* SDWebImageCompat.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SDWebImageCompat.m; path = SDWebImage/SDWebImageCompat.m; sourceTree = "<group>"; };
@@ -912,14 +912,6 @@
 			path = "../Target Support Files/CYLTableViewPlaceHolder";
 			sourceTree = "<group>";
 		};
-		2E916298CDF41C178CF006D4A87E2FC1 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				D0029327ADDD7C27773A4A1FDEB65EF9 /* libjpush-ios-3.0.3.a */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		2EE9412575C27121B9C9709C17A98D66 /* Social */ = {
 			isa = PBXGroup;
 			children = (
@@ -1180,6 +1172,14 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
+		733BC5BE05D6222257FDEB82E3A948C0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				10F848F2D5C4EB495E5017B5943628D4 /* libjcore-ios-1.1.3.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		7359CCF67FEEF0D89E18B577D18C045A /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -1189,14 +1189,6 @@
 			);
 			name = "Support Files";
 			path = "../Target Support Files/FMDB";
-			sourceTree = "<group>";
-		};
-		75E730871C4888BDF33FBF998E428EF8 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				68E247201A089961A072D6E7FDAED8DE /* libjcore-ios-1.1.2.a */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		7AB5589E0F57211A4CECD6A12BA54D85 /* IQKeyboardManager */ = {
@@ -1399,10 +1391,18 @@
 		9E3C728623DA4E6272C729586CC27F3F /* JCore */ = {
 			isa = PBXGroup;
 			children = (
-				75E730871C4888BDF33FBF998E428EF8 /* Frameworks */,
+				733BC5BE05D6222257FDEB82E3A948C0 /* Frameworks */,
 			);
 			name = JCore;
 			path = JCore;
+			sourceTree = "<group>";
+		};
+		9FAD3EC365A664DFAFDE673F15E3B72A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B43994CEADBC81767C9050123AEDE142 /* libjpush-ios-3.0.5.a */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		A29BA9FBEDC6167CE0281C9BBF30232E /* NJKWebViewProgress */ = {
@@ -1527,7 +1527,7 @@
 			isa = PBXGroup;
 			children = (
 				77561C0FF9F5E891882828ABFFFABE40 /* JPUSHService.h */,
-				2E916298CDF41C178CF006D4A87E2FC1 /* Frameworks */,
+				9FAD3EC365A664DFAFDE673F15E3B72A /* Frameworks */,
 			);
 			name = JPush;
 			path = JPush;

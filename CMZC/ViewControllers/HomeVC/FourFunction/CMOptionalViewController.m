@@ -3,7 +3,7 @@
 //  CMZC
 //
 //  Created by 财猫 on 16/3/7.
-//  Copyright © 2016年 郑浩然. All rights reserved.
+//  Copyright © 2016年 MAC. All rights reserved.
 //
 
 #define iOS8  [[[UIDevice currentDevice] systemVersion] floatValue]
@@ -325,9 +325,13 @@
 }
 
 - (void)addCollectBtnClick {
-    UIWindow *window = [UIApplication sharedApplication].windows.firstObject;
-    CMTabBarViewController *tab = (CMTabBarViewController *)window.rootViewController;
-    tab.selectedIndex = 2;
+    
+    CMMarketViewController*webVC = (CMMarketViewController *)[[UIStoryboard mainStoryboard] viewControllerWithId:@"CMMarketViewController"];
+    
+    [self.navigationController pushViewController:webVC animated:YES];
+//    UIWindow *window = [UIApplication sharedApplication].windows.firstObject;
+//    CMTabBarViewController *tab = (CMTabBarViewController *)window.rootViewController;
+//    tab.selectedIndex = 2;
    
 }
 

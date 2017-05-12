@@ -3,12 +3,12 @@
 //  CMZC
 //
 //  Created by 财毛 on 16/3/1.
-//  Copyright © 2016年 郑浩然. All rights reserved.
+//  Copyright © 2016年 MAC. All rights reserved.
 //
 
  #define kCM_URL @"https://api.xinjingban.com:443/" //线上正式api
  #define kCMWeb_URL @"http://m.xinjingban.com/" //线上M站地址
-//     #define kCM_URL @"http://192.168.1.49:9000/" //本地测试api
+//    #define kCM_URL @"http://192.168.1.49:9000/" //本地测试api
 //   #define kCMWeb_URL @"http://192.168.1.49:8886/" //线上M站地址
 
 
@@ -29,7 +29,7 @@ NSString *const kCMBaseApiURL = kCM_URL;
 //获取短信验证码
 NSString *const kCMShortMessageURL = @"/api/message/sendsmsvercode";
 //三条产品数据
-NSString *const kCMHomeThreeProductURL = @"/api/market/top";
+NSString *const kCMHomeThreeProductURL =@"/api/market/top";
 #pragma mark - 登录 注册
 //注册
 NSString *const kCMRegisterURL = @"/api/user/register";

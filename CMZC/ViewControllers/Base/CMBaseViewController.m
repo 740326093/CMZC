@@ -3,7 +3,7 @@
 //  CMZC
 //
 //  Created by 财毛 on 16/3/1.
-//  Copyright © 2016年 郑浩然. All rights reserved.
+//  Copyright © 2016年 MAC. All rights reserved.
 //
 
 #import "CMBaseViewController.h"
@@ -19,7 +19,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-   [self SetNavigationBar];
+
     NSArray *arr = self.navigationController.viewControllers;
     if (arr.count >1) {
         UIButton *leftBarBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -29,7 +29,7 @@
         UIBarButtonItem *btnItem = [[UIBarButtonItem alloc] initWithCustomView:leftBarBtn];
         self.navigationItem.leftBarButtonItem = btnItem;
     }
-    
+   
     //这个地方。千万不能写dele 如果写要做一下判断。 因为iOS7上是不支持的。就是因为这个搞了我一天。真傻比。
    // self.navigationController.delegate = self;
 }
@@ -44,6 +44,8 @@
         UIBarButtonItem *btnItem = [[UIBarButtonItem alloc] initWithCustomView:leftBarBtn];
         self.navigationItem.leftBarButtonItem = btnItem;
     }
+ 
+    
 }
 
 - (void)leftBarBtnClick {
@@ -81,16 +83,7 @@
     tab.selectedIndex = tabIndex;
 }
 
--(void)SetNavigationBar{
-    
-    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"UINavigationBar"]
-                                      forBarPosition:UIBarPositionAny
-                                          barMetrics:UIBarMetricsDefault];
-    
-    [[UINavigationBar appearance] setShadowImage:[UIImage new]];
-    [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName, nil]];
-    [self.navigationController.navigationBar setBarTintColor:[UIColor cmThemeOrange]];
-}
+
 /*
 #pragma mark - Navigation
 

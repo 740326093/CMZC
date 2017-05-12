@@ -3,7 +3,7 @@
 //  CMZC
 //
 //  Created by WangWei on 2017/4/7.
-//  Copyright © 2017年 郑浩然. All rights reserved.
+//  Copyright © 2017年 MAC. All rights reserved.
 //
 
 #import "CMProductDetailBottomView.h"
@@ -190,7 +190,7 @@
     if (CMIsLogin()) {
         [CMRequestAPI cm_applyFetchProductDetailsCollectWithType:0 andProductID:prodctID success:^(id isSuccess) {
             
-           
+        
             if ([[isSuccess objectForKey:@"errmsg"]isEqualToString:@"已收藏"]) {
                 
                         [self.collectBtn setImage:[UIImage imageNamed:@"collect_select"] forState:UIControlStateNormal];
@@ -219,4 +219,6 @@
     [[NSNotificationCenter defaultCenter]removeObserver:self];
     
 }
+
+
 @end

@@ -3,7 +3,7 @@
 //  CMZC
 //
 //  Created by 财猫 on 16/4/1.
-//  Copyright © 2016年 郑浩然. All rights reserved.
+//  Copyright © 2016年 MAC. All rights reserved.
 //
 
 #define kCMDict_page NSDictionary *dict = @{@"page":CMNumberWithFormat(page)};
@@ -11,7 +11,7 @@
 #import "CMRequestAPI+TradeInquire.h"
 #import "CMTradeDayAuthorize.h"
 #import "CMTurnoverList.h"
-#import "CMModules_Header.h"
+
 #import "CMBankBlockList.h"
 #import "CMHoldInquire.h"
 #import "CMWinning.h"

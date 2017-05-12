@@ -3,7 +3,7 @@
 //  CMZC
 //
 //  Created by 财猫 on 16/3/17.
-//  Copyright © 2016年 郑浩然. All rights reserved.
+//  Copyright © 2016年 MAC. All rights reserved.
 //
 
 #import "CMTradeDetailView.h"
@@ -214,7 +214,7 @@
 }
 
 - (void)webSocket:(SRWebSocket *)webSocket didReceivePong:(NSData *)pongPayload{
-    NSString *reply = [[NSString alloc] initWithData:pongPayload encoding:NSUTF8StringEncoding];
-    MyLog(@"-五档的web--%@",reply);
+  //  NSString *reply = [[NSString alloc] initWithData:pongPayload encoding:NSUTF8StringEncoding];
+   // MyLog(@"-五档的web--%@",reply);
 }
 @end

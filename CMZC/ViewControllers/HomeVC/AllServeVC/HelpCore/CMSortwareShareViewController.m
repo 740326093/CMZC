@@ -3,7 +3,7 @@
 //  CMZC
 //
 //  Created by 财猫 on 16/3/24.
-//  Copyright © 2016年 郑浩然. All rights reserved.
+//  Copyright © 2016年 MAC. All rights reserved.
 //
 
 #define kCMShareTitle @"新经板-只赚不赔的“原始股"
@@ -108,11 +108,11 @@
             [alert show];
         }else{
             if ([data isKindOfClass:[UMSocialShareResponse class]]) {
-                UMSocialShareResponse *resp = data;
-                //分享结果消息
-                MyLog(@"response message is %@",resp.message);
+               // UMSocialShareResponse *resp = data;
+             //分享结果消息
+              //  MyLog(@"response message is %@",resp.message);
                 //第三方原始返回的数据
-                MyLog(@"response originalResponse data is %@",resp.originalResponse);
+             //   MyLog(@"response originalResponse data is %@",resp.originalResponse);
                 
             }else{
                 MyLog(@"response data is %@",data);

@@ -3,7 +3,7 @@
 //  CMZC
 //
 //  Created by 财猫 on 16/3/14.
-//  Copyright © 2016年 郑浩然. All rights reserved.
+//  Copyright © 2016年 MAC. All rights reserved.
 //
 
 #import "CMSubscribeViewController.h"
@@ -37,10 +37,10 @@
     [self initTableViewTitleHeaderView];
     
    [self addRequestDataMeans];
-  
-
+ 
     
 }
+
 #pragma mark - 数据请求
 //添加上啦加载下拉刷新
 - (void)addRequestDataMeans {
@@ -171,7 +171,7 @@
 //            [weakSelef.navigationController pushViewController:newGuideVC animated:YES];
             
             CMCommWebViewController *webVC = (CMCommWebViewController *)[CMCommWebViewController initByStoryboard];
-            webVC.urlStr = @"http://m.xinjingban.com/invesment.aspx";
+            webVC.urlStr = @"http://m.xinjingban.com/Activity/NewPlate.aspx?pid=70363";
             [weakSelef.navigationController pushViewController:webVC animated:YES];
         //
         } else if(index == 1001) {

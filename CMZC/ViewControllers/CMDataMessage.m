@@ -18,11 +18,7 @@ static FMDatabase *_db=nil;
      dispatch_once(&once_token, ^{
          _db=[[FMDatabase alloc]initWithPath:[self getFilePath]];
      });
-//    if (_db==nil) {
-//        //_db=[[FMDatabase alloc]initWithPath:[self getFilePath]];
-//        
-//         _db=[[FMDatabase alloc]initWithPath:[CMCache  getFilePath:[NSString stringWithFormat:@"Message%@.sqlite",[CMUserDefaults  objectForKey:@"userID"]]]];
-//    }
+
     [self openDataBase];
     return _db;
 }

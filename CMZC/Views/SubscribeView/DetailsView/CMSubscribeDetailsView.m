@@ -2,8 +2,8 @@
 //  CMSubscribeDetailsView.m
 //  CMZC
 //
-//  Created by 郑浩然 on 16/9/29.
-//  Copyright © 2016年 郑浩然. All rights reserved.
+//  Created by MAC on 16/9/29.
+//  Copyright © 2016年 MAC. All rights reserved.
 //
 
 #import "CMSubscribeDetailsView.h"
@@ -49,7 +49,7 @@
     }
     return self;
 }
-
+#pragma clang diagnositc ignores "-Wformat"
 - (void)setProduct:(CMProductDetails *)product {
     _product = product;
     _copiesIndex = product.startquantity;
@@ -77,6 +77,7 @@
         self.purchaseStateBtn.backgroundColor = [UIColor cmBackgroundGrey];
     }
 }
+#pragma clang diagnositc ignores "-Wformat"
 //减少
 - (IBAction)reduceBtnClick:(UIButton *)sender {
     _variableNumber --;
@@ -88,6 +89,7 @@
         self.copiesText.text = [NSString stringWithFormat:@"%ld",(long)_variableNumber];
     }
 }
+#pragma clang diagnositc ignores "-Wformat"
 //增加
 - (IBAction)increaseBtnClick:(UIButton *)sender {
     _variableNumber ++;

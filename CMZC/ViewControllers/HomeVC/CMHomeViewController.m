@@ -3,7 +3,7 @@
 //  CMZC
 //
 //  Created by 财猫 on 16/3/2.
-//  Copyright © 2016年 郑浩然. All rights reserved.
+//  Copyright © 2016年 MAC. All rights reserved.
 //
 
 #import "CMHomeViewController.h"
@@ -34,7 +34,7 @@
 #import "CMApp_Header.h"
 
 
-@interface CMHomeViewController ()<UITableViewDelegate,UITableViewDataSource,CMEditionTableViewCellDelegate,CMOptionTableViewCellDelegate,CMNewQualityCellDelegate,CMWebSocketDelegate,CMAllServerViewControllerDelegate,CMGoldMedalTableViewCellDelegate,CMSubscribeTableViewCellDelegate> {
+@interface CMHomeViewController ()<UITableViewDelegate,UITableViewDataSource,CMEditionTableViewCellDelegate,CMOptionTableViewCellDelegate,CMNewQualityCellDelegate,CMWebSocketDelegate,CMGoldMedalTableViewCellDelegate,CMSubscribeTableViewCellDelegate> {
     //NSString *_buyNumber; //多少人购买
 }
 
@@ -149,6 +149,8 @@
     } fail:^(NSError *error) {
         MyLog(@"最新动态请求失败");
           [_curTableView endRefresh];
+        [self hiddenProgressHUD];
+        [self showHUDWithMessage:@"数据请求失败!" hiddenDelayTime:2.0];
     }];
     
 }
@@ -369,6 +371,7 @@
         CMGoldMedalTableViewCell *goldCell = [tableView dequeueReusableCellWithIdentifier:@"CMGoldMedalTableViewCell"];
         if (!goldCell) {
             goldCell = [[NSBundle mainBundle] loadNibNamed:@"CMGoldMedalTableViewCell" owner:nil options:nil].firstObject;
+            goldCell.selectionStyle=UITableViewCellSelectionStyleNone;
         }
         goldCell.delegate = self;
         goldCell.glodServiceArr = self.glodServiceArr;
@@ -437,6 +440,7 @@
     CMCommWebViewController *webVC = (CMCommWebViewController *)[CMCommWebViewController initByStoryboard];
     NSString *webUrl = CMStringWithPickFormat(kCMMZWeb_url, [NSString stringWithFormat:@"Products/Detail?pid=%ld",(long)productid]);
     webVC.urlStr = webUrl;
+    webVC.ProductId=productid;
     [self.navigationController pushViewController:webVC animated:YES];
 }
 
@@ -453,9 +457,17 @@
 
 #pragma mark - CMGoldMedalTableViewCellDelegate
 - (void)cm_goldMedalAnalystsId:(NSInteger)analystsId {
-    CMAnalystDetailsViewController  *analystVC = (CMAnalystDetailsViewController *)[CMAnalystDetailsViewController initByStoryboard];
-    analystVC.analystsId = analystsId;
-    [self.navigationController pushViewController:analystVC animated:YES];
+//    CMAnalystDetailsViewController  *analystVC = (CMAnalystDetailsViewController *)[CMAnalystDetailsViewController initByStoryboard];
+//    analystVC.analystsId = analystsId;
+//    [self.navigationController pushViewController:analystVC animated:YES];
+    [self cm_homeOptionAnalyst];
+}
+-(void)cm_goldOrganizationEnter{
+  
+    CMCommWebViewController *webVC = (CMCommWebViewController *)[CMCommWebViewController initByStoryboard];
+    webVC.urlStr = CMStringWithPickFormat(kCMMZWeb_url, @"About/GoldService");
+    [self.navigationController pushViewController:webVC animated:YES];
+    
 }
 #pragma mark - CMSubscribeTableViewCellDelegate
 - (void)cm_checkRoadshowLiveUrl:(NSString *)liveUrl {
@@ -478,35 +490,41 @@
 - (void)cm_optionTableViewCellButTag:(NSInteger)btTag {
     
     switch (btTag) {
-        case 0://登录或者注册
-            [self cm_homeLoginOrAccountMethods];
-            
+        case 0://交易指南
+           
+        {
+            CMCommWebViewController *webVC = (CMCommWebViewController *)[CMCommWebViewController initByStoryboard];
+            webVC.urlStr = @"http://m.xinjingban.com/about/TradingGuideNew.aspx";
+            [self.navigationController pushViewController:webVC animated:YES];
+        }
 
             break;
-        case 1://自选
-            [self cm_homeOptionalMethods];
-            break;
-        case 2://分析师
-            [self cm_homeOptionAnalyst];
-            break;
-        case 3://动态
-            [self cm_optionHeadMoreButtonEvent];
-            break;
-        case 4://众筹宝
+        case 1://投资讲堂
         {
-//            if (!CMIsLogin()) {
-//                //位登录。显示登录
-//                UINavigationController *nav = [UIStoryboard loginStoryboard].instantiateInitialViewController;
-//                [self presentViewController:nav animated:YES completion:nil];
-//            } else {http://192.168.1.225:8886/Products/FundList
-              //[self cm_commWebViewURL:CMStringWithPickFormat(kCMMZWeb_url, @"Products/FundList")];
-           // }
-            
-            //CMBeiLiBaoController
-            
+            CMCommWebViewController *webVC = (CMCommWebViewController *)[CMCommWebViewController initByStoryboard];
+            webVC.urlStr = @"http://m.xinjingban.com/invesment.aspx";
+            [self.navigationController pushViewController:webVC animated:YES];
+        }
+            break;
+        case 2://安全保障
+        {
+            CMMoneyViewController  *newGuideVC=[[CMMoneyViewController alloc]init];
+            newGuideVC.hidesBottomBarWhenPushed=YES;
+            newGuideVC.titName = @"安全保障";//strength_serve_home
+            newGuideVC.imageStr=@"insurance_serve_home";
+            [self.navigationController pushViewController:newGuideVC animated:YES];
+        }
+            break;
+        case 3://倍利宝
+        {
             CMBeiLiBaoController *webVC = (CMBeiLiBaoController *)[CMBeiLiBaoController initByStoryboard];
             
             [self.navigationController pushViewController:webVC animated:YES];
+        }
+            break;
+        case 4://开户 我的账户
+        {
+            [self cm_homeLoginOrAccountMethods];
         }
             break;
         default://更多
@@ -521,17 +539,19 @@
     
     if (CMIsLogin()) {
         //已登录显示账户
-        UIWindow *window = [UIApplication sharedApplication].windows.firstObject;
-        CMTabBarViewController *tab = (CMTabBarViewController *)window.rootViewController;
-        tab.selectedIndex = 3;
+//        UIWindow *window = [UIApplication sharedApplication].windows.firstObject;
+//        CMTabBarViewController *tab = (CMTabBarViewController *)window.rootViewController;
+//        tab.selectedIndex = 3;
+        [self presentTabBarIndex];
         
     } else {
         //位登录。显示登录
         //位登录。显示登录
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(presentTabBarIndex) name:@"loginWin" object:nil];
-        UINavigationController *nav = [UIStoryboard loginStoryboard].instantiateInitialViewController;
-        [self presentViewController:nav animated:YES completion:nil];
-        
+       // [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(presentTabBarIndex) name:@"loginWin" object:nil];
+//        UINavigationController *nav = [UIStoryboard loginStoryboard].instantiateInitialViewController;
+//        [self presentViewController:nav animated:YES completion:nil];
+        CMRegisterViewController *registerController=(CMRegisterViewController*)[[UIStoryboard loginStoryboard]viewControllerWithId:@"CMRegisterViewController"];
+        [self.navigationController pushViewController:registerController animated:YES];
     }
     
 }
@@ -559,7 +579,7 @@
 //更多
 - (void)cm_homeOptionMore {
     CMAllServeViewController *optionalVC = (CMAllServeViewController *)[CMAllServeViewController initByStoryboard];
-    optionalVC.delegate = self;
+    //optionalVC.delegate = self;
     [self.navigationController pushViewController:optionalVC animated:YES];
 }
 //分析师
@@ -590,11 +610,11 @@
     }
 }
 
-- (void)cm_allServerViewControllerPopHomeVCType:(CMAllServerViewType)type {
-    UIWindow *window = [UIApplication sharedApplication].windows.firstObject;
-    CMTabBarViewController *tab = (CMTabBarViewController *)window.rootViewController;
-    tab.selectedIndex = 1;
-}
+//- (void)cm_allServerViewControllerPopHomeVCType:(CMAllServerViewType)type {
+//    UIWindow *window = [UIApplication sharedApplication].windows.firstObject;
+//    CMTabBarViewController *tab = (CMTabBarViewController *)window.rootViewController;
+//    tab.selectedIndex = 1;
+//}
 #pragma mark - btnClick
 //更多动态
 - (IBAction)moreBtnClick:(id)sender {

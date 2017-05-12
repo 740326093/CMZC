@@ -2,8 +2,8 @@
 //  CMGoldMedalTableViewCell.m
 //  CMZC
 //
-//  Created by 郑浩然 on 16/12/24.
-//  Copyright © 2016年 郑浩然. All rights reserved.
+//  Created by MAC on 16/12/24.
+//  Copyright © 2016年 MAC. All rights reserved.
 //
 
 #import "CMGoldMedalTableViewCell.h"
@@ -53,6 +53,8 @@
     _analystsAnswer.text = adminis.data1;
     _analystsViewPoint.text = adminis.data2;
     
+    
+    
     CMAdministrator *goldDdminis = glodServiceArr.lastObject;
     [_goldTitleImage sd_setImageWithURL:[NSURL URLWithString:goldDdminis.imageUrl] placeholderImage:[UIImage imageNamed:@"title_log"]];
     _goldTitleName.text = goldDdminis.name;
@@ -67,6 +69,19 @@
         [self.delegate cm_goldMedalAnalystsId:_analystsIndex];
     }
 }
+
+
+- (IBAction)goldOrganizationBtnClick:(id)sender {
+    
+    if ([self.delegate respondsToSelector:@selector(cm_goldOrganizationEnter)]) {
+        [self.delegate cm_goldOrganizationEnter];
+    }
+    
+    
+}
+
+
+
 /**
  *  格式化float，显示单位，保留2位小数
  *

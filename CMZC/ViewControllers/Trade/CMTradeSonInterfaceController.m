@@ -3,7 +3,7 @@
 //  CMZC
 //
 //  Created by 财猫 on 16/3/10.
-//  Copyright © 2016年 郑浩然. All rights reserved.
+//  Copyright © 2016年 MAC. All rights reserved.
 //
 
 #import "CMTradeSonInterfaceController.h"
@@ -25,7 +25,7 @@
 
 
 
-@interface CMTradeSonInterfaceController ()<UICollectionViewDataSource,UICollectionViewDelegate,TitleViewDelegate,CMInquireCollectionViewCellDelegate,CMBuyingCellDelegate,CMSaleCollectionDelegate,CMHoldCollectionViewDelegate>
+@interface CMTradeSonInterfaceController ()<UICollectionViewDataSource,UICollectionViewDelegate,TitleViewDelegate,CMInquireCollectionViewCellDelegate,CMBuyingCellDelegate,CMSaleCollectionDelegate,CMHoldCollectionViewDelegate,UIAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UICollectionView *curCollectionView;
 @property (strong, nonatomic) TitleView *titleView;
 @property (strong, nonatomic) CMRevokeCollectionViewCell *revokeSaleCell;
@@ -212,8 +212,13 @@ static NSString *const inquireIdentifer = @"CMInquireCollectionViewCell";
         switch (indexPath.row) {
             case 0:
             {
-                [self.navigationController popViewControllerAnimated:NO];
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"productPurchase" object:self];
+               // [self.navigationController popViewControllerAnimated:NO];
+                //[[NSNotificationCenter defaultCenter] postNotificationName:@"productPurchase" object:self];
+                CMSubscribeViewController *webVC = (CMSubscribeViewController *)[[UIStoryboard mainStoryboard] viewControllerWithId:@"CMSubscribeViewController"];
+                
+                [self.navigationController pushViewController:webVC animated:YES];
+                
+                
             }
                 break;
             case 1:
@@ -301,9 +306,33 @@ static NSString *const inquireIdentifer = @"CMInquireCollectionViewCell";
 }
 //充值
 - (void)rechargeWebView {
-    CMCommWebViewController *commWebVC = (CMCommWebViewController *)[[UIStoryboard mainStoryboard] viewControllerWithId:@"CMCommWebViewController"];
-    commWebVC.urlStr = CMStringWithPickFormat(kCMMZWeb_url, @"Account/Recharge");
-    [self.navigationController pushViewController:commWebVC animated:YES];
+    if (_tinfo.bankcardisexists) {
+        
+        CMCommWebViewController *commWebVC = (CMCommWebViewController *)[[UIStoryboard mainStoryboard] viewControllerWithId:@"CMCommWebViewController"];
+        commWebVC.urlStr = CMStringWithPickFormat(kCMMZWeb_url, @"Account/Recharge");
+        [self.navigationController pushViewController:commWebVC animated:YES];
+    }else{
+        UIAlertView *aler = [[UIAlertView alloc] initWithTitle:@"请先认证银行卡" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        [aler show];
+        
+    }
+    
+    
+}
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+  
+        if (buttonIndex == 1) {
+
+        
+        CMCommWebViewController *commWebVC = (CMCommWebViewController *)[[UIStoryboard mainStoryboard] viewControllerWithId:@"CMCommWebViewController"];
+        commWebVC.urlStr =CMStringWithPickFormat(kCMMZWeb_url, @"Account/BankCardCertification");
+        [self.navigationController pushViewController:commWebVC animated:YES];
+
+    }
+    
+}
+-(void)setTinfo:(CMAccountinfo *)tinfo{
+    _tinfo=tinfo;
 }
 
 #pragma mark -

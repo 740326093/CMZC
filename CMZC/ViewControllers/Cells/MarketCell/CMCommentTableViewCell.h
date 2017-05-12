@@ -3,7 +3,7 @@
 //  CMZC
 //
 //  Created by 财猫 on 16/3/17.
-//  Copyright © 2016年 郑浩然. All rights reserved.
+//  Copyright © 2016年 MAC. All rights reserved.
 //  行情详情的 评论 公告 企业信息 详情 cell
 
 #import <UIKit/UIKit.h>

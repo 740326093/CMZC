@@ -3,7 +3,7 @@
 //  CMZC
 //
 //  Created by 财猫 on 16/3/5.
-//  Copyright © 2016年 郑浩然. All rights reserved.
+//  Copyright © 2016年 MAC. All rights reserved.
 //
 
 #import "CMAllServeViewController.h"
@@ -53,17 +53,17 @@
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-    if (self.allType == CMAllServerViewTypeMarket || self.allType == CMAllServerViewTypeSubscribe || self.allType == CMAllServerViewTypeAccount) {
-        NSMutableArray *vcs = [[NSMutableArray alloc] initWithArray:self.navigationController.viewControllers];
-        for (UIViewController *vc in vcs) {
-            if ([vc isKindOfClass:[self class]]) {
-                [vcs removeObject:vc];
-                break;
-            }
-        }
-        self.navigationController.viewControllers = vcs;
-    }
-    
+//    if (self.allType == CMAllServerViewTypeMarket || self.allType == CMAllServerViewTypeSubscribe || self.allType == CMAllServerViewTypeAccount) {
+//        NSMutableArray *vcs = [[NSMutableArray alloc] initWithArray:self.navigationController.viewControllers];
+//        for (UIViewController *vc in vcs) {
+//            if ([vc isKindOfClass:[self class]]) {
+//                [vcs removeObject:vc];
+//                break;
+//            }
+//        }
+//        self.navigationController.viewControllers = vcs;
+//    }
+//    
 }
 
 
@@ -270,23 +270,29 @@
 //交易服务
 - (void)tradeServeIndexPath:(NSIndexPath *)indexPath {
 
-    UIWindow *window = [UIApplication sharedApplication].windows.firstObject;
+    //UIWindow *window = [UIApplication sharedApplication].windows.firstObject;
     switch (indexPath.row) {
         case 1:
             //申购新品
         {
-            self.allType = CMAllServerViewTypeSubscribe;
-            CMTabBarViewController *tab = (CMTabBarViewController *)window.rootViewController;
-            tab.selectedIndex = 1;
+           // self.allType = CMAllServerViewTypeSubscribe;
+//            CMTabBarViewController *tab = (CMTabBarViewController *)window.rootViewController;
+//            tab.selectedIndex = 1;
+            CMSubscribeViewController *webVC = (CMSubscribeViewController *)[[UIStoryboard mainStoryboard] viewControllerWithId:@"CMSubscribeViewController"];
+            
+            [self.navigationController pushViewController:webVC animated:YES];
             
         }
             break;
         case 2:
             //行情
         {
-            self.allType = CMAllServerViewTypeMarket;
-            CMTabBarViewController *tab = (CMTabBarViewController *)window.rootViewController;
-            tab.selectedIndex = 2;
+           // self.allType = CMAllServerViewTypeMarket;
+//            CMTabBarViewController *tab = (CMTabBarViewController *)window.rootViewController;
+//            tab.selectedIndex = 2;
+            CMMarketViewController*webVC = (CMMarketViewController *)[[UIStoryboard mainStoryboard] viewControllerWithId:@"CMMarketViewController"];
+            
+            [self.navigationController pushViewController:webVC animated:YES];
         }
             break;
         case 3://倍利宝
@@ -343,10 +349,15 @@
             if (!CMIsLogin()) {
                 [self isLoginVC];
             } else {
-                self.allType = CMAllServerViewTypeAccount;
-                UIWindow *window = [UIApplication sharedApplication].windows.firstObject;
-                CMTabBarViewController *tab = (CMTabBarViewController *)window.rootViewController;
-                tab.selectedIndex = 3;
+               // self.allType = CMAllServerViewTypeAccount;
+//                UIWindow *window = [UIApplication sharedApplication].windows.firstObject;
+//                CMTabBarViewController *tab = (CMTabBarViewController *)window.rootViewController;
+//                tab.hidesBottomBarWhenPushed=YES;
+//                tab.selectedIndex = 3;
+                CMTradeViewController *webVC = (CMTradeViewController *)[[UIStoryboard mainStoryboard] viewControllerWithId:@"CMTradeViewController"];
+                webVC.isHidebottom=YES;
+                [self.navigationController pushViewController:webVC animated:YES];
+                
             }
             
         }
@@ -427,7 +438,7 @@
     UINavigationController *nav = [UIStoryboard loginStoryboard].instantiateInitialViewController;
     [self presentViewController:nav animated:YES completion:nil];
 }
-
+/*
 - (void)popHomeViewControllerType:(CMAllServerViewType)type {
     [self.navigationController popViewControllerAnimated:NO];
     if ([self.delegate respondsToSelector:@selector(cm_allServerViewControllerPopHomeVCType:)]) {
@@ -436,7 +447,7 @@
     
     
 }
-
+*/
 #pragma mark -
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

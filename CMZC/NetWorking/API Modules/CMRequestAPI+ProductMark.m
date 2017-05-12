@@ -3,14 +3,14 @@
 //  CMZC
 //
 //  Created by 财猫 on 16/4/15.
-//  Copyright © 2016年 郑浩然. All rights reserved.
+//  Copyright © 2016年 MAC. All rights reserved.
 //
 
 #define kCMCode 800082  //测试用的
 
 #import "CMRequestAPI+ProductMark.h"
 #import "CMMarketList.h"
-#import "CMModules_Header.h"
+
 #import "CMProductType.h"
 #import "CMProductComment.h"
 #import "CMProductNotion.h"

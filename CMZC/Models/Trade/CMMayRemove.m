@@ -3,7 +3,7 @@
 //  CMZC
 //
 //  Created by 财猫 on 16/6/3.
-//  Copyright © 2016年 郑浩然. All rights reserved.
+//  Copyright © 2016年 MAC. All rights reserved.
 //
 
 #import "CMMayRemove.h"

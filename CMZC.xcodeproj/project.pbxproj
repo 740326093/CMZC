@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		04290FFB1E7B8DF9005DEA0D /* btn_Image_up@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04290FF91E7B8DF9005DEA0D /* btn_Image_up@2x.png */; };
 		04290FFC1E7B8DF9005DEA0D /* btn_Image_up@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04290FFA1E7B8DF9005DEA0D /* btn_Image_up@3x.png */; };
-		043390C61E66CB9600655718 /* CMJSProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 043390C51E66CB9500655718 /* CMJSProtocol.m */; };
 		044551311E98CFF9000F70E7 /* CMAboutFootView.m in Sources */ = {isa = PBXBuildFile; fileRef = 044551301E98CFF9000F70E7 /* CMAboutFootView.m */; };
 		044551331E98D036000F70E7 /* CMAboutFootView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 044551321E98D036000F70E7 /* CMAboutFootView.xib */; };
 		044551371E98D656000F70E7 /* CMAboutSecondCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 044551351E98D656000F70E7 /* CMAboutSecondCell.m */; };
@@ -42,6 +41,7 @@
 		0475C0AC1E6921C90011015E /* CMTouCeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0475C0AB1E6921C90011015E /* CMTouCeView.m */; };
 		0475C0AF1E69227B0011015E /* CMButtonLabelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0475C0AE1E69227B0011015E /* CMButtonLabelView.m */; };
 		0475C0B41E6940D70011015E /* CMIntrouctionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0475C0B31E6940D70011015E /* CMIntrouctionView.m */; };
+		0481592E1EAF2C9700E60368 /* CMBLBDetailBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0481592D1EAF2C9700E60368 /* CMBLBDetailBottomView.m */; };
 		0485E6151E88ECAE000BE46C /* four_guidance.png in Resources */ = {isa = PBXBuildFile; fileRef = 0485E6141E88ECAE000BE46C /* four_guidance.png */; };
 		048A8C7C1E7A39DF003274F3 /* UITabBar+CMBadage.m in Sources */ = {isa = PBXBuildFile; fileRef = 048A8C7B1E7A39DF003274F3 /* UITabBar+CMBadage.m */; };
 		048C1B811E5EAE4900519896 /* CMNewActionHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 048C1B801E5EAE4900519896 /* CMNewActionHeadView.m */; };
@@ -414,8 +414,6 @@
 /* Begin PBXFileReference section */
 		04290FF91E7B8DF9005DEA0D /* btn_Image_up@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "btn_Image_up@2x.png"; path = "../ViewControllers/Cells/MarketCell/btn_Image_up@2x.png"; sourceTree = "<group>"; };
 		04290FFA1E7B8DF9005DEA0D /* btn_Image_up@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "btn_Image_up@3x.png"; path = "../ViewControllers/Cells/MarketCell/btn_Image_up@3x.png"; sourceTree = "<group>"; };
-		043390C41E66CB9500655718 /* CMJSProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CMJSProtocol.h; path = Base/CMJSProtocol.h; sourceTree = "<group>"; };
-		043390C51E66CB9500655718 /* CMJSProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CMJSProtocol.m; path = Base/CMJSProtocol.m; sourceTree = "<group>"; };
 		0445512F1E98CFF9000F70E7 /* CMAboutFootView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMAboutFootView.h; sourceTree = "<group>"; };
 		044551301E98CFF9000F70E7 /* CMAboutFootView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMAboutFootView.m; sourceTree = "<group>"; };
 		044551321E98D036000F70E7 /* CMAboutFootView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CMAboutFootView.xib; sourceTree = "<group>"; };
@@ -472,11 +470,11 @@
 		0475C0AE1E69227B0011015E /* CMButtonLabelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMButtonLabelView.m; sourceTree = "<group>"; };
 		0475C0B21E6940D70011015E /* CMIntrouctionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMIntrouctionView.h; sourceTree = "<group>"; };
 		0475C0B31E6940D70011015E /* CMIntrouctionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMIntrouctionView.m; sourceTree = "<group>"; };
+		0481592C1EAF2C9700E60368 /* CMBLBDetailBottomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMBLBDetailBottomView.h; sourceTree = "<group>"; };
+		0481592D1EAF2C9700E60368 /* CMBLBDetailBottomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMBLBDetailBottomView.m; sourceTree = "<group>"; };
 		0485E6141E88ECAE000BE46C /* four_guidance.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = four_guidance.png; sourceTree = "<group>"; };
 		048A8C7A1E7A39DF003274F3 /* UITabBar+CMBadage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITabBar+CMBadage.h"; sourceTree = "<group>"; };
 		048A8C7B1E7A39DF003274F3 /* UITabBar+CMBadage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITabBar+CMBadage.m"; sourceTree = "<group>"; };
-		048A8C7D1E7A58FB003274F3 /* jpush-ios-2.1.9.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "jpush-ios-2.1.9.a"; sourceTree = "<group>"; };
-		048A8C7E1E7A58FB003274F3 /* JPUSHService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPUSHService.h; sourceTree = "<group>"; };
 		048C1B7F1E5EAE4900519896 /* CMNewActionHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMNewActionHeadView.h; sourceTree = "<group>"; };
 		048C1B801E5EAE4900519896 /* CMNewActionHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMNewActionHeadView.m; sourceTree = "<group>"; };
 		048C1B821E5EEA0000519896 /* CMNewShiView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMNewShiView.h; sourceTree = "<group>"; };
@@ -812,7 +810,6 @@
 		384EB08C1C8EBF34001D311F /* CMAnalystPointView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CMAnalystPointView.xib; sourceTree = "<group>"; };
 		384EB08E1C8ECF1B001D311F /* CMMoneyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMMoneyViewController.h; sourceTree = "<group>"; };
 		384EB08F1C8ECF1B001D311F /* CMMoneyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMMoneyViewController.m; sourceTree = "<group>"; };
-		384EEEE11CB74F4B000078F9 /* CMModules_Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CMModules_Header.h; sourceTree = "<group>"; };
 		384EEEE21CB75158000078F9 /* CMBankBlockList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMBankBlockList.h; sourceTree = "<group>"; };
 		384EEEE31CB75158000078F9 /* CMBankBlockList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMBankBlockList.m; sourceTree = "<group>"; };
 		384EEF281CB79C2B000078F9 /* CMAlerTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMAlerTableView.h; sourceTree = "<group>"; };
@@ -1326,8 +1323,6 @@
 				04A863851E97918700A47944 /* View */,
 				3832B6E51CA62C6C000F274C /* CMCommWebViewController.h */,
 				3832B6E61CA62C6C000F274C /* CMCommWebViewController.m */,
-				043390C41E66CB9500655718 /* CMJSProtocol.h */,
-				043390C51E66CB9500655718 /* CMJSProtocol.m */,
 			);
 			name = webView;
 			sourceTree = "<group>";
@@ -1339,6 +1334,8 @@
 				04A863871E9791B300A47944 /* CMProductDetailBottomView.m */,
 				044551431E98E974000F70E7 /* CMConsultingAlertView.h */,
 				044551441E98E974000F70E7 /* CMConsultingAlertView.m */,
+				0481592C1EAF2C9700E60368 /* CMBLBDetailBottomView.h */,
+				0481592D1EAF2C9700E60368 /* CMBLBDetailBottomView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -1554,7 +1551,6 @@
 		38241B031C858567005E5134 /* Lib */ = {
 			isa = PBXGroup;
 			children = (
-				384D47581CA92428007A57E4 /* JP */,
 				38D010891C980B5C007268B5 /* Libs */,
 				382B5ECC1C8AD0A700D2C79B /* JSQMessagesComposerTextView.h */,
 				382B5ECD1C8AD0A700D2C79B /* JSQMessagesComposerTextView.m */,
@@ -2006,15 +2002,6 @@
 			path = MarketCell;
 			sourceTree = "<group>";
 		};
-		384D47581CA92428007A57E4 /* JP */ = {
-			isa = PBXGroup;
-			children = (
-				048A8C7D1E7A58FB003274F3 /* jpush-ios-2.1.9.a */,
-				048A8C7E1E7A58FB003274F3 /* JPUSHService.h */,
-			);
-			path = JP;
-			sourceTree = "<group>";
-		};
 		384EB04E1C8E5A71001D311F /* Bulletin */ = {
 			isa = PBXGroup;
 			children = (
@@ -2035,7 +2022,6 @@
 		384EB05E1C8E6712001D311F /* API Modules */ = {
 			isa = PBXGroup;
 			children = (
-				384EEEE11CB74F4B000078F9 /* CMModules_Header.h */,
 				384EB05F1C8E6758001D311F /* CMRequestAPI+Trends.h */,
 				384EB0601C8E6758001D311F /* CMRequestAPI+Trends.m */,
 				384EB0701C8EA9E4001D311F /* CMRequestAPI+HomePage.h */,
@@ -2558,7 +2544,7 @@
 			attributes = {
 				CLASSPREFIX = CM;
 				LastUpgradeCheck = 0720;
-				ORGANIZATIONNAME = "郑浩然";
+				ORGANIZATIONNAME = MAC;
 				TargetAttributes = {
 					38241A911C853F77005E5134 = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -2903,7 +2889,6 @@
 				383C865F1CBC9C64004FD0FE /* CMHoldInquire.m in Sources */,
 				381C1FAD1E12615400974AD1 /* CMSubmittedWinView.m in Sources */,
 				38D0109D1C980B5C007268B5 /* Section.m in Sources */,
-				043390C61E66CB9600655718 /* CMJSProtocol.m in Sources */,
 				384EB06F1C8EA86B001D311F /* CMAnalystViewController.m in Sources */,
 				38DFE2341C86940D00FE6736 /* UIView+Plus.m in Sources */,
 				3859C6471C9AA7D100A358CF /* CMBusinessNewsView.m in Sources */,
@@ -2975,6 +2960,7 @@
 				383434941CA3CF57003D3180 /* CMSortwareShareViewController.m in Sources */,
 				38499B821C96B124000C5763 /* CMProductDetailsViewController.m in Sources */,
 				385F0AB51C910C5B0035CE22 /* CMBuyingTitleView.m in Sources */,
+				0481592E1EAF2C9700E60368 /* CMBLBDetailBottomView.m in Sources */,
 				0475C08C1E6907FA0011015E /* CMBarHeadView.m in Sources */,
 				0469998D1E5D2FF90003BD2D /* CMThirdPartlyCommad.m in Sources */,
 				38FC90161C92C25600A347EE /* CMHistoryEntrustView.m in Sources */,

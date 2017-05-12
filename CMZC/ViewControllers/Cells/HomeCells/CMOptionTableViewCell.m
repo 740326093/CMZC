@@ -3,7 +3,7 @@
 //  CMZC
 //
 //  Created by 财猫 on 16/3/2.
-//  Copyright © 2016年 郑浩然. All rights reserved.
+//  Copyright © 2016年 MAC. All rights reserved.
 //
 
 #import "CMOptionTableViewCell.h"
@@ -37,20 +37,7 @@
     _curCollectionView.dataSource = self;
     [_curCollectionView registerClass:[CMNewActionHeadView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"CMServeReusableView"];
     
-    /*
-    if (CMIsLogin()) {
-        
-    } else {
-        
-    }
-    
-    [_registerBtn cm_setButtonRevealStyleImageName:@"register_home" titleName:@"注册"];
-    [_optionalBtn cm_setButtonRevealStyleImageName:@"optional_home" titleName:@"自选"];
-    [_analystBtn cm_setButtonRevealStyleImageName:@"analys_home" titleName:@"分析师"];
-    [_noticeBtn cm_setButtonRevealStyleImageName:@"notice_home" titleName:@"公告"];
-    [_raiseMoneyBtn cm_setButtonRevealStyleImageName:@"many_home" titleName:@"众筹宝"];
-    [_moreBtn cm_setButtonRevealStyleImageName:@"more_home" titleName:@"更多"];
-    */
+
     [self requestTrends];
 }
 #pragma mark - UICollectionViewDataSource && UICollectionViewDelegate
@@ -153,20 +140,27 @@
 
 #pragma mark - set get
 - (NSArray *)titImageArr {
-    return @[@"register_home",
-             @"optional_home",
-             @"analys_home",
-             @"notice_home",
+    return @[@"deal_home",
+             @"invest_home",
+             @"security_home",
              @"many_home",
+             @"register_home",
              @"more_home"];
 }
+//- (NSArray *)titLabNameArr {
+//    return @[ CMIsLogin()?@"我的账户":@"注册/登录",
+//             @"自选",
+//             @"分析师",
+//             @"公告",
+//             @"倍利宝",
+//             @"更多"];
+//}
 - (NSArray *)titLabNameArr {
-    return @[ CMIsLogin()?@"我的账户":@"注册/登录",
-             @"自选",
-             @"分析师",
-             @"公告",
-             @"倍利宝",
-             @"更多"];
+    return @[ @"交易指南",
+              @"投资讲堂",
+              @"安全保障",
+              @"倍利宝",
+              CMIsLogin()?@"我的账户":@"开户",
+              @"更多"];
 }
-
 @end
