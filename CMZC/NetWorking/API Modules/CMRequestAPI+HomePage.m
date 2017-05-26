@@ -47,11 +47,12 @@
 
 //众筹宝
 + (void)cm_homeFetchProductFundlistPageSize:(NSInteger)page success:(void(^)(NSArray *fundlistArr))success fail:(void(^)(NSError *error))fail {
-    NSDictionary *dict = @{
-                           @"pagesize":CMNumberWithFormat(page)
-                           };
-    [CMRequestAPI postDataFromURLScheme:kCMHomeFundlistURL argumentsDictionary:dict success:^(id responseObject) {
- //  MyLog(@"++++++++%@+++++",responseObject);
+//   NSDictionary *dict = @{
+//                           @"pagesize":CMNumberWithFormat(page)
+//                           };
+    [CMRequestAPI postDataFromURLScheme:kCMHomeFundlistURL argumentsDictionary:nil success:^(id responseObject) {
+        
+//MyLog(@"++++++++%@+++++",responseObject);
         NSArray *contArr = responseObject[@"data"][@"rows"];
         NSMutableArray *dataArr = [NSMutableArray array];
         for (NSDictionary *dic in contArr) {
@@ -95,7 +96,7 @@
     
     
     [CMRequestAPI postDataFromURLScheme:kCMAnalysListURL argumentsDictionary:arguments success:^(id responseObject) {
-        MyLog(@"CMRequestAPI+++___%@+++",responseObject);
+      //  MyLog(@"CMRequestAPI+++___%@+++",responseObject);
         NSArray *dataArr = responseObject[@"data"][@"rows"];
         NSMutableArray *analysArr = [NSMutableArray array];
         for (NSDictionary *dict in dataArr) {

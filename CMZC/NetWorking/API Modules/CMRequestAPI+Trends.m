@@ -71,7 +71,7 @@
                                 };
    
     [CMRequestAPI postDataFromURLScheme:kCMTrendsNewActionURL argumentsDictionary:arguments success:^(id responseObject) {
-      //  MyLog(@"xinguandian+++%@",responseObject);
+     //MyLog(@"xinguandian+++%@",responseObject);
         NSArray *noticeArr = responseObject[@"data"][@"rows"];
         NSMutableArray *noticeModeArr = [NSMutableArray array];
         for (NSDictionary *dict in noticeArr) {

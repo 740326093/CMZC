@@ -115,7 +115,7 @@
     [self addData];
     //添加下拉刷新
     [_curTableView addHeaderWithFinishBlock:^{
-       
+        [self requestTitleBannesData];
         [self addData];
     }];
 }
@@ -600,12 +600,13 @@
         CMMoneyViewController  *newGuideVC=[[CMMoneyViewController alloc]init];
         newGuideVC.titName = @"新经板实力";//strength_serve_home
         newGuideVC.imageStr=@"strength_serve_home";
-        newGuideVC.hideTabBar=YES;
+        newGuideVC.hidesBottomBarWhenPushed=YES;
+       // newGuideVC.hideTabBar=YES;
         [self.navigationController pushViewController:newGuideVC animated:YES];
     } else {
         CMCommWebViewController *webVC = (CMCommWebViewController *)[CMCommWebViewController initByStoryboard];
-        NSString *webUrl =url;
-        webVC.urlStr = webUrl;
+      
+        webVC.urlStr = url;
         [self.navigationController pushViewController:webVC animated:YES];
     }
 }

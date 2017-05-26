@@ -8,8 +8,8 @@
 
  #define kCM_URL @"https://api.xinjingban.com:443/" //线上正式api
  #define kCMWeb_URL @"http://m.xinjingban.com/" //线上M站地址
-//    #define kCM_URL @"http://192.168.1.49:9000/" //本地测试api
-//   #define kCMWeb_URL @"http://192.168.1.49:8886/" //线上M站地址
+   //#define kCM_URL @"http://192.168.1.19:9000/" //本地测试api
+  //#define kCMWeb_URL @"http://192.168.1.19:8886/" //线上M站地址
 
 
 // m站地址

@@ -13,6 +13,6 @@
 @property (nonatomic,copy) NSString *titName;
 //图片名称
 @property (nonatomic,copy) NSString *imageStr;
-@property(nonatomic,assign)BOOL hideTabBar;
+//@property(nonatomic,assign)BOOL hideTabBar;
 
 @end

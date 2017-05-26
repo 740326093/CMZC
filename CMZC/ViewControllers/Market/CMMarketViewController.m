@@ -70,7 +70,7 @@
             [_curTableView endRefresh];
         }afterDelay:2];
     }];
-    [[NSNotificationCenter defaultCenter] addObserver:self
+   [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillShow:)
                                                  name:UIKeyboardWillShowNotification
                                                object:nil];
@@ -100,6 +100,7 @@
 
 - (void)requestTitle {
     [CMRequestAPI cm_marketFetchProductTypeSuccess:^(NSArray *typeArr) {
+        
         self.marketTitleView.titleArr = typeArr;
     } fail:^(NSError *error) {
         MyLog(@"请求title str失败");
@@ -333,7 +334,7 @@
 #pragma mark - SRWebSocketDelegate
 //发送请求
 - (void)webSocketDidOpen:(SRWebSocket *)webSocket{
-    NSLog(@"Websocket Connected");
+    //NSLog(@"Websocket Connected");
     //self.title = @"Connected!";
     //发送消息
     [_webSocket send:@":range:asc:1:20"];
@@ -347,7 +348,8 @@
 }
 
 - (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(id)message{
-   // NSLog(@"---%@",message);
+
+   //   NSLog(@"---%@",message);
     [self.marketArr removeAllObjects];
     NSString *messag = (NSString *)message;
      NSString *contStr = [message substringWithRange:NSMakeRange(2, messag.length - 2)];

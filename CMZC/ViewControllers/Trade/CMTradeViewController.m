@@ -92,6 +92,7 @@
     //判断token
     [[CMTokenTimer sharedCMTokenTimer] cm_cmtokenTimerRefreshSuccess:^{
         [CMRequestAPI cm_tradeFetchAccountionfSuccess:^(CMAccountinfo *account) {
+            
             [self hiddenProgressHUD];
             [_curTableView endRefresh];
             _tradeTitleView.tinfo = account;

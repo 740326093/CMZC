@@ -28,6 +28,7 @@
 @property (copy,nonatomic) NSString *realUrl;
 @property (strong,nonatomic) CMProductDetailBottomView*DetailBottomView;
 @property(strong,nonatomic)CMBLBDetailBottomView *BLBDetailBottomView;
+
 @end
 
 @implementation CMCommWebViewController

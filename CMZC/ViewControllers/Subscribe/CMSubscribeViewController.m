@@ -116,7 +116,7 @@
 //            [self presentViewController:nav animated:YES completion:nil];
 //        } else {
     
-            CMCommWebViewController *webVC = (CMCommWebViewController *)[CMCommWebViewController initByStoryboard];
+    CMCommWebViewController *webVC = (CMCommWebViewController *)[CMCommWebViewController initByStoryboard];
     webVC.ProductId=product.productId;
     webVC.urlStr = CMStringWithPickFormat(kCMMZWeb_url,CMStringWithPickFormat(@"/Products/Detail?pid=",CMStringWithFormat(product.productId)));
     
@@ -133,8 +133,8 @@
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    CMSubscribeHeaderView *headerView = [CMSubscribeHeaderView initByNibForClassName];
-    return headerView;
+    //CMSubscribeHeaderView *headerView = [CMSubscribeHeaderView initByNibForClassName];
+    return [CMSubscribeHeaderView initByNibForClassName];
 }
 
 #pragma mark - CMSubscribeTableViewCellDelegate
@@ -186,7 +186,8 @@
             CMMoneyViewController  *newGuideVC=[[CMMoneyViewController alloc]init];
             newGuideVC.titName = @"赚钱秘籍";//strength_serve_home
             newGuideVC.imageStr=@"make_money_serve";
-            newGuideVC.hideTabBar=YES;
+            newGuideVC.hidesBottomBarWhenPushed=YES;
+          //  newGuideVC.hideTabBar=YES;
             [weakSelef.navigationController pushViewController:newGuideVC animated:YES];
             
         } else {

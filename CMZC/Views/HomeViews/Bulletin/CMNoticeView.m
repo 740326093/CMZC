@@ -31,6 +31,7 @@
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
+        
         CMNoticeView *cmMedia = [[NSBundle mainBundle] loadNibNamed:@"CMNoticeView" owner:self options:nil].firstObject;
         [self addSubview:cmMedia];
         cmMedia.translatesAutoresizingMaskIntoConstraints = NO;

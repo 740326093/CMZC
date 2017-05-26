@@ -9,11 +9,11 @@
 
 #import "CMBaseViewController.h"
 
-@protocol CMTradeViewControllerDelegate <NSObject>
-
-
-
-@end
+//@protocol CMTradeViewControllerDelegate <NSObject>
+//
+//
+//
+//@end
 
 @interface CMTradeViewController : CMBaseViewController
 

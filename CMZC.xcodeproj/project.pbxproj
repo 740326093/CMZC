@@ -41,6 +41,8 @@
 		0475C0AC1E6921C90011015E /* CMTouCeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0475C0AB1E6921C90011015E /* CMTouCeView.m */; };
 		0475C0AF1E69227B0011015E /* CMButtonLabelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0475C0AE1E69227B0011015E /* CMButtonLabelView.m */; };
 		0475C0B41E6940D70011015E /* CMIntrouctionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0475C0B31E6940D70011015E /* CMIntrouctionView.m */; };
+		047C03AC1ECD349A007D4DE1 /* CMMediaNewsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 047C03AA1ECD349A007D4DE1 /* CMMediaNewsCell.m */; };
+		047C03AD1ECD349A007D4DE1 /* CMMediaNewsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 047C03AB1ECD349A007D4DE1 /* CMMediaNewsCell.xib */; };
 		0481592E1EAF2C9700E60368 /* CMBLBDetailBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0481592D1EAF2C9700E60368 /* CMBLBDetailBottomView.m */; };
 		0485E6151E88ECAE000BE46C /* four_guidance.png in Resources */ = {isa = PBXBuildFile; fileRef = 0485E6141E88ECAE000BE46C /* four_guidance.png */; };
 		048A8C7C1E7A39DF003274F3 /* UITabBar+CMBadage.m in Sources */ = {isa = PBXBuildFile; fileRef = 048A8C7B1E7A39DF003274F3 /* UITabBar+CMBadage.m */; };
@@ -470,6 +472,9 @@
 		0475C0AE1E69227B0011015E /* CMButtonLabelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMButtonLabelView.m; sourceTree = "<group>"; };
 		0475C0B21E6940D70011015E /* CMIntrouctionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMIntrouctionView.h; sourceTree = "<group>"; };
 		0475C0B31E6940D70011015E /* CMIntrouctionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMIntrouctionView.m; sourceTree = "<group>"; };
+		047C03A91ECD349A007D4DE1 /* CMMediaNewsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMMediaNewsCell.h; sourceTree = "<group>"; };
+		047C03AA1ECD349A007D4DE1 /* CMMediaNewsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMMediaNewsCell.m; sourceTree = "<group>"; };
+		047C03AB1ECD349A007D4DE1 /* CMMediaNewsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CMMediaNewsCell.xib; sourceTree = "<group>"; };
 		0481592C1EAF2C9700E60368 /* CMBLBDetailBottomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMBLBDetailBottomView.h; sourceTree = "<group>"; };
 		0481592D1EAF2C9700E60368 /* CMBLBDetailBottomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMBLBDetailBottomView.m; sourceTree = "<group>"; };
 		0485E6141E88ECAE000BE46C /* four_guidance.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = four_guidance.png; sourceTree = "<group>"; };
@@ -1281,6 +1286,9 @@
 				0471A5571E5FDCF900F001DE /* CMNewShiCell.h */,
 				0471A5581E5FDCF900F001DE /* CMNewShiCell.m */,
 				0471A5591E5FDCF900F001DE /* CMNewShiCell.xib */,
+				047C03A91ECD349A007D4DE1 /* CMMediaNewsCell.h */,
+				047C03AA1ECD349A007D4DE1 /* CMMediaNewsCell.m */,
+				047C03AB1ECD349A007D4DE1 /* CMMediaNewsCell.xib */,
 			);
 			name = Cell;
 			path = CMZC/Views/HomeViews/Bulletin;
@@ -2548,7 +2556,7 @@
 				TargetAttributes = {
 					38241A911C853F77005E5134 = {
 						CreatedOnToolsVersion = 7.2.1;
-						DevelopmentTeam = N57ZCUC299;
+						DevelopmentTeam = WJD59G455V;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -2612,6 +2620,7 @@
 				383A54001CEBF8DF00E64604 /* Info.plist in Resources */,
 				0485E6151E88ECAE000BE46C /* four_guidance.png in Resources */,
 				38FC8FFD1C929DD400A347EE /* ModelsFile in Resources */,
+				047C03AD1ECD349A007D4DE1 /* CMMediaNewsCell.xib in Resources */,
 				38704AF71D99220400BE4702 /* logo_anim_07@2x.png in Resources */,
 				38081AC21E20DBD000EA4E13 /* CMReplyTableViewCell.xib in Resources */,
 				04C7ABC81E6A9572005252B6 /* add_img1-03@3x.png in Resources */,
@@ -2873,6 +2882,7 @@
 				3859C61F1C9A3DA000A358CF /* CMTradeDetailTableViewCell.m in Sources */,
 				382B5EBD1C8AB24100D2C79B /* CMServeReusableView.m in Sources */,
 				0468FD071E67F486001A6013 /* CMBLBProductCell.m in Sources */,
+				047C03AC1ECD349A007D4DE1 /* CMMediaNewsCell.m in Sources */,
 				384241911D02673C00C0FFB5 /* CMRemoveTableViewCell.m in Sources */,
 				382C5A771DACC04300DCBC6F /* CMProductDetails.m in Sources */,
 				382A3DDC1C9009E10020FA7F /* CMTradeMeansTableViewCell.m in Sources */,
@@ -3186,7 +3196,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = N57ZCUC299;
+				DEVELOPMENT_TEAM = WJD59G455V;
 				ENABLE_BITCODE = NO;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/CMZC/AppResources/CMZHC_Header.pch";
 				INFOPLIST_FILE = CMZC/Info.plist;
@@ -3219,7 +3229,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = N57ZCUC299;
+				DEVELOPMENT_TEAM = WJD59G455V;
 				ENABLE_BITCODE = NO;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/CMZC/AppResources/CMZHC_Header.pch";
 				INFOPLIST_FILE = CMZC/Info.plist;

@@ -283,6 +283,7 @@
 + (void)cm_tradeFetchAccountionfSuccess:(void (^)(CMAccountinfo *))success fail:(void (^)(NSError *))fail {
     [CMRequestAPI postTradeFromURLScheme:kCMTradeAccountinfoURL argumentsDictionary:nil success:^(id responseObject) {
         NSDictionary *dict = responseObject[@"data"];
+        
         CMAccountinfo *tinfo = [CMAccountinfo yy_modelWithDictionary:dict];
         success(tinfo);
     } fail:^(NSError *error) {

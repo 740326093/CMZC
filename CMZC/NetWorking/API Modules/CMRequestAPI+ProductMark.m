@@ -172,6 +172,7 @@
 + (void)cm_marketFetchProductTypeSuccess:(void (^)(NSArray *))success fail:(void (^)(NSError *))fail {
     
     [CMRequestAPI postDataFromURLScheme:kCMProductTypelistURL argumentsDictionary:nil success:^(id responseObject) {
+        
         NSArray *dataArr = responseObject[@"data"][@"rows"];
         NSMutableArray *contData = [NSMutableArray array];
         for (NSDictionary *dict in dataArr) {

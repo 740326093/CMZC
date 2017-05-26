@@ -51,20 +51,6 @@
 }
 
 
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
-//    if (self.allType == CMAllServerViewTypeMarket || self.allType == CMAllServerViewTypeSubscribe || self.allType == CMAllServerViewTypeAccount) {
-//        NSMutableArray *vcs = [[NSMutableArray alloc] initWithArray:self.navigationController.viewControllers];
-//        for (UIViewController *vc in vcs) {
-//            if ([vc isKindOfClass:[self class]]) {
-//                [vcs removeObject:vc];
-//                break;
-//            }
-//        }
-//        self.navigationController.viewControllers = vcs;
-//    }
-//    
-}
 
 
 #pragma mark - 初始化布局

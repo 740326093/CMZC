@@ -50,22 +50,22 @@
    
     
 }
--(void)viewWillAppear:(BOOL)animated{
-    
-    [super viewWillAppear:animated];
-    if (self.hideTabBar==YES) {
-        
-        self.tabBarController.tabBar.hidden=YES;
-    }
-    
-}
--(void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
-    if (self.hideTabBar==YES) {
-        
-        self.tabBarController.tabBar.hidden=NO;
-    }
-}
+//-(void)viewWillAppear:(BOOL)animated{
+//    
+//    [super viewWillAppear:animated];
+//    if (self.hideTabBar==YES) {
+//        
+//        self.tabBarController.tabBar.hidden=YES;
+//    }
+//    
+//}
+//-(void)viewWillDisappear:(BOOL)animated{
+//    [super viewWillDisappear:animated];
+//    if (self.hideTabBar==YES) {
+//        
+//        self.tabBarController.tabBar.hidden=NO;
+//    }
+//}
 
 -(UIScrollView*)curScrollView{
     if (!_curScrollView) {

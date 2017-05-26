@@ -23,7 +23,7 @@
 
 - (void)setNotice:(CMNewShiModel *)notice {
     [_titleImage sd_setImageWithURL:[NSURL URLWithString:notice.picture] placeholderImage:[UIImage imageNamed:@"title_log"]];
-    
+   
     _titleLab.text = notice.title;
     
 }

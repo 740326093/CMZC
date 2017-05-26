@@ -9,6 +9,8 @@
 #import "CMMediaNewsView.h"
 
 #import "CMNewShiCell.h"
+
+#import "CMMediaNewsCell.h"
 @interface CMMediaNewsView ()<UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *curTableView;
 
@@ -42,6 +44,7 @@
 }
 #pragma clang diagnostic ignored "-Wobjc-missing-super-calls"
 - (void)awakeFromNib {
+    [super awakeFromNib];
     [self showHubTacit];
     [self addRequestDataMeans];
     
@@ -99,9 +102,9 @@
     return self.mediaDataArr.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    CMNewShiCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CMMediaTableViewCell"];
+    CMMediaNewsCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CMMediaNewsCell"];
     if (!cell) {
-        cell = [CMNewShiCell initByNibForClassName];
+        cell = [CMMediaNewsCell initByNibForClassName];
     }
     //没数据先注销
     cell.ShiModel = self.mediaDataArr[indexPath.row];

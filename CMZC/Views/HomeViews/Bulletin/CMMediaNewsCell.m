@@ -1,28 +1,26 @@
 //
-//  CMNewShiCell.m
+//  CMMediaNewsCell.m
 //  CMZC
 //
-//  Created by WangWei on 17/2/24.
+//  Created by WangWei on 2017/5/18.
 //  Copyright © 2017年 MAC. All rights reserved.
 //
 
-#import "CMNewShiCell.h"
+#import "CMMediaNewsCell.h"
 
-@implementation CMNewShiCell
+@implementation CMMediaNewsCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-    
-    
-    
 }
 -(void)setShiModel:(CMNewShiModel *)ShiModel{
-    _nameLabel.text=ShiModel.title;
-    _datelabel.text=ShiModel.created;
+
+    _titleLab.text=ShiModel.title;
+    _detailLab.text=ShiModel.descrip;
+    [_titleImageView sd_setImageWithURL:[NSURL URLWithString:ShiModel.picture] placeholderImage:nil];
     
 }
-
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
