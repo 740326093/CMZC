@@ -44,7 +44,7 @@
 #pragma mark - 数据请求
 //添加上啦加载下拉刷新
 - (void)addRequestDataMeans {
-    _curTableView.hidden = YES;
+    //_curTableView.hidden = YES;
     [self showDefaultProgressHUD];
     //显示菊花
     [self requestListWithPageNo:1];
@@ -66,7 +66,7 @@
     [CMRequestAPI cm_applyFetchProductListOnPageIndex:page pageSize:10 success:^(NSArray *productArr, BOOL isPage) {
         [self hiddenProgressHUD];
         [_curTableView endRefresh];//结束刷新
-        _curTableView.hidden = NO;
+        //_curTableView.hidden = NO;
         //区分显示教view
         kCurTableView_foot
         if (page == 1) {

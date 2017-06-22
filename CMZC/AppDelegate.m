@@ -147,7 +147,6 @@
    // if ([[UIDevice currentDevice].systemVersion floatValue] < 10.0 || application.applicationState > 0)
     //{
     if(application.applicationState == UIApplicationStateActive){
-
         
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"收到推送消息"
                                                         message:userInfo[@"aps"][@"alert"]
@@ -156,11 +155,9 @@
                                               otherButtonTitles:@"查看", nil];
         alert.tag=101;
         [alert show];
-   
-        
         NSString *page=[NSString dictionaryToJson:self.userDict];
         
-      
+        
         [CMMessageDao insertWithMessage:content andMessageUrl:urlStr andTime:time andIsread:@"1" andPage:page];
         
         

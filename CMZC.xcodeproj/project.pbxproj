@@ -49,6 +49,8 @@
 		048C1B811E5EAE4900519896 /* CMNewActionHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 048C1B801E5EAE4900519896 /* CMNewActionHeadView.m */; };
 		048C1B841E5EEA0000519896 /* CMNewShiView.m in Sources */ = {isa = PBXBuildFile; fileRef = 048C1B831E5EEA0000519896 /* CMNewShiView.m */; };
 		048C1B861E5EEF9B00519896 /* CMNewShiView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 048C1B851E5EEF9B00519896 /* CMNewShiView.xib */; };
+		048ED8081EE796B100E666F2 /* CMWKWebControllerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 048ED8071EE796B100E666F2 /* CMWKWebControllerViewController.m */; };
+		048ED80A1EE796E900E666F2 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 048ED8091EE796E900E666F2 /* WebKit.framework */; };
 		04A863881E9791B300A47944 /* CMProductDetailBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A863871E9791B300A47944 /* CMProductDetailBottomView.m */; };
 		04C7ABA51E6A8E0E005252B6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04C7ABA41E6A8E0E005252B6 /* Images.xcassets */; };
 		04C7ABA81E6A8ED0005252B6 /* add_img1-06@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04C7ABA71E6A8ED0005252B6 /* add_img1-06@2x.png */; };
@@ -485,6 +487,9 @@
 		048C1B821E5EEA0000519896 /* CMNewShiView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMNewShiView.h; sourceTree = "<group>"; };
 		048C1B831E5EEA0000519896 /* CMNewShiView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMNewShiView.m; sourceTree = "<group>"; };
 		048C1B851E5EEF9B00519896 /* CMNewShiView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CMNewShiView.xib; sourceTree = "<group>"; };
+		048ED8061EE796B100E666F2 /* CMWKWebControllerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMWKWebControllerViewController.h; sourceTree = "<group>"; };
+		048ED8071EE796B100E666F2 /* CMWKWebControllerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMWKWebControllerViewController.m; sourceTree = "<group>"; };
+		048ED8091EE796E900E666F2 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		049B4EE71EA4551A0053D5B7 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		04A863861E9791B300A47944 /* CMProductDetailBottomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMProductDetailBottomView.h; sourceTree = "<group>"; };
 		04A863871E9791B300A47944 /* CMProductDetailBottomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMProductDetailBottomView.m; sourceTree = "<group>"; };
@@ -1052,6 +1057,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				048ED80A1EE796E900E666F2 /* WebKit.framework in Frameworks */,
 				8FBFC6CEF39ED3A8BE47E80A /* libPods-CMZC.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1331,6 +1337,8 @@
 				04A863851E97918700A47944 /* View */,
 				3832B6E51CA62C6C000F274C /* CMCommWebViewController.h */,
 				3832B6E61CA62C6C000F274C /* CMCommWebViewController.m */,
+				048ED8061EE796B100E666F2 /* CMWKWebControllerViewController.h */,
+				048ED8071EE796B100E666F2 /* CMWKWebControllerViewController.m */,
 			);
 			name = webView;
 			sourceTree = "<group>";
@@ -2469,6 +2477,7 @@
 		8E1778AE79EDAEEC7C517308 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				048ED8091EE796E900E666F2 /* WebKit.framework */,
 				049B4EE71EA4551A0053D5B7 /* JavaScriptCore.framework */,
 				045AED491E57F7D3005495A3 /* libxml2.tbd */,
 				D88A9833A24E70854957B10F /* libPods-CMZC.a */,
@@ -2829,6 +2838,7 @@
 				384EB0911C8ECF1B001D311F /* CMMoneyViewController.m in Sources */,
 				3859C6261C9A5AA400A358CF /* CMCommentView.m in Sources */,
 				38FF3D3F1E2612D7007A81C5 /* CMTopicList.m in Sources */,
+				048ED8081EE796B100E666F2 /* CMWKWebControllerViewController.m in Sources */,
 				38CCA2241D9CE8AA00DBFD1A /* CMSubscribeDetailsViewController.m in Sources */,
 				384EB0611C8E6758001D311F /* CMRequestAPI+Trends.m in Sources */,
 				04F631A21EA074D30032378C /* CMCollectCell.m in Sources */,

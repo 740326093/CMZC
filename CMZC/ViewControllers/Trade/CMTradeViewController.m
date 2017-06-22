@@ -22,6 +22,8 @@
 #import "CMTabBarViewController.h"
 #import "CMCarryDetailsViewController.h"
 #import "CMMessageViewController.h"
+
+#import "CMWKWebControllerViewController.h"
 @interface CMTradeViewController ()<UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate,CMTradeMeansTableViewCellDelegate,CMTradeTitleViewDelegate>{
     NSArray *_titImageArr;//头图片Image
     NSArray *_titLabNameArr;//名字lab
@@ -265,7 +267,12 @@
     switch (type) {
         case CMTradeTitleViewTypeCertification: //认证过
         {
-              [self pushCommWebViewVCUrlStr: CMStringWithPickFormat(kCMMZWeb_url, [NSString stringWithFormat:@"Account/Recharge"])];
+//            CMWKWebControllerViewController *wk=[[CMWKWebControllerViewController alloc]init];
+//            wk.urlStr=CMStringWithPickFormat(kCMMZWeb_url, [NSString stringWithFormat:@"Account/Recharge"]);
+//            wk.hidesBottomBarWhenPushed=YES;
+//            [self.navigationController pushViewController:wk animated:YES];
+            
+            [self pushCommWebViewVCUrlStr: CMStringWithPickFormat(kCMMZWeb_url, [NSString stringWithFormat:@"Account/Recharge"])];
         }
             break;
         case CMTradeTitleViewTypeNotCertification:  //没有认证过

@@ -12,7 +12,6 @@
 #import "CMCommWebViewController.h"
 #import "NJKWebViewProgressView.h"
 #import "NJKWebViewProgress.h"
-
 #import "CMShareView.h"
 
 @interface CMCommWebViewController ()<UIWebViewDelegate,NJKWebViewProgressDelegate,CMConsultingAlertViewDelegate,CMBLBDetailBottomViewDelegate> {
@@ -21,6 +20,7 @@
 }
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *TopLayout;
 
 //@property (strong,nonatomic)NSString *currentTitle;
 @property (nonatomic,copy) NSString *nextURL;
@@ -28,7 +28,6 @@
 @property (copy,nonatomic) NSString *realUrl;
 @property (strong,nonatomic) CMProductDetailBottomView*DetailBottomView;
 @property(strong,nonatomic)CMBLBDetailBottomView *BLBDetailBottomView;
-
 @end
 
 @implementation CMCommWebViewController
@@ -83,12 +82,13 @@
     self.realUrl=_urlStr;
     _webView.hidden=YES;
     [self getProductDetaiWithProductID];
+
 }
 
 
 - (void)leftBarBtnClick {
     if ([self.webView canGoBack]) {
-        if ([self.nextURL containsString:@"/Account/RechargeSuccess"]|| [self.nextURL containsString:@"yintong.com.cn"]) {
+        if ([self.nextURL containsString:@"/Account/RechargeSuccess"]|| [self.nextURL containsString:@"yintong.com.cn"]|| [self.nextURL containsString:@"lianlianpay.com"]) {
             [self.navigationController popViewControllerAnimated:YES];
             [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
         } else {
@@ -204,16 +204,20 @@
 }
 -(void)pageShareView{
     
-    
+    MyLog(@"+++%@",self.realUrl);
     UIWindow *window = [UIApplication sharedApplication].windows.firstObject;
-    //    CMShareView *shareView = [[NSBundle mainBundle] loadNibNamed:@"CMShareView" owner:nil options:nil].firstObject;
     CMShareView *shareView=[[CMShareView alloc]initWithFrame:CGRectMake(0, 0, CMScreen_width(), CMScreen_height())];
     shareView.center = window.center;
     shareView.frame = CGRectMake(0, 0, CGRectGetWidth(window.frame), CGRectGetHeight(window.frame));
     shareView.contentUrl =self.realUrl;
     shareView.titleConten = self.title;
     shareView.controller=self;
-    NSString *content = [NSString stringWithFormat:@"%@ %@",shareView.contentUrl,shareView.titleConten];
+    NSString *content =nil;
+    if ([self.realUrl isEqualToString:@"http://m.xinjingban.com/listing.aspx"]) {
+      content= @"挂牌融资，就上新经板。十天免费融千万，IPO直通+转板。速度快、流程简单，一站式企业金融服务…";
+    }else{
+       content=shareView.titleConten;
+    }
     shareView.contentStr = content;
     shareView.ShareImageName=[UIImage imageNamed:@"share_image"];
     [window addSubview:shareView];
@@ -256,18 +260,27 @@
 {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     [self hiddenProgressHUD];
-   //隐藏页面导航
+   
+    MyLog(@"+++%@",webView.request.URL.host);
+   
+    
     [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.getElementsByClassName('page-header navbar navbar-default navbar-static-top')[0].hidden=true"];
     [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.getElementsByClassName('live_headbg')[0].hidden=true"];
-    [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.getElementsByClassName('header')[0].hidden=true"];
-    
+    [webView stringByEvaluatingJavaScriptFromString:@"document.documentElements.getElementsByClassName('header')[0].hidden=true"];
+
+
+   
     if (!webView.loading) {
         [self performSelector:@selector(webViewHiddenNot:) withObject:webView afterDelay:1.5];
-        
+  
     }
 
     self.title = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
-
+    if ([self.title containsString:@"连连支付"]) {
+        self.TopLayout.constant=-42;//隐藏连连导航
+    }else{
+         self.TopLayout.constant=0;//隐藏连连导航
+    }
     if ([webView.request.URL.absoluteString containsString:CMStringWithPickFormat(kCMMZWeb_url,@"about/TradingGuideNew.aspx")]) {
         
         [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.getElementsByClassName('join-in')[0].hidden=true"];
@@ -280,10 +293,17 @@
         
        
     }
+    
+    
 }
+
+
+
+
 //隐藏底部footer
 -(void)webViewHiddenNot:(id)objc{
     UIWebView *web=(UIWebView*)objc;
+    
     if ([web.request.URL.path containsString:@"/Products/Detail"]) {
       
         if (![self.title containsString:@"倍利宝"]) {
@@ -321,6 +341,8 @@
     
     
     self.nextURL = request.URL.absoluteString;
+    MyLog(@"+++%@",self.nextURL);
+    
      [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.getElementsByClassName('page-header navbar navbar-default navbar-static-top')[0].hidden=true"];
     if ([self.nextURL containsString:CMStringWithPickFormat(kCMMZWeb_url,@"Products/FundList")]) {
         //跳转到登录
@@ -363,7 +385,11 @@
         [self.navigationController pushViewController:registerController animated:YES];
         return NO;
     }
-    
+    if ([self.nextURL isEqualToString:@"http://m.xinjingban.com/Account/"]) {
+        [webView stopLoading];
+        [self.navigationController popToRootViewControllerAnimated:YES];
+        return NO;
+    }
     
     if([self.nextURL containsString:CMStringWithPickFormat(kCMMZWeb_url, @"Login")]){
         [webView stopLoading];
@@ -603,4 +629,6 @@
     }
     
 }
+
+
 @end

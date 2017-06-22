@@ -74,4 +74,5 @@ NSNumber *CMNumberWithFormat(NSInteger index);
 +(void) setUserDefaults:(NSObject *) defaults forKey:(NSString *) key;
 + (NSString *)md5HexDigest:(NSString*)password;
 +(NSString*)changePrice:(CGFloat)price;
+
 @end
