@@ -59,7 +59,7 @@
 }
 
 - (void)layoutSubviews
-{
+{   [super  layoutSubviews];
     [super addSubview:self.centerLabel];
     self.centerLabel.backgroundColor = self.labelbackgroundColor;
     self.centerLabel.textColor = self.textColor;

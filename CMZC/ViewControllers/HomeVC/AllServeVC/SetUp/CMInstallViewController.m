@@ -13,7 +13,7 @@
 
 #import "CMStatementViewController.h"
 
-
+#import "CMTradeSearchCell.h"
 
 @interface CMInstallViewController ()<UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *curTableView;
@@ -31,6 +31,7 @@
 //    _settingsView = [CMSettingsView initByNibForClassName];
 //    _settingsView.delegate = self;
     _curTableView.tableFooterView = [[UIView alloc]initWithFrame:CGRectZero];
+    _curTableView.separatorStyle=UITableViewCellSeparatorStyleNone;
 }
 
 
@@ -40,15 +41,13 @@
     return 3;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+    CMTradeSearchCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CMTradeSearchCell"];
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+        cell = [[NSBundle mainBundle]loadNibNamed:@"CMTradeSearchCell" owner:nil options:nil].firstObject;
     }
     
-    cell.textLabel.text = [self dataSourceArr][indexPath.row];
-    cell.textLabel.textColor = [UIColor cmSomberColor];
-    cell.textLabel.font = [UIFont systemFontOfSize:15];
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    cell.nameLab.text = [self dataSourceArr][indexPath.row];
+    
     return cell;
 }
 

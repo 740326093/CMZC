@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CMTradeSearchCell" id="KGk-i7-Jjw" customClass="CMTradeSearchCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G7Y-pa-MEm">
+                        <rect key="frame" x="18" y="22.5" width="0.0" height="0.0"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="right_home" translatesAutoresizingMaskIntoConstraints="NO" id="zqH-4l-pVn">
+                        <rect key="frame" x="295" y="16.5" width="7" height="12"/>
+                    </imageView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="12V-M0-9HW">
+                        <rect key="frame" x="0.0" y="43" width="320" height="0.5"/>
+                        <color key="backgroundColor" red="0.89411764705882346" green="0.89411764705882346" blue="0.89411764705882346" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="0.5" id="IXl-Vm-4HB"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="12V-M0-9HW" secondAttribute="trailing" id="4fw-yR-SDc"/>
+                    <constraint firstAttribute="bottom" secondItem="12V-M0-9HW" secondAttribute="bottom" id="VWt-QT-Qqb"/>
+                    <constraint firstItem="G7Y-pa-MEm" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Y16-jf-BAN"/>
+                    <constraint firstItem="zqH-4l-pVn" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="b9C-lL-ePU"/>
+                    <constraint firstItem="12V-M0-9HW" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="l1f-IY-AM9"/>
+                    <constraint firstItem="G7Y-pa-MEm" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="10" id="sld-6A-jZP"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="zqH-4l-pVn" secondAttribute="trailing" constant="10" id="xdp-uy-07Q"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="nameLab" destination="G7Y-pa-MEm" id="GYj-mm-9g0"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="right_home" width="7" height="12"/>
+    </resources>
+</document>

@@ -10,7 +10,7 @@
 #import "CMCrowdFundingViewController.h"
 #import "CMStatementViewController.h"
 #import "CMMoneyViewController.h"
-
+#import "CMTradeSearchCell.h"
 
 @interface CMHelpCoreViewController ()<UITableViewDataSource,UITableViewDelegate>{
     NSArray *_helpDataArr;//titleArr
@@ -46,6 +46,7 @@
         _curTableView.showsVerticalScrollIndicator=NO;
         _curTableView.delegate=self;
         _curTableView.dataSource=self;
+        _curTableView.separatorStyle=UITableViewCellSeparatorStyleNone;
         
     }
     return _curTableView;
@@ -57,15 +58,12 @@
     return _helpDataArr.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *helpCell = [tableView dequeueReusableCellWithIdentifier:@"helpCell"];
+    CMTradeSearchCell *helpCell = [tableView dequeueReusableCellWithIdentifier:@"CMTradeSearchCell"];
     if (!helpCell) {
-        helpCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"helpCell"];
+        helpCell = [[NSBundle mainBundle]loadNibNamed:@"CMTradeSearchCell" owner:nil options:nil].firstObject;
     }
-    
-    
-    helpCell.textLabel.textColor = [UIColor cmSomberColor];
-    helpCell.textLabel.font = [UIFont systemFontOfSize:15];
-    helpCell.textLabel.text = [_helpDataArr[indexPath.row] objectForKey:@"titleName"];
+
+    helpCell.nameLab.text = [_helpDataArr[indexPath.row] objectForKey:@"titleName"];
     return helpCell;
 }
 //定义个view

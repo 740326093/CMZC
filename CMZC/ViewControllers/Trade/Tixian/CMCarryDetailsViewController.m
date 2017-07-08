@@ -117,9 +117,10 @@
 //选卡
 - (IBAction)chooseBtnClick:(UIButton *)sender {
     //[self animateTableHeightLayoutConstraint:CMScreen_height() - 149]；
-    
+    if (self.proviceName == nil) {
     [self carryDetailsBgViewAlpha:0.8 tableViewHeight:200];
     _stype = CMCaryDetailsStypeBlack;
+    }
     
 }
 //获取验证码
@@ -233,7 +234,7 @@
         [self titleViewBlockListArr:bankBlockArr];
         //[self initTitleView];
         _blackArr = bankBlockArr; //选卡数组
-        
+       
     } fail:^(NSError *error) {
         MyLog(@"银行卡列表请求错误");
     }];
@@ -259,7 +260,7 @@
     if (_depositTextField == textField) {
         CGFloat money = [textField.text floatValue];
         CMBankBlockList *bank =_blockList;
-        CGFloat balance = [bank.balance floatValue];
+        CGFloat balance =bank.balance;// [bank.balance floatValue];
         if (money < 50) {
             [self showHUDWithMessage:@"提现金额不得小于50元" hiddenDelayTime:2];
             _depositTextField.text = @"";
@@ -334,11 +335,11 @@
     NSMutableString *bankStr = [NSMutableString stringWithFormat:@"%@",_blockList.number];;
     [bankStr replaceCharactersInRange:NSMakeRange(5, 7) withString:@"********"];
     _bankLab.text = [NSString stringWithFormat:@"%@(%@)",_blockList.banktype,bankStr];
-    _availableLab.text = [NSString stringWithFormat:@"该卡可提金额%@",_blockList.balance];
+    _availableLab.text = [NSString stringWithFormat:@"该卡可提金额%.2f",_blockList.balance];
     //真实姓名
     _realNameLab.text = self.nameStr;
     //可用金额
-    _usableLab.text = _blockList.balance;
+    _usableLab.text = [NSString stringWithFormat:@"%.2f",_blockList.balance];
     
     if (!_blockList.authentication) {
         _approveImage.hidden = YES;
@@ -422,6 +423,7 @@
     CMCarryDetailsTableViewCell *carryDetailsCell = [tableView dequeueReusableCellWithIdentifier:@"CMCarryDetailsTableViewCell" forIndexPath:indexPath];
     
     if (_stype == CMCaryDetailsStypeBlack) {
+
         [carryDetailsCell cm_alerViewTableViewNameStr:_blackArr[indexPath.row]
                                                 style:CMCarryDetailsTableViewStylebankCard];
         if ([self.blackMutableArr.lastObject integerValue] == indexPath.row) {
@@ -456,6 +458,7 @@
     _bgView.hidden = YES;
     _bgView.alpha = 0;
     _tableHeightConstraint.constant = 0.0f;
+    
     if (_stype == CMCaryDetailsStypeBlack) { //银行卡
         [self.blackMutableArr replaceObjectAtIndex:0 withObject:CMStringWithFormat(indexPath.row)];
         [self initTitleView];
@@ -478,11 +481,16 @@
 
 #pragma mark - 改变背景的透明度，颜色，和选卡的tab的高度
 - (void)carryDetailsBgViewAlpha:(CGFloat)alpha tableViewHeight:(CGFloat)height {
+   // if (_bankArr!=nil ||_bankArr.count>0) {
+        
+   
     _bgView.backgroundColor = [UIColor cmBlackerColor];
     _bgView.hidden = NO;
     _bgView.alpha = alpha;
     _tableHeightConstraint.constant = height;
+ 
     [_curTableView reloadData];
+   // }
 }
 
 #pragma mark - setGet

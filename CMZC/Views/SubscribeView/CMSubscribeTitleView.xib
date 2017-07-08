@@ -88,10 +88,10 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G5h-0h-Hdd" userLabel="fgxView2">
-                            <rect key="frame" x="160" y="15" width="1" height="30"/>
+                            <rect key="frame" x="160" y="15" width="0.5" height="30"/>
                             <color key="backgroundColor" red="0.89411765336990356" green="0.89411765336990356" blue="0.89411765336990356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="1" id="Sjo-Hu-QN5"/>
+                                <constraint firstAttribute="width" constant="0.5" id="Sjo-Hu-QN5"/>
                                 <constraint firstAttribute="height" constant="30" id="TFK-AK-eTP"/>
                             </constraints>
                         </view>

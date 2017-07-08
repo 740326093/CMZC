@@ -128,11 +128,11 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KVu-hg-AOG" userLabel="fgxView1">
-                                                <rect key="frame" x="0.0" y="10" width="1" height="30"/>
+                                                <rect key="frame" x="0.0" y="10" width="0.5" height="30"/>
                                                 <color key="backgroundColor" red="0.89411765340000005" green="0.89411765340000005" blue="0.89411765340000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="5Kt-pJ-s1D"/>
-                                                    <constraint firstAttribute="width" constant="1" id="Hb9-oJ-5GJ"/>
+                                                    <constraint firstAttribute="width" constant="0.5" id="Hb9-oJ-5GJ"/>
                                                 </constraints>
                                             </view>
                                         </subviews>
@@ -162,10 +162,10 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3IV-M8-LvD" userLabel="fgxView1">
-                                                <rect key="frame" x="0.0" y="10" width="1" height="30"/>
+                                                <rect key="frame" x="0.0" y="10" width="0.5" height="30"/>
                                                 <color key="backgroundColor" red="0.89411765340000005" green="0.89411765340000005" blue="0.89411765340000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="1" id="Udl-lw-ZUc"/>
+                                                    <constraint firstAttribute="width" constant="0.5" id="Udl-lw-ZUc"/>
                                                     <constraint firstAttribute="height" constant="30" id="lbJ-VM-fU3"/>
                                                 </constraints>
                                             </view>

@@ -13,7 +13,7 @@
 @property (nonatomic,assign) NSInteger bankcardid; //银行卡id
 @property (nonatomic,copy) NSString *banktype; //银行卡类型
 @property (nonatomic,copy) NSString *number; //银行卡卡号
-@property (nonatomic,copy) NSString *balance; //银行卡可提余额
+@property (nonatomic,assign) float balance; //银行卡可提余额
 @property (nonatomic,assign) BOOL lackofinfo; //表示是否缺少银行卡信息部分
 @property (nonatomic,assign) BOOL authentication; //是否认证
 

@@ -16,9 +16,16 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="59.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cjw-RC-QTc">
+                        <rect key="frame" x="0.0" y="59" width="320" height="0.5"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="0.5" id="shK-I1-ZhB"/>
+                        </constraints>
+                    </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sa4-ZM-c9h">
                         <rect key="frame" x="0.0" y="0.0" width="80" height="59.5"/>
                         <subviews>
@@ -123,6 +130,7 @@
                     <constraint firstItem="0xq-Cc-smo" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="12k-GK-pQo"/>
                     <constraint firstItem="Sa4-ZM-c9h" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" multiplier="1:4" id="2Oh-NY-utV"/>
                     <constraint firstAttribute="bottom" secondItem="0xq-Cc-smo" secondAttribute="bottom" id="5ih-p2-mzy"/>
+                    <constraint firstAttribute="trailing" secondItem="cjw-RC-QTc" secondAttribute="trailing" id="BUr-6P-M6a"/>
                     <constraint firstItem="a68-dR-bRV" firstAttribute="top" secondItem="iFt-8A-cQ3" secondAttribute="top" id="CUb-cH-eYq"/>
                     <constraint firstItem="Sa4-ZM-c9h" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="O6l-RX-8d5"/>
                     <constraint firstAttribute="trailing" secondItem="VE6-vH-Y2m" secondAttribute="trailing" id="OwC-6f-GUr"/>
@@ -133,6 +141,8 @@
                     <constraint firstAttribute="bottom" secondItem="VE6-vH-Y2m" secondAttribute="bottom" id="YfZ-nq-uoY"/>
                     <constraint firstItem="0xq-Cc-smo" firstAttribute="leading" secondItem="Sa4-ZM-c9h" secondAttribute="trailing" id="bve-qX-AiX"/>
                     <constraint firstItem="VE6-vH-Y2m" firstAttribute="leading" secondItem="0xq-Cc-smo" secondAttribute="trailing" id="gZS-ka-gDw"/>
+                    <constraint firstAttribute="bottom" secondItem="cjw-RC-QTc" secondAttribute="bottom" id="jEX-f9-U3w"/>
+                    <constraint firstItem="cjw-RC-QTc" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="pdJ-qB-vIn"/>
                     <constraint firstItem="VE6-vH-Y2m" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="sAO-mM-iPc"/>
                 </constraints>
             </tableViewCellContentView>

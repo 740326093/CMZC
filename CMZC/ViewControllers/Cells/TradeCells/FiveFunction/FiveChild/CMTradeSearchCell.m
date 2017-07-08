@@ -1,26 +1,18 @@
 //
-//  CMNewShiCell.m
+//  CMTradeSearchCell.m
 //  CMZC
 //
-//  Created by WangWei on 17/2/24.
+//  Created by WangWei on 2017/7/5.
 //  Copyright © 2017年 MAC. All rights reserved.
 //
 
-#import "CMNewShiCell.h"
+#import "CMTradeSearchCell.h"
 
-@implementation CMNewShiCell
+@implementation CMTradeSearchCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-    
-   
-    
-}
--(void)setShiModel:(CMNewShiModel *)ShiModel{
-    _nameLabel.text=ShiModel.title;
-    _datelabel.text=ShiModel.created;
-    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

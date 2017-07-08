@@ -45,6 +45,8 @@
 		047C03AD1ECD349A007D4DE1 /* CMMediaNewsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 047C03AB1ECD349A007D4DE1 /* CMMediaNewsCell.xib */; };
 		0481592E1EAF2C9700E60368 /* CMBLBDetailBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0481592D1EAF2C9700E60368 /* CMBLBDetailBottomView.m */; };
 		0485E6151E88ECAE000BE46C /* four_guidance.png in Resources */ = {isa = PBXBuildFile; fileRef = 0485E6141E88ECAE000BE46C /* four_guidance.png */; };
+		0488A79D1F0CEA1100A6B856 /* CMTradeSearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0488A79B1F0CEA1100A6B856 /* CMTradeSearchCell.m */; };
+		0488A79E1F0CEA1100A6B856 /* CMTradeSearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0488A79C1F0CEA1100A6B856 /* CMTradeSearchCell.xib */; };
 		048A8C7C1E7A39DF003274F3 /* UITabBar+CMBadage.m in Sources */ = {isa = PBXBuildFile; fileRef = 048A8C7B1E7A39DF003274F3 /* UITabBar+CMBadage.m */; };
 		048C1B811E5EAE4900519896 /* CMNewActionHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 048C1B801E5EAE4900519896 /* CMNewActionHeadView.m */; };
 		048C1B841E5EEA0000519896 /* CMNewShiView.m in Sources */ = {isa = PBXBuildFile; fileRef = 048C1B831E5EEA0000519896 /* CMNewShiView.m */; };
@@ -480,6 +482,9 @@
 		0481592C1EAF2C9700E60368 /* CMBLBDetailBottomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMBLBDetailBottomView.h; sourceTree = "<group>"; };
 		0481592D1EAF2C9700E60368 /* CMBLBDetailBottomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMBLBDetailBottomView.m; sourceTree = "<group>"; };
 		0485E6141E88ECAE000BE46C /* four_guidance.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = four_guidance.png; sourceTree = "<group>"; };
+		0488A79A1F0CEA1100A6B856 /* CMTradeSearchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMTradeSearchCell.h; sourceTree = "<group>"; };
+		0488A79B1F0CEA1100A6B856 /* CMTradeSearchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMTradeSearchCell.m; sourceTree = "<group>"; };
+		0488A79C1F0CEA1100A6B856 /* CMTradeSearchCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CMTradeSearchCell.xib; sourceTree = "<group>"; };
 		048A8C7A1E7A39DF003274F3 /* UITabBar+CMBadage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITabBar+CMBadage.h"; sourceTree = "<group>"; };
 		048A8C7B1E7A39DF003274F3 /* UITabBar+CMBadage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITabBar+CMBadage.m"; sourceTree = "<group>"; };
 		048C1B7F1E5EAE4900519896 /* CMNewActionHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMNewActionHeadView.h; sourceTree = "<group>"; };
@@ -1829,6 +1834,9 @@
 		383FA9421C93F69B00DD4ABD /* FiveChild */ = {
 			isa = PBXGroup;
 			children = (
+				0488A79A1F0CEA1100A6B856 /* CMTradeSearchCell.h */,
+				0488A79B1F0CEA1100A6B856 /* CMTradeSearchCell.m */,
+				0488A79C1F0CEA1100A6B856 /* CMTradeSearchCell.xib */,
 				3842418E1D02673C00C0FFB5 /* CMRemoveTableViewCell.h */,
 				3842418F1D02673C00C0FFB5 /* CMRemoveTableViewCell.m */,
 				384241901D02673C00C0FFB5 /* CMRemoveTableViewCell.xib */,
@@ -2710,6 +2718,7 @@
 				38081AB71E2089B000EA4E13 /* CMWebHtmlTableViewCell.xib in Resources */,
 				3859C6351C9A8E6400A358CF /* CMTitleView.xib in Resources */,
 				38FC90181C92C26200A347EE /* CMHistoryEntrustView.xib in Resources */,
+				0488A79E1F0CEA1100A6B856 /* CMTradeSearchCell.xib in Resources */,
 				38081ABD1E20D48700EA4E13 /* CMoptionReleaseTableViewCell.xib in Resources */,
 				38704AE21D99220400BE4702 /* logo_anim_017@2x.png in Resources */,
 				383C1D1C1CA11C690045220C /* CMAnswerHeaderView.xib in Resources */,
@@ -2859,6 +2868,7 @@
 				38D0109C1C980B5C007268B5 /* EverLineModel.m in Sources */,
 				384EB0561C8E627E001D311F /* CMNoticeView.m in Sources */,
 				383AE5961C9D38D3005CB2C3 /* CMFilletButton.m in Sources */,
+				0488A79D1F0CEA1100A6B856 /* CMTradeSearchCell.m in Sources */,
 				3841D8621CB492A200BE6A8A /* CMOptionCollectionViewCell.m in Sources */,
 				3867BBC31C9FDC750004507D /* CMBanners.m in Sources */,
 				3843EE5D1CE3391B00C30E65 /* CMWinning.m in Sources */,

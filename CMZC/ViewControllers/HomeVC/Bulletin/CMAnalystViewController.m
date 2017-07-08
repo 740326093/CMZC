@@ -28,6 +28,7 @@
     // Do any additional setup after loading the view.
     self.title = @"分析师";
     _curTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+   
     [self addRequestDataMeans];
     
 }
@@ -75,18 +76,33 @@
 
 #pragma mark - UITableViewDataSource && UITableViewDelegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 1;
+}
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    
     return _analystListArr.count;
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    if (section==0) {
+        return 10.0f;
+    }else{
+        return 0.01f;
+    }
+    
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    return 10.0f;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     CMAnalystTableViewCell *analystCell = [tableView dequeueReusableCellWithIdentifier:@"CMAnalystTableViewCell" forIndexPath:indexPath];
-    analystCell.analyst = _analystListArr[indexPath.row];
+    analystCell.analyst = _analystListArr[indexPath.section];
     return analystCell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    CMAnalystMode *analyst = _analystListArr[indexPath.row];
+    CMAnalystMode *analyst = _analystListArr[indexPath.section];
     CMAnalystDetailsViewController  *analystVC = (CMAnalystDetailsViewController *)[CMAnalystDetailsViewController initByStoryboard];
     analystVC.analyst = analyst;
     analystVC.analystsId = analyst.analystId;

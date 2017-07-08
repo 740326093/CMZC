@@ -220,6 +220,7 @@
 //获取银行卡列表
 + (void)cm_tradeWithdrawFetchBankBlockListSuccess:(void (^)(NSArray *))success fail:(void (^)(NSError *))fail {
     [CMRequestAPI postTradeFromURLScheme:kCMTradeBankBlockListURL argumentsDictionary:nil success:^(id responseObject) {
+        
         NSArray *dataArr = responseObject[@"data"][@"rows"];
         NSMutableArray *dayArr = [NSMutableArray array];
         for (NSDictionary *dict in dataArr) {

@@ -21,38 +21,34 @@
        [self addSubview:self.cureScrollView];
        
         
-        [self layoutSubviews];
+        [self.leftOneImage mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(self.mas_centerY);
+            make.height.mas_equalTo(self.leftOneImage.image.size.height);
+            make.width.mas_equalTo(self.leftOneImage.image.size.width);
+            make.left.equalTo(self.mas_left).offset(10);
+        }];
+        [self.leftTwoImage mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(self.mas_centerY);
+            make.height.mas_equalTo(self.leftTwoImage.image.size.height);
+            make.width.mas_equalTo(self.leftTwoImage.image.size.width);
+            make.left.equalTo(self.leftOneImage.mas_right);
+        }];
+        
+        
+        [self.moreBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(self.mas_right).offset(-10);
+            make.centerY.equalTo(self.mas_centerY);
+            make.left.equalTo(@50);
+            make.height.equalTo(self);
+        }];
+
     }
     
     return self;
 }
 
--(void)layoutSubviews{
-    
-    [self.leftOneImage mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.mas_centerY);
-        make.height.mas_equalTo(self.leftOneImage.image.size.height);
-        make.width.mas_equalTo(self.leftOneImage.image.size.width);
-        make.left.equalTo(self.mas_left).offset(10);
-    }];
-    [self.leftTwoImage mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.mas_centerY);
-        make.height.mas_equalTo(self.leftTwoImage.image.size.height);
-        make.width.mas_equalTo(self.leftTwoImage.image.size.width);
-        make.left.equalTo(self.leftOneImage.mas_right);
-    }];
-    
 
-    [self.moreBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.mas_right).offset(-10);
-        make.centerY.equalTo(self.mas_centerY);
-        make.left.equalTo(@50);
-        make.height.equalTo(self);
-    }];
-    
-   
-   
-}
+
 #pragma mark Lazy
 -(UIImageView*)leftOneImage{
     if (!_leftOneImage) {

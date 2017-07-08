@@ -94,7 +94,7 @@
     UIView *headerView = [[UIView alloc] init];
     headerView.backgroundColor = [UIColor whiteColor];
     //分割线
-    UIView *fgxView = [[UIView alloc] initWithFrame:CGRectMake(0, 40, CGRectGetWidth(self.curTableView.frame), 1)];
+    UIView *fgxView = [[UIView alloc] initWithFrame:CGRectMake(0, 40, CGRectGetWidth(self.curTableView.frame), 0.5)];
     fgxView.backgroundColor = [UIColor cmDividerColor];
     //标题lab
     UILabel *headerTitLab = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, CGRectGetWidth(self.curTableView.frame), 40)];

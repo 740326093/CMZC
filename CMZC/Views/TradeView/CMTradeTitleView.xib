@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -22,8 +22,8 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dtb-D1-KdQ">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="186"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lpj-2N-6dV">
-                                    <rect key="frame" x="108" y="74" width="105" height="38"/>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lpj-2N-6dV">
+                                    <rect key="frame" x="107" y="74" width="107" height="38"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                     <state key="normal" title="请登录账号"/>
                                     <connections>
@@ -73,8 +73,8 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LGg-Xe-g1U">
                             <rect key="frame" x="0.0" y="126" width="107" height="60"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="总市值(元)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cH3-3m-ebC">
-                                    <rect key="frame" x="25" y="24" width="57" height="15"/>
+                                <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="总市值(元)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cH3-3m-ebC">
+                                    <rect key="frame" x="24.5" y="24" width="58" height="15"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
@@ -105,11 +105,11 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2hI-Z0-5Nv" userLabel="fgxView">
-                                    <rect key="frame" x="0.0" y="5" width="1" height="40"/>
+                                    <rect key="frame" x="0.0" y="5" width="0.5" height="40"/>
                                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="40" id="9NX-sC-Kx2"/>
-                                        <constraint firstAttribute="width" constant="1" id="NoP-bC-q6u"/>
+                                        <constraint firstAttribute="width" constant="0.5" id="NoP-bC-q6u"/>
                                     </constraints>
                                 </view>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HFi-UI-5Zj">
@@ -131,8 +131,8 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fi6-Ag-akE">
                             <rect key="frame" x="214" y="126" width="107" height="60"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="总盈亏(元)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aeZ-Ud-j1O">
-                                    <rect key="frame" x="25" y="24" width="57" height="15"/>
+                                <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="总盈亏(元)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aeZ-Ud-j1O">
+                                    <rect key="frame" x="24.5" y="24" width="58" height="15"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
@@ -144,10 +144,10 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UL5-W0-9rb">
-                                    <rect key="frame" x="0.0" y="5" width="1" height="40"/>
+                                    <rect key="frame" x="0.0" y="5" width="0.5" height="40"/>
                                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" constant="1" id="lRm-wh-7qy"/>
+                                        <constraint firstAttribute="width" constant="0.5" id="lRm-wh-7qy"/>
                                         <constraint firstAttribute="height" constant="40" id="qhU-sd-LJZ"/>
                                     </constraints>
                                 </view>
@@ -161,8 +161,8 @@
                                 <constraint firstItem="UL5-W0-9rb" firstAttribute="top" secondItem="fi6-Ag-akE" secondAttribute="top" constant="5" id="cir-Qc-kTq"/>
                             </constraints>
                         </view>
-                        <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ogu-rQ-ZPz">
-                            <rect key="frame" x="210" y="79" width="66" height="22"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ogu-rQ-ZPz">
+                            <rect key="frame" x="207.5" y="79" width="12" height="22"/>
                             <state key="normal" image="moneyRecord_trade"/>
                             <connections>
                                 <action selector="intoMoneyRecord:" destination="xMi-Ml-W0H" eventType="touchUpInside" id="Hav-7e-7Il"/>
@@ -211,10 +211,10 @@
                     <rect key="frame" x="0.0" y="186" width="320" height="40"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EKV-Re-auE">
-                            <rect key="frame" x="160" y="10" width="1" height="20"/>
+                            <rect key="frame" x="160" y="10" width="0.5" height="20"/>
                             <color key="backgroundColor" red="0.89411765336990356" green="0.89411765336990356" blue="0.89411765336990356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="1" id="FZ0-Bt-pi2"/>
+                                <constraint firstAttribute="width" constant="0.5" id="FZ0-Bt-pi2"/>
                                 <constraint firstAttribute="height" constant="20" id="Ua7-wj-pxx"/>
                             </constraints>
                         </view>

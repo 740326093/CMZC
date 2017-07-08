@@ -8,7 +8,7 @@
 
 #import "CMInquireCollectionViewCell.h"
 
-
+#import "CMTradeSearchCell.h"
 
 
 @interface CMInquireCollectionViewCell ()<UITableViewDataSource,UITableViewDelegate> {
@@ -41,15 +41,16 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *tableCell = [tableView dequeueReusableCellWithIdentifier:@"tableCell"];
+    CMTradeSearchCell *tableCell = [tableView dequeueReusableCellWithIdentifier:@"CMTradeSearchCell"];
     if (!tableCell) {
-        tableCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"tableCell"];
-    }
-    tableCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    tableCell.textLabel.text = _tableTitleArr[indexPath.section][indexPath.row];
-    tableCell.textLabel.textColor = [UIColor cmSomberColor];
-    tableCell.textLabel.font = [UIFont systemFontOfSize:15];
+        tableCell = [[NSBundle mainBundle]loadNibNamed:@"CMTradeSearchCell" owner:nil options:nil].firstObject;
+       
     
+    }
+ 
+    tableCell.nameLab.text = _tableTitleArr[indexPath.section][indexPath.row];
+ 
+
     return tableCell;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {

@@ -26,7 +26,7 @@
 #import "CMRegisterViewController.h"
 #import "CMNewShiModel.h"
 #import "CMProductDetails.h"
-
+#import "CMTradeSearchCell.h"
 
 #import "CMSubscribeTableViewCell.h"
 #import "CMGoldMedalTableViewCell.h"
@@ -386,17 +386,15 @@
         }
         return latestCell;
     } else {
-        UITableViewCell *tableCell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+        CMTradeSearchCell *tableCell = [tableView dequeueReusableCellWithIdentifier:@"CMTradeSearchCell"];
         if (!tableCell) {
-            tableCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+            tableCell = [[NSBundle mainBundle]loadNibNamed:@"CMTradeSearchCell" owner:nil options:nil].firstObject;
         }
-        if (_guanDianArr.count !=0) {
+       if (self.guanDianArr.count >0) {
             CMNewShiModel *media = self.guanDianArr[indexPath.row - 5 - self.purchaseArr.count];
-            tableCell.textLabel.text = media.title;
+                      tableCell.nameLab.text = media.title;
         }
-        tableCell.textLabel.font = [UIFont systemFontOfSize:14];
-        tableCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        tableCell.textLabel.textColor = [UIColor cmTacitlyFontColor];
+        
        
         return tableCell;
     }

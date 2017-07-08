@@ -46,6 +46,7 @@
         _tableView = [[UITableView alloc] initWithFrame:_myTopView.bounds style:UITableViewStylePlain];
         _tableView.delegate = self;
         _tableView.dataSource = self;
+        _tableView.separatorStyle=UITableViewCellSeparatorStyleNone;
         [_myTopView addSubview:_tableView];
         _tableView.tableFooterView=[[UIView alloc]initWithFrame:CGRectZero];
         //SaveDataToNSUserDefaults(@"1", @"select");

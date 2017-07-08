@@ -79,7 +79,7 @@
     NSMutableString *bankStr = [NSMutableString stringWithFormat:@"%@",bank.number];;
     [bankStr replaceCharactersInRange:NSMakeRange(5, 7) withString:@"********"];
     _bankLab.text = [NSString stringWithFormat:@"%@(%@)",bank.banktype,bankStr];
-    _availableLab.text = [NSString stringWithFormat:@"该卡可提金额%@",bank.balance];
+    _availableLab.text = [NSString stringWithFormat:@"该卡可提金额%.2f",bank.balance];
 }
 
 
@@ -100,6 +100,10 @@
     UITableViewCell *tableCell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     if (!tableCell) {
         tableCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+        
+        UILabel *titl = [[UILabel alloc] initWithFrame:CGRectMake(0, 43.5, CMScreen_width(), 0.5)];
+        titl.backgroundColor = [UIColor cmDividerColor];
+        [tableCell addSubview:titl];
     }
     
     if (self.type == CMCarryNowTypeSave) {
@@ -229,7 +233,7 @@
         NSMutableString *bankStr = [NSMutableString stringWithFormat:@"%@",title.number];;
         [bankStr replaceCharactersInRange:NSMakeRange(5, 7) withString:@"********"];
         _bankLab.text = [NSString stringWithFormat:@"%@(%@)",title.banktype,bankStr];
-        _availableLab.text = [NSString stringWithFormat:@"该卡可提金额%@",title.balance];
+        _availableLab.text = [NSString stringWithFormat:@"该卡可提金额%.2f",title.balance];
         _block = title;
         
         if (!title.authentication) {
