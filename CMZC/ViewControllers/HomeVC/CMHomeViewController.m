@@ -8,7 +8,7 @@
 
 #import "CMHomeViewController.h"
 #import "CMEditionTableViewCell.h"
-#import "CMBannerHeaderView.h"
+//#import "CMBannerHeaderView.h"
 #import "CMOptionTableViewCell.h"
 #import "CMNewQualityTableViewCell.h"
 #import "CMLatestTableViewCell.h"
@@ -34,13 +34,13 @@
 #import "CMApp_Header.h"
 
 
-@interface CMHomeViewController ()<UITableViewDelegate,UITableViewDataSource,CMEditionTableViewCellDelegate,CMOptionTableViewCellDelegate,CMNewQualityCellDelegate,CMWebSocketDelegate,CMGoldMedalTableViewCellDelegate,CMSubscribeTableViewCellDelegate> {
+@interface CMHomeViewController ()<UITableViewDelegate,UITableViewDataSource,CMEditionTableViewCellDelegate,CMOptionTableViewCellDelegate,CMNewQualityCellDelegate,CMWebSocketDelegate,CMGoldMedalTableViewCellDelegate,CMSubscribeTableViewCellDelegate,SDCycleScrollViewDelegate> {
     //NSString *_buyNumber; //多少人购买
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *curTableView;//表
 
-@property (strong, nonatomic) CMBannerHeaderView *headerView;//表头
+//@property (strong, nonatomic) CMBannerHeaderView *headerView;//表头
 
 @property (strong, nonatomic) CMHomeTableFootView *footerView;//表尾
 
@@ -55,6 +55,7 @@
 @property (strong, nonatomic) NSArray *glodServiceArr; //金牌服务
 
 @property (strong, nonatomic) NSMutableArray *guanDianArr; //请求新观点
+@property (strong, nonatomic) SDCycleScrollView  *barScrollView; //请求新观点
 
 @end
 
@@ -62,14 +63,23 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    __weak typeof(self) weakSelef = self;
-    //效果需要，等有接口和数据之后，放到请求数据结束后显示
-    _headerView = [[CMBannerHeaderView alloc] init];
-    _headerView.didSelectedBlack = ^(NSString *link) {
-        [weakSelef cm_commWebViewURL:link];
-    };
-    _curTableView.tableHeaderView = _headerView;
+    
+
+    _barScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, CMScreen_width(), 160)
+                                                            delegate:self
+                                                    placeholderImage:[UIImage imageNamed:@"title_log"]];
+    
+ 
+    
+    _barScrollView.autoScrollTimeInterval = 5.;// 自动滚动时间间隔
+  
+    
+//    _headerView = [[CMBannerHeaderView alloc] init];
+//    _headerView.didSelectedBlack = ^(NSString *link) {
+//        [weakSelef cm_commWebViewURL:link];
+//    };
+//    _curTableView.tableHeaderView = _headerView;
+    _curTableView.tableHeaderView=_barScrollView;
     
     _footerView = [CMHomeTableFootView initByNibForClassName];
     _curTableView.tableFooterView = _footerView;
@@ -91,15 +101,16 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     //开启定时器
-    [_headerView restartScrollBanner];
+   // [_headerView restartScrollBanner];
     //开启websocket
     [self initWebSocket];
+    [_barScrollView adjustWhenControllerViewWillAppera];
      
 }
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     //关闭定时器
-    [_headerView stopScrollBanner];
+    //[_headerView stopScrollBanner];
     //关闭websocket
     [_webSocket close];
 }
@@ -210,11 +221,14 @@
 - (void)requestTitleBannesData {
     [CMRequestAPI cm_homeFetchBannersSuccess:^(NSArray *bannersArr) {
        
-        _headerView.banners = bannersArr;
-       
+      //  _headerView.banners = bannersArr;
+        _barScrollView.barModelGrop=bannersArr;
     } fail:^(NSError *error) {
         MyLog(@"轮播图请求失败");
     }];
+}
+-(void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didScrollToUrl:(NSString *)url{
+    [self cm_commWebViewURL:url];
 }
 //产品三个
 - (void)requestPrictThree {

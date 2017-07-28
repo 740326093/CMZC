@@ -41,6 +41,9 @@
 		0475C0AC1E6921C90011015E /* CMTouCeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0475C0AB1E6921C90011015E /* CMTouCeView.m */; };
 		0475C0AF1E69227B0011015E /* CMButtonLabelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0475C0AE1E69227B0011015E /* CMButtonLabelView.m */; };
 		0475C0B41E6940D70011015E /* CMIntrouctionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0475C0B31E6940D70011015E /* CMIntrouctionView.m */; };
+		04783C9F1F2201250012F12A /* SDCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04783C9A1F2201250012F12A /* SDCollectionViewCell.m */; };
+		04783CA01F2201250012F12A /* SDCycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04783C9C1F2201250012F12A /* SDCycleScrollView.m */; };
+		04783CA11F2201250012F12A /* UIView+SDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 04783C9E1F2201250012F12A /* UIView+SDExtension.m */; };
 		047C03AC1ECD349A007D4DE1 /* CMMediaNewsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 047C03AA1ECD349A007D4DE1 /* CMMediaNewsCell.m */; };
 		047C03AD1ECD349A007D4DE1 /* CMMediaNewsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 047C03AB1ECD349A007D4DE1 /* CMMediaNewsCell.xib */; };
 		0481592E1EAF2C9700E60368 /* CMBLBDetailBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0481592D1EAF2C9700E60368 /* CMBLBDetailBottomView.m */; };
@@ -476,6 +479,12 @@
 		0475C0AE1E69227B0011015E /* CMButtonLabelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMButtonLabelView.m; sourceTree = "<group>"; };
 		0475C0B21E6940D70011015E /* CMIntrouctionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMIntrouctionView.h; sourceTree = "<group>"; };
 		0475C0B31E6940D70011015E /* CMIntrouctionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMIntrouctionView.m; sourceTree = "<group>"; };
+		04783C991F2201250012F12A /* SDCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDCollectionViewCell.h; sourceTree = "<group>"; };
+		04783C9A1F2201250012F12A /* SDCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDCollectionViewCell.m; sourceTree = "<group>"; };
+		04783C9B1F2201250012F12A /* SDCycleScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDCycleScrollView.h; sourceTree = "<group>"; };
+		04783C9C1F2201250012F12A /* SDCycleScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDCycleScrollView.m; sourceTree = "<group>"; };
+		04783C9D1F2201250012F12A /* UIView+SDExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+SDExtension.h"; sourceTree = "<group>"; };
+		04783C9E1F2201250012F12A /* UIView+SDExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+SDExtension.m"; sourceTree = "<group>"; };
 		047C03A91ECD349A007D4DE1 /* CMMediaNewsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMMediaNewsCell.h; sourceTree = "<group>"; };
 		047C03AA1ECD349A007D4DE1 /* CMMediaNewsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMMediaNewsCell.m; sourceTree = "<group>"; };
 		047C03AB1ECD349A007D4DE1 /* CMMediaNewsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CMMediaNewsCell.xib; sourceTree = "<group>"; };
@@ -611,7 +620,7 @@
 		3832B6E61CA62C6C000F274C /* CMCommWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CMCommWebViewController.m; path = Base/CMCommWebViewController.m; sourceTree = "<group>"; };
 		3832B6ED1CA68E6D000F274C /* CMPickCardTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMPickCardTableViewCell.h; sourceTree = "<group>"; };
 		3832B6EE1CA68E6D000F274C /* CMPickCardTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMPickCardTableViewCell.m; sourceTree = "<group>"; };
-		3834348E1CA3C3BD003D3180 /* CMApp_Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CMApp_Header.h; sourceTree = "<group>"; };
+		3834348E1CA3C3BD003D3180 /* CMApp_Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CMApp_Header.h; path = ../App/CMApp_Header.h; sourceTree = "<group>"; };
 		383434921CA3CF57003D3180 /* CMSortwareShareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMSortwareShareViewController.h; sourceTree = "<group>"; };
 		383434931CA3CF57003D3180 /* CMSortwareShareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMSortwareShareViewController.m; sourceTree = "<group>"; };
 		38362C561CBB436500017CA2 /* CMTokenTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMTokenTimer.h; sourceTree = "<group>"; };
@@ -1248,7 +1257,6 @@
 			children = (
 				0469998B1E5D2FF90003BD2D /* CMThirdPartlyCommad.h */,
 				0469998C1E5D2FF90003BD2D /* CMThirdPartlyCommad.m */,
-				3834348E1CA3C3BD003D3180 /* CMApp_Header.h */,
 			);
 			name = "第三方配置";
 			sourceTree = "<group>";
@@ -1334,6 +1342,19 @@
 				381C1FA41E12172700974AD1 /* CMServerPromptView.m */,
 			);
 			name = View;
+			sourceTree = "<group>";
+		};
+		04783C981F2201130012F12A /* BarSCrollView */ = {
+			isa = PBXGroup;
+			children = (
+				04783C991F2201250012F12A /* SDCollectionViewCell.h */,
+				04783C9A1F2201250012F12A /* SDCollectionViewCell.m */,
+				04783C9B1F2201250012F12A /* SDCycleScrollView.h */,
+				04783C9C1F2201250012F12A /* SDCycleScrollView.m */,
+				04783C9D1F2201250012F12A /* UIView+SDExtension.h */,
+				04783C9E1F2201250012F12A /* UIView+SDExtension.m */,
+			);
+			name = BarSCrollView;
 			sourceTree = "<group>";
 		};
 		04A863841E97916B00A47944 /* webView */ = {
@@ -1541,6 +1562,7 @@
 		38241B001C858567005E5134 /* AppResources */ = {
 			isa = PBXGroup;
 			children = (
+				3834348E1CA3C3BD003D3180 /* CMApp_Header.h */,
 				38266F8A1C858F6C00079821 /* CMZHC_Header.pch */,
 				04A8C1131E63ACF300061D09 /* CMImportHeader.h */,
 				38364FDA1C883B3C001A2992 /* Login.storyboard */,
@@ -1629,6 +1651,7 @@
 		38241B071C858567005E5134 /* Tooling */ = {
 			isa = PBXGroup;
 			children = (
+				04783C981F2201130012F12A /* BarSCrollView */,
 				38241B0D1C85864B005E5134 /* Tooling */,
 				3867BBBF1C9FA57F0004507D /* CMSingleton.h */,
 				3867BBBC1C9FA5540004507D /* CMAccountTool.h */,
@@ -2849,6 +2872,7 @@
 				38FF3D3F1E2612D7007A81C5 /* CMTopicList.m in Sources */,
 				048ED8081EE796B100E666F2 /* CMWKWebControllerViewController.m in Sources */,
 				38CCA2241D9CE8AA00DBFD1A /* CMSubscribeDetailsViewController.m in Sources */,
+				04783CA11F2201250012F12A /* UIView+SDExtension.m in Sources */,
 				384EB0611C8E6758001D311F /* CMRequestAPI+Trends.m in Sources */,
 				04F631A21EA074D30032378C /* CMCollectCell.m in Sources */,
 				38081ABC1E20D48700EA4E13 /* CMoptionReleaseTableViewCell.m in Sources */,
@@ -2913,6 +2937,7 @@
 				38362C581CBB436500017CA2 /* CMTokenTimer.m in Sources */,
 				38FC90091C92AC7E00A347EE /* CMHistoryTradeView.m in Sources */,
 				3830182D1CA2388E00A50F59 /* CMPointDetailsViewController.m in Sources */,
+				04783C9F1F2201250012F12A /* SDCollectionViewCell.m in Sources */,
 				044551451E98E974000F70E7 /* CMConsultingAlertView.m in Sources */,
 				3836D72E1CE0174D009A37D8 /* CMGetData.m in Sources */,
 				3838067C1CADFB510078B174 /* CMRequestAPI+TradeInquire.m in Sources */,
@@ -2980,6 +3005,7 @@
 				046999811E5D257D0003BD2D /* CMGuideController.m in Sources */,
 				383FA9461C93F69C00DD4ABD /* CMRevokeTableViewCell.m in Sources */,
 				3842354D1C9260DD001FD89E /* CMTurnoverViewController.m in Sources */,
+				04783CA01F2201250012F12A /* SDCycleScrollView.m in Sources */,
 				38499B7C1C969435000C5763 /* CMMarketTableViewCell.m in Sources */,
 				3832B6E71CA62C6C000F274C /* CMCommWebViewController.m in Sources */,
 				38FC900E1C92B67D00A347EE /* CMTrustInquireViewController.m in Sources */,

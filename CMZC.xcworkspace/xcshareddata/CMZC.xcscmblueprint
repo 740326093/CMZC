@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "20851CBCF5F7C1ED6605E9B6B9D0EF58E4A1DB27",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "20851CBCF5F7C1ED6605E9B6B9D0EF58E4A1DB27" : 9223372036854775807,
+    "9E0D24DB0DF8A025C1C75E4691B4753144128F76" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "FF7AC6E9-C78D-4295-8C8F-9F0AAF6FBAA3",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "20851CBCF5F7C1ED6605E9B6B9D0EF58E4A1DB27" : "CMZC\/",
+    "9E0D24DB0DF8A025C1C75E4691B4753144128F76" : "CMZC\/CMZC\/ViewControllers\/JQIndicatorView\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "CMZC",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "CMZC.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/740326093\/CMZC.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "20851CBCF5F7C1ED6605E9B6B9D0EF58E4A1DB27"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/git.oschina.net\/yybz\/JQIndicatorView.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "9E0D24DB0DF8A025C1C75E4691B4753144128F76"
+    }
+  ]
+}

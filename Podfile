@@ -22,4 +22,5 @@ pod 'UMengUShare/Social/ReducedWeChat'
 pod 'UMengUShare/Social/ReducedQQ'
 pod 'UMengUShare/Social/ReducedSina'
 pod 'JPush', '~> 3.0.5'
+
 end
