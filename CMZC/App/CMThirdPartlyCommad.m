@@ -36,18 +36,18 @@ singleton_implementation(CMThirdPartlyCommad)
     [JPUSHService setupWithOption:launchOptions appKey:kJPushAppKey channel:KJPushChannel apsForProduction:isProduction];
     NSDictionary *message = launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey];
     
-    [JPUSHService registrationIDCompletionHandler:^(int resCode, NSString *registrationID) {
-        if(resCode == 0){
-            MyLog(@"registrationID获取成功：%@",registrationID);
-            
-        }
-        else{
-            MyLog(@"registrationID获取失败，code：%d",resCode);
-        }
-    }];
+//    [JPUSHService registrationIDCompletionHandler:^(int resCode, NSString *registrationID) {
+//        if(resCode == 0){
+//            MyLog(@"registrationID获取成功：%@",registrationID);
+//            
+//        }
+//        else{
+//            MyLog(@"registrationID获取失败，code：%d",resCode);
+//        }
+//    }];
         return message;
     
-    
+ 
     
 }
 

@@ -22,7 +22,8 @@
     UIView *tabBarView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CMScreen_width(), 49)];
     [tabBarView setBackgroundColor:[UIColor cmtabBarGreyColor]];
     [self.tabBar insertSubview:tabBarView atIndex:0];
-    self.tabBar.opaque = YES;
+    
+    
     self.delegate = self;
    
     

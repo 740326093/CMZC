@@ -204,7 +204,7 @@
 }
 -(void)pageShareView{
     
-    MyLog(@"+++%@",self.realUrl);
+  //  MyLog(@"+++%@",self.realUrl);
     UIWindow *window = [UIApplication sharedApplication].windows.firstObject;
     CMShareView *shareView=[[CMShareView alloc]initWithFrame:CGRectMake(0, 0, CMScreen_width(), CMScreen_height())];
     shareView.center = window.center;

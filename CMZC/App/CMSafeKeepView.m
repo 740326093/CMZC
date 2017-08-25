@@ -32,7 +32,7 @@
             make.top.equalTo(self.mas_top).offset(15);
         }];
         UILabel *title1=[[UILabel alloc]init];
-        title1.text=@"多重安全机制确保100%安全";
+        title1.text=@"多重安全机制确保安全";
         title1.font=[UIFont systemFontOfSize:12.0];
         title1.textColor=[UIColor clmHex:0x666666];
         [self addSubview:title1];

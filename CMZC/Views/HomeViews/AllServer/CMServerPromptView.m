@@ -132,7 +132,7 @@
 }
  //打电话
 - (void)makePhoneBtnClick {
-    NSMutableString *str = [[NSMutableString alloc] initWithFormat:@"tel:%@",@"4009993972"];
+    NSMutableString *str = [[NSMutableString alloc] initWithFormat:@"tel:%@",@"4009959825"];
     UIWebView *telWeb = [[UIWebView alloc] init];
     [telWeb loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];
     [self addSubview:telWeb];

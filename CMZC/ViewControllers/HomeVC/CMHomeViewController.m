@@ -74,11 +74,6 @@
     _barScrollView.autoScrollTimeInterval = 5.;// 自动滚动时间间隔
   
     
-//    _headerView = [[CMBannerHeaderView alloc] init];
-//    _headerView.didSelectedBlack = ^(NSString *link) {
-//        [weakSelef cm_commWebViewURL:link];
-//    };
-//    _curTableView.tableHeaderView = _headerView;
     _curTableView.tableHeaderView=_barScrollView;
     
     _footerView = [CMHomeTableFootView initByNibForClassName];

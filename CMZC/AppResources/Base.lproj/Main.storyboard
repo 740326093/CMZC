@@ -20,7 +20,7 @@
                         <viewControllerLayoutGuide type="bottom" id="8bH-fE-GfI"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="nHE-ie-ikS">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="200" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="xPG-za-P5l">
@@ -183,7 +183,7 @@
                         <viewControllerLayoutGuide type="bottom" id="7q2-3X-H7p"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="wJ0-oF-opd">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pZl-qR-XDV" userLabel="titleView" customClass="CMMarketTitleView">
@@ -309,8 +309,8 @@
                                                     <color key="textColor" red="0.16078431372549021" green="0.52549019607843139" blue="0.14117647058823529" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="R2h-8q-Xce">
-                                                    <rect key="frame" x="5" y="57" width="365" height="0.5"/>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R2h-8q-Xce">
+                                                    <rect key="frame" x="5" y="58" width="365" height="0.5"/>
                                                     <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="0.5" id="RMO-E5-v3M"/>
@@ -357,7 +357,7 @@
                                 </connections>
                             </tableView>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gat-QO-2ZJ">
-                                <rect key="frame" x="0.0" y="627" width="375" height="40"/>
+                                <rect key="frame" x="0.0" y="578" width="375" height="40"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7qd-DA-qLn">
                                         <rect key="frame" x="305" y="0.0" width="70" height="40"/>
@@ -395,7 +395,7 @@
                                 </constraints>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5DD-gN-Iyf">
-                                <rect key="frame" x="0.0" y="64" width="375" height="561"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="512"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                         </subviews>
@@ -1646,7 +1646,7 @@
                         <viewControllerLayoutGuide type="bottom" id="9Ag-MT-NFF"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="yfM-J6-SPQ">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="370" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="sb7-hm-2wc">
@@ -2620,7 +2620,7 @@
                         <viewControllerLayoutGuide type="bottom" id="VKH-B0-jj7"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="rRH-y2-yzp">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="125" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="SaL-IT-yeH">
@@ -3737,7 +3737,7 @@
         <scene sceneID="go9-HB-AfT">
             <objects>
                 <tabBarController storyboardIdentifier="CMTabBarViewController" automaticallyAdjustsScrollViewInsets="NO" id="oti-bi-7TP" customClass="CMTabBarViewController" sceneMemberID="viewController">
-                    <tabBar key="tabBar" contentMode="scaleToFill" id="IwO-iE-WPe">
+                    <tabBar key="tabBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="IwO-iE-WPe">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
@@ -3797,7 +3797,7 @@
         <scene sceneID="SqX-hw-rtH">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="eeE-ER-oor" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="转让" image="tab_line_select" selectedImage="tab_line_select" id="leJ-0J-nnR"/>
+                    <tabBarItem key="tabBarItem" title="转让" image="tab_line" selectedImage="tab_line_select" id="leJ-0J-nnR"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="1Dg-Lr-DPD">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -4967,8 +4967,8 @@
                                         <color key="textColor" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="400-999-3972 " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9qn-Eq-gMZ">
-                                        <rect key="frame" x="251" y="154" width="103" height="17"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="400-995-9825" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9qn-Eq-gMZ">
+                                        <rect key="frame" x="254" y="154" width="100" height="17"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <color key="textColor" red="0.94509804249999996" green="0.29803922770000002" blue="0.039215687659999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -4994,7 +4994,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="xinjingban" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kCV-K1-uGD">
-                                        <rect key="frame" x="251" y="199" width="66" height="17"/>
+                                        <rect key="frame" x="254" y="199" width="66" height="17"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <color key="textColor" red="0.94509804249999996" green="0.29803922770000002" blue="0.039215687659999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -5887,7 +5887,7 @@
                                                         </constraints>
                                                         <color key="textColor" red="0.086274512110000007" green="0.086274512110000007" blue="0.086274512110000007" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                                        <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                                         <connections>
                                                             <outlet property="delegate" destination="fHU-Cz-qLW" id="MPu-Gh-D0s"/>
                                                         </connections>
@@ -7406,6 +7406,7 @@
         <image name="sigh_trade" width="14" height="14"/>
         <image name="tab_home" width="25" height="23"/>
         <image name="tab_home_select" width="25" height="23"/>
+        <image name="tab_line" width="25" height="23"/>
         <image name="tab_line_select" width="25" height="23"/>
         <image name="tab_sub" width="25" height="23"/>
         <image name="tab_sub_select" width="25" height="23"/>

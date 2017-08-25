@@ -29,7 +29,7 @@
                         <constraint firstAttribute="height" constant="0.5" id="O0A-9E-Tnc"/>
                     </constraints>
                 </view>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  新经板是立足新经济行业的3.5板交易平台，为成长型的新经济行业企业提供挂牌宣推、投融资服务等全方位金融服务和支持。同时，平台精选优质项目，独创保底+浮动收益模式，满足投资者100%安全及高收益的双重投资喜好。" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="zZP-FA-Y7B">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  新经板是立足新经济行业的3.5板交易平台，为成长型的新经济行业企业提供挂牌宣推、投融资服务等全方位金融服务和支持。同时，平台精选优质项目，独创分红+浮动收益模式，满足投资者对安全及高收益的双重投资喜好。" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="zZP-FA-Y7B">
                     <rect key="frame" x="10" y="100.5" width="355" height="57.5"/>
                     <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="12"/>
                     <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

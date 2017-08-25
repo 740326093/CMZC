@@ -106,7 +106,7 @@
             cell.selectionStyle=UITableViewCellSelectionStyleNone;
         }
        
-                cell.textLabel.text=@"倍利宝是新经板推出的类基金产品,顶级专业机构管理,只投优选10倍股,收益有保底,每年保证分红,预期最高可达十倍收益,开放净值型,本金安全有保证,信息披露及时,是资本市场的明星产品。";
+                cell.textLabel.text=@"倍利宝是新经板推出的类基金产品,顶级专业机构管理,只投优选10倍股,收益有保障,每年保证分红,预期最高可达十倍收益,开放净值型,本金安全有保证,信息披露及时,是资本市场的明星产品。";
                 cell.textLabel.font=[UIFont systemFontOfSize:14.0];
                 cell.textLabel.textColor=[UIColor clmHex:0x333333];
                 cell.textLabel.numberOfLines=0;
