@@ -22,7 +22,10 @@ extern NSString *const kWebSocket_url;
  *  M站地址 http://mz.58cm.com/
  */
 extern NSString *const kCMMZWeb_url;
-
+/**
+ *  二级市场baseURL
+ */
+extern NSString *const kCMNewMembersBase_URL;
 
 
 //公共请求部分
@@ -302,10 +305,16 @@ extern NSString *const kCMProductReplyCreateURL;
  */
 extern NSString *const kCMProductCollectCreateURL;
 
+/**
+ 图片上传路径
+ **/
+extern NSString *const  KCMUpLoadImageURL;
 
 
-
-
+/**
+ 机构会员接口API
+ **/
+extern NSString *const KAgencesProviceURL;
 
 
 

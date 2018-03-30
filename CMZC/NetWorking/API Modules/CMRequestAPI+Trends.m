@@ -101,4 +101,34 @@
     
 }
 
++ (void)cm_upLoadPic:(UIImage*)image
+             success:(void(^)(NSString *urlPath))success
+                fail:(void(^)(NSError *error))fail{
+    
+    
+    
+    NSDictionary *arguments = @{@"content":[NSString base64WithString:image]
+                                
+                                };
+    
+    [CMRequestAPI postDataFromURLScheme:KCMUpLoadImageURL argumentsDictionary:arguments success:^(id responseObject) {
+        MyLog(@"上传图片+++%@",responseObject);
+        
+        if ([[responseObject objectForKey:@"errcode"]intValue]==0) {
+           
+            
+            NSString *path=[responseObject objectForKey:@"data"];
+            success(path);
+        }
+      
+       
+        
+    } fail:^(NSError *error) {
+        fail(error);
+    }];
+
+    
+    
+}
+
 @end

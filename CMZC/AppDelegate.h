@@ -19,5 +19,8 @@
 
 
 @property (assign, nonatomic) BOOL isAppIconLaunching;
+
+
+
 @end
 

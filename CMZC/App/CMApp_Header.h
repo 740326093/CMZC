@@ -41,5 +41,6 @@
 #define kJPushMesterSecret @"f0b54d9671d58d7a8fae7150" // secret 后台用。就记录下
 #define KJPushChannel @"Publish channel"
 
+#define kDevice_Is_iPhoneX ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) : NO)
 
 #endif /* CMApp_Header_h */

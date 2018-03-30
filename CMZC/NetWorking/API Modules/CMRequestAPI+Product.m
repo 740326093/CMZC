@@ -49,8 +49,8 @@
 + (void)cm_applyFetchCollectProductListOnPageIndex:(NSInteger)page pageSize:(NSInteger)size isCollect:(NSInteger)collect success:(void (^)(NSArray *, BOOL))success fail:(void (^)(NSError *))fail {
     NSDictionary *dict = @{
                            @"pageindex":CMNumberWithFormat(page),
-                           @"pagesize":CMNumberWithFormat(size),
-                           @"collect":CMNumberWithFormat(collect)
+                           @"pagesize" :CMNumberWithFormat(size),
+                           @"collect" :CMNumberWithFormat(collect)
                            };
     
     [CMRequestAPI postTradeFromURLScheme:kCMApplyListURL argumentsDictionary:dict success:^(id responseObject) {

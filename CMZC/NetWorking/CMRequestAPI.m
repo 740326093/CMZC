@@ -7,7 +7,7 @@
 //
 
 #import "CMRequestAPI.h"
-
+#import "CMNoNetworkView.h"
 typedef NS_ENUM(NSUInteger, CMHTTPRequestStatusCode) {
     CMHTTPRequestStautsCodeOf = 200,
     CMHTTPRequestStatusCodeNotFound = 404
@@ -19,7 +19,7 @@ typedef NS_ENUM(NSUInteger, CMHTTPRequestStatusCode) {
     AFHTTPSessionManager *_manager;
     AFURLSessionManager *_manage;
 }
-
+@property (strong, nonatomic) CMNoNetworkView *NoNetworkView;
 @end
 
 
@@ -47,7 +47,21 @@ typedef NS_ENUM(NSUInteger, CMHTTPRequestStatusCode) {
     [[CMRequestAPI sharedAPI] postOrdinaryFromURLScheme:urlScheme argumentsDictionary:arguments success:success fail:fail];
 }
 
-
+#pragma mark 没有网络设置
+-(CMNoNetworkView*)NoNetworkView{
+    if (!_NoNetworkView) {
+        CGRect rectStatus = [[UIApplication sharedApplication] statusBarFrame];
+        //CGRect rectNav = self.navigationController.navigationBar.frame;
+        
+        _NoNetworkView=[CMNoNetworkView  initByNibForClassName];
+        _NoNetworkView.frame=CGRectMake(0, rectStatus.size.height+44, CMScreen_width(), 50);
+    }
+    return _NoNetworkView;
+}
+-(void)NoNetWorkSetting{
+    
+    [[UIApplication sharedApplication].keyWindow addSubview:self.NoNetworkView];
+}
 //GET 请求通用
 + (void)getDataFromURLScheme:(NSString *)urlScheme argumentsDictionary:(NSDictionary *)arguments success:(SuccessRequestBlock)success fail:(FailRequestBlock)fail {
     NSParameterAssert(success);
@@ -94,7 +108,7 @@ typedef NS_ENUM(NSUInteger, CMHTTPRequestStatusCode) {
                                                  if ([responseObject[@"errcode"] integerValue] == 0) {
                                                      //请求成功
                                                      success(responseObject);
-                                                     
+                                                     [self.NoNetworkView removeFromSuperview];
                                                  } else {
                                                      NSError *cmError = [NSError errorWithDomain:responseObject[@"errmsg"] code:[responseObject[@"errcode"] integerValue] message:[NSString errorMessageWithCode:[responseObject[@"errcode"] integerValue]]];
                                                      fail(cmError);
@@ -114,16 +128,18 @@ typedef NS_ENUM(NSUInteger, CMHTTPRequestStatusCode) {
     NSMutableURLRequest *request = [[AFJSONRequestSerializer serializer] requestWithMethod:@"POST" URLString:urlStr parameters:arguments error:nil];
     NSURLSessionTask *task = [_manage dataTaskWithRequest:request
                                         completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+                                            
                                             if (error) {
                                                 MyLog(@" error : %@",error);
                                                 //请求失败
-                                                
+                                             
                                                 NSError *cmError = [NSError errorWithDomain:error.domain code:error.code message:[NSString errorMessageWithCode:error.code]];
                                                 fail(cmError);
                                             } else {
                                                 if ([responseObject[@"errcode"] integerValue] == 0) {
                                                     //请求成功
                                                     success(responseObject);
+                                                   [self.NoNetworkView removeFromSuperview];
                                                 } else {
                                                     if ([responseObject[@"errcode"]integerValue] == 10120) {
                                                         NSError *error = [NSError errorResponseObject:responseObject];
@@ -158,6 +174,7 @@ typedef NS_ENUM(NSUInteger, CMHTTPRequestStatusCode) {
         
         if ([responseObject[@"errcode"] integerValue] == 0) {
             //请求成功
+           [self.NoNetworkView removeFromSuperview];
             success(responseObject);
         } else {
             if ([responseObject[@"errocode"]integerValue] == 10120) {
@@ -202,6 +219,7 @@ typedef NS_ENUM(NSUInteger, CMHTTPRequestStatusCode) {
                                             } else {
                                                 if ([responseObject[@"errcode"] integerValue] == 0) {
                                                     //请求成功
+                                                  [self.NoNetworkView removeFromSuperview];
                                                     success(responseObject);
                                                 } else {
                                                     NSError *cmError = [NSError errorWithDomain:responseObject[@"errmsg"] code:[responseObject[@"errcode"] integerValue] message:[NSString errorMessageWithCode:[responseObject[@"errcode"] integerValue]]];
@@ -260,7 +278,27 @@ typedef NS_ENUM(NSUInteger, CMHTTPRequestStatusCode) {
     
 }
 
-
+-(void)cheackNetWorking{
+    
+    AFNetworkReachabilityManager *manager = [AFNetworkReachabilityManager sharedManager];
+    //
+    [manager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+        if(status==AFNetworkReachabilityStatusNotReachable){
+            
+            [self NoNetWorkSetting];
+        }else{
+            [self.NoNetworkView removeFromSuperview];
+        
+        }
+    }];
+    
+    
+    [manager startMonitoring];
+    
+    
+    
+    
+}
 
 
 @end

@@ -23,5 +23,6 @@ isPage = YES;\
 #import "CMRequestAPI+TradeInquire.h"
 #import "CMRequestAPI+Product.h"
 #import "CMRequestAPI+ProductMark.h"
-
+#import "CMAgencesRequest.h"
+#import "CMAgencesRequest+CMAgencesApi.h"
 #endif /* CMAPI_Header_h */

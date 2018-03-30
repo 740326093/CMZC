@@ -5,27 +5,30 @@
 //  Created by 财毛 on 16/3/1.
 //  Copyright © 2016年 MAC. All rights reserved.
 //
+ #define kCM_URL @"https://api.xinjingban.com:443" //线上正式api
+ #define kCMWeb_URL @"http://m.xinjingban.com" //线上M站地址
+ //#define kCM_URL @"http://192.168.1.225:9000" //本地测试api
+ //#define kCMWeb_URL @"http://192.168.1.225:8886" //线上M站地址
 
- #define kCM_URL @"https://api.xinjingban.com:443/" //线上正式api
- #define kCMWeb_URL @"http://m.xinjingban.com/" //线上M站地址
-   //#define kCM_URL @"http://192.168.1.19:9000/" //本地测试api
-  //#define kCMWeb_URL @"http://192.168.1.19:8886/" //线上M站地址
-
+  //#define kCMWeb_URL @"http://testing.xinjingban.com"
+ // #define kCM_AgencentUrl @"http://192.168.1.217:8006" //本地机构会员
+//#define kCM_AgencentUrl @"http://192.168.1.115:1002"
+ #define kCM_AgencentUrl @"http://192.168.1.225:8886"
 
 // m站地址
-//NSString *const kCMMZWeb_url = @"http://mz.58cm.com/";
-//NSString *const kCMMZWeb_url = @"http://192.168.1.225:8886/";
-//NSString *const kCMMZWeb_url = @"http://testing.xinjingban.com/";//测试
+//NSString *const kCMMZWeb_url = @"http://mz.58cm.com";
+//NSString *const kCMMZWeb_url = @"http://192.168.1.225:8886";
+//NSString *const kCMWeb_URL = @"http://testing.xinjingban.com";//测试
 
 //新的地址 m站地址
 NSString *const kCMMZWeb_url = kCMWeb_URL; //m站线上地址
 NSString *const kWebSocket_url = @"ws://api.xinjingban.com:80/";// webscoke线上 测试
 
-
-
 // 线上地址 http://zcapi.xinjingban.com
 //公共请求部分 //本地环境 http://192.168.1.12:9000/  //线上环境 http://zcapi.58cm.com/
 NSString *const kCMBaseApiURL = kCM_URL;
+
+NSString *const kCMNewMembersBase_URL=kCM_AgencentUrl;
 //获取短信验证码
 NSString *const kCMShortMessageURL = @"/api/message/sendsmsvercode";
 //三条产品数据
@@ -123,31 +126,31 @@ NSString *const kCMProductTypelistURL = @"/api/product/typelist";
 //行情列表
 NSString *const kCMProductMarkListURL = @"/api/market/product";
 //自选列表
-NSString *const kCMTradeOptionalListURL = @"api/collect/list";
+NSString *const kCMTradeOptionalListURL = @"/api/collect/list";
 //删除自选
-NSString *const kCMOptionalDeleteURL = @"api/collect/Delete";
+NSString *const kCMOptionalDeleteURL = @"/api/collect/Delete";
 //添加自选
-NSString *const kCMOptionalAddURL = @"api/collect/add";
+NSString *const kCMOptionalAddURL = @"/api/collect/add";
 //产品检测
-NSString *const kCMProductBuingSaleURL = @"api/market/product";
+NSString *const kCMProductBuingSaleURL = @"/api/market/product";
 //产品行情明细价格
-NSString *const kCMProductDetailsPriceURL = @"api/market/product/";
+NSString *const kCMProductDetailsPriceURL = @"/api/market/product/";
 //产品行情五档盘口
-NSString *const kCMProductOrderFiveURL = @"api/order/five/";
+NSString *const kCMProductOrderFiveURL = @"/api/order/five/";
 //产品行情成交明细
-NSString *const kMProductContractDetailURL = @"api/contract/detail/";
+NSString *const kMProductContractDetailURL = @"/api/contract/detail/";
 //行情分时行情
-NSString *const kMProductMinuteURL = @"api/minute/market/";
+NSString *const kMProductMinuteURL = @"/api/minute/market/";
 //产品明细
-NSString *const kMProductInfoURL = @"api/market/productinfo/";
+NSString *const kMProductInfoURL = @"/api/market/productinfo/";
 //日k
-NSString *const kMProductKlineDayURL = @"api/kline/day/";
+NSString *const kMProductKlineDayURL = @"/api/kline/day/";
 //周k
-NSString *const kMProductKlineWeekURL = @"api/kline/week/";
+NSString *const kMProductKlineWeekURL = @"/api/kline/week/";
 //月k
-NSString *const kMProductKlineMonthURL = @"api/kline/month/";
+NSString *const kMProductKlineMonthURL = @"/api/kline/month/";
 //企业信息接口
-NSString *const kMProductContextURL = @"api/product/context/";
+NSString *const kMProductContextURL = @"/api/product/context/";
 //评论
 NSString *const kCMProductCommentURL = @"/api/topic/producttopics";
 //公告
@@ -165,6 +168,10 @@ NSString *const kCMProductReplyCreateURL = @"/api/reply/create";
 NSString *const kCMProductCollectCreateURL=@"/api/product/collect";
 
 
+//获取图片路径
+NSString *const KCMUpLoadImageURL=@"/api/user/upimage";
 
+// 机构会员接口API
+NSString *const KAgencesProviceURL=@"/Handler/APP_API.ashx";
 
 

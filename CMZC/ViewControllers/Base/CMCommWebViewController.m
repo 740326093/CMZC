@@ -7,16 +7,19 @@
 //
 
 //#define kCMExternalLinksURL @"http://m.xinjingban.com/GrantAccess?targetUrl="
-#define kCMExternalLinksURL CMStringWithPickFormat(kCMMZWeb_url, @"GrantAccess?targetUrl=")
+#define kCMExternalLinksURL CMStringWithPickFormat(kCMMZWeb_url, @"/GrantAccess?targetUrl=")
 //#define kCMExternalLinksURL @"http://testing.xinjingban.com/GrantAccess?targetUrl="
 #import "CMCommWebViewController.h"
 #import "NJKWebViewProgressView.h"
 #import "NJKWebViewProgress.h"
 #import "CMShareView.h"
-
-@interface CMCommWebViewController ()<UIWebViewDelegate,NJKWebViewProgressDelegate,CMConsultingAlertViewDelegate,CMBLBDetailBottomViewDelegate> {
+#import <JavaScriptCore/JavaScriptCore.h>
+#import "CMJsModel.h"
+@interface CMCommWebViewController ()<UIWebViewDelegate,NJKWebViewProgressDelegate,CMConsultingAlertViewDelegate,CMBLBDetailBottomViewDelegate,UIActionSheetDelegate,CMWebModelDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate> {
     NJKWebViewProgressView *_progressView;
     NJKWebViewProgress *_progressProxy;
+    
+    int photoIndex;
 }
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 
@@ -28,6 +31,10 @@
 @property (copy,nonatomic) NSString *realUrl;
 @property (strong,nonatomic) CMProductDetailBottomView*DetailBottomView;
 @property(strong,nonatomic)CMBLBDetailBottomView *BLBDetailBottomView;
+
+@property (strong,nonatomic) JSContext *context;
+@property (strong,nonatomic) CMJsModel *JsModel;
+@property (assign,nonatomic) BOOL isNotFirstLoad;
 @end
 
 @implementation CMCommWebViewController
@@ -72,13 +79,8 @@
     UIBarButtonItem *btnItem = [[UIBarButtonItem alloc] initWithCustomView:leftBarBtn];
     self.navigationItem.leftBarButtonItem = btnItem;
    
-    UIButton *rightBarBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    rightBarBtn.frame = CGRectMake(0, 0, 30, 40);
-    [rightBarBtn setImage:[UIImage imageNamed:@"newShare"] forState:UIControlStateNormal];
-    [rightBarBtn addTarget:self action:@selector(pageShareView) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:rightBarBtn];
-    self.navigationItem.rightBarButtonItem = rightItem;
-     self.navigationController.navigationBar.titleTextAttributes=@{NSForegroundColorAttributeName: [UIColor whiteColor], NSFontAttributeName: [UIFont boldSystemFontOfSize:17.0]};
+  
+ self.navigationController.navigationBar.titleTextAttributes=@{NSForegroundColorAttributeName: [UIColor whiteColor], NSFontAttributeName: [UIFont boldSystemFontOfSize:17.0]};
     self.realUrl=_urlStr;
     _webView.hidden=YES;
     [self getProductDetaiWithProductID];
@@ -88,7 +90,10 @@
 
 - (void)leftBarBtnClick {
     if ([self.webView canGoBack]) {
-        if ([self.nextURL containsString:@"/Account/RechargeSuccess"]|| [self.nextURL containsString:@"yintong.com.cn"]|| [self.nextURL containsString:@"lianlianpay.com"]) {
+        
+        if([self.nextURL rangeOfString:@"/Account/RechargeSuccess"].location!=NSNotFound||[self.nextURL rangeOfString:@"yintong.com.cn"].location!=NSNotFound||[self.nextURL rangeOfString:@"lianlianpay.com"].location!=NSNotFound){
+        
+//        if ([self.nextURL containsString:@"/Account/RechargeSuccess"]|| [self.nextURL containsString:@"yintong.com.cn"]|| [self.nextURL containsString:@"lianlianpay.com"]) {
             [self.navigationController popViewControllerAnimated:YES];
             [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
         } else {
@@ -117,7 +122,7 @@
 -(void)webViewProgress:(NJKWebViewProgress *)webViewProgress updateProgress:(float)progress
 {
     [_progressView setProgress:progress animated:YES];
-      self.title = [_webView stringByEvaluatingJavaScriptFromString:@"document.title"];
+    
 }
 
 
@@ -126,7 +131,9 @@
     
  
     if (!CMIsLogin()) {
-        NSURLRequest *request =[NSURLRequest requestWithURL:[NSURL URLWithString:_urlStr]];
+//  NSString *url=[[NSBundle mainBundle]pathForResource:@"JavaScriptTest" ofType:@"html"];
+//        NSURLRequest *request =[NSURLRequest requestWithURL:[NSURL URLWithString:url]];
+       NSURLRequest *request =[NSURLRequest requestWithURL:[NSURL URLWithString:_urlStr]];
 
         //4.查看请求头
         [_webView loadRequest:request];
@@ -148,6 +155,7 @@
     NSURLRequest *request =[NSURLRequest requestWithURL:[NSURL URLWithString:external]];
     NSMutableURLRequest *mutableRequest = [request mutableCopy];
     NSString *cookieValue = [NSString stringWithFormat:@"%@=%@",name,value];
+    
     [mutableRequest addValue:cookieValue forHTTPHeaderField:@"cookie"];
     request = [mutableRequest copy];
     //4.查看请求头
@@ -247,12 +255,17 @@
 #pragma mark - webDelegate
 - (void)webViewDidStartLoad:(UIWebView *)webView {
     //包含登录页面
-    if ([self.nextURL containsString:CMStringWithPickFormat(kCMMZWeb_url,@"Login")]) {
+    if ([self.nextURL rangeOfString:CMStringWithPickFormat(kCMMZWeb_url,@"/Login")].location!=NSNotFound) {
+//
+//
+//    if ([self.nextURL containsString:CMStringWithPickFormat(kCMMZWeb_url,@"Login")]) {
         //跳转到登录
         [webView stopLoading];
         UINavigationController *nav = [UIStoryboard loginStoryboard].instantiateInitialViewController;
         [self presentViewController:nav animated:YES completion:nil];
     }
+
+    
     
 }
 
@@ -261,40 +274,69 @@
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     [self hiddenProgressHUD];
    
-    MyLog(@"+++%@",webView.request.URL.host);
+    
    
     
     [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.getElementsByClassName('page-header navbar navbar-default navbar-static-top')[0].hidden=true"];
     [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.getElementsByClassName('live_headbg')[0].hidden=true"];
     [webView stringByEvaluatingJavaScriptFromString:@"document.documentElements.getElementsByClassName('header')[0].hidden=true"];
+     [webView stringByEvaluatingJavaScriptFromString:@"document.getElementsByClassName('header')[0].hidden=true"];
 
-
-   
+  
     if (!webView.loading) {
         [self performSelector:@selector(webViewHiddenNot:) withObject:webView afterDelay:1.5];
   
     }
 
     self.title = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
-    if ([self.title containsString:@"连连支付"]) {
+    if(self.title.length>12){
+        self.title=[NSString stringWithFormat:@"%@...",[self.title substringToIndex:11]];
+    }
+    if ([self.title rangeOfString:@"连连支付"].location!=NSNotFound){
+   // if ([self.title containsString:@"连连支付"]) {
         self.TopLayout.constant=-42;//隐藏连连导航
     }else{
          self.TopLayout.constant=0;//隐藏连连导航
     }
-    if ([webView.request.URL.absoluteString containsString:CMStringWithPickFormat(kCMMZWeb_url,@"about/TradingGuideNew.aspx")]) {
+    if ([webView.request.URL.absoluteString rangeOfString:CMStringWithPickFormat(kCMMZWeb_url,@"/about/TradingGuideNew.aspx")].location!=NSNotFound) {
         
         [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.getElementsByClassName('join-in')[0].hidden=true"];
         [self TradingGuideNewButton];
     }
     
-    if ([webView.request.URL.absoluteString containsString:CMStringWithPickFormat(kCMMZWeb_url,@"About/APPClient")]) {
+    if ([webView.request.URL.absoluteString rangeOfString:CMStringWithPickFormat(kCMMZWeb_url,@"/About/APPClient")].location!=NSNotFound) {
         
         [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.getElementsByClassName('footer')[0].hidden=true"];
         
        
     }
     
+    if(self.title){
+        if(self.showRefresh==YES){
+            
+        UIButton *rightBarBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        rightBarBtn.frame = CGRectMake(0, 0, 30, 40);
+        [rightBarBtn setImage:[UIImage imageNamed:@"newShare"] forState:UIControlStateNormal];
+        [rightBarBtn addTarget:self action:@selector(pageShareView) forControlEvents:UIControlEventTouchUpInside];
+        UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:rightBarBtn];
+        self.navigationItem.rightBarButtonItem = rightItem;
+        }
+    }
     
+    
+    _context = [webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
+    
+    //异常捕获
+    _context.exceptionHandler = ^(JSContext *con, JSValue *exception) {
+        MyLog(@"%@", exception);
+        con.exception = exception;
+    };
+    
+    _JsModel=[[CMJsModel alloc]init];
+    _context[@"XJBapp"]=_JsModel;
+    _JsModel.delegate=self;
+
+  
 }
 
 
@@ -304,9 +346,9 @@
 -(void)webViewHiddenNot:(id)objc{
     UIWebView *web=(UIWebView*)objc;
     
-    if ([web.request.URL.path containsString:@"/Products/Detail"]) {
+    if ([web.request.URL.path rangeOfString:@"/Products/Detail"].location!=NSNotFound) {
       
-        if (![self.title containsString:@"倍利宝"]) {
+        if ([self.title rangeOfString:@"倍利宝"].location==NSNotFound) {
             
             
             self.DetailBottomView.ProductDetails=self.ProductDetails;
@@ -339,12 +381,13 @@
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
     
     
-    
     self.nextURL = request.URL.absoluteString;
     MyLog(@"+++%@",self.nextURL);
     
      [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.getElementsByClassName('page-header navbar navbar-default navbar-static-top')[0].hidden=true"];
-    if ([self.nextURL containsString:CMStringWithPickFormat(kCMMZWeb_url,@"Products/FundList")]) {
+
+    
+    if ([self.nextURL rangeOfString:CMStringWithPickFormat(kCMMZWeb_url,@"/Products/FundList")].location!=NSNotFound) {
         //跳转到登录
         [webView stopLoading];
 
@@ -366,7 +409,7 @@
     
     
     
-     if ([self.nextURL containsString:CMStringWithPickFormat(kCMMZWeb_url,@"Products/List")]) {
+     if ([self.nextURL rangeOfString:CMStringWithPickFormat(kCMMZWeb_url,@"/Products/List")].location!=NSNotFound) {
         [webView stopLoading];
          CMSubscribeViewController *webVC = (CMSubscribeViewController *)[[UIStoryboard mainStoryboard] viewControllerWithId:@"CMSubscribeViewController"];
          
@@ -379,7 +422,7 @@
      }
     
    
-    if ([self.nextURL containsString:CMStringWithPickFormat(kCMMZWeb_url,@"Register")]) {
+    if ([self.nextURL rangeOfString:CMStringWithPickFormat(kCMMZWeb_url,@"/Register")].location!=NSNotFound) {
         [webView stopLoading];
         CMRegisterViewController *registerController=(CMRegisterViewController*)[[UIStoryboard loginStoryboard]viewControllerWithId:@"CMRegisterViewController"];
         [self.navigationController pushViewController:registerController animated:YES];
@@ -391,14 +434,14 @@
         return NO;
     }
     
-    if([self.nextURL containsString:CMStringWithPickFormat(kCMMZWeb_url, @"Login")]){
+    if([self.nextURL rangeOfString:CMStringWithPickFormat(kCMMZWeb_url, @"/Login")].location!=NSNotFound){
         [webView stopLoading];
         UINavigationController *nav = [UIStoryboard loginStoryboard].instantiateInitialViewController;
         [self presentViewController:nav animated:YES completion:nil];
         return NO;
     }
     
-    if ([self.nextURL containsString:CMStringWithPickFormat(kCMMZWeb_url, @"ApplicationService.html")]) {
+    if ([self.nextURL rangeOfString:CMStringWithPickFormat(kCMMZWeb_url, @"/ApplicationService.html")].location!=NSNotFound) {
         [webView stopLoading];
         CMServiceApplicationViewController *serviceVC = (CMServiceApplicationViewController *)[CMServiceApplicationViewController initByStoryboard];
         [self.navigationController pushViewController:serviceVC animated:YES];
@@ -409,8 +452,9 @@
     
     
     
-    if (![self.nextURL containsString:CMStringWithPickFormat(kCMMZWeb_url,@"Account/RechargeRecords")]) {
-        if ([self.nextURL containsString:CMStringWithPickFormat(kCMMZWeb_url,@"Account/Recharge")]) {
+    if ([self.nextURL rangeOfString:CMStringWithPickFormat(kCMMZWeb_url,@"/Account/RechargeRecords")].location==NSNotFound) {
+        
+        if ([self.nextURL rangeOfString:CMStringWithPickFormat(kCMMZWeb_url,@"/Account/Recharge")].location!=NSNotFound) {
             UIButton *rightBarBtn = [UIButton buttonWithType:UIButtonTypeCustom];
             rightBarBtn.frame = CGRectMake(0, 0, 100, 40);
             rightBarBtn.titleLabel.font=[UIFont systemFontOfSize:14.0];
@@ -421,25 +465,29 @@
             self.navigationItem.rightBarButtonItem = rightItem;
             
             
-        }else{
+        }
+        
+
+        
+    }else{
+        
+        if(self.showRefresh==YES){
+            
             UIButton *rightBarBtn = [UIButton buttonWithType:UIButtonTypeCustom];
             rightBarBtn.frame = CGRectMake(0, 0, 30, 40);
             [rightBarBtn setImage:[UIImage imageNamed:@"newShare"] forState:UIControlStateNormal];
             [rightBarBtn addTarget:self action:@selector(pageShareView) forControlEvents:UIControlEventTouchUpInside];
             UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:rightBarBtn];
             self.navigationItem.rightBarButtonItem = rightItem;
+            
+            
+        }else{
+              self.navigationItem.rightBarButtonItem = nil;
         }
         
-        
-
-    }else{
-        UIButton *rightBarBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        rightBarBtn.frame = CGRectMake(0, 0, 30, 40);
-        [rightBarBtn setImage:[UIImage imageNamed:@"newShare"] forState:UIControlStateNormal];
-        [rightBarBtn addTarget:self action:@selector(pageShareView) forControlEvents:UIControlEventTouchUpInside];
-        UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:rightBarBtn];
-        self.navigationItem.rightBarButtonItem = rightItem;
     }
+
+
    
     return YES;
 }
@@ -447,7 +495,7 @@
        
 -(void)intoRecharegeRecode{
     
-    [self LoadWebViewWithCookieAndUrl:CMStringWithPickFormat(kCMMZWeb_url,@"Account/RechargeRecords")];
+    [self LoadWebViewWithCookieAndUrl:CMStringWithPickFormat(kCMMZWeb_url,@"/Account/RechargeRecords")];
 }
 -(void)removeController{
     NSMutableArray  *arr=[[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
@@ -491,13 +539,13 @@
             break;
         case TransferClick: //转让
             self.BLBDetailBottomView.hidden=YES;
-            _urlStr=[NSString stringWithFormat:@"%@Invest/Confirm?pid=%ld&pcont=1",kCMMZWeb_url,(long)self.ProductId];
+            _urlStr=[NSString stringWithFormat:@"%@/Invest/Confirm?pid=%ld&pcont=1",kCMMZWeb_url,(long)self.ProductId];
             
             [self loadWebViewData];
             break;
         case RedeemClick: //赎回
             self.BLBDetailBottomView.hidden=YES;
-            _urlStr=[NSString stringWithFormat:@"%@Account/FundSubcribeRedeem?productId=%ld",kCMMZWeb_url,(long)self.ProductId];
+            _urlStr=[NSString stringWithFormat:@"%@/Account/FundSubcribeRedeem?productId=%ld",kCMMZWeb_url,(long)self.ProductId];
             [self loadWebViewData];
             break;
             
@@ -542,7 +590,7 @@
         case subStateBtnClick:
             
            // if (CMIsLogin()) {
-            _urlStr=[NSString stringWithFormat:@"%@Invest/Confirm?pid=%ld",kCMMZWeb_url,(long)self.ProductDetails.productId];
+            _urlStr=[NSString stringWithFormat:@"%@/Invest/Confirm?pid=%ld",kCMMZWeb_url,(long)self.ProductDetails.productId];
                 [self loadWebViewData];
 //            } else {
 //                UINavigationController *nav = [UIStoryboard loginStoryboard].instantiateInitialViewController;
@@ -629,6 +677,96 @@
     }
     
 }
+
+#pragma mark 调用相机和相册
+
+-(void)callCameraOrPhotosLibrary:(int)type{
+    photoIndex=type;
+       dispatch_async(dispatch_get_main_queue(), ^{
+            
+            UIActionSheet *actionsheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"相机", @"从相册选择", nil ,nil];
+            // 显示
+            [actionsheet showInView:self.view];
+           
+            
+            
+   });
+        
+ 
+
+    
+}
+
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    MyLog(@"buttonIndex=%ld", buttonIndex);
+    
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.delegate = self;
+    picker.allowsEditing = YES; //可编辑
+    picker.modalTransitionStyle=UIModalTransitionStyleCrossDissolve;
+    picker.navigationBar.barTintColor =[UIColor cmThemeCheng];
+    //判断是否可以打开照相机
+    if (buttonIndex==0) {
+        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+            picker.sourceType=UIImagePickerControllerSourceTypeCamera;
+            MyLog(@"相机为来源");
+        }
+    }else{
+        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]){
+            //图片库
+            picker.sourceType=UIImagePickerControllerSourceTypePhotoLibrary;
+            MyLog(@"图片库为来源");
+        }
+        
+     
+    }
+    
+   [ self  presentViewController:picker animated:YES completion:nil];
+   
+}
+
+
+
+
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info
+{
+    
+    UIImage *resultImage = [info objectForKey:@"UIImagePickerControllerEditedImage"];
+    
+    [CMRequestAPI cm_upLoadPic:resultImage success:^(NSString *urlPath) {
+        
+        if (urlPath) {
+            
+            NSString *jsFunctStr = [NSString stringWithFormat:@"callback('%@','%d')",urlPath,photoIndex];
+            
+            [_context evaluateScript:jsFunctStr];
+        }
+        
+        
+        
+        
+    } fail:^(NSError *error) {
+        
+    }];
+  
+
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+
+//点击cancle按钮是调用的协议方法
+-(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    [self  dismissViewControllerAnimated:YES completion:nil];
+    
+}
+
+
+
+
 
 
 @end

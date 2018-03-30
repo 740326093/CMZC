@@ -184,7 +184,7 @@ static NSString *const inquireIdentifer = @"CMInquireCollectionViewCell";
 //                }
                 
                 CMCommWebViewController *commWebVC = (CMCommWebViewController *)[[UIStoryboard mainStoryboard] viewControllerWithId:@"CMCommWebViewController"];
-                commWebVC.urlStr = CMStringWithPickFormat(kCMMZWeb_url, [NSString stringWithFormat:@"Account/CapitalRecords"]);
+                commWebVC.urlStr = CMStringWithPickFormat(kCMMZWeb_url, [NSString stringWithFormat:@"/Account/CapitalRecords"]);
                 [self.navigationController pushViewController:commWebVC animated:YES];
                 
                
@@ -222,7 +222,7 @@ static NSString *const inquireIdentifer = @"CMInquireCollectionViewCell";
             }
                 break;
             case 1:
-            {//中奖查询
+            {//中签查询
                 CMJackpotViewController *jackpotVC = (CMJackpotViewController *)[[UIStoryboard mainStoryboard] viewControllerWithId:@"CMJackpotViewController"];
                 
                 [self.navigationController pushViewController:jackpotVC animated:YES];
@@ -231,14 +231,14 @@ static NSString *const inquireIdentifer = @"CMInquireCollectionViewCell";
             case 2:
             {//申购记录查询
                 CMCommWebViewController *commWebVC = (CMCommWebViewController *)[[UIStoryboard mainStoryboard] viewControllerWithId:@"CMCommWebViewController"];
-                commWebVC.urlStr = CMStringWithPickFormat(kCMMZWeb_url, @"Account/SubscribeList");
+                commWebVC.urlStr = CMStringWithPickFormat(kCMMZWeb_url, @"/Account/SubscribeList");
                 [self.navigationController pushViewController:commWebVC animated:YES];
             }
                 break;
             case 3:
             {//申购指南
                 CMCommWebViewController *commWebVC = (CMCommWebViewController *)[[UIStoryboard mainStoryboard] viewControllerWithId:@"CMCommWebViewController"];
-                commWebVC.urlStr = CMStringWithPickFormat(kCMMZWeb_url, @"Account/FundSubscribeList");
+                commWebVC.urlStr = CMStringWithPickFormat(kCMMZWeb_url, @"/Account/FundSubscribeList");
                 [self.navigationController pushViewController:commWebVC animated:YES];
             }
                 break;
@@ -309,7 +309,7 @@ static NSString *const inquireIdentifer = @"CMInquireCollectionViewCell";
     if (_tinfo.bankcardisexists) {
         
         CMCommWebViewController *commWebVC = (CMCommWebViewController *)[[UIStoryboard mainStoryboard] viewControllerWithId:@"CMCommWebViewController"];
-        commWebVC.urlStr = CMStringWithPickFormat(kCMMZWeb_url, @"Account/Recharge");
+        commWebVC.urlStr = CMStringWithPickFormat(kCMMZWeb_url, @"/Account/Recharge");
         [self.navigationController pushViewController:commWebVC animated:YES];
     }else{
         UIAlertView *aler = [[UIAlertView alloc] initWithTitle:@"请先认证银行卡" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
@@ -325,7 +325,7 @@ static NSString *const inquireIdentifer = @"CMInquireCollectionViewCell";
 
         
         CMCommWebViewController *commWebVC = (CMCommWebViewController *)[[UIStoryboard mainStoryboard] viewControllerWithId:@"CMCommWebViewController"];
-        commWebVC.urlStr =CMStringWithPickFormat(kCMMZWeb_url, @"Account/BankCardCertification");
+        commWebVC.urlStr =CMStringWithPickFormat(kCMMZWeb_url, @"/Account/BankCardCertification");
         [self.navigationController pushViewController:commWebVC animated:YES];
 
     }

@@ -110,5 +110,6 @@
  */
 - (CGRect)getHeightOrWidthIncomingSize:(CGSize)size
                            icomingFont:(CGFloat)sysFont;
-
+#pragma mark 匹配邮箱
++ (BOOL) checkUserEmail:(NSString *)email;
 @end

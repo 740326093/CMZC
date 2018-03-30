@@ -18,8 +18,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    float tabHeight=49;
+    if(kDevice_Is_iPhoneX){
+        tabHeight=83;
+    }
     
-    UIView *tabBarView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CMScreen_width(), 49)];
+    UIView *tabBarView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CMScreen_width(), tabHeight)];
     [tabBarView setBackgroundColor:[UIColor cmtabBarGreyColor]];
     [self.tabBar insertSubview:tabBarView atIndex:0];
     

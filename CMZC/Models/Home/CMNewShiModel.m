@@ -17,6 +17,9 @@
              @"descrip":@"description"
              };
 }
-
+-(NSString*)picture{
+    
+    return [_picture stringByReplacingOccurrencesOfString:@"|" withString:@""];
+}
 
 @end

@@ -11,5 +11,11 @@
 @interface NSString (CMNSString)
 +(NSString*)currentDateFormatter:(NSString *)formatter;
 +(NSString*)dictionaryToJson:(NSDictionary *)dic;
++(NSString*)dictionaryToDealJson:(NSDictionary *)dict;
 + (NSDictionary *)dictionaryWithJsonString:(NSString *)jsonString ;
+
+
++(NSString*)base64WithString:(UIImage*)image;
+
++ (NSString *)removeSpaceAndNewline:(NSString *)str;
 @end

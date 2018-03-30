@@ -20,8 +20,10 @@
                            };
     
     [CMRequestAPI postDataFromURLScheme:kCMRegisterURL argumentsDictionary:dict success:^(id responseObject) {
+        
         success(YES);
     } fail:^(NSError *error) {
+        
         fail(error);
     }];
     
@@ -61,20 +63,24 @@
         
         if ([responseObject[@"errcode"] integerValue] == 0) {
             //删除
-            DeleteDataFromNSUserDefaults(@"name");
             DeleteDataFromNSUserDefaults(@"value");
+            DeleteDataFromNSUserDefaults(@"userid");
             //获得cookies
             NSDictionary *fields = [(NSHTTPURLResponse *)task.response allHeaderFields];
           //  NSLog(@"fields :%@",fields);
              NSArray *cookies = [NSHTTPCookie cookiesWithResponseHeaderFields:fields forURL:[NSURL URLWithString:kCMBaseApiURL]];
-    
-            NSHTTPCookie *cookie = cookies.firstObject;
+
+             NSHTTPCookie *cookie = cookies.firstObject;
             //保存到本地
-            SaveDataToNSUserDefaults(cookie.name, @"name");
-            SaveDataToNSUserDefaults(cookie.value, @"value");
+            
            
             
+            SaveDataToNSUserDefaults(cookie.name, @"name");
+            SaveDataToNSUserDefaults(cookie.value, @"value");
+            
+            
             CMAccount *account = [[CMAccount alloc] initWithDict:responseObject];
+            
             success(account);
         } else {
             NSError *cmError = [NSError errorWithDomain:responseObject[@"errmsg"] code:[responseObject[@"errcode"] integerValue] message:[NSString errorMessageWithCode:[responseObject[@"errcode"] integerValue]]];
@@ -96,6 +102,7 @@
     NSDictionary *dict = @{@"phone":CMNumberWithFormat(number)};
     
     [CMRequestAPI postDataFromURLScheme:kCMShortMessageURL argumentsDictionary:dict success:^(id responseObject) {
+        
         success(YES);
     } fail:^(NSError *error) {
         fail(error);
@@ -134,6 +141,7 @@
             //删除
             DeleteDataFromNSUserDefaults(@"name");
             DeleteDataFromNSUserDefaults(@"value");
+            
             //获得cookies
             NSDictionary *fields = [(NSHTTPURLResponse *)task.response allHeaderFields];
             //NSLog(@"fields :%@",fields);

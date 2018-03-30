@@ -2,6 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>新经板需要您的同意,才能访问相册</string>
+	<key>NSCameraUsageDescription</key>
+	<string>新经板需要您的同意,才能访问相机</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleExecutable</key>
@@ -142,8 +146,8 @@
 			</dict>
 			<key>sina.cn</key>
 			<dict>
-                <key>NSExceptionMinimumTLSVersion</key>
-                <string>TLSv1.0</string>
+				<key>NSExceptionMinimumTLSVersion</key>
+				<string>TLSv1.0</string>
 				<key>NSIncludesSubdomains</key>
 				<true/>
 				<key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
@@ -187,8 +191,8 @@
 			</dict>
 			<key>weibo.cn</key>
 			<dict>
-                <key>NSExceptionMinimumTLSVersion</key>
-                <string>TLSv1.0</string>
+				<key>NSExceptionMinimumTLSVersion</key>
+				<string>TLSv1.0</string>
 				<key>NSIncludesSubdomains</key>
 				<true/>
 				<key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
@@ -196,8 +200,8 @@
 			</dict>
 			<key>weibo.com</key>
 			<dict>
-                <key>NSExceptionMinimumTLSVersion</key>
-                <string>TLSv1.0</string>
+				<key>NSExceptionMinimumTLSVersion</key>
+				<string>TLSv1.0</string>
 				<key>NSIncludesSubdomains</key>
 				<true/>
 				<key>NSThirdPartyExceptionAllowsInsecureHTTPLoads</key>

@@ -22,7 +22,10 @@
 }
 
 - (void)setNotice:(CMNewShiModel *)notice {
-    [_titleImage sd_setImageWithURL:[NSURL URLWithString:notice.picture] placeholderImage:[UIImage imageNamed:@"title_log"]];
+    
+   // [_titleImage sd_setImageWithURL:[NSURL URLWithString:notice.picture] placeholderImage:[UIImage imageNamed:@"title_log"]];
+    _titleImage.image=[UIImage getImageFromUrl:[NSURL URLWithString:notice.picture] imgViewWidth:CMScreen_width() imgViewHeight:131];
+    
    
     _titleLab.text = notice.title;
     

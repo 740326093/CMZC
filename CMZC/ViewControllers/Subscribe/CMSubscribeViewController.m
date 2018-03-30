@@ -119,6 +119,7 @@
     CMCommWebViewController *webVC = (CMCommWebViewController *)[CMCommWebViewController initByStoryboard];
     webVC.ProductId=product.productId;
     webVC.urlStr = CMStringWithPickFormat(kCMMZWeb_url,CMStringWithPickFormat(@"/Products/Detail?pid=",CMStringWithFormat(product.productId)));
+    webVC.showRefresh=YES;
     
     //[NSString stringWithFormat:@"%@%ld",@"http://mz.58cm.com/Products/Detail?pid=",(long)product.productId];
             [self.navigationController pushViewController:webVC animated:YES];
@@ -141,12 +142,14 @@
 - (void)cm_checkRoadshowLiveUrl:(NSString *)liveUrl {
     CMCommWebViewController *webVC = (CMCommWebViewController *)[CMCommWebViewController initByStoryboard];
     webVC.urlStr = liveUrl;
+    webVC.showRefresh=YES;
     [self.navigationController pushViewController:webVC animated:YES];
 }
 -(void)cm_checkImmediatelySubscribeEventWithPid:(NSInteger)productID{
     
     CMCommWebViewController *webVC = (CMCommWebViewController *)[CMCommWebViewController initByStoryboard];
-    webVC.urlStr = [NSString stringWithFormat:@"%@Invest/Confirm?pid=%ld",kCMMZWeb_url,productID];
+    webVC.urlStr = [NSString stringWithFormat:@"%@/Invest/Confirm?pid=%ld",kCMMZWeb_url,productID];
+    
     [self.navigationController pushViewController:webVC animated:YES];
 }
 
@@ -172,6 +175,7 @@
             
             CMCommWebViewController *webVC = (CMCommWebViewController *)[CMCommWebViewController initByStoryboard];
             webVC.urlStr = @"http://m.xinjingban.com/Activity/NewPlate.aspx?pid=70363";
+            webVC.showRefresh=YES;
             [weakSelef.navigationController pushViewController:webVC animated:YES];
         //
         } else if(index == 1001) {

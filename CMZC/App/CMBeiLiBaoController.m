@@ -176,8 +176,9 @@
         cell.buyInBlock=^(NSIndexPath *index){
             CMNumberous *Numberous=self.dataArr[index.section-1];
             CMCommWebViewController *webVC = (CMCommWebViewController *)[CMCommWebViewController initByStoryboard];
-            NSString *webUrl = CMStringWithPickFormat(kCMMZWeb_url, [NSString stringWithFormat:@"Invest/Confirm?pid=%@&pcont=1",Numberous.berId]);
+            NSString *webUrl = CMStringWithPickFormat(kCMMZWeb_url, [NSString stringWithFormat:@"/Invest/Confirm?pid=%@&pcont=1",Numberous.berId]);
             webVC.urlStr = webUrl;
+            
             [self.navigationController pushViewController:webVC animated:YES];
             
         };
@@ -195,9 +196,10 @@
     }else{
         CMNumberous *Numberous=self.dataArr[indexPath.section-1];
         CMCommWebViewController *webVC = (CMCommWebViewController *)[CMCommWebViewController initByStoryboard];
-        NSString *webUrl = CMStringWithPickFormat(kCMMZWeb_url, [NSString stringWithFormat:@"Products/Detail?pid=%@",Numberous.berId]);
+        NSString *webUrl = CMStringWithPickFormat(kCMMZWeb_url, [NSString stringWithFormat:@"/Products/Detail?pid=%@",Numberous.berId]);
         webVC.urlStr = webUrl;
         webVC.ProductId=[Numberous.berId integerValue];
+        webVC.showRefresh=YES;
         [self.navigationController pushViewController:webVC animated:YES];
     }
     

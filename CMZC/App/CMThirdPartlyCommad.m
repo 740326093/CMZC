@@ -45,6 +45,8 @@ singleton_implementation(CMThirdPartlyCommad)
 //            MyLog(@"registrationID获取失败，code：%d",resCode);
 //        }
 //    }];
+    
+    [JPUSHService crashLogON];
         return message;
     
  

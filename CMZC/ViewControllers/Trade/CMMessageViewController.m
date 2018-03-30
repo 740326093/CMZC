@@ -85,7 +85,7 @@
         webVC.urlStr=message.url;
         [self.navigationController pushViewController:webVC animated:YES];
     }
-    
+
     self.block();
     
 }

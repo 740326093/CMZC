@@ -90,9 +90,10 @@
     
     CMNewShiModel*model=self.gongGaoArr[index];
     MyLog(@"最新公告详情+++%ld_______%ld",model.mediaId,index);
-    NSString *strUrl = CMStringWithPickFormat(kCMMZWeb_url,[NSString stringWithFormat:@"Account/MessageDetail?nid=%ld",(long)model.mediaId])
+    NSString *strUrl = CMStringWithPickFormat(kCMMZWeb_url,[NSString stringWithFormat:@"/Account/MessageDetail?nid=%ld",(long)model.mediaId])
     ;
     webVC.urlStr =strUrl;
+    webVC.showRefresh=YES;
     [self.baseController.navigationController pushViewController:webVC animated:YES];
     
 }

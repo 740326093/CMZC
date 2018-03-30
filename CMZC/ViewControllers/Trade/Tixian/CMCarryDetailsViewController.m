@@ -168,8 +168,10 @@
 }
 //提交
 - (IBAction)presentBtnClick:(UIButton *)sender {
+    
     if ([self carryCheckDataValidity]) {
         [self showDefaultProgressHUD];
+        
         [CMRequestAPI cm_tradeWithdrawTransferExtractBankcardId:_blockList.bankcardid couponId:_couponid amount:_depositTextField.text vercode:_authCodeTextField.text tradePassword:_passwTextField.text provincecode:_proviceName citycode:_cityName bankname:_bankName sccess:^(BOOL isWin) {
             [self hiddenProgressHUD];
             [self showHUDWithMessage:@"提现成功" hiddenDelayTime:2];
@@ -336,6 +338,7 @@
     [bankStr replaceCharactersInRange:NSMakeRange(5, 7) withString:@"********"];
     _bankLab.text = [NSString stringWithFormat:@"%@(%@)",_blockList.banktype,bankStr];
     _availableLab.text = [NSString stringWithFormat:@"该卡可提金额%.2f",_blockList.balance];
+    _bankName=_blockList.banktype;
     //真实姓名
     _realNameLab.text = self.nameStr;
     //可用金额
@@ -351,6 +354,7 @@
 }
 - (void)cmAlerViewCellTitle:(CMBankBlockList *)title {
     if (title !=nil) {
+        
         _discountLab.text = title.amount;
         _couponid = title.couponid;
         _amount = [title.amount integerValue];
@@ -473,7 +477,7 @@
 
 - (void)withdrawRequestWebCommentVC {
     CMCommWebViewController *webVC = (CMCommWebViewController *)[CMCommWebViewController initByStoryboard];
-    NSString *webUrl =  CMStringWithPickFormat(kCMMZWeb_url,@"Account/WithdrawRecords");
+    NSString *webUrl =  CMStringWithPickFormat(kCMMZWeb_url,@"/Account/WithdrawRecords");
     //[NSString stringWithFormat:@"http://mz.58cm.com/Account/WithdrawRecords"];
     webVC.urlStr = webUrl;
     [self.navigationController pushViewController:webVC animated:YES];

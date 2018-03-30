@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="iN0-l3-epB" customClass="CMApplyNoDataView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="applyNoDataImage_01" translatesAutoresizingMaskIntoConstraints="NO" id="ZVV-7u-647">
+                    <rect key="frame" x="144" y="75" width="86" height="94"/>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="暂无领投项目" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T1t-fb-Lav">
+                    <rect key="frame" x="144" y="179" width="86" height="17"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2wG-Bc-igu">
+                    <rect key="frame" x="144" y="201" width="86" height="30"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="立即" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l2H-2a-QSX">
+                            <rect key="frame" x="0.0" y="0.0" width="29" height="17"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="申请挂牌融资" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JPK-5X-Bhw">
+                            <rect key="frame" x="29" y="0.0" width="86" height="17"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <color key="textColor" red="1" green="0.3921568627" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nRc-Tj-krY">
+                            <rect key="frame" x="0.0" y="0.0" width="96" height="30"/>
+                            <connections>
+                                <action selector="enterProjectApplyEnent:" destination="iN0-l3-epB" eventType="touchUpInside" id="PQP-jl-28D"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="l2H-2a-QSX" firstAttribute="leading" secondItem="2wG-Bc-igu" secondAttribute="leading" id="5gA-TM-IAx"/>
+                        <constraint firstItem="JPK-5X-Bhw" firstAttribute="top" secondItem="2wG-Bc-igu" secondAttribute="top" id="6a0-oP-38Y"/>
+                        <constraint firstItem="l2H-2a-QSX" firstAttribute="top" secondItem="2wG-Bc-igu" secondAttribute="top" id="AFc-As-zK8"/>
+                        <constraint firstAttribute="trailing" secondItem="nRc-Tj-krY" secondAttribute="trailing" constant="-10" id="eK2-aF-L7v"/>
+                        <constraint firstAttribute="height" constant="30" id="rft-Xo-2MH"/>
+                        <constraint firstItem="JPK-5X-Bhw" firstAttribute="leading" secondItem="l2H-2a-QSX" secondAttribute="trailing" id="uT5-v4-Ube"/>
+                        <constraint firstItem="nRc-Tj-krY" firstAttribute="top" secondItem="2wG-Bc-igu" secondAttribute="top" id="uma-ae-YTb"/>
+                        <constraint firstAttribute="bottom" secondItem="nRc-Tj-krY" secondAttribute="bottom" id="wzY-2j-pZV"/>
+                        <constraint firstItem="nRc-Tj-krY" firstAttribute="leading" secondItem="2wG-Bc-igu" secondAttribute="leading" id="z2D-dM-eLK"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="ZVV-7u-647" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Xgu-JZ-awI"/>
+                <constraint firstItem="2wG-Bc-igu" firstAttribute="leading" secondItem="ZVV-7u-647" secondAttribute="leading" id="Ylg-YN-zUy"/>
+                <constraint firstItem="ZVV-7u-647" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="75" id="ZkP-4n-ajA"/>
+                <constraint firstItem="T1t-fb-Lav" firstAttribute="top" secondItem="ZVV-7u-647" secondAttribute="bottom" constant="10" id="dCh-GH-V7l"/>
+                <constraint firstItem="2wG-Bc-igu" firstAttribute="top" secondItem="T1t-fb-Lav" secondAttribute="bottom" constant="5" id="f8E-aW-gJG"/>
+                <constraint firstItem="2wG-Bc-igu" firstAttribute="trailing" secondItem="ZVV-7u-647" secondAttribute="trailing" id="vgI-BV-LRb"/>
+                <constraint firstItem="T1t-fb-Lav" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="yb8-5z-CIN"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="NoProjectLab" destination="T1t-fb-Lav" id="gG9-Jc-dYB"/>
+                <outlet property="enterProjectApplyLab" destination="JPK-5X-Bhw" id="akp-46-OY4"/>
+                <outlet property="noDataImage" destination="ZVV-7u-647" id="Ixz-3s-ZO8"/>
+                <outlet property="offLeft" destination="Ylg-YN-zUy" id="A2j-vv-pcK"/>
+            </connections>
+            <point key="canvasLocation" x="32.5" y="88.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="applyNoDataImage_01" width="86" height="94"/>
+    </resources>
+</document>

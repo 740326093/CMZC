@@ -235,6 +235,7 @@
 }
 //提取现金
 + (void)cm_tradeWithdrawTransferExtractBankcardId:(NSInteger)bankcardId couponId:(NSInteger)couponId amount:(NSString *)amount vercode:(NSString *)vercode tradePassword:(NSString *)password provincecode:(NSString *)province citycode:(NSString *)city bankname:(NSString *)bank sccess:(void (^)(BOOL))success fail:(void (^)(NSError *))fail {
+    
     NSDictionary *dict = nil;
     if (province != nil) {
         dict = @{
@@ -248,6 +249,7 @@
                  @"tradepassword": password
                  };
     } else {
+        
         dict = @{
                    @"bankcardid":CMNumberWithFormat(bankcardId),
                    @"couponid":CMNumberWithFormat(couponId),
@@ -256,6 +258,7 @@
                    @"tradepassword":password
                 };
     }
+    
     [CMRequestAPI postTradeFromURLScheme:kCMTradeWithdrawalURL argumentsDictionary:dict success:^(id responseObject) {
         success(YES);
     } fail:^(NSError *error) {

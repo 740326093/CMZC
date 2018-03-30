@@ -17,5 +17,6 @@
 @property (nonatomic,assign) CGFloat desirableamount; //用户的可取金额
 @property (nonatomic,copy) NSString *realname; //真实姓名
 @property (nonatomic,assign) BOOL bankcardisexists; //用户是否绑定了银行卡
-
+@property (nonatomic,assign) NSInteger bjigou; //机构会员标识
+@property (nonatomic,copy) NSString *userid; //机构会员ID
 @end

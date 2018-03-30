@@ -288,7 +288,9 @@
 }
 - (CMErrorView *)errorView {
     if (!_errorView) {
-        _errorView = [[CMErrorView alloc] initWithFrame:CGRectMake(0, 144, CMScreen_width(), CMScreen_height()) bgImageName:@"chiyou_trade"];
+        float heightView = [UIApplication sharedApplication].statusBarFrame.size.height+self.navigationController.navigationBar.frame.size.height+40;
+        
+        _errorView = [[CMErrorView alloc] initWithFrame:CGRectMake(0, heightView, CMScreen_width(), CMScreen_height()) bgImageName:@"chiyou_trade"];
     }
     return _errorView;
 }

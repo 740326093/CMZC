@@ -78,5 +78,5 @@ typedef void (^FailRequestBlock)(NSError *error);
                       success:(SuccessRequestBlock)success
                          fail:(FailRequestBlock)fail;
 
-
+-(void)cheackNetWorking;
 @end

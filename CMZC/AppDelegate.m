@@ -36,7 +36,7 @@
     
     
     //由于分享要真机。不然会出现错误。所哟，先注销掉。测试时在借助
-    [CMThirdPartlyCommad umsocialData];
+[CMThirdPartlyCommad umsocialData];
     
     //显示引导页
     [self showWelcome];
@@ -57,7 +57,29 @@
     
     [CMMessageDao createTable];
     
- 
+//    if (@available(ios 11.0,*)) {
+//        UIScrollView.appearance.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+//        UITableView.appearance.estimatedRowHeight = 0;
+//        UITableView.appearance.estimatedSectionFooterHeight = 0;
+//        UITableView.appearance.estimatedSectionHeaderHeight = 0;
+//    }
+
+    
+    //添加浏览器标识符
+    UIWebView* tempWebView = [[UIWebView alloc] initWithFrame:CGRectZero];
+    
+    NSString *oldAgent = [tempWebView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"
+                          ];
+    
+    
+    NSString *newAgent  = [NSString stringWithFormat:@"%@ XJBapp"
+                           ,oldAgent];;
+    
+    NSDictionary *dictionnary = [[NSDictionary alloc] initWithObjectsAndKeys:newAgent, @"UserAgent",nil
+                                 ];
+    [[NSUserDefaults standardUserDefaults] registerDefaults
+     :dictionnary];
+
     
         return YES;
 }
@@ -95,9 +117,9 @@
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
     // 当程序从后台将要重新回到前台时候调用
     [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
-    
+     [[[CMRequestAPI alloc]init]cheackNetWorking];
     if (CMIsLogin()) {
-        
+       
     }
     
 }
@@ -344,7 +366,6 @@
     }
     
 }
-#pragma mark - 开启定时器 刷新token
-
+#
 
 @end

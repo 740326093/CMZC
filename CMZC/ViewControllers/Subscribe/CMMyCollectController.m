@@ -134,7 +134,7 @@
        
         CMPurchaseProduct * product=weakSelf.productDataArr[indexPath.section];
         CMCommWebViewController *webVC = (CMCommWebViewController *)[CMCommWebViewController initByStoryboard];
-        webVC.urlStr = [NSString stringWithFormat:@"%@Invest/Confirm?pid=%ld",kCMMZWeb_url,product.productId];
+        webVC.urlStr = [NSString stringWithFormat:@"%@/Invest/Confirm?pid=%ld",kCMMZWeb_url,product.productId];
         [weakSelf.navigationController pushViewController:webVC animated:YES];
         
     };

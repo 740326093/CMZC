@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="iN0-l3-epB" customClass="CMAgencyHeadView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="260"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="2eS-kh-M1s">
+                    <rect key="frame" x="20" y="10" width="335" height="41"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="V2M-ug-xwj"/>
+                    </constraints>
+                    <segments>
+                        <segment title="成为发行人"/>
+                        <segment title="成为管理人"/>
+                        <segment title="成为保荐人"/>
+                    </segments>
+                </segmentedControl>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7gb-7D-fnd" userLabel="lineView">
+                    <rect key="frame" x="0.0" y="60" width="375" height="10"/>
+                    <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="10" id="6aW-ha-xin"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2M8-qW-qzi">
+                    <rect key="frame" x="0.0" y="70" width="375" height="190"/>
+                    <subviews>
+                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" bounces="NO" scrollEnabled="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aTk-f2-wDn">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="190"/>
+                        </scrollView>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="aTk-f2-wDn" secondAttribute="trailing" id="4qg-Nh-iZ7"/>
+                        <constraint firstAttribute="bottom" secondItem="aTk-f2-wDn" secondAttribute="bottom" id="64X-n7-jrg"/>
+                        <constraint firstItem="aTk-f2-wDn" firstAttribute="leading" secondItem="2M8-qW-qzi" secondAttribute="leading" id="jni-Mo-PBD"/>
+                        <constraint firstItem="aTk-f2-wDn" firstAttribute="top" secondItem="2M8-qW-qzi" secondAttribute="top" id="lnt-qa-uF4"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="2M8-qW-qzi" secondAttribute="trailing" id="2OV-y2-tuH"/>
+                <constraint firstItem="7gb-7D-fnd" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="3AA-Hf-VxF"/>
+                <constraint firstItem="2M8-qW-qzi" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Hxx-NT-dSd"/>
+                <constraint firstItem="2eS-kh-M1s" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="10" id="LjO-oh-1Gl"/>
+                <constraint firstItem="2eS-kh-M1s" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="MpJ-6w-1R2"/>
+                <constraint firstAttribute="bottom" secondItem="2M8-qW-qzi" secondAttribute="bottom" id="P82-KT-7s1"/>
+                <constraint firstItem="7gb-7D-fnd" firstAttribute="top" secondItem="2eS-kh-M1s" secondAttribute="bottom" constant="10" id="SOI-sE-mQh"/>
+                <constraint firstAttribute="trailing" secondItem="7gb-7D-fnd" secondAttribute="trailing" id="TZe-Jf-Z8R"/>
+                <constraint firstAttribute="trailing" secondItem="2eS-kh-M1s" secondAttribute="trailing" constant="20" id="WKV-Lt-AlQ"/>
+                <constraint firstItem="2M8-qW-qzi" firstAttribute="top" secondItem="7gb-7D-fnd" secondAttribute="bottom" id="iuX-Zi-49x"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="bottomBackView" destination="2M8-qW-qzi" id="WRt-cG-C4u"/>
+                <outlet property="curScrollerView" destination="aTk-f2-wDn" id="AiJ-xN-XAk"/>
+                <outlet property="selectSengenmt" destination="2eS-kh-M1s" id="ClM-Jr-Ixn"/>
+            </connections>
+            <point key="canvasLocation" x="26.5" y="53"/>
+        </view>
+    </objects>
+</document>

@@ -652,7 +652,8 @@
             CMCommWebViewController *webVC = (CMCommWebViewController *)[CMCommWebViewController initByStoryboard];
     
             CMProductNotion *notice=_commDataArr[indexPath.row];
-            webVC.urlStr=[NSString stringWithFormat:@"%@Account/MessageDetail?nid=%ld",kCMMZWeb_url,notice.notionId];
+            webVC.urlStr=[NSString stringWithFormat:@"%@/Account/MessageDetail?nid=%ld",kCMMZWeb_url,notice.notionId];
+            webVC.showRefresh=YES;
             [self.navigationController pushViewController:webVC animated:YES];
             
         }

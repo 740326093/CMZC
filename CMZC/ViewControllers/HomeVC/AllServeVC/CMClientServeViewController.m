@@ -9,6 +9,7 @@
 #import "CMClientServeViewController.h"
 
 @interface CMClientServeViewController ()
+@property (weak, nonatomic) IBOutlet UIImageView *weaChayImage;
 
 @end
 
@@ -26,6 +27,10 @@
     UIWebView *callWebview = [[UIWebView alloc] init];
     [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];
     [self.view addSubview:callWebview];
+}
+- (IBAction)weChatServerEvent:(id)sender {
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {

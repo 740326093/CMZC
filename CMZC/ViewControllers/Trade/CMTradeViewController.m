@@ -22,8 +22,12 @@
 #import "CMTabBarViewController.h"
 #import "CMCarryDetailsViewController.h"
 #import "CMMessageViewController.h"
-
-#import "CMWKWebControllerViewController.h"
+#import "CMMySubScribeController.h"
+#import "CMAgencyMmbersCell.h"
+#import  "CMAgencyCheckController.h"
+#import "CMAgencyMebersController.h"
+#import "CMMebersIncomeController.h"
+#import "CMCheackStateModel.h"
 @interface CMTradeViewController ()<UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate,CMTradeMeansTableViewCellDelegate,CMTradeTitleViewDelegate>{
     NSArray *_titImageArr;//头图片Image
     NSArray *_titLabNameArr;//名字lab
@@ -33,7 +37,7 @@
 @property (strong, nonatomic) CMAccountinfo *tinfo;
 @property (weak, nonatomic) IBOutlet UIImageView *tradeImage;
 
-
+@property (strong, nonatomic) CMCheackStateModel *CheackStateModel;
 @end
 
 @implementation CMTradeViewController
@@ -46,11 +50,11 @@
     _curTableView.tableHeaderView = _tradeTitleView;
     _curTableView.tableFooterView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, CMScreen_width(), 10  )];
     
-    _titLabNameArr = @[@"我的基金",@"安全认证",@"我的收藏",@"我的消息",@"新手交易指南",@"设置"];
-    _titImageArr = @[@"funds_trade",@"bankCard_trade",@"collection_trade",@"message_trade",@"new_trade",@"set_trade"];
+    _titLabNameArr = @[@"我的申购",@"我的基金",@"安全认证",@"我的收藏",@"我的消息",@"新手交易指南",@"设置"];
+    _titImageArr = @[@"subscribe_trade",@"funds_trade",@"bankCard_trade",@"collection_trade",@"message_trade",@"new_trade",@"set_trade"];
     //判断一下是否登录
     //if (CMIsLogin()) {
-        [self addRequestDataMeans];
+    
     //}
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginSuccessed) name:@"loginWin" object:nil];
@@ -60,6 +64,7 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(loginSuccessed) name:@"TiXianSuccess" object:nil];
+      [self addRequestDataMeans];
 }
 
 - (void)loginSuccessed {
@@ -85,6 +90,7 @@
         [self requestListWithPageNo:1];
     }];
     
+    
 }
 //数据请求
 - (void)requestListWithPageNo:(NSInteger)page {
@@ -99,6 +105,9 @@
             [_curTableView endRefresh];
             _tradeTitleView.tinfo = account;
             _tinfo = account;
+            SaveDataToNSUserDefaults(account.userid, @"userid");
+            
+            [self cheackStatecheackStateWithUserId:account.userid];
         } fail:^(NSError *error) {
             [_curTableView endRefresh];
             [self hiddenProgressHUD];
@@ -110,15 +119,22 @@
         //[self showHUDWithMessage:@"请登录账户" hiddenDelayTime:2];
     }];
     
+    
+    
+    
+    
 }
 
 
 #pragma mark - UITableViewDelegate && UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return _titLabNameArr.count+1;
+    return _titLabNameArr.count+2;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row == 0) {
+    if(indexPath.row == 0){
+        return 70;
+    }
+    else if (indexPath.row == 1) {
         return 190;
     } else {
         return 40;
@@ -128,6 +144,11 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row == 0) {
+        CMAgencyMmbersCell *tableCell = [tableView dequeueReusableCellWithIdentifier:@"CMAgencyMmbersCell" forIndexPath:indexPath];
+        return tableCell;
+    
+    }
+   else if (indexPath.row == 1) {
         CMTradeMeansTableViewCell *tradeMeansCell = [tableView dequeueReusableCellWithIdentifier:@"CMTradeMeansTableViewCell" forIndexPath:indexPath];
         
         tradeMeansCell.delegate = self;
@@ -135,10 +156,10 @@
         return tradeMeansCell;
     } else {
         CMFunctionTableViewCell *tableCell = [tableView dequeueReusableCellWithIdentifier:@"CMFunctionTableViewCell" forIndexPath:indexPath];
-        [tableCell cm_functionTileLabNameStr:_titLabNameArr[indexPath.row-1]
-                              titleImageName:_titImageArr[indexPath.row - 1]];
+        [tableCell cm_functionTileLabNameStr:_titLabNameArr[indexPath.row-2]
+                              titleImageName:_titImageArr[indexPath.row - 2]];
         
-        if (indexPath.row == 3) {
+        if (indexPath.row == 7) {
             tableCell.tradeImage.hidden = NO;
         } else {
             tableCell.tradeImage.hidden = YES;
@@ -159,12 +180,72 @@
         
     } else {
         switch (indexPath.row) {
-                case 1: //我的基金
+                
+            case 0: //我的申购
             {
-                 [self pushCommWebViewVCUrlStr:CMStringWithPickFormat(kCMMZWeb_url, @"Account/CouponsList")];
+                MyLog(@"机构会员标识+++%ld",_tinfo.bjigou);
+             //  CMAgencyMebersController *collectController = (CMAgencyMebersController *)[CMAgencyMebersController initByStoryboard];
+            // CMMebersIncomeController *collectController = (CMMebersIncomeController *)[CMMebersIncomeController initByStoryboard];
+               // commonalityVC = collectController;
+                //bjigou  机构会员标识0非机构会员 1会员审核状态 2机构会员
+           
+                switch (_tinfo.bjigou) {
+                    case 0:{
+                        MyLog(@"++++++%@",_CheackStateModel);
+                        if (_CheackStateModel) {
+                            if (_CheackStateModel.Status==2) {
+                                CMAgencyCheckController *collectController = (CMAgencyCheckController *)[CMAgencyCheckController initByStoryboard];
+                                collectController.stateType=CMCheackFail;
+                                collectController.StateLab=_CheackStateModel.beizhu;
+                                 [self.navigationController pushViewController:collectController animated:YES];
+                                return;
+                            }
+                            
+                        }
+                   CMAgencyMebersController *collectController = (CMAgencyMebersController *)[CMAgencyMebersController initByStoryboard];
+                   commonalityVC = collectController;
+                        
+                       
+                        
+                    }
+                        break;
+                    case 1:
+                    {
+                        CMAgencyCheckController *collectController = (CMAgencyCheckController *)[CMAgencyCheckController initByStoryboard];
+                        collectController.stateType=CMCheacking;
+                        commonalityVC = collectController;
+                        
+                    }
+                        break;
+                    case 2:
+                    {
+                        CMMebersIncomeController *collectController = (CMMebersIncomeController *)[CMMebersIncomeController initByStoryboard];
+                        commonalityVC = collectController;
+                        }
+                        break;
+                        
+                    default:
+                        break;
+                }
+               
+                
+                
             }
                 break;
-            case 2://银行卡认证
+            case 2: //我的申购
+            {
+                CMMySubScribeController *SubScribeController = [[CMMySubScribeController alloc]init];
+                SubScribeController.hidesBottomBarWhenPushed=YES;
+                commonalityVC = SubScribeController;
+            
+            }
+                break;
+                case 3: //我的基金
+            {
+                 [self pushCommWebViewVCUrlStr:CMStringWithPickFormat(kCMMZWeb_url, @"/Account/CouponsList")];
+            }
+                break;
+            case 4://银行卡认证
                 //这里需要坐下判断，是否登录过，是否是认证过的。如果是，跳转到详情，如果不是，就不跳转
             {
 //                if (_tinfo.bankcardisexists) {
@@ -173,12 +254,12 @@
 //                    commonalityVC = bankCardVC;
 //                } else {
                     //没有绑定过银行卡。现在还没有m站地址
-                    [self pushCommWebViewVCUrlStr:CMStringWithPickFormat(kCMMZWeb_url, @"Account/SecurityCertification")];
+                    [self pushCommWebViewVCUrlStr:CMStringWithPickFormat(kCMMZWeb_url, @"/Account/SecurityCertification")];
 //                }
             }
                 break;
                 
-            case 3:{
+            case 5:{
                 //我的收藏
                // [self pushCommWebViewVCUrlStr:CMStringWithPickFormat(kCMMZWeb_url, @"Account/collectList.aspx")];
         
@@ -186,7 +267,7 @@
                commonalityVC = collectController;
             }
                 break;
-            case 4://我的消息
+            case 6://我的消息
             {
                  CMMessageViewController *statementVC = (CMMessageViewController *)[[UIStoryboard mainStoryboard] viewControllerWithId:@"CMMessageViewController"];
                 
@@ -197,7 +278,7 @@
                // [self performSegueWithIdentifier:idMessageViewController sender:self];
             }
                 break;
-            case 5://新手交易指南
+            case 7://新手交易指南
             {
                 CMStatementViewController *statementVC = (CMStatementViewController *)[[UIStoryboard mainStoryboard] viewControllerWithId:@"CMStatementViewController"];
                 statementVC.baserType = CMBaseViewDistinctionTypeDetails;
@@ -206,7 +287,7 @@
             }
                 
                 break;
-            case 6://设置
+            case 8://设置
             {
                 //设置
                 CMInstallViewController *installVC = (CMInstallViewController *)[[UIStoryboard mainStoryboard] viewControllerWithId:@"CMInstallViewController"];
@@ -272,7 +353,7 @@
 //            wk.hidesBottomBarWhenPushed=YES;
 //            [self.navigationController pushViewController:wk animated:YES];
             
-            [self pushCommWebViewVCUrlStr: CMStringWithPickFormat(kCMMZWeb_url, [NSString stringWithFormat:@"Account/Recharge"])];
+            [self pushCommWebViewVCUrlStr: CMStringWithPickFormat(kCMMZWeb_url, [NSString stringWithFormat:@"/Account/Recharge"])];
         }
             break;
         case CMTradeTitleViewTypeNotCertification:  //没有认证过
@@ -296,7 +377,7 @@
 }
 -(void)cm_tradeViewControllerMoneyRecord{
     
-     [self pushCommWebViewVCUrlStr: CMStringWithPickFormat(kCMMZWeb_url, [NSString stringWithFormat:@"Account/CapitalRecords"])];
+     [self pushCommWebViewVCUrlStr: CMStringWithPickFormat(kCMMZWeb_url, [NSString stringWithFormat:@"/Account/CapitalRecords"])];
 }
 #pragma mark - CMTradeMeansTableViewCellDelegate
 - (void)cm_tradeMeadsTableViewIndex:(NSInteger)index {
@@ -335,7 +416,7 @@
     
     if (alertView.tag == 2008) {
         if (buttonIndex == 1) {
-            [self pushCommWebViewVCUrlStr:CMStringWithPickFormat(kCMMZWeb_url, @"Account/BankCardCertification")];
+            [self pushCommWebViewVCUrlStr:CMStringWithPickFormat(kCMMZWeb_url, @"/Account/BankCardCertification")];
         }
     } else if (alertView.tag == 2009) {
         if (buttonIndex == 1) {
@@ -343,7 +424,7 @@
             //删除
             DeleteDataFromNSUserDefaults(@"name");
             DeleteDataFromNSUserDefaults(@"value");
-           
+            DeleteDataFromNSUserDefaults(@"userid");
             _tradeTitleView.tinfo = nil;
             [[NSNotificationCenter defaultCenter] postNotificationName:@"exitLogin" object:nil];
             if (_isHidebottom) {
@@ -368,7 +449,44 @@
 }
 
 
-#pragma mark -
+#pragma mark -机构审核状态
+#pragma mark 审核状态
+-(void)cheackStatecheackStateWithUserId:(NSString*)userID{
+    
+    
+    NSDictionary *messageDict=@{@"hyid":userID};
+    
+    [[CMAgencesRequest  sharedAPI]AgencyMebersApplyWithApi:@"GetJiGouCheckStatus" andMessage:messageDict success:^(id responseObj) {
+        MyLog(@"审核状态+++%@",responseObj);
+        
+        if([[responseObj objectForKey:@"respCode"]integerValue]==1){
+            
+          
+            id tmp = [NSJSONSerialization JSONObjectWithData:[responseObj[@"data"] dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingAllowFragments | NSJSONReadingMutableLeaves | NSJSONReadingMutableContainers error:nil];
+            
+            if (tmp) {
+                
+                
+                if ([tmp isKindOfClass:[NSArray class]]) {
+                    
+                    //NSDictionary *messDict=tmp[0];
+                    //MyLog(@"审核状态++++++%@",messDict);
+                    _CheackStateModel=[CMCheackStateModel  yy_modelWithDictionary:tmp[0]];
+                    
+                 [_curTableView rectForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+                    
+                    
+                }
+            }
+        }
+    } failure:^(NSError *error) {
+        
+    }];
+    
+    
+    
+    
+}
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"loginWin" object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self forKeyPath:@"exitLogin"];

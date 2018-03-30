@@ -138,9 +138,10 @@
             DeleteDataFromNSUserDefaults(kVerifyMobilePhonePassWordKey);
             DeleteDataFromNSUserDefaults(kVerifyStarDatePassWordKey);
             [self hiddenProgressHUD];
-            [self showHUDWithMessage:@"注册成功" hiddenDelayTime:2];
+            [self showHUDWithMessage:@"注册成功" hiddenDelayTime:5];
+         
             [self.navigationController popViewControllerAnimated:YES];
-            
+           
         } fail:^(NSError *error) {
         
             [self hiddenProgressHUD];

@@ -58,6 +58,12 @@
 - (void)initializationLayoutUI {
        // 注册UICollectionViewCell
 //    [_allServeCollectionView registerNib:[UINib nibWithNibName:@"CMServerCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"CMServerCollectionViewCell"];
+    
+    if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
+        
+        self.edgesForExtendedLayout = UIRectEdgeNone;
+        
+    }
     [self.allServeCollectionView registerClass:[CMServerCollectionViewCell class] forCellWithReuseIdentifier:@"CMServerCollectionViewCell"];
     // 注册头部视图
     [self.allServeCollectionView registerClass:[CMServeReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"CMServeReusableView"];
@@ -87,15 +93,12 @@
 }
 -(UICollectionView*)allServeCollectionView{
     if (!_allServeCollectionView) {
-        _allServeCollectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:self.layout];
+        _allServeCollectionView = [[UICollectionView alloc] initWithFrame:self.view.frame collectionViewLayout:self.layout];
         // iPhone5
-        if (iOS7) {
-            _allServeCollectionView.frame = CGRectMake(0, 67, CMScreen_width(), CMScreen_height()-66);
-        } else {
-            _allServeCollectionView.frame = self.view.frame;
-        }   
+      
+       
         _allServeCollectionView.backgroundColor = [UIColor cmBackgroundGrey];
-        _allServeCollectionView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+        _allServeCollectionView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleTopMargin;
         _allServeCollectionView.dataSource = self;
         _allServeCollectionView.delegate = self;
         _allServeCollectionView.showsVerticalScrollIndicator=NO;

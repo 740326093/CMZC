@@ -46,4 +46,6 @@
 #import "CMTradeViewController.h"
 #import "SDCycleScrollView.h"
 #import "CMBanners.h"
+#import "UIImage+ResizeMagick.h"
+#import "CMAgencyMebersController.h"
 #endif /* CMImportHeader_h */

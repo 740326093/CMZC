@@ -18,5 +18,5 @@
 @property (nonatomic,copy) NSString *urlStr;
 @property(nonatomic,assign)NSInteger  ProductId;
 @property (nonatomic,assign) BOOL isJPush;
-
+@property (nonatomic,assign) BOOL showRefresh;
 @end

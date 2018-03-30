@@ -210,7 +210,7 @@
         carryDetailsVC.bankBlockList = _block;
         carryDetailsVC.proviceName = _proviceIndex;
         carryDetailsVC.cityName = _proviceIndex;
-        
+
         [self.navigationController pushViewController:carryDetailsVC animated:YES];
     } else {
         [self showHUDWithMessage:@"请完善信息" hiddenDelayTime:2];

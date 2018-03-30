@@ -47,4 +47,12 @@
                              success:(void(^)(NSArray *dataArr,BOOL isPage))success
                                 fail:(void(^)(NSError *error))fail;
 
+/*
+ *
+ * 上传图片
+ *
+ */
++ (void)cm_upLoadPic:(UIImage*)image
+                     success:(void(^)(NSString *urlPath))success
+                        fail:(void(^)(NSError *error))fail;
 @end

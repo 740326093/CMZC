@@ -68,6 +68,7 @@
             account.userName = _accountNumberTF.text;
             account.password = _passwordTF.text;
             [[CMAccountTool sharedCMAccountTool] addAccount:account];
+            
             [[NSNotificationCenter defaultCenter] postNotificationName:@"loginWin" object:self];
             //存储以下当前时间
             SaveDataToNSUserDefaults([NSDate date], kVerifyStarDateKey);

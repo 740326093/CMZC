@@ -27,10 +27,13 @@
     return self;
 }
 - (void)getImageView:(NSString *)imageName {
-    UIImageView *image = [[UIImageView alloc] initWithFrame:CGRectMake(CMScreen_width()/2-50, 100, 100, 60)];
+    UIImageView *image = [[UIImageView alloc] init];
     image.image = [UIImage imageNamed:imageName];
     [self addSubview:image];
-    
+    [image mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self);
+        make.top.equalTo(self.mas_top).offset(100);
+    }];
 }
 - (void)removeView {
     [self removeFromSuperview];

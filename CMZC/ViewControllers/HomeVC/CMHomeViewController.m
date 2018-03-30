@@ -57,6 +57,8 @@
 @property (strong, nonatomic) NSMutableArray *guanDianArr; //请求新观点
 @property (strong, nonatomic) SDCycleScrollView  *barScrollView; //请求新观点
 
+
+
 @end
 
 @implementation CMHomeViewController
@@ -65,7 +67,7 @@
     [super viewDidLoad];
     
 
-    _barScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, CMScreen_width(), 160)
+    _barScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, CMScreen_width(),f_i5real(160))
                                                             delegate:self
                                                     placeholderImage:[UIImage imageNamed:@"title_log"]];
     
@@ -88,7 +90,7 @@
     //监听退出
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginSuccessful) name:@"exitLogin" object:nil];
     
-   
+
 
 }
 
@@ -109,7 +111,6 @@
     //关闭websocket
     [_webSocket close];
 }
-
 
 
 
@@ -149,14 +150,18 @@
         [self.guanDianArr removeAllObjects];
         
         [self.guanDianArr addObjectsFromArray:dataArr];
- 
+       
         [_curTableView endRefresh];
         [_curTableView reloadData];
     } fail:^(NSError *error) {
         MyLog(@"最新动态请求失败");
-          [_curTableView endRefresh];
+        [_curTableView endRefresh];
         [self hiddenProgressHUD];
-        [self showHUDWithMessage:@"数据请求失败!" hiddenDelayTime:2.0];
+        [self showHUDWithMessage:@"网络异常，请重试" hiddenDelayTime:2.0];
+       
+        
+   
+        
     }];
     
 }
@@ -418,14 +423,16 @@
         CMPurchaseProduct *product = self.purchaseArr[indexPath.row-4];
         CMCommWebViewController *webVC = (CMCommWebViewController *)[CMCommWebViewController initByStoryboard];
         webVC.ProductId=product.productId;
-        webVC.urlStr = CMStringWithPickFormat(kCMMZWeb_url,CMStringWithPickFormat(@"Products/Detail?pid=",CMStringWithFormat(product.productId)));
+        webVC.urlStr = CMStringWithPickFormat(kCMMZWeb_url,CMStringWithPickFormat(@"/Products/Detail?pid=",CMStringWithFormat(product.productId)));
+        webVC.showRefresh=YES;
         [self.navigationController pushViewController:webVC animated:YES];
     } else if (indexPath.row >= 5+self.purchaseArr.count) { // 最新动态
         CMNewShiModel *media = self.guanDianArr[indexPath.row- 5 - self.purchaseArr.count];
         CMCommWebViewController *commWebVC = (CMCommWebViewController *)[[UIStoryboard mainStoryboard] viewControllerWithId:@"CMCommWebViewController"];
-        NSString *strUrl = CMStringWithPickFormat(kCMMZWeb_url,[NSString stringWithFormat:@"Account/MessageDetail?nid=%ld",(long)media.mediaId])
+        NSString *strUrl = CMStringWithPickFormat(kCMMZWeb_url,[NSString stringWithFormat:@"/Account/MessageDetail?nid=%ld",(long)media.mediaId])
         ;
         commWebVC.urlStr = strUrl;
+        commWebVC.showRefresh=YES;
         [self.navigationController pushViewController:commWebVC animated:YES];
     }
 }
@@ -445,9 +452,10 @@
 //众筹宝
 - (void)cm_newQualityProductId:(NSInteger)productid {
     CMCommWebViewController *webVC = (CMCommWebViewController *)[CMCommWebViewController initByStoryboard];
-    NSString *webUrl = CMStringWithPickFormat(kCMMZWeb_url, [NSString stringWithFormat:@"Products/Detail?pid=%ld",(long)productid]);
+    NSString *webUrl = CMStringWithPickFormat(kCMMZWeb_url, [NSString stringWithFormat:@"/Products/Detail?pid=%ld",(long)productid]);
     webVC.urlStr = webUrl;
     webVC.ProductId=productid;
+    webVC.showRefresh=YES;
     [self.navigationController pushViewController:webVC animated:YES];
 }
 
@@ -472,7 +480,7 @@
 -(void)cm_goldOrganizationEnter{
   
     CMCommWebViewController *webVC = (CMCommWebViewController *)[CMCommWebViewController initByStoryboard];
-    webVC.urlStr = CMStringWithPickFormat(kCMMZWeb_url, @"About/GoldService");
+    webVC.urlStr = CMStringWithPickFormat(kCMMZWeb_url, @"/About/GoldService");
     [self.navigationController pushViewController:webVC animated:YES];
     
 }
@@ -480,13 +488,15 @@
 - (void)cm_checkRoadshowLiveUrl:(NSString *)liveUrl {
     CMCommWebViewController *webVC = (CMCommWebViewController *)[CMCommWebViewController initByStoryboard];
     webVC.urlStr = liveUrl;
+    webVC.showRefresh=YES;
     [self.navigationController pushViewController:webVC animated:YES];
 }
 
 -(void)cm_checkImmediatelySubscribeEventWithPid:(NSInteger)productID{
     
     CMCommWebViewController *webVC = (CMCommWebViewController *)[CMCommWebViewController initByStoryboard];
-    webVC.urlStr = [NSString stringWithFormat:@"%@Invest/Confirm?pid=%ld",kCMMZWeb_url,productID];
+    webVC.urlStr = [NSString stringWithFormat:@"%@/Invest/Confirm?pid=%ld",kCMMZWeb_url,productID];
+ 
     [self.navigationController pushViewController:webVC animated:YES];
 }
 
@@ -503,6 +513,10 @@
             CMCommWebViewController *webVC = (CMCommWebViewController *)[CMCommWebViewController initByStoryboard];
             webVC.urlStr = @"http://m.xinjingban.com/about/TradingGuideNew.aspx";
             [self.navigationController pushViewController:webVC animated:YES];
+
+        //  CMAgencyMebersController *collectController = (CMAgencyMebersController *)[CMAgencyMebersController initByStoryboard];
+//            //   CMMebersIncomeController *collectController = (CMMebersIncomeController *)[CMMebersIncomeController initByStoryboard];
+       //[self.navigationController pushViewController:collectController animated:YES];
         }
 
             break;
@@ -614,6 +628,7 @@
         CMCommWebViewController *webVC = (CMCommWebViewController *)[CMCommWebViewController initByStoryboard];
       
         webVC.urlStr = url;
+        webVC.showRefresh=YES;
         [self.navigationController pushViewController:webVC animated:YES];
     }
 }
