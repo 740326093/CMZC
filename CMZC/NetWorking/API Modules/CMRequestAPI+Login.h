@@ -95,7 +95,7 @@
  */
 
 + (void)cm_toolFetchShortMessageLogin:(NSString*)number andSMSCode:(NSString*)code
-                                    success:(void(^)(BOOL isSucceed))success
+                                    success:(void(^)(CMAccount *account))success
                                        fail:(void(^)(NSError *error))fail;
 
 @end

@@ -296,11 +296,22 @@ self.oldBtn=_sliderPassBtn;
     if ([self checkCodePhoneAndSMSCodeValidity]){
         
         
-        [CMRequestAPI cm_toolFetchShortMessageLogin:_codePhoneFiled.text andSMSCode:_codeSmsTF.text success:^(BOOL isSucceed) {
+        [CMRequestAPI cm_toolFetchShortMessageLogin:_codePhoneFiled.text andSMSCode:_codeSmsTF.text success:^(CMAccount *account) {
             
-            if (isSucceed) {
-                
-            }
+            DeleteDataFromNSUserDefaults(@"accountName");
+            SaveDataToNSUserDefaults(_accountNumberTF.text, @"accountName");
+            //网络请求
+            [self hiddenAllProgressHUD];
+            //存储当前账号
+            //SaveDataToNSUserDefaults(_accountNumberTF.text, kAccountNumberKey);
+            account.userName = _accountNumberTF.text;
+            account.password = _passwordTF.text;
+            [[CMAccountTool sharedCMAccountTool] addAccount:account];
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"loginWin" object:self];
+            //存储以下当前时间
+            SaveDataToNSUserDefaults([NSDate date], kVerifyStareDateKey);
+            [self showMainViewController];
         } fail:^(NSError *error) {
             
             

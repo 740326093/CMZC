@@ -227,7 +227,7 @@
     
     
     
-    NSDictionary *dict = @{@"phone":number,@"token":token,@"type":@"app",@"scene":@"01",@"vid":@"5cba7267fc650e1d04e504c1",@"key":VPSDKAppKey};
+    NSDictionary *dict = @{@"phone":number,@"token":token,@"type":@"xjbapp",@"scene":@"01",@"vid":@"5cba7267fc650e1d04e504c1"};
     
     [CMRequestAPI postDataFromURLScheme:KGetPhoneSMSCodeURL argumentsDictionary:dict success:^(id responseObject) {
         //MyLog(@"获取短信+++%@",responseObject);
@@ -245,28 +245,30 @@
 }
 
 + (void)cm_toolFetchShortMessageLogin:(NSString*)number andSMSCode:(NSString*)code
-                              success:(void(^)(BOOL isSucceed))success
+                              success:(void(^)(CMAccount *account))success
                                  fail:(void(^)(NSError *error))fail{
     
     NSDictionary *dict = @{
-                         //  @"client_id":@"CC67712F-4614-40CF-824E-10D784C2A3D7",
-                         // @"client_secret":@"c0aa7577b892ff2ff4ee0109f2932321",
+                           @"client_id":@"CC67712F-4614-40CF-824E-10D784C2A3D7",
+                           @"client_secret":@"c0aa7577b892ff2ff4ee0109f2932321",
                            @"grant_type":@"password",
                            @"username":number,
+                           @"password":@"",
                            @"Vercode":code,
-                           @"loadtype":@"vercode"
+                           @"loadtype":@"vercode",
+                           @"platform":@"1"
                            };
-//    NSMutableDictionary *MutableDict=[NSMutableDictionary dictionaryWithDictionary:dict];
-//    if ([JPUSHService registrationID]) {
-//
-//        [MutableDict setObject:[JPUSHService registrationID] forKey:@"id"];
-//    }
+    NSMutableDictionary *MutableDict=[NSMutableDictionary dictionaryWithDictionary:dict];
+    if ([JPUSHService registrationID]) {
+
+        [MutableDict setObject:[JPUSHService registrationID] forKey:@"id"];
+    }
     
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     configuration.HTTPMaximumConnectionsPerHost = 8;
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:kCMBaseApiURL] sessionConfiguration:configuration];
     
-    NSURLSessionDataTask *dataTask = [manager POST:kCMLoginURL parameters:dict progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    NSURLSessionDataTask *dataTask = [manager POST:kCMLoginURL parameters:MutableDict progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
         if ([responseObject[@"errcode"] integerValue] == 0) {
             //删除
