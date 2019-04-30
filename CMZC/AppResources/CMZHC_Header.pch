@@ -72,7 +72,7 @@
 //默认图片名字
 #define kCMDefault_imageName [UIImage imageNamed:@"title_log"]
 
-#define kVerifyStarDateKey @"kVerifyStarDateKey"
+#define kVerifyStareDateKey @"kVerifyStareDateKey"
 
 
 #define f_i5real(f)         (((int)((kCMScreen_width * ((f)/320.f))*2))/2.f)

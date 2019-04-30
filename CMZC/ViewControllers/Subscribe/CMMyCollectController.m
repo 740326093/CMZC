@@ -131,7 +131,6 @@
     __weak typeof(self) weakSelf=self;
     cell.applyBtnClickBlock = ^(NSIndexPath *index) {
         MyLog(@"section+++%ld",index.section);
-       
         CMPurchaseProduct * product=weakSelf.productDataArr[indexPath.section];
         CMCommWebViewController *webVC = (CMCommWebViewController *)[CMCommWebViewController initByStoryboard];
         webVC.urlStr = [NSString stringWithFormat:@"%@/Invest/Confirm?pid=%ld",kCMMZWeb_url,product.productId];

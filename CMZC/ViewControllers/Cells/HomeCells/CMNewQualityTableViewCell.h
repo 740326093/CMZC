@@ -24,7 +24,7 @@
 
 @property (nonatomic,assign)id<CMNewQualityCellDelegate>delegate;
 
-@property (strong, nonatomic) NSArray *munyArr; //众筹宝内容
+@property (strong, nonatomic) NSArray *munyArr; //众投宝内容
 
 @property (nonatomic,copy) NSString *buyNumber;
 

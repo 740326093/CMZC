@@ -18,5 +18,16 @@
              
              };
 }
-
+-(UIColor*)statusColor{
+    
+    if ([_status isEqualToString:@"立即申购"]) {
+        return [UIColor clmHex:0xff6400];
+    } else if([_status isEqualToString:@"预约中"]||[_status isEqualToString:@"预定中"]){
+        return [UIColor clmHex:0x309830];
+    }else{
+        
+        
+        return [UIColor clmHex:0xcccccc];
+    }
+}
 @end

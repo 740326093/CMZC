@@ -492,18 +492,16 @@
 #pragma mark  代理
 -(void)ApplyShareEventWith:(CMApplyModel *)model{
     
-    UIWindow *window = [UIApplication sharedApplication].windows.firstObject;
+
     CMShareView *shareView=[[CMShareView alloc]initWithFrame:CGRectMake(0, 0, CMScreen_width(), CMScreen_height())];
-    shareView.center = window.center;
-    shareView.frame = CGRectMake(0, 0, CGRectGetWidth(window.frame), CGRectGetHeight(window.frame));
+
     shareView.contentUrl =[NSString stringWithFormat:@"%@/Products/Detail?pid=%@&cxid=%@",kCMMZWeb_url,model.cpId,model.zid];
     shareView.titleConten = [NSString stringWithFormat:@"%@向您推荐%@",(NSString*)GetDataFromNSUserDefaults(@"OrgJianCheng"),model.cpName];
     shareView.controller=self;
     NSString *content = [NSString stringWithFormat:@"本产品由%@领投,预期收益%@%%,保荐人推荐,百分百中签,赶快来加入吧!",model.LingTouOrgName,model.yq_nlv];
     shareView.contentStr = content;
     shareView.ShareImageName=[NSData dataWithContentsOfURL:[NSURL URLWithString:model.cpPic]];
-    [window addSubview:shareView];
-    
+ 
 }
 //-(void)LiTouZiXunEvent:(CMLingTouModel *)model{
 //    

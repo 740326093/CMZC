@@ -29,6 +29,7 @@
     // Do any additional setup after loading the view.
     _curTabLeView.delegate=self;
     _curTabLeView.dataSource=self;
+    _curTabLeView.estimatedSectionHeaderHeight=0;
     switch (_newType) {
     case CMMyApplyDetail:
         self.title=@"承销详情";
@@ -88,8 +89,7 @@
     }];
     //添加上提加载
     [_curTabLeView addFooterWithFinishBlock:^{
-        
-        [self loadYongJinListDataWithPage:++self.pageIndex];
+      [self loadYongJinListDataWithPage:++self.pageIndex];
     }];
     
 }
@@ -116,10 +116,9 @@
 }
 
 -(void)resetRongziData{
-    
     self.pageIndex=1;
     if(GetDataFromNSUserDefaults(@"ltOrgHyid")){
-     [self loadRongZiListDataWithPage:self.pageIndex andHyid:(NSString*) GetDataFromNSUserDefaults(@"ltOrgHyid")];
+     [self loadRongZiListDataWithPage:self.pageIndex andHyid:(NSString*)GetDataFromNSUserDefaults(@"ltOrgHyid")];
     }
 }
 - (NSMutableArray *)noticDataArr {
@@ -134,7 +133,6 @@
   
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
     return 80;
 }
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -159,23 +157,16 @@
     }
     return ConcessionDetailCell;
 }
-
-
-
-
-
 #pragma mark 加载承销头部信息
 -(void)loadChengXiaoTopData{
     NSDictionary *messageDict=@{@"zid":_productZid};
-    
     [[CMAgencesRequest  sharedAPI]AgencyMebersApplyWithApi:@"GetChengXiaoDetailProductInfo" andMessage:messageDict success:^(id responseObj) {
         //MyLog(@"头部信息+++%@+++%@",responseObj,[responseObj objectForKey:@"respDesc"]);
         if ([[responseObj objectForKey:@"respCode"]integerValue]==1) {
             
-     CMApplyModel *applyModel=[CMApplyModel  yy_modelWithJSON:responseObj[@"data"]];
-            _concessionView.ApplyModel=applyModel;
-                    
-           
+       CMApplyModel *applyModel=[CMApplyModel  yy_modelWithJSON:responseObj[@"data"]];
+        _concessionView.ApplyModel=applyModel;
+            
         }
         
     } failure:^(NSError *error) {
@@ -201,24 +192,19 @@
             
             if([responseObj[@"totalRows"]integerValue]>0){
                 //有数据
-                
                 id tmp = [NSJSONSerialization JSONObjectWithData:[responseObj[@"data"] dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingAllowFragments | NSJSONReadingMutableLeaves | NSJSONReadingMutableContainers error:nil];
-                
                 if (tmp) {
-                    
-                    
                     if ([tmp isKindOfClass:[NSArray class]]) {
-                        
                         for (NSDictionary *dict in tmp) {
                             CMCSDetailListModel  *lismodel=[CMCSDetailListModel yy_modelWithDictionary:dict];
                             [self.noticDataArr addObject:lismodel];
-                            
                         }
-                        
                         
                     }
                 }
-                
+                if(self.noticDataArr.count%5!=0){
+                    [_curTabLeView noMoreData];
+                }
             }else{
                 
                
@@ -303,7 +289,10 @@
                         
                     }
                 }
-                
+                if(self.noticDataArr.count%5!=0){
+                    [_curTabLeView noMoreData];
+                    
+                }
             }else{
                 
                 
@@ -365,7 +354,7 @@
     
     [[CMAgencesRequest  sharedAPI]AgencyMebersApplyWithApi:@"Get_Product_ShenGouList" andMessage:messageDict success:^(id responseObj) {
         
-        //  MyLog(@"承销详情列表+++%@",responseObj);
+        MyLog(@"融资详情列表+++%@",responseObj);
         if ([[responseObj objectForKey:@"respCode"]integerValue]==1) {
             [_curTabLeView endRefresh];
             if(index==1){
@@ -392,7 +381,10 @@
                         
                     }
                 }
-                
+                if(self.noticDataArr.count%5!=0){
+                    [_curTabLeView noMoreData];
+                    
+                }
             }else{
                 
                 

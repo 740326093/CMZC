@@ -97,9 +97,13 @@
 -(void)getTextViewContentString:(NSString *)string{
     
     _textViewString=string;
-    NSUInteger remainStrLeng=120-_textViewString.length;
-    self.StatisticsLab.text=[NSString stringWithFormat:@"还可以输入%ld字(不少于9个字)",remainStrLeng];
-    [self DoubleStringChangeColer:self.StatisticsLab andFromStr:@"入" ToStr:@"字" withColor:[UIColor clmHex:0xff6400]];
+    NSInteger remainStrLeng=120-_textViewString.length;
+    if (remainStrLeng>=0) {
+        self.StatisticsLab.text=[NSString stringWithFormat:@"还可以输入%ld字(不少于9个字)",remainStrLeng];
+        [self DoubleStringChangeColer:self.StatisticsLab andFromStr:@"入" ToStr:@"字" withColor:[UIColor clmHex:0xff6400]];
+    }
+    
+   
 }
 -(void)DoubleStringChangeColer:(UILabel *)mainStr andFromStr:(NSString *)aFromStr ToStr:(NSString *)AToStr withColor:(UIColor*)color {
     

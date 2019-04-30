@@ -17,7 +17,7 @@
 //#import <UserNotifications/UserNotifications.h> // 这里是iOS10需要用到的框架
 //#endif
 @interface AppDelegate ()
-@property(nonatomic,strong)NSDictionary *userDict;
+@property(nonatomic,copy)NSDictionary *userDict;
 @end
 
 @implementation AppDelegate
@@ -50,11 +50,7 @@
     }
     //配置键盘回收
     [CMThirdPartlyCommad configureBoardManager];
-    
-
-
     [self SetNavigationBar];
-    
     [CMMessageDao createTable];
     
 //    if (@available(ios 11.0,*)) {
@@ -73,10 +69,9 @@
     
     
     NSString *newAgent  = [NSString stringWithFormat:@"%@ XJBapp"
-                           ,oldAgent];;
+                           ,oldAgent];
     
-    NSDictionary *dictionnary = [[NSDictionary alloc] initWithObjectsAndKeys:newAgent, @"UserAgent",nil
-                                 ];
+    NSDictionary *dictionnary = [[NSDictionary alloc] initWithObjectsAndKeys:newAgent, @"UserAgent",nil ];
     [[NSUserDefaults standardUserDefaults] registerDefaults
      :dictionnary];
 
@@ -120,6 +115,17 @@
      [[[CMRequestAPI alloc]init]cheackNetWorking];
     if (CMIsLogin()) {
        
+    }
+    
+    for (UIView *vc in self.window.subviews) {
+         MyLog(@"+++%@",vc);//UILayoutContainerView
+        //        if ([vc isKindOfClass:[CMShareTextView class]]||[vc isKindOfClass:[CMAddressList class]]||[vc isKindOfClass:[CMMyTipsView class]]||[vc isKindOfClass:[RAlertView class]]||[vc isKindOfClass:[CMLLSupportBank class]]||[vc isKindOfClass:[CMLLWarningView class]]||[vc isKindOfClass:[CMNewpayView class]]) {
+        //            [vc removeFromSuperview];
+        //        }
+        NSString *classStr=NSStringFromClass([vc class]);
+        if (![classStr isEqualToString:@"UILayoutContainerView"]) {
+            [vc removeFromSuperview];
+        }
     }
     
 }

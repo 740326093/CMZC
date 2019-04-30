@@ -26,7 +26,7 @@ typedef NS_ENUM(NSInteger, CircleIncreaseModel) {
 @property (nonatomic, assign) CircleIncreaseModel animationModel;/**<动画模式*/
 
 @property (nonatomic, assign) CGFloat progress;/**<进度 0-1 */
-
+@property(nonatomic,assign)BOOL realProgress;
 
 
 @end

@@ -30,7 +30,7 @@
 - (IBAction)makeMoneyBtnClick:(UIButton *)sender {
     self.titleBlock(1001);
 }
-//众筹实力
+//众投实力
 - (IBAction)powerBtnClick:(UIButton *)sender {
     self.titleBlock(1002);
 }

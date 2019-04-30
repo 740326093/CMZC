@@ -111,8 +111,7 @@
         
         make.bottom.equalTo(self.prBeginSaleLabel.mas_top).offset(-15);
         make.right.equalTo(self.mas_centerX);
-        make.width.equalTo(@60);
-        make.height.equalTo(@55);
+        
     }];
     
  

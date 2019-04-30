@@ -56,6 +56,7 @@
     if (productArr.count==0) {
         return;
     }
+    
     NSArray *dataProductArr = productArr.firstObject;
     
     _earlyLab.text = [NSString stringWithFormat:@"%.2f",[dataProductArr[2] floatValue]]; //开盘
@@ -103,7 +104,8 @@
         [self detailsLabTextColor:[UIColor cmUpColor]];
         _scopeLab.text = CMStringWithPickFormat(@"+ ", [NSString stringWithFormat:@"%.2f%%",upOrFall]);//涨跌幅
     } else { //跌
-        _scopeLab.text = CMStringWithPickFormat(@"- ", [NSString stringWithFormat:@"%.2f%%",upOrFall]);
+       // _scopeLab.text = CMStringWithPickFormat(@"- ", [NSString stringWithFormat:@"%.2f%%",upOrFall]);
+         _scopeLab.text = CMStringWithPickFormat(@"", [NSString stringWithFormat:@"%.2f%%",upOrFall]);
         [self detailsLabTextColor:[UIColor cmFallColor]];
     }
     
@@ -111,7 +113,7 @@
     _optionIndex = [dataProductArr[10] integerValue];
     if (_optionIndex == 0) {
         [_optionalBtn setBackgroundImage:[UIImage imageNamed:@"add_option_home"] forState:UIControlStateNormal];
-        _optionalLab.text = @"自选";
+        _optionalLab.text = @"添加自选";
     } else {
         [_optionalBtn setBackgroundImage:[UIImage imageNamed:@"delete_option_trade"] forState:UIControlStateNormal];
         _optionalLab.text = @"删除自选";
@@ -154,7 +156,7 @@
         _limitDownLab.text = CMFloatStringWithFormat(limitFloat); //跌停
         _limitDownLab.textColor = [UIColor cmFallColor];
     }
-    CGFloat pastFloat = [dataProductArr[3] floatValue];
+    CGFloat pastFloat = [dataProductArr[1] floatValue];
     if (pastFloat > 0) {
         _pastLab.text = CMFloatStringWithFormat(pastFloat); //昨收
     }
@@ -166,9 +168,9 @@
     if (municipFloat >0) {
         _municipLab.text = [NSString stringWithFormat:@"%.2f%%",municipFloat]; //市营率
     }
-    NSInteger portionFloat = [dataProductArr[15] integerValue];
+    CGFloat portionFloat = [dataProductArr[15] floatValue];
     if (portionFloat > 0) {
-        _portionLab.text = CMStringWithFormat(portionFloat); //总份额
+        _portionLab.text =[NSString stringWithFormat:@"%.f",portionFloat]; //总份额
     }
     CGFloat maketFloat = [dataProductArr[16] floatValue];
     NSString *maketStr =[self roundFloatDisplay:maketFloat];
@@ -260,10 +262,10 @@
         unit = @"百万";
     }
     
-    if ([unit isEqualToString:@""]) {
+    //if ([unit isEqualToString:@""]) {
         return [NSString stringWithFormat:@"%.2f",value];
-    }
-    return [NSString stringWithFormat:@"%.2f%@",value,unit];
+    //}
+   // return [NSString stringWithFormat:@"%.2f%@",value,unit];
 }
 
 

@@ -92,8 +92,9 @@
 //    _minViewTopLayout.constant = 0.0f;
     
     //显示一个默认加载框
-    [self showDefaultProgressHUD];
+    
     if ([self checkDataValidity]) {
+        [self showDefaultProgressHUD];
         [CMRequestAPI cm_loginTransferResetPhoneNumber:[_phoneNumberTF.text integerValue] phoneVercode:[_testingNumberTF.text integerValue] password:_newlyPasswordTF.text confimPassword:_affirmPasswordTF.text  success:^(BOOL isSucceed) {
             [self hiddenProgressHUD];
             [_verifyPhoneTimer invalidate];//注销定时器

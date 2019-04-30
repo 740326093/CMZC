@@ -29,6 +29,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *fallPriceLab; //跌
 
 
+@property (weak, nonatomic) IBOutlet UIButton *refreshBtn;
 
 
 
@@ -43,7 +44,7 @@
     _tradeTextField.delegate = self;
     _priceTextField.delegate = self;
     _buyNumber.hidden = YES; //隐藏最大可买份数
-    
+    _refreshBtn.hidden=YES;
     _priceTextField.inputView = ({
         APNumberPad *numberPad = [APNumberPad numberPadWithDelegate:self];
         
@@ -64,6 +65,12 @@
 //买入
 - (IBAction)saleBtnClick:(UIButton *)sender {
     [self endEditing:YES];
+    
+    NSArray *views=self.subviews;
+    if(views.count>1){
+        return;
+    }
+    
     if ([self checkDataValidity]) {
         CMTradeToolModes *tradeTool = [[CMTradeToolModes alloc] init];
         tradeTool.code = _tradeTextField.text;
@@ -104,7 +111,21 @@
                     _numberTextField.text = @"";
                     [self showHubView:self messageStr:@"卖出数量必须大于0" time:2];
                     return;
-                } else {
+                } else if ([_numberTextField.text integerValue]%100!=0) {
+                    // _numberTextField.text = @"";
+                    [self showHubView:self messageStr:@"卖出数量必须为100的倍数" time:2];
+                    _numberTextField.text = @"";
+                    return;
+                    
+                }else if ([_numberTextField.text integerValue]>100000) {
+                    // _numberTextField.text = @"";
+                    [self showHubView:self messageStr:@"卖入数量最大不能超过10万" time:2];
+                    _numberTextField.text = @"";
+                    
+                    return;
+                }
+                
+                else {
                     if ([textField.text integerValue] > _buyNumberIndex) {
                         _numberTextField.text = @"";
                         [self showHubView:self messageStr:@"卖出份数不得大于持有份数" time:2];
@@ -135,32 +156,42 @@
 }
 //详情获取
 - (void)addRequestDataMeans {
-    [CMRequestAPI cm_tradeInquireFetchPrductPcode:_tradeTextField.text direction:@"2" success:^(NSArray *prductArr) {
-        //_tradeTextField.text = @"";
-        _priceLab.text = prductArr[0];
-        priceIndex = [prductArr[1] integerValue];
-        //_priceTextField.placeholder = [NSString stringWithFormat:@"卖出价格不得大于%ld",(long)priceIndex];
-        _upPriceLab.hidden = NO;
-        _fallPriceLab.hidden = NO;
-        //涨
-        _upPriceLab.text = [NSString stringWithFormat:@"涨停%@",prductArr[2]];
-        _upPrice = [prductArr[2] floatValue];
-        //跌
-        _fallPriceLab.text = [NSString stringWithFormat:@"跌停%@",prductArr[3]];
-        _fallPrice = [prductArr[3] floatValue];
-        _priceTextField.text = prductArr[1];
-        _buyNumber.hidden = NO;
-        _buyNumber.text = [NSString stringWithFormat:@"最大可卖份数:%@",prductArr[4]];
-        _buyNumberIndex = [prductArr[4] integerValue];
+    
+    [[CMTokenTimer sharedCMTokenTimer]cm_cmtokenTimerRefreshSuccess:^{
+        
+        [CMRequestAPI cm_tradeInquireFetchPrductPcode:_tradeTextField.text direction:@"2" success:^(NSArray *prductArr) {
+            //_tradeTextField.text = @"";
+            _priceLab.text = prductArr[0];
+            priceIndex = [prductArr[1] integerValue];
+            //_priceTextField.placeholder = [NSString stringWithFormat:@"卖出价格不得大于%ld",(long)priceIndex];
+            _upPriceLab.hidden = NO;
+            _fallPriceLab.hidden = NO;
+            _refreshBtn.hidden=NO;
+            //涨
+            _upPriceLab.text = [NSString stringWithFormat:@"涨停%@",prductArr[2]];
+            _upPrice = [prductArr[2] floatValue];
+            //跌
+            _fallPriceLab.text = [NSString stringWithFormat:@"跌停%@",prductArr[3]];
+            _fallPrice = [prductArr[3] floatValue];
+            _priceTextField.text = prductArr[1];
+            _buyNumber.hidden = NO;
+            _buyNumber.text = [NSString stringWithFormat:@"最大可卖份数:%@",prductArr[4]];
+            _buyNumberIndex = [prductArr[4] integerValue];
+        } fail:^(NSError *error) {
+            [self showHubView:self messageStr:error.message time:2];
+        }];
     } fail:^(NSError *error) {
-        [self showHubView:self messageStr:error.message time:2];
+        
     }];
+    
 }
 - (void)cm_cmalerView:(CMAlerView *)alerView willDismissWithButtonIndex:(NSInteger)btnIndex {
     if (btnIndex == 1) {
         [CMRequestAPI cm_tradeInquireFetchSellPCode:_tradeTextField.text orderName:_priceLab.text  orderPrice:_priceTextField.text orderVolume:_numberTextField.text success:^(BOOL isWin) {
             if (isWin) {
                 [self showHubView:self messageStr:@"委托卖出成功" time:2];
+                _numberTextField.text = @"";
+                    [self addRequestDataMeans];
                 if ([self.delegate respondsToSelector:@selector(cm_saleCollectionVC:)]) {
                     [self.delegate cm_saleCollectionVC:self];
                 }
@@ -171,14 +202,15 @@
             [self showHubView:self messageStr:error.message time:2];
         }];
         
-        _tradeTextField.text = @"";
-        _priceTextField.text = @"";
-        _productTextField.text = @"";
-        _numberTextField.text = @"";
-        _priceLab.text = @"";
-        _upPriceLab.hidden = YES;
-        _fallPriceLab.hidden = YES;
-        _buyNumber.hidden = YES;
+     //   _tradeTextField.text = @"";
+       // _priceTextField.text = @"";
+        //_productTextField.text = @"";
+       // _numberTextField.text = @"";
+       // _priceLab.text = @"";
+        //_upPriceLab.hidden = YES;
+        //_fallPriceLab.hidden = YES;
+       // _buyNumber.hidden = YES;
+        //_refreshBtn.hidden=YES;
     }
 }
 //- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
@@ -200,6 +232,14 @@
     if ([textInput isEqual:self.priceTextField]) {
         _priceTextField.text = [_priceTextField.text stringByAppendingString:@"."];
     }
+}
+- (IBAction)refreshBtnEvent:(id)sender {
+    
+    
+    
+    [self addRequestDataMeans];
+    
+    
 }
 
 @end

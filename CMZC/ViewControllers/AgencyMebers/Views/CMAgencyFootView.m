@@ -7,15 +7,46 @@
 //
 
 #import "CMAgencyFootView.h"
+@interface CMAgencyFootView ()
+{
+    CGRect myframe;
+}
 
+@end
 @implementation CMAgencyFootView
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
+
+
+
+-(id)initWithFrame:(CGRect)frame
+
+{
+    
+    self = [super initWithFrame:frame];
+    
+    if (self) {
+        
+        NSArray *nibs=[[NSBundle mainBundle]loadNibNamed:@"CMAgencyFootView" owner:nil options:nil];
+        
+        self=[nibs objectAtIndex:0];
+        
+        
+        
+        myframe = frame;
+        
+    }
+    
+    return self;
+    
 }
-*/
+
+-(void)drawRect:(CGRect)rect
+
+{
+    
+    self.frame=myframe;//关键点在这里
+    
+    
+}
 
 @end

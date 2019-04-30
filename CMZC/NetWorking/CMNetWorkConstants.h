@@ -67,7 +67,7 @@ extern NSString *const kCMHomePageBannersURL;
  */
 extern NSString *const kCMHomeFeedbackURL;
 /**
- *  众筹宝
+ *  众投宝
  */
 extern NSString *const kCMHomeFundlistURL;
 /**
@@ -251,6 +251,11 @@ extern NSString *const kCMProductOrderFiveURL;
  */
 extern NSString *const kMProductContractDetailURL;
 /**
+ *  产品行情新成交明细
+ */
+extern NSString *const kMProductContractNewDetailURL;
+
+/**
  *  产品行情分时行情
  */
 extern NSString *const kMProductMinuteURL;
@@ -317,14 +322,22 @@ extern NSString *const  KCMUpLoadImageURL;
 extern NSString *const KAgencesProviceURL;
 
 
+/**
+ 新科版接口API
+ **/
+extern NSString *const KNewProductURL;
 
 
+extern NSString *const KShowOtherProductURL;
+
+extern NSString *const KBeginEndProductURL;
 
 
+extern NSString *const KCustomProductURL;
 
-
-
-
-
+/**
+ 手机验证码登录接口API
+ **/
+extern NSString *const KGetPhoneSMSCodeURL;
 
 

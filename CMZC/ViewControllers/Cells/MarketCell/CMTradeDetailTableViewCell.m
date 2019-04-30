@@ -36,15 +36,16 @@
     
 }
 - (void)setContDataArr:(NSArray *)contDataArr openPrict:(float)prict {
+    
     if (contDataArr.count !=0) {
-        NSString *timeStr = contDataArr[0];
+        NSString *timeStr = contDataArr[1];
         if (timeStr.length >4) { //这个地方只需要显示时 分。不懂后台为什么要把秒返回。提过。没用
             timeStr = [timeStr substringWithRange:NSMakeRange(0, 5)];
         }
         _leftLab.text = timeStr;
-        _centreLab.text = contDataArr[1];
-        _rightLab.text = contDataArr[2];
-        CGFloat conterFloat = [contDataArr[1] floatValue];
+        _centreLab.text = contDataArr[2];
+        _rightLab.text = contDataArr[3];
+        CGFloat conterFloat = [contDataArr[2] floatValue];
         //NSLog(@"----%f----%f",conterFloat,prict);
         if (conterFloat>prict) { //大于
             _centreLab.textColor = [UIColor cmUpColor];
@@ -54,7 +55,7 @@
             _centreLab.textColor = [UIColor whiteColor];
         }
         
-        NSString *dealStr = contDataArr[3];
+        NSString *dealStr = contDataArr[4];
         if ([dealStr isEqualToString:@"1"]) {
             _rightLab.textColor = [UIColor cmUpColor];
         } else {

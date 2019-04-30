@@ -267,8 +267,6 @@
     }else{
         selectNum=2;
     }
-    
-    
     NSDictionary *messageDict=@{@"HyId":(NSString*)GetDataFromNSUserDefaults(@"userid"),@"IType":[NSString stringWithFormat:@"%ld",(long)selectNum],@"MingCheng":[NSString removeSpaceAndNewline:_commondTextField.text],@"JianCheng":[NSString removeSpaceAndNewline:_nickTextField.text],@"szd_sheng":_proviceCode,@"szd_shi":_cityCode,@"szd_qu":_districeCode,@"lxr_Name":[NSString removeSpaceAndNewline:_contactNameField.text],@"lxr_DianHua":_contactPhoneField.text,@"lxr_YouXiang":_contactEmailField.text};
    // @"Logo":_base64ImageStr
     

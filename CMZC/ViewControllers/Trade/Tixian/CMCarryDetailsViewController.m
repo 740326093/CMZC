@@ -281,7 +281,7 @@
             } else {
                 if (_depositTextField.text.length >0) {
                     CGFloat deposit = [_depositTextField.text floatValue];
-                    CGFloat fund = money * 0.003;
+                    CGFloat fund = [[NSString stringWithFormat:@"%.2f",money * 0.003]floatValue];
                     if (_amount>0) {
                         if (_amount>0) {
                             fund = fund - _amount;
@@ -363,7 +363,8 @@
     }
     CGFloat money = [_depositTextField.text floatValue];
     CGFloat deposit = [_depositTextField.text floatValue];
-    CGFloat fund = money * 0.003;
+    
+    CGFloat fund = [[NSString stringWithFormat:@"%.2f",money * 0.003]floatValue];
     if (_amount>0) {
         fund = fund - _amount;
         if (fund<0) {

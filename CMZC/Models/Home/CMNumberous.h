@@ -4,7 +4,7 @@
 //
 //  Created by 财猫 on 16/4/23.
 //  Copyright © 2016年 MAC. All rights reserved.
-//  众筹
+//  众投
 
 #import <Foundation/Foundation.h>
 

@@ -22,6 +22,8 @@
 
 #define kCMWebHeader_Url @"http://mz.58cm.com/"
 
+static NSString *const VPSDKAppKey= @"5cba7267fc650e1d04e504c1";
+
 //qq
 #define kUMSocial_QQAppId @"1105314915" //qq appid
 #define kUMSocail_QQAppKey @"dQhZB4PpJSNGNnJR"  //qq app key
@@ -41,6 +43,7 @@
 #define kJPushMesterSecret @"f0b54d9671d58d7a8fae7150" // secret 后台用。就记录下
 #define KJPushChannel @"Publish channel"
 
-#define kDevice_Is_iPhoneX ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) : NO)
+//#define kDevice_Is_iPhoneX ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) : NO)
+#define kDevice_Is_iPhoneX  [UIScreen mainScreen].bounds.size.height>=812
 
 #endif /* CMApp_Header_h */

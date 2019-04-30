@@ -11,7 +11,7 @@
 #import "CMAgencyFootView.h"
 
 #import "CMAgencyMessageCell.h"
-
+#import "CMShareView.h"
 #import "CMAgencesRequest.h"
 #import "CMPickerView.h"
 #import "CMAgencyHeadFootView.h"
@@ -29,15 +29,36 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    CMAgencyHeadView *headView=[CMAgencyHeadView initByNibForClassName];
+    
+    UIButton *rightBarBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    rightBarBtn.frame = CGRectMake(0, 0, 30, 40);
+    [rightBarBtn setImage:[UIImage imageNamed:@"newShare"] forState:UIControlStateNormal];
+    [rightBarBtn addTarget:self action:@selector(pageShareView) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:rightBarBtn];
+    self.navigationItem.rightBarButtonItem = rightItem;
+    
+   CMAgencyHeadView *headView=[CMAgencyHeadView initByNibForClassName];
+   
     headView.delegate=self;
     _curTableView.tableHeaderView=headView;
     UIView  *footView=[[UIView  alloc]initWithFrame:CGRectMake(0, 0, CMScreen_width(), 400)];
     footView.backgroundColor=[UIColor clmHex:0xefeff4];
     _selectType=0;
-    CMAgencyFootView *AgencyFootView=[CMAgencyFootView initByNibForClassName];
+    
+  //  CMAgencyFootView *AgencyFootView=[CMAgencyFootView initByNibForClassName];
+    CMAgencyFootView *AgencyFootView=[[CMAgencyFootView alloc]initWithFrame:CGRectMake(0, 0, CMScreen_width(), 300)];
     [footView addSubview:AgencyFootView];
     _curTableView.tableFooterView=footView;
+    
+}
+-(void)pageShareView{
+    
+CMShareView *shareView=[[CMShareView alloc]initWithFrame:CGRectMake(0, 0, CMScreen_width(), CMScreen_height())];
+shareView.contentUrl =CMStringWithPickFormat(kCMMZWeb_url, @"/Account/AgencyMember.aspx");
+shareView.titleConten = @"快上车，新经板【机构会员】福利来了！";
+shareView.controller=self;
+shareView.contentStr = @"加入新经板发行人，让项目融资多又快；成为管理人，获得高收益项目优先投资权；晋升保荐人，独家代理优质项目，佣金高，返还快。";
+shareView.ShareImageName=[UIImage imageNamed:@"share_image"];
     
 }
 
@@ -108,7 +129,6 @@
      
     }
 }
-
 
 
 

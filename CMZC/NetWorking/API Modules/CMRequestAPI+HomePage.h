@@ -32,7 +32,7 @@
                                       fail:(void(^)(NSError *error))fail;
 
 /**
- *  众筹宝
+ *  众投宝
  *
  *  @return
  */
@@ -166,7 +166,8 @@
 + (void)cm_homeProductPurchaseNumberSuccess:(void(^)(NSString *buyNumber))success
                                        fail:(void(^)(NSError *error))fail;
 
-
+//展示板barnner
++ (void)cm_homeShowOtherProductBannersSuccess:(void (^)(NSArray *))success fail:(void (^)(NSError *))fail;
 @end
 
 

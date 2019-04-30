@@ -23,9 +23,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+
     _curScrollView.contentSize=CGSizeMake(2*CMScreen_width(), CGRectGetHeight(_curScrollView.frame));
-    _curScrollView.scrollEnabled=NO;
+   _curScrollView.scrollEnabled=NO;
     _curScrollView.backgroundColor=[UIColor clmHex:0xefeff4];
     [self loadTitleView];
     
@@ -64,7 +64,7 @@
     
     _curTitle.delegate = self;
     
-    
+  
 }
 
 - (void)clickTitleViewAtIndex:(NSInteger)index andTab:(UIButton *)tab{

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -13,13 +13,17 @@
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="iN0-l3-epB" customClass="CMIssuerView">
             <rect key="frame" x="0.0" y="0.0" width="375" height="190"/>
-            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="72W-SS-yhz" userLabel="topView">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="62.5"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" verticalHuggingPriority="251" image="IssuerImage_01" translatesAutoresizingMaskIntoConstraints="NO" id="Faw-Af-gxj">
                             <rect key="frame" x="10" y="9.5" width="44" height="44"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="44" id="1OA-Ak-jqp"/>
+                                <constraint firstAttribute="height" constant="44" id="Xom-aZ-E5S"/>
+                            </constraints>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="对接百亿资产联盟,上万合格投资人,融资速度快,最快两周" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yRC-hT-5ap">
                             <rect key="frame" x="64" y="0.0" width="301" height="63"/>
@@ -87,10 +91,15 @@
             </subviews>
             <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="zYM-dW-5hs" firstAttribute="width" secondItem="Faw-Af-gxj" secondAttribute="width" id="0Xs-Xn-w0l"/>
+                <constraint firstItem="XU8-H8-3Rk" firstAttribute="width" secondItem="Faw-Af-gxj" secondAttribute="width" id="143-JM-lTA"/>
+                <constraint firstItem="zYM-dW-5hs" firstAttribute="height" secondItem="Faw-Af-gxj" secondAttribute="height" id="2BH-BE-rJ2"/>
                 <constraint firstItem="72W-SS-yhz" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="83j-bB-d8K"/>
                 <constraint firstItem="sQo-SO-7Uw" firstAttribute="top" secondItem="0mz-WD-5PU" secondAttribute="bottom" constant="1" id="G53-T3-Gb5"/>
                 <constraint firstAttribute="trailing" secondItem="sQo-SO-7Uw" secondAttribute="trailing" id="HWL-DX-3Sg"/>
+                <constraint firstItem="XU8-H8-3Rk" firstAttribute="height" secondItem="Faw-Af-gxj" secondAttribute="height" id="J5p-mk-P6G"/>
                 <constraint firstItem="72W-SS-yhz" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="KtQ-IG-7Zd"/>
+                <constraint firstItem="72W-SS-yhz" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="Ogg-y4-7sj"/>
                 <constraint firstItem="0mz-WD-5PU" firstAttribute="leading" secondItem="72W-SS-yhz" secondAttribute="leading" id="OzI-yR-zq5"/>
                 <constraint firstItem="0mz-WD-5PU" firstAttribute="width" secondItem="72W-SS-yhz" secondAttribute="width" id="QK0-lo-1yz"/>
                 <constraint firstItem="sQo-SO-7Uw" firstAttribute="height" secondItem="0mz-WD-5PU" secondAttribute="height" id="RwK-4p-klb"/>

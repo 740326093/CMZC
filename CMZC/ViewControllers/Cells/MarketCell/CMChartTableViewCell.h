@@ -8,11 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol  CMChartTableViewCellDelegate<NSObject>
-
-
-
-@end
 
 
 @interface CMChartTableViewCell : UITableViewCell

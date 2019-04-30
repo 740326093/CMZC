@@ -16,9 +16,9 @@
 
 #import "CMRegisterViewController.h"
 #import "CMFilletButton.h"
+#import "CFRegisterServiceView.h"
 
-
-@interface CMRegisterViewController ()<UITextFieldDelegate>
+@interface CMRegisterViewController ()<UITextFieldDelegate,UITextViewDelegate>
 
 @property (weak, nonatomic) IBOutlet CMTextField *phoneNumberTF;//手机号码
 
@@ -34,7 +34,9 @@
 
 @property (strong, nonatomic) NSTimer *verifyPhoneTimer;//开启一个用手机注册获得验证码时间的定时器
 @property (weak, nonatomic) IBOutlet CMFilletButton *registerBtn;  //注册
-
+@property (weak, nonatomic) IBOutlet UIButton *agreementBtn;
+@property (weak, nonatomic) IBOutlet UITextView *agreementTextView;
+@property (strong, nonatomic) CFRegisterServiceView *serviceView;
 @end
 
 @implementation CMRegisterViewController
@@ -43,12 +45,24 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     //得到倒计时时间。当离开当前页面还能获得。
+    
+    
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:_agreementTextView.text];
+    [attributedString addAttribute:NSLinkAttributeName
+                             value:@"tiaoKuan://"
+                             range:[[attributedString string] rangeOfString:@"<<新经板注册协议>>"]];
+  
+    [attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor clmHex:0x666666] range:NSMakeRange(0, attributedString.length)];
+    [attributedString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14] range:NSMakeRange(0, attributedString.length)];
+    self.agreementTextView.attributedText = attributedString;
+    self.agreementTextView.linkTextAttributes = @{NSForegroundColorAttributeName:[UIColor cmThemeCheng]};
+    
     NSInteger surplus = [self getSurplusPhoneTime];
-    _gainNumberBtn.enabled = NO;
+
     //_registerBtn.enabled = NO;
     if (surplus > 0) {
         self.phoneNumberTF.enabled = NO;
-        self.gainNumberBtn.enabled = NO;
+        self.gainNumberBtn.userInteractionEnabled = NO;
         //当程序回来时。显示
         _phoneNumberTF.text = GetDataFromNSUserDefaults(kVerifyMobilePhonePassWordKey);
         //开启一个定时器
@@ -56,9 +70,19 @@
         [_verifyPhoneTimer fire];
     }
     _passwordTextField.delegate = self;
+    
+    
+    
    
 }
-
+- (CFRegisterServiceView *)serviceView
+{
+    if (_serviceView == nil) {
+        _serviceView = [[NSBundle mainBundle] loadNibNamed:@"CFRegisterServiceView" owner:nil options:nil].firstObject;
+        _serviceView.frame = CGRectMake(0, 0, CMScreen_width(), CMScreen_height());
+    }
+    return _serviceView;
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -78,14 +102,14 @@
     NSInteger surplus = [self getSurplusPhoneTime];
     if (surplus <= 0) {
         self.phoneNumberTF.enabled = YES;
-        self.gainNumberBtn.enabled = YES;
+        self.gainNumberBtn.userInteractionEnabled = YES;
         [timer invalidate];//注销定时器
         //删除所保存的key的数据
         DeleteDataFromNSUserDefaults(kVerifyMobilePhonePassWordKey);
         DeleteDataFromNSUserDefaults(kVerifyStarDatePassWordKey);
-        self.phoneNumberTF.enabled = YES;
         [_gainNumberBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
     } else {
+         self.gainNumberBtn.userInteractionEnabled = NO;
         NSString *secodsString = [NSString stringWithFormat:@"%ld秒",(long)surplus];
         [_gainNumberBtn setTitle:secodsString forState:UIControlStateNormal];
     }
@@ -131,20 +155,37 @@
 //    [self.view endEditing:YES];
 //    _registryViewTopLayout.constant = 0.0f;
     if ([self checkDataValidity]) {
-        [self showDefaultProgressHUD];
+        if(_agreementBtn.isSelected==NO){
+             [self showAutoHiddenHUDWithMessage:@"请先同意和接受<<新经板注册协议>>"];
+            return;
+        }
         [CMRequestAPI cm_loginTransferDataPhoneNumber:[_phoneNumberTF.text integerValue] phoneVercode:[_testingNumberTF.text integerValue] password:_passwordTextField.text  confimPassword:_affirmPasswordTF.text success:^(BOOL isSucceed) {
             [_verifyPhoneTimer invalidate];//注销定时器
             //删除所保存的key的数据
-            DeleteDataFromNSUserDefaults(kVerifyMobilePhonePassWordKey);
+            //[self showDefaultProgressHUD]; DeleteDataFromNSUserDefaults(kVerifyMobilePhonePassWordKey);
             DeleteDataFromNSUserDefaults(kVerifyStarDatePassWordKey);
-            [self hiddenProgressHUD];
-            [self showHUDWithMessage:@"注册成功" hiddenDelayTime:5];
+
+       
+
+    //[self showHUDWithMessage:@"注册成功" hiddenDelayTime:5];
+                    
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            hud.mode = MBProgressHUDModeText;
+            hud.labelText = @"注册成功";
+            [hud showAnimated:YES whileExecutingBlock:^{
+                sleep(2);
+            } completionBlock:^{
+                [hud removeFromSuperview];
+                [self.navigationController popViewControllerAnimated:YES];
+            }];
+            
+            
          
-            [self.navigationController popViewControllerAnimated:YES];
+           
            
         } fail:^(NSError *error) {
         
-            [self hiddenProgressHUD];
+            //[self hiddenProgressHUD];
             [self showHUDWithMessage:error.message hiddenDelayTime:2];
         }];
     }
@@ -176,7 +217,7 @@
     if (_phoneNumberTF.text.isBlankString) {
         [self showAutoHiddenHUDWithMessage:@"请输入手机号"];
         return NO;
-    } else if (!_phoneNumberTF.text.checkPhoneNumInput) {
+    }else if (!_phoneNumberTF.text.checkPhoneNumInput) {
         [self showAutoHiddenHUDWithMessage:@"请输入正确的手机号"];
         return NO;
     } else {
@@ -220,7 +261,23 @@
     }
 }
 
-#pragma mark -
+#pragma mark -注册协议
+
+- (IBAction)agreementBtnEvent:(id)sender {
+    
+    UIButton *sendBtn=(UIButton*)sender;
+    sendBtn.selected =!sendBtn.selected;
+    
+    
+}
+
+- (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange {
+    if ([[URL scheme] isEqualToString:@"tiaoKuan"]) {
+    [self.view.window addSubview:self.serviceView];
+        return NO;
+    }
+    return YES;
+}
 //- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
 //    [self.view endEditing:YES];
 //    _registryViewTopLayout.constant = 0.0f;

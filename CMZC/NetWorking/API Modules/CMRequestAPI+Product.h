@@ -44,4 +44,18 @@
     @param cpid    产品编码
  */
 + (void)cm_applyFetchProductDetailsCollectWithType:(NSInteger)type andProductID:(NSInteger)producID success:(void (^)(id isSuccess))success fail:(void (^)(NSError *))fail;
+
+
+/**
+ *  获得新科列表数据
+ *
+ *  @param page    页码
+ *  @param size
+ */
++ (void)cm_applyNewProductListOnPageIndex:(NSInteger)page
+                                 pageSize:(NSInteger)size
+                              productType:(NSInteger)typeId
+                                  success:(void(^)(NSArray *productArr,BOOL isPage))success
+                                     fail:(void(^)(NSError *error))fail;
+
 @end

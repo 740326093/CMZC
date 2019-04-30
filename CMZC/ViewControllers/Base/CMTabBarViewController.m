@@ -18,7 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    float tabHeight=49;
+    float tabHeight=self.tabBar.frame.size.height;
     if(kDevice_Is_iPhoneX){
         tabHeight=83;
     }

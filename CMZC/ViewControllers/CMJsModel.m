@@ -12,4 +12,12 @@
 -(void)callCameraOrPhotosLibrary:(int)type{
     [self.delegate callCameraOrPhotosLibrary:type];
 }
+- (void)share:(NSString *)title describeContent:(NSString *)content interlnkageSite:(NSString *)siteUrl pictureStie:(NSString *)pictureUrl {
+    [self.delegate share:title describeContent:content interlnkageSite:siteUrl pictureStie:pictureUrl];
+}
+
+-(void)appLogin{
+    
+    [self.delegate appLogin];
+}
 @end

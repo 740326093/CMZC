@@ -48,10 +48,12 @@
 
 
 -(void)setHotApplyModel:(CMHotApplyModel *)HotApplyModel{
+    
     _HotApplyModel=HotApplyModel;
     _applyTitleLab.text=HotApplyModel.cpName;
     _applyAmountLab.text=HotApplyModel.Amount;
     _alreadAppliAmountLab.text=HotApplyModel.shengouAmount;
+    _ApplyProgressView.realProgress=YES;
     _ApplyProgressView.progress=HotApplyModel.rongziJinDu;
     
 }

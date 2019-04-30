@@ -11,9 +11,7 @@
 
 @interface CMTopicReplyViewController () <UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *curTableView;
-
 @property (strong, nonatomic) NSMutableArray *dataArr;
-
 @end
 
 @implementation CMTopicReplyViewController
@@ -35,14 +33,14 @@
     }];
     //添加上提加载
     [_curTableView addFooterWithFinishBlock:^{
-        NSInteger page = self.dataArr.count / 5+1;
+        NSInteger page = self.dataArr.count / 5.0+1;
         [self requestListWithPageNo:page];
     }];
 }
 //数据请求
 - (void)requestListWithPageNo:(NSInteger)page {
-    [self showDefaultProgressHUD];
     
+    [self showDefaultProgressHUD];
     [CMRequestAPI cm_marketFetchReplyTopicid:self.topicId pageIndex:page success:^(NSArray *topicArr) {
         [self hiddenProgressHUD];
         [self.dataArr addObjectsFromArray:topicArr];
@@ -55,6 +53,8 @@
     } fail:^(NSError *error) {
         [self hiddenProgressHUD];
     }];
+    
+    
 }
 
 #pragma mark - tableDele
@@ -74,26 +74,6 @@
     replyCell.topicReplies = self.dataArr[indexPath.row];
     return replyCell;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 - (void)didReceiveMemoryWarning {

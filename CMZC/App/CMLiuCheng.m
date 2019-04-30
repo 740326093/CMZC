@@ -24,7 +24,7 @@
             make.left.equalTo(self.mas_left).offset(15);
             make.top.equalTo(self.mas_top);
         }];
-        UIImage *imagebg=[UIImage imageNamed:@"add_img1-06"];
+        UIImage *imagebg=[UIImage imageNamed:@"add_img1-6"];
         UIImageView *image=[[UIImageView alloc]init];
         image.image=imagebg;
   

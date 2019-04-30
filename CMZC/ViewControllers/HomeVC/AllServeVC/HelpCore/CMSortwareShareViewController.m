@@ -6,8 +6,8 @@
 //  Copyright © 2016年 MAC. All rights reserved.
 //
 
-#define kCMShareTitle @"新经板-只赚不赔的“原始股"
-#define kShare_url @"http://m.xinjingban.com/About/APPClient"
+#define kCMShareTitle @"新经板-只赚不赔的“10倍股"
+#define kShare_url CMStringWithPickFormat(kCMMZWeb_url, @"/About/APPClient")//@"http://m.xinjingban.com/About/APPClient"
 
 #import "CMSortwareShareViewController.h"
 
@@ -66,7 +66,7 @@
 /*
 - (void)umsocialDataServicPostSNSWithTypes:(NSArray *)typeArr {
     [[UMSocialDataService defaultDataService]  postSNSWithTypes:typeArr
-                                                        content:@"新经板是一家为优质新经济项目提供众筹服务，保底8%的年收益，唯一一家实现自由退出的互联网众筹交易平台"
+                                                        content:@"新经板是一家为优质新经济项目提供众投服务，保底8%的年收益，唯一一家实现自由退出的互联网众投交易平台"
                                                           image:[UIImage imageNamed:@"title_log_acc"]
                                                        location:nil
                                                     urlResource:nil

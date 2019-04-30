@@ -48,4 +48,8 @@
 #import "CMBanners.h"
 #import "UIImage+ResizeMagick.h"
 #import "CMAgencyMebersController.h"
+//#import "CMSliderHeadTitleView.h"
+#import "CMNewShowController.h"
+
+#import <VaptchaSDK/VaptchaSDK.h>
 #endif /* CMImportHeader_h */

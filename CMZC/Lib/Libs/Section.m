@@ -44,6 +44,7 @@
 
 -(void)initYAxises{
     for(int i=0;i<[self.yAxises count];i++){
+        
 	    [[self.yAxises objectAtIndex:i] setIsUsed:NO];
 	}
 }

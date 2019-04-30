@@ -51,7 +51,6 @@
 
 -(UIButton*)consultingBtn{
     if (!_consultingBtn) {
-       
         _consultingBtn=[UIButton buttonWithType:UIButtonTypeCustom];
         _consultingBtn.contentHorizontalAlignment=UIControlContentHorizontalAlignmentCenter;
         [_consultingBtn setTitle:@"咨询" forState:UIControlStateNormal];
@@ -169,16 +168,19 @@
 -(void)setProductDetails:(CMProductDetails *)ProductDetails{
     _ProductDetails =ProductDetails;
     [self.subscribeStateBtn setTitle:ProductDetails.status forState:UIControlStateNormal];
-
+ [self.subscribeStateBtn setBackgroundColor:ProductDetails.statusColor];
         if ([ProductDetails.status isEqualToString:@"立即申购"]) {
-            [self.subscribeStateBtn setBackgroundColor:[UIColor clmHex:0xff6400]];
+           
             [self.subscribeStateBtn addTarget:self action:@selector(productDetailbtnClickEvent:) forControlEvents:UIControlEventTouchUpInside];
-        } else if([ProductDetails.status isEqualToString:@"路演中"])
-        {        [self.subscribeStateBtn setBackgroundColor:[UIColor clmHex:0xff6400]];
-        }else {
-        [self.subscribeStateBtn setBackgroundColor:[UIColor clmHex:0xcccccc]];
-    }
-       
+        }
+    
+    
+//        else if([ProductDetails.status isEqualToString:@"路演中"])
+//        {        [self.subscribeStateBtn setBackgroundColor:[UIColor clmHex:0xff6400]];
+//        }else {
+//        [self.subscribeStateBtn setBackgroundColor:[UIColor clmHex:0xcccccc]];
+//    }
+    
     [self cheackIsCollectWithProductID:ProductDetails.productId];
     
 

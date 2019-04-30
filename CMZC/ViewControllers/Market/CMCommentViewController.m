@@ -8,8 +8,6 @@
 
 #import "CMCommentViewController.h"
 #import "CMProductComment.h"
-
-
 @interface CMCommentViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *titleNameLab;
 @property (weak, nonatomic) IBOutlet UILabel *timeLab;
@@ -25,8 +23,7 @@
     _titleNameLab.text = _product.title;
     _timeLab.text = _product.created;
     _contentLab.text = [NSString stringWithFormat:@"   %@",_product.content];
-    
-    
+
 }
 
 - (void)didReceiveMemoryWarning {

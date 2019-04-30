@@ -74,13 +74,17 @@
 - (void)cm_NewShiSendModel:(CMNewShiModel *)notice{
     
     NSString *webUrl = CMStringWithPickFormat(kCMMZWeb_url, [NSString stringWithFormat:@"/Account/MessageDetail?nid=%ld",(long)notice.mediaId]);
-    ;
     [self pushWebViewVCURL:webUrl];
 }
 
 - (void)pushWebViewVCURL:(NSString *)webUrl {
+    
     CMCommWebViewController *commWebVC = (CMCommWebViewController *)[[UIStoryboard mainStoryboard] viewControllerWithId:@"CMCommWebViewController"];
     commWebVC.urlStr = webUrl;
+    if(self.titleView.selectBtnIndex==0){
+        commWebVC.showRefresh=YES;
+        commWebVC.fromAd=YES;
+    }
     [self.navigationController pushViewController:commWebVC animated:YES];
 }
 
@@ -90,7 +94,7 @@
     //媒体报道
     UIButton *sortNewButton = [UIButton cm_customBtnTitle:@"媒体报道"];
     //新视点
-     UIButton *sortNewShiButton = [UIButton cm_customBtnTitle:@"新观点"];
+    UIButton *sortNewShiButton = [UIButton cm_customBtnTitle:@"新观点"];
     
     //公告
     UIButton *sortHotButton = [UIButton cm_customBtnTitle:@"公告"];

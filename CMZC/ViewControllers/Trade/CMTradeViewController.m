@@ -36,8 +36,9 @@
 @property (strong, nonatomic) CMTradeTitleView *tradeTitleView;
 @property (strong, nonatomic) CMAccountinfo *tinfo;
 @property (weak, nonatomic) IBOutlet UIImageView *tradeImage;
-
 @property (strong, nonatomic) CMCheackStateModel *CheackStateModel;
+
+
 @end
 
 @implementation CMTradeViewController
@@ -48,7 +49,7 @@
     _tradeTitleView = [CMTradeTitleView initByNibForClassName];
     _tradeTitleView.delegate = self;
     _curTableView.tableHeaderView = _tradeTitleView;
-    _curTableView.tableFooterView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, CMScreen_width(), 10  )];
+    _curTableView.tableFooterView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, CMScreen_width(), 10)];
     
     _titLabNameArr = @[@"我的申购",@"我的基金",@"安全认证",@"我的收藏",@"我的消息",@"新手交易指南",@"设置"];
     _titImageArr = @[@"subscribe_trade",@"funds_trade",@"bankCard_trade",@"collection_trade",@"message_trade",@"new_trade",@"set_trade"];
@@ -242,7 +243,7 @@
                 break;
                 case 3: //我的基金
             {
-                 [self pushCommWebViewVCUrlStr:CMStringWithPickFormat(kCMMZWeb_url, @"/Account/CouponsList")];
+                 [self pushCommWebViewVCUrlStr:CMStringWithPickFormat(kCMMZWeb_url, @"/Account/JijinList")];
             }
                 break;
             case 4://银行卡认证
@@ -264,13 +265,12 @@
                // [self pushCommWebViewVCUrlStr:CMStringWithPickFormat(kCMMZWeb_url, @"Account/collectList.aspx")];
         
                 CMMyCollectController *collectController = (CMMyCollectController *)[CMMyCollectController initByStoryboard];
-               commonalityVC = collectController;
+                commonalityVC = collectController;
             }
                 break;
             case 6://我的消息
             {
-                 CMMessageViewController *statementVC = (CMMessageViewController *)[[UIStoryboard mainStoryboard] viewControllerWithId:@"CMMessageViewController"];
-                
+                CMMessageViewController *statementVC = (CMMessageViewController *)[[UIStoryboard mainStoryboard] viewControllerWithId:@"CMMessageViewController"];
                 statementVC.block=^{
                     [self.curTableView reloadData];
                 };
@@ -284,6 +284,7 @@
                 statementVC.baserType = CMBaseViewDistinctionTypeDetails;
                 statementVC.title = @"新手交易指南";
                 commonalityVC = statementVC;
+                
             }
                 
                 break;
@@ -457,7 +458,7 @@
     NSDictionary *messageDict=@{@"hyid":userID};
     
     [[CMAgencesRequest  sharedAPI]AgencyMebersApplyWithApi:@"GetJiGouCheckStatus" andMessage:messageDict success:^(id responseObj) {
-        MyLog(@"审核状态+++%@",responseObj);
+        //MyLog(@"审核状态+++%@",responseObj);
         
         if([[responseObj objectForKey:@"respCode"]integerValue]==1){
             

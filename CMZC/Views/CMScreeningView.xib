@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="CMScreeningView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="综合排序" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pYb-C8-h9C">
+                    <rect key="frame" x="139.5" y="3" width="66" height="34"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="angelsImage" translatesAutoresizingMaskIntoConstraints="NO" id="aEV-Nc-mak">
+                    <rect key="frame" x="205.5" y="8" width="24" height="24"/>
+                </imageView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rTC-HV-Lzv">
+                    <rect key="frame" x="139.5" y="3" width="90" height="34"/>
+                    <connections>
+                        <action selector="screeningSender:" destination="iN0-l3-epB" eventType="touchUpInside" id="ZJd-7z-oVM"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="pYb-C8-h9C" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" constant="-15" id="8IO-5p-IhX"/>
+                <constraint firstItem="pYb-C8-h9C" firstAttribute="leading" secondItem="rTC-HV-Lzv" secondAttribute="leading" id="BHF-Oq-vLU"/>
+                <constraint firstItem="aEV-Nc-mak" firstAttribute="centerY" secondItem="pYb-C8-h9C" secondAttribute="centerY" id="BfK-uh-Ek2"/>
+                <constraint firstItem="aEV-Nc-mak" firstAttribute="trailing" secondItem="rTC-HV-Lzv" secondAttribute="trailing" id="ItK-1X-buf"/>
+                <constraint firstItem="pYb-C8-h9C" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="YcD-xg-Azo"/>
+                <constraint firstItem="aEV-Nc-mak" firstAttribute="leading" secondItem="pYb-C8-h9C" secondAttribute="trailing" id="dgj-0A-ZnX"/>
+                <constraint firstItem="rTC-HV-Lzv" firstAttribute="bottom" secondItem="pYb-C8-h9C" secondAttribute="bottom" id="poH-O5-bu6"/>
+                <constraint firstItem="pYb-C8-h9C" firstAttribute="top" secondItem="rTC-HV-Lzv" secondAttribute="top" id="s0l-dJ-E4I"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="screeingTitle" destination="pYb-C8-h9C" id="O8G-XF-aET"/>
+            </connections>
+            <point key="canvasLocation" x="40.799999999999997" y="46.776611694152926"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="angelsImage" width="24" height="24"/>
+    </resources>
+</document>

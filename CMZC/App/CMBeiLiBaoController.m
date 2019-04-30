@@ -36,7 +36,7 @@
     [self showDefaultProgressHUD];
     [self requestData];
      _currentTableView.hidden = YES;
-     _currentTableView.tableHeaderView=[CMBarHeadView barHeadViewWithImage:@"BLBHead@2x"];
+     _currentTableView.tableHeaderView=[CMBarHeadView barHeadViewWithImage:@"BLBHead"];
     
     CMIntrouctionView *footView=[[CMIntrouctionView alloc]initWithFrame:CGRectMake(0, 0, CMScreen_width(), f_i5real(300))];
   
@@ -96,7 +96,7 @@
 }
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    
+     
     
     if (indexPath.section==0) {
         static NSString *cellID=@"indexPath";

@@ -125,10 +125,8 @@
         case CMCarryNowTypeSave:
         {
             CMProvinceList *province = stateArr[indexPath.row];
-            
             _proviceIndex = province.code;
             _saveLab.text = province.name;
-            
         }
             break;
         case CMCarryNowTypeCity:
@@ -185,18 +183,14 @@
         [self showAutoHiddenHUDWithMessage:@"请先选择省份"];
         return;
     }
-    
-  
     [CMRequestAPI cm_tradeFetchCityListProvincecode:_proviceIndex success:^(NSArray *cityArr) {
         _cityArr = cityArr;
-       
         [self bgViewHidden:NO alphe:0.5 bgColor:[UIColor cmBackgroundGrey]];
         [UIView animateWithDuration:2 animations:^{
             _tableViewHeightLayout.constant = self.view.height - 230;
         }];
         self.type = CMCarryNowTypeCity;
         [_curTableView reloadData];
-        
     } fail:^(NSError *error) {
         [self showHUDWithMessage:error.message hiddenDelayTime:2];
     }];
@@ -210,7 +204,6 @@
         carryDetailsVC.bankBlockList = _block;
         carryDetailsVC.proviceName = _proviceIndex;
         carryDetailsVC.cityName = _proviceIndex;
-
         [self.navigationController pushViewController:carryDetailsVC animated:YES];
     } else {
         [self showHUDWithMessage:@"请完善信息" hiddenDelayTime:2];
@@ -235,7 +228,6 @@
         _bankLab.text = [NSString stringWithFormat:@"%@(%@)",title.banktype,bankStr];
         _availableLab.text = [NSString stringWithFormat:@"该卡可提金额%.2f",title.balance];
         _block = title;
-        
         if (!title.authentication) {
             _attestation_tradeImageview.hidden = YES;
         } else {
@@ -250,10 +242,8 @@
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [self.view endEditing:YES];
     _tableViewHeightLayout.constant = 0.0f;
-    
     [self bgViewHidden:YES alphe:0 bgColor:[UIColor clearColor]];
     _titleViewTopLayoutConstraint.constant = 0.0;
-    
 }
 //因为要点击。要有背景灰色。所以，学一个方法
 - (void)bgViewHidden:(BOOL)hid alphe:(CGFloat)alp bgColor:(UIColor *)color{
@@ -278,7 +268,6 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
 //    CMCarryDetailsViewController *detailsVC = (CMCarryDetailsViewController *)segue.destinationViewController;
-//    
 //    detailsVC.bankArr = self.backDataArr;
 }
 

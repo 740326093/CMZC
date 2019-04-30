@@ -141,6 +141,7 @@
                            @"OrderPrice":price,
                            @"OrderVolume":orderVolume
                            };
+    
     [CMRequestAPI postTradeFromURLScheme:kCMTradeBuyingURL argumentsDictionary:dict success:^(id responseObject) {
         NSInteger index = [responseObject[@"data"] integerValue];
         BOOL isWin = NO;
@@ -251,7 +252,7 @@
     } else {
         
         dict = @{
-                   @"bankcardid":CMNumberWithFormat(bankcardId),
+                 @"bankcardid":CMNumberWithFormat(bankcardId),
                    @"couponid":CMNumberWithFormat(couponId),
                    @"amount":amount,
                    @"vercode":vercode,
@@ -299,6 +300,7 @@
 + (void)cm_tradeFetchDrawProductPage:(NSInteger)page success:(void (^)(NSArray *,BOOL ))success fail:(void (^)(NSError *))fail {
     NSDictionary *dict = @{@"pageIndex":CMNumberWithFormat(page)};
     [CMRequestAPI postTradeFromURLScheme:kCMTradeDrawProductNumberURL argumentsDictionary:dict success:^(id responseObject) {
+        NSLog(@"中签数据+++%@",responseObject);
         NSArray *dataArr = responseObject[@"data"][@"list"];
         NSMutableArray *contenArr = [NSMutableArray array];
         for (NSDictionary *dict in dataArr) {
@@ -316,6 +318,51 @@
     }];
     
 }
+
+#pragma mark 起始配号
++ (void)cm_tradeBeginEndNumProductPid:(NSInteger)pid
+                              success:(void(^)(NSArray *dataArr))success
+                                 fail:(void(^)(NSError *error))fail{
+    
+    
+    NSString *urlStr = [NSString stringWithFormat:@"%@?sgid=%@",KBeginEndProductURL,[NSNumber numberWithInteger:pid]];
+    
+    [CMRequestAPI getDataFromURLScheme:urlStr argumentsDictionary:nil success:^(id responseObject) {
+        
+        NSArray *dataArray = responseObject[@"data"];
+        success(dataArray);
+        
+    } fail:^(NSError *error) {
+        
+         fail(error);
+        
+        
+    }];
+    
+    
+    
+}
+
+#pragma mark 普通配号
++(void)cm_tradeCustomNumProductPid:(NSInteger)pid success:(void (^)(NSArray *))success fail:(void (^)(NSError *))fail{
+    
+    NSString *urlStr = [NSString stringWithFormat:@"%@?sgid=%@",KCustomProductURL,[NSNumber numberWithInteger:pid]];
+    
+    [CMRequestAPI getDataFromURLScheme:urlStr argumentsDictionary:nil success:^(id responseObject) {
+        
+        NSArray *dataArray = responseObject[@"data"];
+        success(dataArray);
+        
+    } fail:^(NSError *error) {
+        
+        
+         fail(error);
+        
+    }];
+    
+    
+}
+
 //企业信息
 + (void)cm_tradeFetchProductContextPcode:(NSString *)pcode success:(void (^)(NSString *))success fail:(void (^)(NSError *))fail {
     NSString *urlStr = [NSString stringWithFormat:@"%@%@",kMProductContextURL,pcode];

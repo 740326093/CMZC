@@ -15,12 +15,17 @@
 @property (weak, nonatomic) IBOutlet UISegmentedControl *selectSengenmt;
 @property (weak, nonatomic) IBOutlet UIScrollView *curScrollerView;
 @property (weak, nonatomic) IBOutlet UIView *bottomBackView;
+@property (weak, nonatomic) IBOutlet UIView *leftBackView;
+@property (weak, nonatomic) IBOutlet UIView *midView;
+@property (weak, nonatomic) IBOutlet CMSponsorView *rightView;
+
 
 @end
 @implementation CMAgencyHeadView
 
 -(void)awakeFromNib{
     [super awakeFromNib];
+    
    
     //默认选择索引
     [_selectSengenmt setSelectedSegmentIndex:0];
@@ -33,16 +38,21 @@
     _curScrollerView.contentSize=CGSizeMake(CMScreen_width()*3, CGRectGetHeight(_bottomBackView.frame));
     
     CMIssuerView *IssuerView=[CMIssuerView initByNibForClassName];
-    IssuerView.frame=CGRectMake(0, 0, CMScreen_width(), CGRectGetHeight(_bottomBackView.frame));
-    [_curScrollerView addSubview:IssuerView];
+    //IssuerView.frame=CGRectMake(0, 0, CMScreen_width(), CGRectGetHeight(_bottomBackView.frame));
+    [_leftBackView addSubview:IssuerView];
+    
     CMComponentView *ComponentView=[CMComponentView initByNibForClassName];
-    ComponentView.frame=CGRectMake(CMScreen_width(), 0, CMScreen_width(), CGRectGetHeight(_bottomBackView.frame));
-    [_curScrollerView addSubview:ComponentView];
+    //    ComponentView.frame=CGRectMake(CMScreen_width(), 0, CMScreen_width(), CGRectGetHeight(_bottomBackView.frame));
+    //  //  ComponentView.bounds=CGRectMake(0, 0, CMScreen_width(), CGRectGetHeight(_bottomBackView.frame));
+    [_midView addSubview:ComponentView];
     CMSponsorView *SponsorView=[CMSponsorView initByNibForClassName];
-    SponsorView.frame=CGRectMake(CMScreen_width()*2, 0, CMScreen_width(), CGRectGetHeight(_bottomBackView.frame));
-    [_curScrollerView addSubview:SponsorView];
-   
+    //    SponsorView.frame=CGRectMake(CMScreen_width()*2, 0, CMScreen_width(), CGRectGetHeight(_bottomBackView.frame));
+    [_rightView addSubview:SponsorView];
+
+  
 }
+
+
 
 
 - (void)SwitchClickEvent:(UISegmentedControl *)sender {
@@ -53,19 +63,20 @@
         [self.delegate selectItemIndex:sender.selectedSegmentIndex];
     }
 
+  
     if (sender.selectedSegmentIndex==1) {
         self.frame=CGRectMake(0, 0, CMScreen_width(), 320);
        
-      _bottomBackView.bounds=CGRectMake(0, 0, CMScreen_width(), 260);
+    //  _bottomBackView.bounds=CGRectMake(0, 0, CMScreen_width(), 260);
    
 
     }else{
        
         self.frame=CGRectMake(0, 0, CMScreen_width(), 260);
-       _bottomBackView.bounds=CGRectMake(0, 0, CMScreen_width(), 190);
+       //_bottomBackView.bounds=CGRectMake(0, 0, CMScreen_width(), 190);
     
     }
-    
+ 
       [_curScrollerView setContentOffset:CGPointMake(CMScreen_width()*sender.selectedSegmentIndex, 0) animated:NO];
     
 }

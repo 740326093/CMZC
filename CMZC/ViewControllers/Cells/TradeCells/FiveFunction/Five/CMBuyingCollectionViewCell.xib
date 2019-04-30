@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -51,13 +51,13 @@
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="买入价格:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X7M-7G-rAB">
-                        <rect key="frame" x="10" y="98" width="62" height="19"/>
+                        <rect key="frame" x="10" y="98" width="62" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" red="0.25490197539999998" green="0.25490197539999998" blue="0.25490197539999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="必填" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="42P-XX-sd8">
-                        <rect key="frame" x="81" y="93" width="136" height="30"/>
+                        <rect key="frame" x="81" y="92.5" width="116" height="30"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="30" id="69e-db-svs"/>
                         </constraints>
@@ -65,20 +65,20 @@
                         <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                     </textField>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RW8-FQ-0ma" userLabel="fgxView3">
-                        <rect key="frame" x="0.0" y="128" width="320" height="0.5"/>
+                        <rect key="frame" x="0.0" y="127.5" width="320" height="0.5"/>
                         <color key="backgroundColor" red="0.89411765340000005" green="0.89411765340000005" blue="0.89411765340000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="0.5" id="QWk-Ho-NSn"/>
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="买入数量:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SYi-Nf-P96">
-                        <rect key="frame" x="10" y="139" width="62" height="17"/>
+                        <rect key="frame" x="10" y="138.5" width="62" height="17"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" red="0.25490197539999998" green="0.25490197539999998" blue="0.25490197539999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="必填" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Nld-uA-Vj7">
-                        <rect key="frame" x="81" y="133" width="116" height="30"/>
+                        <rect key="frame" x="81" y="132.5" width="116" height="30"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="30" id="ESg-DI-F06"/>
                         </constraints>
@@ -86,20 +86,20 @@
                         <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                     </textField>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p1S-NB-cjm" userLabel="fgxView4">
-                        <rect key="frame" x="0.0" y="168" width="320" height="0.5"/>
+                        <rect key="frame" x="0.0" y="167.5" width="320" height="0.5"/>
                         <color key="backgroundColor" red="0.89411765340000005" green="0.89411765340000005" blue="0.89411765340000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="0.5" id="Gpf-uc-JuV"/>
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="最大可买:1000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Psn-Rj-dig">
-                        <rect key="frame" x="202" y="140" width="88" height="16"/>
+                        <rect key="frame" x="202" y="139.5" width="88" height="16"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <color key="textColor" red="0.40000000596046448" green="0.40000000596046448" blue="0.40000000596046448" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vd5-HQ-sAb" customClass="CMFilletButton">
-                        <rect key="frame" x="10" y="209" width="300" height="40"/>
+                        <rect key="frame" x="10" y="208.5" width="300" height="40"/>
                         <color key="backgroundColor" red="0.94509804248809814" green="0.29803922772407532" blue="0.039215687662363052" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="40" id="0Zb-fS-Zo9"/>
@@ -123,14 +123,8 @@
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                     </textField>
-                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="跌停价" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hu6-Yh-5Xo">
-                        <rect key="frame" x="266" y="101" width="34" height="14"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                        <color key="textColor" red="0.035749905015197571" green="0.46264722644376893" blue="0.031024411094224925" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="跌停价" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RL4-rS-hT1">
-                        <rect key="frame" x="227" y="101" width="34" height="14"/>
+                        <rect key="frame" x="207" y="100.5" width="34" height="14"/>
                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
                         <color key="textColor" red="0.94509804248809814" green="0.29803922772407532" blue="0.039215687662363052" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
@@ -142,6 +136,23 @@
                             <constraint firstAttribute="height" constant="10" id="ceS-YP-vGB"/>
                         </constraints>
                     </view>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TRU-Ds-63a">
+                        <rect key="frame" x="290" y="97" width="20" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="20" id="Ogi-ow-wfz"/>
+                            <constraint firstAttribute="height" constant="20" id="tJK-fd-1Bn"/>
+                        </constraints>
+                        <state key="normal" backgroundImage="refreshImage"/>
+                        <connections>
+                            <action selector="refreshBtnEvent:" destination="gTV-IL-0wX" eventType="touchUpInside" id="JTq-m4-A1N"/>
+                        </connections>
+                    </button>
+                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="跌停价" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hu6-Yh-5Xo">
+                        <rect key="frame" x="246" y="100.5" width="34" height="14"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                        <color key="textColor" red="0.035749905015197571" green="0.46264722644376893" blue="0.031024411094224925" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
             </view>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -157,6 +168,8 @@
                 <constraint firstItem="cgC-ib-vXN" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="HWa-E7-lBE"/>
                 <constraint firstItem="upk-hw-OOu" firstAttribute="centerY" secondItem="J6z-Rv-8kl" secondAttribute="centerY" id="KSc-xs-SV0"/>
                 <constraint firstItem="Nld-uA-Vj7" firstAttribute="leading" secondItem="42P-XX-sd8" secondAttribute="leading" id="KwG-m8-mHJ"/>
+                <constraint firstAttribute="trailing" secondItem="TRU-Ds-63a" secondAttribute="trailing" constant="10" id="L76-bn-8eR"/>
+                <constraint firstItem="TRU-Ds-63a" firstAttribute="centerY" secondItem="X7M-7G-rAB" secondAttribute="centerY" id="LYT-0E-t54"/>
                 <constraint firstItem="Nld-uA-Vj7" firstAttribute="centerY" secondItem="SYi-Nf-P96" secondAttribute="centerY" id="LwG-9y-6dJ"/>
                 <constraint firstAttribute="trailing" secondItem="Fh4-QI-db7" secondAttribute="trailing" id="N9n-as-YC0"/>
                 <constraint firstItem="MPy-z5-uRo" firstAttribute="leading" secondItem="cgC-ib-vXN" secondAttribute="trailing" constant="9" id="RYI-r0-eyI"/>
@@ -179,8 +192,8 @@
                 <constraint firstItem="RW8-FQ-0ma" firstAttribute="top" secondItem="42P-XX-sd8" secondAttribute="bottom" constant="5" id="gzn-tZ-bng"/>
                 <constraint firstItem="vd5-HQ-sAb" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="hxQ-Ef-rnS"/>
                 <constraint firstItem="JTE-Yt-55F" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="iay-QL-uCp"/>
-                <constraint firstAttribute="trailing" secondItem="Hu6-Yh-5Xo" secondAttribute="trailing" constant="20" id="k0a-Al-U7e"/>
                 <constraint firstItem="42P-XX-sd8" firstAttribute="centerY" secondItem="X7M-7G-rAB" secondAttribute="centerY" id="lfR-MR-alH"/>
+                <constraint firstItem="TRU-Ds-63a" firstAttribute="leading" secondItem="Hu6-Yh-5Xo" secondAttribute="trailing" constant="10" id="loE-ZA-x21"/>
                 <constraint firstAttribute="trailing" secondItem="p1S-NB-cjm" secondAttribute="trailing" id="mna-c4-pty"/>
                 <constraint firstItem="Psn-Rj-dig" firstAttribute="centerY" secondItem="Nld-uA-Vj7" secondAttribute="centerY" id="moL-DA-427"/>
                 <constraint firstItem="42P-XX-sd8" firstAttribute="leading" secondItem="X7M-7G-rAB" secondAttribute="trailing" constant="9" id="mrc-u8-Nlb"/>
@@ -196,11 +209,13 @@
             </constraints>
             <size key="customSize" width="320" height="364"/>
             <connections>
+                <outlet property="buyBtn" destination="vd5-HQ-sAb" id="lC6-Vx-EXi"/>
                 <outlet property="buyNumber" destination="Psn-Rj-dig" id="5bh-Xl-zre"/>
                 <outlet property="fallPriceLab" destination="Hu6-Yh-5Xo" id="Ga8-SV-ogs"/>
                 <outlet property="numberTextField" destination="Nld-uA-Vj7" id="ayZ-m3-jRp"/>
                 <outlet property="priceTextField" destination="42P-XX-sd8" id="LIe-3S-WjK"/>
                 <outlet property="productLab" destination="upk-hw-OOu" id="LFz-ay-0eM"/>
+                <outlet property="refreshBtn" destination="TRU-Ds-63a" id="DBh-Fy-41s"/>
                 <outlet property="titCodeTopLabLayoutConstraint" destination="u6H-Ip-8Vq" id="dyz-jj-0kR"/>
                 <outlet property="tradeTextField" destination="MPy-z5-uRo" id="eLe-Ha-aq5"/>
                 <outlet property="upPriceLab" destination="RL4-rS-hT1" id="W7x-hA-l8S"/>
@@ -208,4 +223,7 @@
             <point key="canvasLocation" x="323" y="-166"/>
         </collectionViewCell>
     </objects>
+    <resources>
+        <image name="refreshImage" width="24" height="24"/>
+    </resources>
 </document>

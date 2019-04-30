@@ -28,6 +28,10 @@
 
 @property (strong, nonatomic) NSMutableArray *detailArr; //明细arr
 @property (strong, nonatomic) NSArray *fiveDataArr; //五档
+@property(nonatomic,strong) MJRefreshNormalHeader  *mj_head;
+@property(nonatomic,strong) MJRefreshAutoNormalFooter  *mj_foot;
+
+@property(nonatomic,assign)NSInteger pageIndex;
 
 @end
 
@@ -53,7 +57,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(closeWebSocket) name:@"closeWebSocket" object:nil];
    // [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fiveSpeedBtnClick) name:@"fiveSpeeButton" object:nil];
     //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(detailBtnClick) name:@"detailButton" object:nil];
-    
+    _pageIndex=1;
 }
 - (void)setCode:(NSString *)code {
     _code = code;
@@ -73,7 +77,7 @@
     if (_isPitch) {
         return 10;
     } else {
-        return 9;
+        return self.detailArr.count>0 ?self.detailArr.count :9;
     }
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -86,12 +90,12 @@
             tradeCell = [CMTradeDetailTableViewCell cell];
         }
         if (self.detailArr.count !=0) {
-            if (self.detailArr.count <indexPath.row+1) {
-                [tradeCell setContDataArr:@[] openPrict:0];
-            } else {
+         //  if (self.detailArr.count <indexPath.row+1) {
+               // [tradeCell setContDataArr:@[] openPrict:0];
+          //  } else {
                 [tradeCell setContDataArr:self.detailArr[indexPath.row] openPrict:[_fiveDataArr[3] floatValue]];
                 
-            }           
+           // }
         } else {
             tradeCell.contDataArr = @[];
         }
@@ -118,16 +122,21 @@
 - (void)detailBtnClick{
     [self detailContrast];
     [_curTableView reloadData];
-    [CMRequestAPI cm_marketTransferContractDetail:_code success:^(NSArray *contractArr) {
-        [self.detailArr removeAllObjects];
-        [self.detailArr addObjectsFromArray:contractArr];
-        [_curTableView reloadData];
-    } fail:^(NSError *error) {
-        MyLog(@"明细请求失败");
-    }];
+//    [CMRequestAPI cm_marketTransferContractDetail:_code success:^(NSArray *contractArr) {
+//
+//        [self.detailArr removeAllObjects];
+//        [self.detailArr addObjectsFromArray:contractArr];
+//        [_curTableView reloadData];
+//    } fail:^(NSError *error) {
+//        MyLog(@"明细请求失败");
+//    }];
+//
+    [self loadDetailDataWithWithType:1 andNum:@"0"];
+
     
-   // [_curTableView reloadData];
+ 
 }
+
 //判断是否选中
 - (void)detailContrast {
     _btomView.hidden = NO;
@@ -135,6 +144,72 @@
     [_fiveSpeedBtn cm_setButtonAttr:_fiveSpeedBtn];
     [_detailBtn cm_setButtonAttrWithClick:_detailBtn];
     _isPitch = NO;
+     _curTableView.scrollEnabled=YES;
+    if(!_isPitch){
+    _curTableView.mj_header.hidden=NO;
+    _curTableView.mj_footer.hidden=NO;
+    _curTableView.mj_header=self.mj_head;
+    _curTableView.mj_footer=self.mj_foot;
+    }
+    
+}
+#pragma mark 加载数据
+-(void)loadDetailDataWithWithType:(NSInteger)type andNum:(NSString*)Num{
+    
+    [CMRequestAPI cm_marketFetchProductinfoPcode:_code newOrHistoryData:type andNum:Num andPage:1 success:^(NSArray *productArr,NSInteger totalNum) {
+      //  MyLog(@"请求的数据+++%@",productArr);
+        [_curTableView.mj_header endRefreshing];
+        [_curTableView.mj_footer endRefreshing];
+
+        if (type==1) {
+            [self.detailArr removeAllObjects];
+        }
+        if(type==2){
+        if (totalNum==self.detailArr.count) {
+             [_curTableView noMoreData];
+        }
+        }
+        [self.detailArr addObjectsFromArray:productArr];
+        [_curTableView reloadData];
+        
+    } fail:^(NSError *error) {
+        
+        
+    }];
+
+}
+
+-(MJRefreshNormalHeader*)mj_head{
+    if (!_mj_head) {
+        _mj_head =[MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefreshData)];
+        _mj_head.stateLabel.font=[UIFont systemFontOfSize:12.0];
+        _mj_head.stateLabel.textColor = [UIColor clmHex:0x666666];
+        _mj_head.lastUpdatedTimeLabel.hidden=YES;
+    }
+    return _mj_head;
+}
+
+-(MJRefreshAutoNormalFooter*)mj_foot{
+    if (!_mj_foot) {
+        _mj_foot =[MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRefreshData)];
+        _mj_foot.stateLabel.font=[UIFont systemFontOfSize:12.0];
+        _mj_foot.stateLabel.textColor = [UIColor clmHex:0x666666];
+        
+    }
+    return _mj_foot;
+}
+-(void)headerRefreshData{
+   
+    [self loadDetailDataWithWithType:1 andNum:@"0"];
+    
+    
+}
+-(void)footerRefreshData{
+    
+    
+    
+    [self loadDetailDataWithWithType:2 andNum:self.detailArr.lastObject[0]];
+    
 }
 - (void)fiveContrast {
     _btomView.hidden = YES;
@@ -142,6 +217,15 @@
     [_fiveSpeedBtn cm_setButtonAttrWithClick:_fiveSpeedBtn];
     [_detailBtn cm_setButtonAttr:_detailBtn];
     _isPitch = YES;
+    _curTableView.scrollEnabled=NO;
+    
+    [_curTableView.mj_header endRefreshing];
+    [_curTableView.mj_footer endRefreshing];
+     _curTableView.mj_header.hidden=YES;
+     _curTableView.mj_footer.hidden=YES;
+    // [_curTableView.mj_header removeMeFromView:self];
+    // [_curTableView.mj_footer removeMeFromView:self];
+    // [_curTableView reloadData];
 }
 
 - (void)contrastIsPitch {

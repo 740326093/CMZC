@@ -8,9 +8,8 @@
 
 #import "CMJackpotViewController.h"
 #import "CMJackpotTableViewCell.h"
-#import "CMMixNumberViewController.h"
 #import "CMWinning.h"
-
+#import "CMJackPotDetailController.h"
 
 @interface CMJackpotViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *curTableView;
@@ -91,7 +90,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    CMMixNumberViewController *mixNumberVC = (CMMixNumberViewController *)[CMMixNumberViewController initByStoryboard];
+  
+    CMJackPotDetailController *mixNumberVC = (CMJackPotDetailController *)[CMJackPotDetailController initByStoryboard];
     CMWinning *winning = self.winningListArr[indexPath.row];
     mixNumberVC.win = winning;
     

@@ -19,4 +19,5 @@
 @property(nonatomic,assign)NSInteger  ProductId;
 @property (nonatomic,assign) BOOL isJPush;
 @property (nonatomic,assign) BOOL showRefresh;
+@property (nonatomic,assign) BOOL fromAd;
 @end

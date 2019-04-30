@@ -23,6 +23,7 @@
 
 -(void)awakeFromNib{
     [super awakeFromNib];
+    
     _curTableView.delegate=self;
     _curTableView.dataSource=self;
     
@@ -63,6 +64,7 @@
 -(CMApplyNoDataView*)dataView{
     if (!_dataView) {
         _dataView= [CMApplyNoDataView initByNibForClassName];
+        
         [_dataView updateNoDataImage:@"applyNoDataImage_03" andnoDataTitle:@"暂无承销项目" withApplyString:@"申请承销"];
        
     }

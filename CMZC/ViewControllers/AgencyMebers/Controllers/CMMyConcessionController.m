@@ -131,7 +131,7 @@
                 //有数据
                 
                 id tmp = [NSJSONSerialization JSONObjectWithData:[responseObj[@"data"] dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingAllowFragments | NSJSONReadingMutableLeaves | NSJSONReadingMutableContainers error:nil];
-                
+               
                 if (tmp) {
                     
                     

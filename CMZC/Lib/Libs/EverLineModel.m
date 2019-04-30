@@ -70,8 +70,11 @@
     NSString       *section = [serie objectForKey:@"section"];
     
     YAxis *yaxis = [[[chart.sections objectAtIndex:[section intValue]] yAxises] objectAtIndex:[yAxis intValue]];
+    
     if([serie objectForKey:@"decimal"] != nil){
+        
         yaxis.decimal = [[serie objectForKey:@"decimal"] intValue];
+        
     }
     
     float value = [[[data objectAtIndex:chart.rangeFrom] objectAtIndex:0] floatValue];
@@ -104,21 +107,21 @@
         float percent = MAX(fabs(percentMax), fabs(percentMin)) ;
         float maxY = closeYesterday * (1 + percent);
         float minY = closeYesterday * (1 - percent);
-        float closeY =closeYesterday+2;
-        if (maxY > closeY) {
+       // float closeY =closeYesterday+2;
+        //if (maxY > closeY) {
             [yaxis setMax:maxY];
-        } else {
-            [yaxis setMax:closeYesterday+2];
-        }
-        CGFloat closeMinY = closeYesterday-2;
-        if (minY < closeMinY) {
+       // } else {
+          //  [yaxis setMax:closeYesterday+2];
+       // }
+       // CGFloat closeMinY = closeYesterday-2;
+       // if (minY < closeMinY) {
             [yaxis setMin:minY];
-        } else {
-            [yaxis setMin:closeYesterday-2];
-        }
+        //} else {
+           // [yaxis setMin:closeYesterday-2];
+        //}
         
         
-       // NSLog(@"min:%f,max:%f，closeY :%f",minY,maxY,closeYesterday);
+    //  NSLog(@"min:%f,max:%f",minY,maxY);
         
         return;
     }

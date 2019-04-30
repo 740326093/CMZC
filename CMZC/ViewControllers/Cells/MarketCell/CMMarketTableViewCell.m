@@ -39,9 +39,14 @@
     
 }
 - (void)setDataListArr:(NSArray *)dataListArr {
+    
     _serialLab.text = dataListArr[0];
     _nameLab.text = dataListArr[1];
+    
     _presentLab.text = dataListArr[2];
+    if([dataListArr[2]floatValue]<=0.00){
+        _presentLab.text=@"--";
+    }
     CGFloat uploat = [dataListArr[3] floatValue];
     
     if (uploat>0) { //涨

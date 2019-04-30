@@ -15,5 +15,5 @@
 
 
 @interface CMAgencyHeadFootView : UITableViewHeaderFooterView
-@property(nonatomic,assign)id <CMAgencyHeadFootViewDelegate>delegate;
+@property(nonatomic,weak)id <CMAgencyHeadFootViewDelegate>delegate;
 @end

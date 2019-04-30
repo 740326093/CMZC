@@ -53,7 +53,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
    // _isConvert = NO;
-   
+   [[IQKeyboardManager sharedManager]setEnable:NO];
     nameStr = @"000000";
     _titleView.backgroundColor = [UIColor blackColor];
     /*不用这个了
@@ -165,7 +165,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    //为了测试。先注销了。
+
     
     NSArray *dataArr = self.marketArr[indexPath.row];
     
@@ -201,6 +201,7 @@
         }
        
     }
+    
     if (self.webSocket) {
         [self.webSocket send:codeStr];
     }
@@ -210,26 +211,34 @@
     [_codeTextField becomeFirstResponder];
     _bottmView.hidden = NO;
     _bgView.hidden = NO;
-    
-    
 }
 
 - (void)keyboardWillShow:(NSNotification *)aNotification {
     //获取键盘的高度
-//    NSDictionary *userInfo = [aNotification userInfo];
-//    NSValue *aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
-//    CGRect keyboardRect = [aValue CGRectValue];
-//    NSInteger height = keyboardRect.size.height;
-    [UIView animateWithDuration:0.25 animations:^{
-        _botmViewbtomLayout.constant = 49.0f;
-    }];
+    NSDictionary *userInfo = [aNotification userInfo];
+    NSValue *aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
+    CGRect keyboardRect = [aValue CGRectValue];
+    NSInteger height = keyboardRect.size.height;
+  //  -40-45
+ 
+//    [UIView animateWithDuration:0.25 animations:^{
+//                    _botmViewbtomLayout.constant =height;
+//               }];
+    if (self.tabBarController.tabBar.isHidden==YES) {
+        [UIView animateWithDuration:0.25 animations:^{
+            _botmViewbtomLayout.constant =height;
+        }];
+         }else{
+        [UIView animateWithDuration:0.25 animations:^{
+            _botmViewbtomLayout.constant =height-self.tabBarController.tabBar.bounds.size.height;
+             }];
+            
+         }
 }
 - (void)keyboardWillHide:(NSNotification *)aNotification {
    _botmViewbtomLayout.constant = 0.0f;
     _bottmView.hidden = YES;
    _bgView.hidden = YES;
-   
-    
 }
 
 
@@ -249,8 +258,6 @@
         _botmViewbtomLayout.constant = 0.0f;
     }];
     if (![_codeTextField.text isEqualToString:@""]) {
-        
-    
     CMProductDetailsViewController *productVC = (CMProductDetailsViewController *)[CMProductDetailsViewController initByStoryboard];
     productVC.codeName = _codeTextField.text;
     [self.navigationController pushViewController:productVC animated:YES];
@@ -271,6 +278,7 @@
         } else {
             _descRange = CMStringWithFormat(index);
             codeStr = [NSString stringWithFormat:@"%ld:range:desc:1:10",(long)index];
+            
             if (self.webSocket) {
                 [self.webSocket send:codeStr];
             }
@@ -289,7 +297,6 @@
 - (CMErrorView *)errorView {
     if (!_errorView) {
         float heightView = [UIApplication sharedApplication].statusBarFrame.size.height+self.navigationController.navigationBar.frame.size.height+40;
-        
         _errorView = [[CMErrorView alloc] initWithFrame:CGRectMake(0, heightView, CMScreen_width(), CMScreen_height()) bgImageName:@"chiyou_trade"];
     }
     return _errorView;
@@ -324,12 +331,10 @@
 - (void)reconnect {
     self.webSocket.delegate = nil;
     [self.webSocket close];
-    
     self.webSocket = [[SRWebSocket alloc] initWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:CMStringWithPickFormat(kWebSocket_url, @"market/product?")]]];//@"ws://zcapi.58cm.com:8081/market/product?"
+    
     self.webSocket.delegate = self;
-    
     //self.title = @"Opening Connection...";
-    
     [self.webSocket open];
     
 }
@@ -344,7 +349,7 @@
 
 - (void)webSocket:(SRWebSocket *)webSocket didFailWithError:(NSError *)error{
     NSLog(@":( Websocket Failed With Error %@", error);
-    
+
    // self.title = @"Connection Failed! (see logs)";
     self.webSocket = nil;
 }

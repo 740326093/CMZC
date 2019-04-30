@@ -29,7 +29,7 @@
 -(void)enterAppMainController{
     
   AppDelegate *app = [AppDelegate shareDelegate];
-    app.window.rootViewController = app.viewController;
+  app.window.rootViewController = app.viewController;
     NSLog(@"点击立即体验");
     
 }

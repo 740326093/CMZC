@@ -209,6 +209,7 @@ typedef NS_ENUM(NSUInteger, CMHTTPRequestStatusCode) {
     NSString *urlStr = [NSString stringWithFormat:@"%@%@",kCMBaseApiURL,urlScheme];
     NSMutableURLRequest *request = [[AFJSONRequestSerializer serializer] requestWithMethod:@"GET" URLString:urlStr parameters:arguments error:nil];
     [request setValue:string forHTTPHeaderField:@"Authorization"];
+    
     NSURLSessionTask *task = [_manage dataTaskWithRequest:request
                                         completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
                                             if (error) {

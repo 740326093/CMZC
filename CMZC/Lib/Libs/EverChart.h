@@ -132,3 +132,4 @@
 -(void)setValuesForYAxis:(NSDictionary *)serie;
 
 @end
+

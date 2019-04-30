@@ -20,7 +20,6 @@
                            @"pageindex":CMNumberWithFormat(page),
                            @"pagesize":CMNumberWithFormat(size)
                            };
-    
     [CMRequestAPI postDataFromURLScheme:kCMApplyListURL argumentsDictionary:dict success:^(id responseObject) {
 
         NSArray *dataArr = responseObject[@"data"][@"rows"];
@@ -30,7 +29,6 @@
             CMPurchaseProduct *analys = [CMPurchaseProduct yy_modelWithDictionary:dict];
             [analysArr addObject:analys];
         }
-        
         BOOL isPage = NO;
         if (page < [responseObject[@"data"][@"page"] integerValue]) {
             isPage = YES;
@@ -42,7 +40,39 @@
     }];
     
 }
-
++ (void)cm_applyNewProductListOnPageIndex:(NSInteger)page
+                                 pageSize:(NSInteger)size
+                                productType:(NSInteger)typeId
+                                  success:(void(^)(NSArray *productArr,BOOL isPage))success
+                                     fail:(void(^)(NSError *error))fail{
+    
+    NSDictionary *dict = @{
+                           @"type":CMNumberWithFormat(typeId),
+                           @"pageIndex":CMNumberWithFormat(page),
+                           @"pagesize":CMNumberWithFormat(size),
+                          // @"productOrderSort":CMNumberWithFormat(index)
+                           };
+    
+    [CMRequestAPI postDataFromURLScheme:KNewProductURL argumentsDictionary:dict success:^(id responseObject) {
+        
+        NSArray *dataArr = responseObject[@"data"][@"rows"];
+        
+        NSMutableArray *analysArr = [NSMutableArray array];
+        for (NSDictionary *dict in dataArr) {
+            CMPurchaseProduct *analys = [CMPurchaseProduct yy_modelWithDictionary:dict];
+            [analysArr addObject:analys];
+        }
+        BOOL isPage = NO;
+        if (page < [responseObject[@"data"][@"page"] integerValue]) {
+            isPage = YES;
+        }
+        success(analysArr,isPage);
+        
+    } fail:^(NSError *error) {
+        fail(error);
+    }];
+    
+}
 
 
 

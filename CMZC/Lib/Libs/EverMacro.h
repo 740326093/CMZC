@@ -21,8 +21,8 @@
 #define kFenShiVolumeYFontColor [UIColor colorWithRed:128/255.0 green:128/255.0 blue:128/255.0 alpha:1]       //成交量图：Y轴刻度文字颜色
 #define kBtnBgColor [UIColor colorWithRed:51 green:51 blue:51             alpha:1]       //Y 轴中 btn 背景色
 
-#define kFenShiAvgColor [UIColor colorWithRed:252/255.0 green:175/255.0 blue:45/255.0          alpha:1]       //均线颜色
-#define kFenShiNowColor [UIColor colorWithRed:3/255.0 green:3/255.0 blue:255/255.0               alpha:1]       //实线颜色
+#define kFenShiAvgColor [UIColor colorWithRed:144/255.0 green:169/255.0 blue:15/255.0          alpha:1]       //均线颜色
+#define kFenShiNowColor [UIColor colorWithRed:255/255.0 green:102/255.0 blue:0/255.0               alpha:1]       //实线颜色
 
 #define kFenShiUpColor [UIColor colorWithRed:252/255.0 green:15/255.0 blue:29/255.0            alpha:1]       //成交量上涨颜色
 #define kFenShiDownColor [UIColor colorWithRed:22/255.0 green:151/255.0 blue:25/255.0          alpha:1]       //成交量下跌颜色

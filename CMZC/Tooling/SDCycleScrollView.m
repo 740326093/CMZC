@@ -350,17 +350,10 @@ NSString * const ID = @"SDCycleScrollViewCell";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     SDCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:ID forIndexPath:indexPath];
-    
     long itemIndex = [self pageControlIndexWithCurrentCellIndex:indexPath.item];
-  
     CMBanners *bar=self.imagePathsGroup[itemIndex];
     NSString *imagePath = bar.pictureurl;
-    
-    
-    
     [cell.imageView sd_setImageWithURL:[NSURL URLWithString:imagePath] placeholderImage:self.placeholderImage options:SDWebImageAllowInvalidSSLCertificates];
-    
-    
     return cell;
 }
 

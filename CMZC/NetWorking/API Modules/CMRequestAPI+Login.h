@@ -75,6 +75,29 @@
                          success:(void(^)(BOOL isWin))success
                             fail:(void(^)(NSError *error))fail;
 
+
+/**
+ *  获取短信验证码
+ *
+ *  @param number  手机号
+  * @param token   手势成功token
+ 
+ */
++ (void)cm_toolFetchShortMessagePhoneNumber:(NSString*)number andGestureToken:(NSString*)token
+                                    success:(void(^)(BOOL isSucceed))success
+                                       fail:(void(^)(NSError *error))fail;
+/**
+ *  短信验证码登录
+ *
+ *  @param number  手机号
+ * @param code   短信验证码
+ 
+ */
+
++ (void)cm_toolFetchShortMessageLogin:(NSString*)number andSMSCode:(NSString*)code
+                                    success:(void(^)(BOOL isSucceed))success
+                                       fail:(void(^)(NSError *error))fail;
+
 @end
 
 

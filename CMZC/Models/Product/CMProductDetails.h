@@ -27,7 +27,7 @@
 @property (nonatomic,copy) NSString *picture; //产品图片地址
 @property (nonatomic,copy) NSString *typeName; //产品类型名称  不同类型
 @property (nonatomic,copy) NSString *tradecode; //产品交易代码
-@property (nonatomic,copy) NSString *targetamount; //众筹金额
+@property (nonatomic,copy) NSString *targetamount; //众投金额
 @property (nonatomic,copy) NSString *currentamount; //已申购金额
 @property (nonatomic,copy) NSString *income; //预计收益
 @property (nonatomic,copy) NSString *incometype; //收益类型
@@ -50,7 +50,7 @@
 @property (nonatomic,copy) NSString *cansubscribe; //是否可申购
 
 @property (strong, nonatomic) CMLeadinVestor *leadinvestor;
-
+@property(nonatomic,strong)UIColor *statusColor;
 
 @end
 

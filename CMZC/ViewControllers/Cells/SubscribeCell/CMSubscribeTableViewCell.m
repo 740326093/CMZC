@@ -17,7 +17,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *positionLab; //位置
 @property (weak, nonatomic) IBOutlet UILabel *titleLab; //名字
 @property (weak, nonatomic) IBOutlet UILabel *descriptionLab; //产品描述
-@property (weak, nonatomic) IBOutlet UILabel *targetAmountLab; //众筹金额
+@property (weak, nonatomic) IBOutlet UILabel *targetAmountLab; //众投金额
 @property (weak, nonatomic) IBOutlet UILabel *currentAmountLab; //已申购金额
 @property (weak, nonatomic) IBOutlet UILabel *leadInvestorNameLab; //领头人
 @property (weak, nonatomic) IBOutlet UILabel *incomeLab; //预期收益
@@ -28,6 +28,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *liveBtn; //路演直播
 @property (weak, nonatomic) IBOutlet UILabel *jyCodeLab;
 @property (weak, nonatomic) IBOutlet UIButton *applyBtn;
+@property (weak, nonatomic) IBOutlet UIImageView *listedImageView;
+@property (weak, nonatomic) IBOutlet UILabel *ListedLab;
 
 
 @end
@@ -48,44 +50,60 @@
     [_titPictureImage sd_setImageWithURL:[NSURL URLWithString:product.picture] placeholderImage:kCMDefault_imageName];
     _growthValueLab.attributedText = product.attributed;
     _positionLab.text = product.position;
-    _descriptionLab.text = product.descri;
-    _targetAmountLab.text = product.targetamount;
-    _currentAmountLab.text = product.currentamount;
+   // _descriptionLab.text = product.descri;
+    
+  
     if ([product.currentamount isEqualToString:@"0份"]) {
          _currentAmountLab.text=@"--";
     }
+   // _targetAmountLab.text = product.targetamount;
+    _targetAmountLab.text = product.leadinvestor;
+    _currentAmountLab.text = product.bjSecurity;
+    _leadInvestorNameLab.text = product.startMoney;
     
-    _leadInvestorNameLab.text = product.leadinvestor;
     _titleLab.text = product.title;
     NSString * incomeString = [product.income substringToIndex:product.income.length-1];
     _incomeLab.text = incomeString;
     _openingDeadlineLab.text = [NSString stringWithFormat:@"%@可转让",product.deadline];
  
     [_applyBtn setTitle:product.status forState:UIControlStateNormal];
+    [_applyBtn setBackgroundColor:product.statusColor];
     if (product.isNextPage) {
         //_applyLab.textColor = [UIColor whiteColor];
         if ([product.status isEqualToString:@"立即申购"]) {
             
-            [_applyBtn setBackgroundColor:[UIColor clmHex:0xff6400]];
+          //  [_applyBtn setBackgroundColor:[UIColor clmHex:0xff6400]];
             [_applyBtn addTarget:self action:@selector(subscribeEventClcik) forControlEvents:UIControlEventTouchUpInside];
             
         } else {
            
-            [_applyBtn setBackgroundColor:[UIColor clmHex:0xff6400]];
+           // [_applyBtn setBackgroundColor:[UIColor clmHex:0xff6400]];
         }
         
     } else {
        
-        [_applyBtn setBackgroundColor:[UIColor clmHex:0xcccccc]];
+       // [_applyBtn setBackgroundColor:[UIColor clmHex:0xcccccc]];
     }
     
-    self.littleTimeLab.text = product.littleTime;
+   // self.littleTimeLab.text = product.littleTime;
     if (product.liveVideoID > 0) {
         _liveBtn.hidden = NO;
     } else {
         _liveBtn.hidden = YES;
     }
     _jyCodeLab.text = [NSString stringWithFormat:@"(%@)",product.jyCode];
+    _ListedLab.text=product.listedString;
+    if (product.listedString.length>0) {
+        _listedImageView.hidden=NO;
+        
+    }else{
+        
+        _listedImageView.hidden=YES;
+       
+    }
+    
+    
+    
 }
 //直播
 - (IBAction)liveLock:(UIButton *)sender {

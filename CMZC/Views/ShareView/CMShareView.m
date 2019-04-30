@@ -82,7 +82,8 @@
         make.height.equalTo(@40);
         
     }];
-  
+    
+  [self showView];
 }
 
 -(UIView*)bgView{
@@ -224,8 +225,7 @@
             MyLog(@"************Share fail with error %ld*********",error.code);
             if (error.code==2008) {
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示"
-                                                                message:@"应用未安装"
-                                                               delegate:nil
+                                                                message:@"应用未安装"   delegate:nil
                                                       cancelButtonTitle:@"取消"
                                                       otherButtonTitles:nil, nil];
               
@@ -248,6 +248,11 @@
     }];
     
     
+}
+
+-(void)showView{
+      UIWindow *window = [UIApplication sharedApplication].windows.firstObject;
+      [window addSubview:self];
 }
 
 - (void)remove {

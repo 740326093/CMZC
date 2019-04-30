@@ -37,6 +37,7 @@
     _nameLab.text = win.pName;
     _numberLab.text = win.jyCode;
     _moneyLab.text = win.jpamount;
+    _matchNumberLab.text=win.numCount;
     _winningAmountLab.text = win.jpamountForSucess;
     _winningNumberLab.text = win.zqNum;
     

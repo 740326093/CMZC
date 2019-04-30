@@ -27,7 +27,7 @@
     // Do any additional setup after loading the view from its nib.
     self.title = @"帮助中心";
     self.view.backgroundColor=[UIColor whiteColor];
-      [self.view addSubview:self.curTableView];
+    [self.view addSubview:self.curTableView];
     //由于是静态页面。所以写了个亿plist文件用来存放数据
     NSString *pathFile = [[NSBundle mainBundle] pathForResource:@"many.plist" ofType:nil];
     _helpDataArr = [[NSArray alloc] initWithContentsOfFile:pathFile];

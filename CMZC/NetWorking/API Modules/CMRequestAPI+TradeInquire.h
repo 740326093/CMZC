@@ -166,6 +166,27 @@
 + (void)cm_tradeFetchDrawProductPage:(NSInteger)page
                              success:(void(^)(NSArray *dataArr,BOOL isPage))success
                                 fail:(void(^)(NSError *error))fail;
+
+
+
+/**
+ *  起始配号
+ *
+ *  @param page    页码
+ */
++ (void)cm_tradeBeginEndNumProductPid:(NSInteger)pid
+                            success:(void(^)(NSArray *dataArr))success
+                               fail:(void(^)(NSError *error))fail;
+
+/**
+ *  普通配号
+ *
+ *  @param page    页码
+ */
++ (void)cm_tradeCustomNumProductPid:(NSInteger)pid
+                             success:(void(^)(NSArray *dataArr))success
+                                fail:(void(^)(NSError *error))fail;
+
 /**
  *  企业信息查询
  *

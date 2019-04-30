@@ -45,7 +45,7 @@
 }
 
 
-//众筹宝
+//众投宝
 + (void)cm_homeFetchProductFundlistPageSize:(NSInteger)page success:(void(^)(NSArray *fundlistArr))success fail:(void(^)(NSError *error))fail {
 //   NSDictionary *dict = @{
 //                           @"pagesize":CMNumberWithFormat(page)
@@ -285,7 +285,21 @@
     }];
 }
 
-
+//轮播图
++ (void)cm_homeShowOtherProductBannersSuccess:(void (^)(NSArray *))success fail:(void (^)(NSError *))fail {
+    [CMRequestAPI postDataFromURLScheme:KShowOtherProductURL argumentsDictionary:nil success:^(id responseObject) {
+        NSArray *dataArr = responseObject[@"data"][@"rows"];
+        NSMutableArray *transArr = [NSMutableArray array];
+        for (NSDictionary *dict in dataArr) {
+            CMBanners *bans = [CMBanners yy_modelWithDictionary:dict];
+            [transArr addObject:bans];
+        }
+        success(transArr);
+    } fail:^(NSError *error) {
+        fail(error);
+    }];
+    
+}
 
 @end
 

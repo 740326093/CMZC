@@ -90,7 +90,7 @@
                 }
                     break;
                 case 2:
-                {
+              {
                     {//我的倍利宝
                         CMCommWebViewController *commWebVC = (CMCommWebViewController *)[[UIStoryboard mainStoryboard] viewControllerWithId:@"CMCommWebViewController"];
                         commWebVC.urlStr = CMStringWithPickFormat(kCMMZWeb_url, @"/Account/FundSubscribeList");

@@ -72,6 +72,15 @@
 + (void)cm_marketTransferContractDetail:(NSString *)code
                                 success:(void(^)(NSArray *contractArr))success
                                    fail:(void(^)(NSError *error))fail;
+
+/**
+ 产品行情成交明细分页
+ 
+ @param pCode 产品编码
+ @param success
+ @param fail
+ */
++ (void)cm_marketFetchProductinfoPcode:(NSString *)pCode newOrHistoryData:(NSInteger)type andNum:(NSString*)num andPage:(NSInteger)page  success:(void(^)(NSArray *productArr,NSInteger totalNum))success   fail:(void(^)(NSError *error))fail;
 /**
  *  产品行情分时行情
  *
@@ -107,6 +116,8 @@
 + (void)cm_marketFetchProductinfoPcode:(NSString *)pCode
                                success:(void(^)(NSArray *productArr))success
                                   fail:(void(^)(NSError *error))fail;
+
+
 
 
 /**

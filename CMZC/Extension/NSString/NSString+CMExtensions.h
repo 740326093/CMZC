@@ -61,6 +61,8 @@
  */
 - (BOOL)isPureInt:(NSString*)string;
 
+
++ (BOOL) checkUserEmail:(NSString *)email;
 @end
 #pragma mark - 网络请求错误提示语
 
@@ -110,6 +112,5 @@
  */
 - (CGRect)getHeightOrWidthIncomingSize:(CGSize)size
                            icomingFont:(CGFloat)sysFont;
-#pragma mark 匹配邮箱
-+ (BOOL) checkUserEmail:(NSString *)email;
+
 @end

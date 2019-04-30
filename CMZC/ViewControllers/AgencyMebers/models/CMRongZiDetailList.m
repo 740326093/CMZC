@@ -10,7 +10,7 @@
 
 @implementation CMRongZiDetailList
 
--(BOOL)isIsLingTou{
+-(BOOL)IsLingTou{
     
     if (_IsLingTouOrg==1) {
         return YES;

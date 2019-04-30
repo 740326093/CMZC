@@ -18,6 +18,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *incomeUnitslab;
 @property (weak, nonatomic) IBOutlet UILabel *concessionUnitsLab;
 @property (weak, nonatomic) IBOutlet UILabel *concessionIncomeUnitsLab;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *circleTopConsant;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *unitTopConsant;
 
 @end
 @implementation CMConcessionHeadView
@@ -39,6 +41,7 @@
             _incomeUnitslab.text=@"承销金额(万元)";
             _concessionUnitsLab.text=@"实际承销(万元)";
             _concessionIncomeUnitsLab.text=@"承销进度";
+            _circleTopConsant.constant=-5;
             break;
         case CMMyConcessionDetail:
             _headState.hidden=NO;
@@ -47,6 +50,7 @@
             _incomeUnitslab.text=@"实际承销(万元)";
             _concessionUnitsLab.text=@"佣金(%)";
             _concessionIncomeUnitsLab.text=@"佣金金额(元)";
+            _unitTopConsant.constant=-5;
             break;
         case CMFinancingDetail:
             _headState.hidden=YES;
@@ -55,7 +59,7 @@
             _incomeUnitslab.text=@"融资金额(万元)";
             _concessionUnitsLab.text=@"已申购(万元)";
             _concessionIncomeUnitsLab.text=@"申购进度";
-            
+            _circleTopConsant.constant=-5;
             break;
         default:
             break;
@@ -70,7 +74,6 @@
             _headTitle.text=ApplyModel.cpName;
             _incomeLa.text=ApplyModel.Amount_CX;
             _concessionLab.text=ApplyModel.Amount_SX;
-            
             _circleView.progress=ApplyModel.progress;
            
           //  break;
@@ -107,6 +110,7 @@
     _headTitle.text=RongZiDetailTopModel.cpTitle;
     _incomeLa.text=RongZiDetailTopModel.Amount;
     _concessionLab.text=RongZiDetailTopModel.Amount_SG;
+    _circleView.realProgress=YES;
     _circleView.progress=RongZiDetailTopModel.Percent;
     
     

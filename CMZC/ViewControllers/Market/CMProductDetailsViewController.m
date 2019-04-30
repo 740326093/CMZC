@@ -35,7 +35,7 @@
 #import "CMTopicReplyViewController.h"
 
 
-@interface CMProductDetailsViewController ()<UITableViewDelegate,UITableViewDataSource,CMCommentTableViewCellDelegate,SRWebSocketDelegate,CMProductDetailsDelegate,CMoptionReleaseTableViewCellDelegate,CMReplyTableViewCellDelegate,UIGestureRecognizerDelegate> {
+@interface CMProductDetailsViewController ()<UITableViewDelegate,UITableViewDataSource,CMCommentTableViewCellDelegate,CMProductDetailsDelegate,CMoptionReleaseTableViewCellDelegate,CMReplyTableViewCellDelegate,UIGestureRecognizerDelegate> {
     BOOL _isFirst;
     BOOL _isShow; //展示全部
     NSString *_htmlStr; //html数据
@@ -58,9 +58,9 @@
 
 @property (strong, nonatomic) NSMutableArray *productArr;
 
-@property (strong, nonatomic) NSTimer *productTimer; //定时器
+//@property (strong, nonatomic) NSTimer *productTimer; //定时器
 
-@property (strong, nonatomic) SRWebSocket *webSocket;
+//@property (strong, nonatomic) SRWebSocket *webSocket;
 @property (strong, nonatomic) CMTimer *timer;
 @property (weak, nonatomic) IBOutlet UIView *bgView; //背景view  用于点击使用
 @property (weak, nonatomic) IBOutlet UIView *btmView; //存放输入框和确定按钮
@@ -91,7 +91,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+     [[IQKeyboardManager sharedManager]setEnable:NO];
     [self showDefaultProgressHUD];
     [CMCommonTool executeRunloop:^{
         [self hiddenAllProgressHUD];
@@ -132,23 +132,25 @@
     
     //_codeName = @"000124";
     _htmlStr = CMStringWithPickFormat(kCMMZWeb_url, CMStringWithPickFormat(@"/Products/Investment.aspx?pcode=", self.codeName));
+    
+    SaveDataToNSUserDefaults(CMStringWithFormat(0), @"keyIndex");
+    
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isOK"];
-    
 }
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     //打开定时器
-    [self requestOpenTimer];  //先注释了
+  [self requestOpenTimer];  //先注释了
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     //关闭定时器
     DeleteDataFromNSUserDefaults(@"keyIndex");
-    if (_timer) {
+  if (_timer) {
         [_timer close];
     }
    
@@ -187,8 +189,9 @@
         [self.productArr removeAllObjects];
         [self.productArr addObjectsFromArray:productArr];
         
-        //NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-        [_curTableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+        [_curTableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:(UITableViewRowAnimation)UITableViewRowAnimationNone];
+      //  [_curTableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
         //[_curTableView endUpdates];
         if (!_isFirst) {
             [[NSNotificationCenter defaultCenter] postNotificationName:@"isFirstTime" object:self userInfo:@{@"earlyMorning":productArr[0][1]}];
@@ -214,11 +217,19 @@
 }
 //信息披露
 - (void)requestAnnouncement {
+    
     [CMRequestAPI cm_marketFetchProductNoticePCode:_codeName pageIndex:1 success:^(NSArray *noticeArr) {
+     
         _commDataArr = noticeArr;
+        if (_commDataArr.count>0) {
+            
+       
          [_curTableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
+        
+        }
     } fail:^(NSError *error) {
         MyLog(@"行情公告信息请求失败");
+     
     }];
 }
 //企业信息
@@ -385,6 +396,7 @@
                 break;
             case CMProductSelectTypeNounce: //信息披露
             {
+                
                 CMProductNotion *productCom = _commDataArr[indexPath.row];
                 CGFloat height = [productCom.title getHeightIncomingWidth:CMScreen_width()-30  incomingFont:14];
                 return 63-14 + height+10;
@@ -559,6 +571,7 @@
                 break;
             case 2: //信息披露
                 self.type = CMProductSelectTypeNounce;
+                
                 [self requestAnnouncement]; //公告
                 [_curTableView hideFooter];
                 break;
@@ -684,6 +697,7 @@
     if (!commentCell) {
         commentCell = [[NSBundle mainBundle] loadNibNamed:@"CMNewCommentTableViewCell" owner:nil options:nil].firstObject;
     }
+    
     commentCell.selectionStyle = UITableViewCellSelectionStyleNone;
     commentCell.productNotion = _commDataArr[indexPath.row];
     return commentCell;
@@ -725,6 +739,7 @@
             self.curTableView.contentOffset = CGPointMake(0, 0);
         }];
     };
+    
     htmlWeb.htmlString = _htmlStr;
     return htmlWeb;
 }
@@ -746,19 +761,15 @@
 }
 //分享
 - (IBAction)shareBtnClick:(UIButton *)sender {
-    UIWindow *window = [UIApplication sharedApplication].windows.firstObject;
-   // CMShareView *shareView = [[NSBundle mainBundle] loadNibNamed:@"CMShareView" owner:nil options:nil].firstObject;
+ 
     CMShareView *shareView=[[CMShareView alloc]initWithFrame:CGRectMake(0, 0, CMScreen_width(), CMScreen_height())];
-    
-    shareView.center = window.center;
-    shareView.frame = CGRectMake(0, 0, CGRectGetWidth(window.frame), CGRectGetHeight(window.frame));
     shareView.contentUrl = CMStringWithPickFormat(kCMMZWeb_url, CMStringWithPickFormat(@"/Products/Detail?pcode=",self.codeName));
     shareView.titleConten = CMStringWithPickFormat(_versionPatch, @",AAA+安全投资，优质好项目10倍收益赚不停");
     shareView.controller=self;
-    NSString *content = [NSString stringWithFormat:@"预期收益%@(包含保底年收益%@+浮动)%@,具有多倍增值空间--新经版，只赚不赔的10倍原始股",_earnings,_guaranteed,_versionPatch];
-  shareView.contentStr = CMStringWithPickFormat(@"AAA+安全和新经板，只赚不赔的10原始股是固定的",content);
+    NSString *content = [NSString stringWithFormat:@"预期收益%@(包含保底年收益%@+浮动)%@,具有多倍增值空间--新经版，只赚不赔的10倍股",_earnings,_guaranteed,_versionPatch];
+  shareView.contentStr = CMStringWithPickFormat(@"AAA+安全和新经板，只赚不赔的10倍股是固定的",content);
     shareView.ShareImageName=[UIImage imageNamed:@"share_image"];
-    [window addSubview:shareView];
+    
 }
 
 //确定
@@ -798,7 +809,28 @@
 //    NSValue *aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
 //    CGRect keyboardRect = [aValue CGRectValue];
 //    NSInteger height = keyboardRect.size.height;
-     _bottomLayoutConstraint.constant = 50;
+     //_bottomLayoutConstraint.constant = 50;
+    //获取键盘的高度
+    NSDictionary *userInfo = [aNotification userInfo];
+    NSValue *aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
+    CGRect keyboardRect = [aValue CGRectValue];
+    NSInteger height = keyboardRect.size.height;
+    //  -40-45
+    
+    //    [UIView animateWithDuration:0.25 animations:^{
+    //                    _botmViewbtomLayout.constant =height;
+    //               }];
+    if (self.tabBarController.tabBar.isHidden==YES) {
+        [UIView animateWithDuration:0.25 animations:^{
+            _bottomLayoutConstraint.constant =height;
+        }];
+    }else{
+        
+        
+        [UIView animateWithDuration:0.25 animations:^{
+            _bottomLayoutConstraint.constant =height-self.tabBarController.tabBar.bounds.size.height;
+        }];
+    }
     
 }
 - (void)keyboardWillHide:(NSNotification *)aNotification {
@@ -957,6 +989,7 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+/*
 //初始化
 - (void)reconnect {
     self.webSocket.delegate = nil;
@@ -998,7 +1031,7 @@
 //        //  NSLog(@"---marketArrmarketArr-%ld",self.marketArr.count);
 //    }
     
-    [_curTableView reloadData];
+   // [_curTableView reloadData];
 }
 
 - (void)webSocket:(SRWebSocket *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean{
@@ -1011,6 +1044,7 @@
     NSString *reply = [[NSString alloc] initWithData:pongPayload encoding:NSUTF8StringEncoding];
     NSLog(@"---%@",reply);
 }
+ */
 #pragma mark -  CMProductDetailsDelegate
 - (void)cm_productDetailsViewCell:(CMProductDetailsTableViewCell *)product {
     //没有登录。跳转到登录页
@@ -1101,7 +1135,7 @@
 }
 //当self为UIScrollerView或其子类时,比如为UITableView添加手势时,必须添加此行代码,详见下方参考链接
 -(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer{
-   
+   MyLog(@"+++++++%@+++%@",gestureRecognizer,otherGestureRecognizer)
     return YES;
 }
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
@@ -1115,7 +1149,9 @@
     
 }
 
-
+-(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch{
+    return YES;
+}
 /*
 #pragma mark - Navigation
 
@@ -1125,5 +1161,8 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+
+
 
 @end

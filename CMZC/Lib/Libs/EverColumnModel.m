@@ -25,6 +25,7 @@
     NSMutableArray *data          = [serie objectForKey:@"data"];
     
     int            yAxis          = [[serie objectForKey:@"yAxis"] intValue];
+    
     int            section        = [[serie objectForKey:@"section"] intValue];
     
     YAxis *yaxis = [[[chart.sections objectAtIndex:section] yAxises] objectAtIndex:yAxis];
@@ -35,7 +36,7 @@
     //TOOD7
     
     //画柱状图
-    CGContextSetLineWidth(context, 0.8);
+    CGContextSetLineWidth(context, 1);
     for(int i=chart.rangeFrom;i<chart.rangeTo;i++){
         if(i == data.count){
             break;
@@ -46,6 +47,7 @@
         
         float value = [[[data objectAtIndex:i] objectAtIndex:0] floatValue];
         float ix  = sec.frame.origin.x+sec.paddingLeft+(i-chart.rangeFrom)*chart.plotWidth;
+        
         float iy = [chart getLocalY:value withSection:section withAxis:yAxis];
         
         float nowPri = [[[data objectAtIndex:i] objectAtIndex:1] floatValue];
@@ -66,7 +68,8 @@
                 CGContextSetStrokeColorWithColor(context, kFenShiDownColor.CGColor);
                 CGContextSetFillColorWithColor(context, kFenShiDownColor.CGColor);
             }
-            CGContextFillRect (context, CGRectMake (ix+chart.plotPadding, iy, chart.plotWidth-2*chart.plotPadding,[chart getLocalY:yaxis.baseValue withSection:section withAxis:yAxis]-iy));
+//            CGContextFillRect (context, CGRectMake (ix+chart.plotPadding, iy, chart.plotWidth-2*chart.plotPadding,[chart getLocalY:yaxis.baseValue withSection:section withAxis:yAxis]-iy));
+             CGContextFillRect (context, CGRectMake (ix+chart.plotPadding, iy, 1,[chart getLocalY:yaxis.baseValue withSection:section withAxis:yAxis]-iy));
             
         }else if(nowPri > prePri){ //上涨
             if(i == chart.selectedIndex){
@@ -76,7 +79,8 @@
                 CGContextSetStrokeColorWithColor(context, kFenShiUpColor.CGColor);
                 CGContextSetFillColorWithColor(context, kFenShiUpColor.CGColor);
             }
-            CGContextFillRect (context, CGRectMake (ix+chart.plotPadding, iy, chart.plotWidth-2*chart.plotPadding,[chart getLocalY:yaxis.baseValue withSection:section withAxis:yAxis]-iy));
+         //   CGContextFillRect (context, CGRectMake (ix+chart.plotPadding, iy, chart.plotWidth-2*chart.plotPadding,[chart getLocalY:yaxis.baseValue withSection:section withAxis:yAxis]-iy));
+               CGContextFillRect (context, CGRectMake (ix+chart.plotPadding, iy, 1,[chart getLocalY:yaxis.baseValue withSection:section withAxis:yAxis]-iy));
             
         }else if(nowPri == prePri){
 
@@ -87,17 +91,19 @@
                 CGContextSetStrokeColorWithColor(context, kFenShiEqualColor.CGColor);
                 CGContextSetFillColorWithColor(context, kFenShiEqualColor.CGColor);
             }
+//
+//            CGContextFillRect (context, CGRectMake (ix+chart.plotPadding, iy, chart.plotWidth-2*chart.plotPadding,[chart getLocalY:yaxis.baseValue withSection:section withAxis:yAxis]-iy));
+//
             
-            CGContextFillRect (context, CGRectMake (ix+chart.plotPadding, iy, chart.plotWidth-2*chart.plotPadding,[chart getLocalY:yaxis.baseValue withSection:section withAxis:yAxis]-iy));
-            
+             CGContextFillRect (context, CGRectMake (ix+chart.plotPadding, iy, 1,[chart getLocalY:yaxis.baseValue withSection:section withAxis:yAxis]-iy));
         }
         
     }
     
     //标记X轴时间，只标记首尾
-    NSString *fromDate = @"09:00";
-    NSString *middleDate = @"12:00/13:30";
-    NSString *toDate = @"16:30";
+    NSString *fromDate = @"09:30";
+    NSString *middleDate = @"11:30/13:00";
+    NSString *toDate = @"15:00";
     
     NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
     style.alignment = NSTextAlignmentLeft;
@@ -129,6 +135,7 @@
     }
     
     float value = [[[data objectAtIndex:chart.rangeFrom] objectAtIndex:0] floatValue];
+    
     if(!yaxis.isUsed){
         [yaxis setMax:value];
         [yaxis setMin:value];
@@ -167,6 +174,7 @@
         NSString *text = [NSString stringWithFormat:format,value];
         
         NSDictionary *tmp = @{@"text":text,@"color":color};
+        
         [label addObject:tmp];
     }
 }

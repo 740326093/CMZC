@@ -35,10 +35,10 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" usesAttributedText="YES" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="alU-5v-dq9">
-                        <rect key="frame" x="57" y="36" width="264.5" height="30"/>
+                        <rect key="frame" x="57" y="36" width="200" height="30"/>
                         <constraints>
+                            <constraint firstAttribute="width" constant="200" id="8UI-6j-EG0"/>
                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="KKp-Tf-rZH"/>
-                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="170" id="XEp-Hk-wGP"/>
                         </constraints>
                         <attributedString key="attributedText">
                             <fragment content="融资对接项目百亿资本联盟,融资速度快,最快两周">

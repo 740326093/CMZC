@@ -27,4 +27,6 @@
 
 @property(nonatomic,strong)CMBaseViewController *baseController;
 
+@property(nonatomic,assign)BOOL isHaveBank;
+
 @end

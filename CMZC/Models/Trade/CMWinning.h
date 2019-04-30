@@ -19,5 +19,6 @@
 @property (nonatomic,copy) NSString *zqNum; //中签数量
 @property (nonatomic,copy) NSString *phtime; //配号时间
 @property (nonatomic,copy) NSString *jptime; //竞拍时间
-
+@property (nonatomic,assign) NSInteger cpid; //竞拍时间
+@property (nonatomic,assign) NSInteger zid; //产品订单ID
 @end

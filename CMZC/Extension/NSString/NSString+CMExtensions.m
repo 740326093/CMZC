@@ -45,7 +45,7 @@
         return NO;
     }
     */
-    NSString *pattern = @"^1+[34578]+\\d{9}";
+    NSString *pattern = @"^1+[3456789]+\\d{9}";
     NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", pattern];
     BOOL isMatch = [pred evaluateWithObject:self];
     if (isMatch )

@@ -31,10 +31,13 @@
 @property (copy,nonatomic) NSString *realUrl;
 @property (strong,nonatomic) CMProductDetailBottomView*DetailBottomView;
 @property(strong,nonatomic)CMBLBDetailBottomView *BLBDetailBottomView;
-
 @property (strong,nonatomic) JSContext *context;
 @property (strong,nonatomic) CMJsModel *JsModel;
 @property (assign,nonatomic) BOOL isNotFirstLoad;
+@property (nonatomic,copy) NSString *shareTitle;
+@property (nonatomic,copy) NSString *contentTitle;
+@property (nonatomic,copy) NSString *imageUrl;
+
 @end
 
 @implementation CMCommWebViewController
@@ -43,10 +46,13 @@
     [super viewDidLoad];
     
  
-   
-    if ([CMAccountTool sharedCMAccountTool].currentAccount.userName.length >0) {
+    
+    
+    if ([CMAccountTool sharedCMAccountTool].isLogin) {
+    
+        
         [[CMTokenTimer sharedCMTokenTimer] cm_cmtokenTimerRefreshSuccess:^{
-            
+
             [self loadWebViewData];
         } fail:^(NSError *error) {
             UINavigationController *nav = [UIStoryboard loginStoryboard].instantiateInitialViewController;
@@ -78,8 +84,6 @@
     [leftBarBtn addTarget:self action:@selector(leftBarBtnClick) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *btnItem = [[UIBarButtonItem alloc] initWithCustomView:leftBarBtn];
     self.navigationItem.leftBarButtonItem = btnItem;
-   
-  
  self.navigationController.navigationBar.titleTextAttributes=@{NSForegroundColorAttributeName: [UIColor whiteColor], NSFontAttributeName: [UIFont boldSystemFontOfSize:17.0]};
     self.realUrl=_urlStr;
     _webView.hidden=YES;
@@ -134,15 +138,15 @@
 //  NSString *url=[[NSBundle mainBundle]pathForResource:@"JavaScriptTest" ofType:@"html"];
 //        NSURLRequest *request =[NSURLRequest requestWithURL:[NSURL URLWithString:url]];
        NSURLRequest *request =[NSURLRequest requestWithURL:[NSURL URLWithString:_urlStr]];
-
         //4.查看请求头
         [_webView loadRequest:request];
         _webView.scrollView.bounces = NO;
         _webView.scalesPageToFit = YES;
     } else {
+        
         [self LoadWebViewWithCookieAndUrl:_urlStr];
     }
-     [self showDefaultProgressHUD];
+        [self showDefaultProgressHUD];
 }
 
 -(void)LoadWebViewWithCookieAndUrl:(NSString*)urlStr{
@@ -186,55 +190,79 @@
                            [NSURL URLWithString:_urlStr],NSHTTPCookieOriginURL,
                            [NSDate dateWithTimeIntervalSinceNow:60],NSHTTPCookieExpires,
                            nil];
-    
     NSHTTPCookie *cookie = [NSHTTPCookie cookieWithProperties:prop1];
     [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookie:cookie];
     [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookieAcceptPolicy:NSHTTPCookieAcceptPolicyAlways];
+    
     
 }
 #pragma mark 分享
 -(void)shareView{
     
     
-    UIWindow *window = [UIApplication sharedApplication].windows.firstObject;
-//    CMShareView *shareView = [[NSBundle mainBundle] loadNibNamed:@"CMShareView" owner:nil options:nil].firstObject;
+
     CMShareView *shareView=[[CMShareView alloc]initWithFrame:CGRectMake(0, 0, CMScreen_width(), CMScreen_height())];
-    shareView.center = window.center;
-    shareView.frame = CGRectMake(0, 0, CGRectGetWidth(window.frame), CGRectGetHeight(window.frame));
    shareView.contentUrl =self.realUrl;
     shareView.titleConten = self.ProductDetails.title;
     shareView.controller=self;
-   NSString *content = [NSString stringWithFormat:@"一起来众筹,100%%保底保息,预期收益%@(包含保底年收益+浮动)[%@];",self.ProductDetails.income,self.ProductDetails.descri];
-   shareView.contentStr = content;
+//   NSString *content = [NSString stringWithFormat:@"一起来众投,100%%保底保息,预期收益%@(包含保底年收益+浮动)[%@];",self.ProductDetails.income,self.ProductDetails.descri];
+   shareView.contentStr = self.ProductDetails.descri;
    shareView.ShareImageName=[NSData dataWithContentsOfURL:[NSURL URLWithString:self.ProductDetails.picture]];
-    [window addSubview:shareView];
+   
 
 }
 -(void)pageShareView{
     
   //  MyLog(@"+++%@",self.realUrl);
-    UIWindow *window = [UIApplication sharedApplication].windows.firstObject;
+
     CMShareView *shareView=[[CMShareView alloc]initWithFrame:CGRectMake(0, 0, CMScreen_width(), CMScreen_height())];
-    shareView.center = window.center;
-    shareView.frame = CGRectMake(0, 0, CGRectGetWidth(window.frame), CGRectGetHeight(window.frame));
-    shareView.contentUrl =self.realUrl;
+     shareView.contentUrl =self.realUrl;
+     shareView.controller=self;
+    if(_fromAd){
+        
+        shareView.titleConten = self.shareTitle;
+        shareView.contentStr = self.contentTitle;
+        
+        if (self.imageUrl.length>0) {
+        shareView.ShareImageName=[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:self.imageUrl]]];
+           
+        }else{
+            
+          shareView.ShareImageName=[UIImage imageNamed:@"share_image"];
+        }
+        
+        return;
+    }
+    
+   
     shareView.titleConten = self.title;
     shareView.controller=self;
     NSString *content =nil;
-    if ([self.realUrl isEqualToString:@"http://m.xinjingban.com/listing.aspx"]) {
+    if ([self.realUrl isEqualToString:@"http://m.xjb51.com/listing.aspx"]||[self.realUrl isEqualToString:@"http://m.xinjingban.com/listing.aspx"]) {
       content= @"挂牌融资，就上新经板。十天免费融千万，IPO直通+转板。速度快、流程简单，一站式企业金融服务…";
     }else{
        content=shareView.titleConten;
     }
     shareView.contentStr = content;
     shareView.ShareImageName=[UIImage imageNamed:@"share_image"];
-    [window addSubview:shareView];
+  
     
 }
 - (void)refreshWebView
 {
-   [self loadWebViewData];
+  // [self loadWebViewData];
    
+    
+    if ([CMAccountTool sharedCMAccountTool].currentAccount.userName.length >0) {
+        [[CMTokenTimer sharedCMTokenTimer] cm_cmtokenTimerRefreshSuccess:^{
+            
+            [self loadWebViewData];
+        } fail:^(NSError *error) {
+        }];
+    } else {
+        [self loadWebViewData];
+    }
+    
 }
 
 -(CMProductDetailBottomView*)DetailBottomView{
@@ -281,18 +309,29 @@
     [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.getElementsByClassName('live_headbg')[0].hidden=true"];
     [webView stringByEvaluatingJavaScriptFromString:@"document.documentElements.getElementsByClassName('header')[0].hidden=true"];
      [webView stringByEvaluatingJavaScriptFromString:@"document.getElementsByClassName('header')[0].hidden=true"];
+//    [webView stringByEvaluatingJavaScriptFromString:@"document.getElementsByClassName('header ng-scope')[0].style.display='none'"];
+//
 
-  
+//    [webView stringByEvaluatingJavaScriptFromString:@" document.getElementsByTagName('p')[0].innerText='新经板'"];
+    
+    
+
+    
+    
     if (!webView.loading) {
         [self performSelector:@selector(webViewHiddenNot:) withObject:webView afterDelay:1.5];
   
     }
 
     self.title = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
+    self.shareTitle=self.title;
+    self.imageUrl=[webView stringByEvaluatingJavaScriptFromString:@" document.getElementsByTagName('img')[0].src"];
+    self.contentTitle=[webView stringByEvaluatingJavaScriptFromString:@" document.getElementsByTagName('p')[2].innerText"];
+    
     if(self.title.length>12){
         self.title=[NSString stringWithFormat:@"%@...",[self.title substringToIndex:11]];
     }
-    if ([self.title rangeOfString:@"连连支付"].location!=NSNotFound){
+    if ([self.title rangeOfString:@"认证支付"].location!=NSNotFound){
    // if ([self.title containsString:@"连连支付"]) {
         self.TopLayout.constant=-42;//隐藏连连导航
     }else{
@@ -345,7 +384,7 @@
 //隐藏底部footer
 -(void)webViewHiddenNot:(id)objc{
     UIWebView *web=(UIWebView*)objc;
-    
+    [self hiddenAllProgressHUD];
     if ([web.request.URL.path rangeOfString:@"/Products/Detail"].location!=NSNotFound) {
       
         if ([self.title rangeOfString:@"倍利宝"].location==NSNotFound) {
@@ -385,8 +424,18 @@
     MyLog(@"+++%@",self.nextURL);
     
      [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.getElementsByClassName('page-header navbar navbar-default navbar-static-top')[0].hidden=true"];
-
+if ([self.nextURL rangeOfString:@"pid"].location!=NSNotFound) {
+    _showRefresh=NO;
     
+    
+}
+    if ([self.nextURL rangeOfString:@"RobFound_New.aspx"].location!=NSNotFound) {
+        _showRefresh=YES;
+        
+        
+    }
+    
+   
     if ([self.nextURL rangeOfString:CMStringWithPickFormat(kCMMZWeb_url,@"/Products/FundList")].location!=NSNotFound) {
         //跳转到登录
         [webView stopLoading];
@@ -428,11 +477,18 @@
         [self.navigationController pushViewController:registerController animated:YES];
         return NO;
     }
-    if ([self.nextURL isEqualToString:@"http://m.xinjingban.com/Account/"]) {
+    if ([self.nextURL isEqualToString:@"http://m.xjb51.com/Account/"]||[self.nextURL isEqualToString:@"http://m.xinjingban.com/Account/"]) {
         [webView stopLoading];
         [self.navigationController popToRootViewControllerAnimated:YES];
         return NO;
     }
+    
+    if ([self.nextURL isEqualToString:CMStringWithPickFormat(kCMMZWeb_url, @"/")]) {
+        [webView stopLoading];
+        [self.navigationController popToRootViewControllerAnimated:YES];
+        return NO;
+    }
+    
     
     if([self.nextURL rangeOfString:CMStringWithPickFormat(kCMMZWeb_url, @"/Login")].location!=NSNotFound){
         [webView stopLoading];
@@ -676,6 +732,25 @@
         [self.navigationController pushViewController:registerController animated:YES];
     }
     
+}
+#pragma mark  JS分享
+- (void)share:(NSString *)title describeContent:(NSString *)content interlnkageSite:(NSString *)siteUrl pictureStie:(NSString *)pictureUrl {
+    
+    MyLog(@"分享share:%@",title);
+  
+    CMShareView *shareView=[[CMShareView alloc]initWithFrame:CGRectMake(0, 0, CMScreen_width(), CMScreen_height())];
+    shareView.contentUrl =siteUrl;
+    shareView.titleConten = title;
+    shareView.controller=self;
+    shareView.contentStr = content;
+    shareView.ShareImageName=[NSData dataWithContentsOfURL:[NSURL URLWithString:pictureUrl]];
+
+    
+}
+-(void)appLogin{
+    
+    UINavigationController *nav = [UIStoryboard loginStoryboard].instantiateInitialViewController;
+    [self presentViewController:nav animated:YES completion:nil];
 }
 
 #pragma mark 调用相机和相册

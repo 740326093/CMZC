@@ -32,9 +32,10 @@
 #import "CMGoldMedalTableViewCell.h"
 #import "CMAnalystDetailsViewController.h"
 #import "CMApp_Header.h"
-
-
-@interface CMHomeViewController ()<UITableViewDelegate,UITableViewDataSource,CMEditionTableViewCellDelegate,CMOptionTableViewCellDelegate,CMNewQualityCellDelegate,CMWebSocketDelegate,CMGoldMedalTableViewCellDelegate,CMSubscribeTableViewCellDelegate,SDCycleScrollViewDelegate> {
+#import "CMClickViewCell.h"
+#import "CMShowOtherCell.h"
+//#import "CMNewProductCell.h"
+@interface CMHomeViewController ()<UITableViewDelegate,UITableViewDataSource,CMEditionTableViewCellDelegate,CMOptionTableViewCellDelegate,CMNewQualityCellDelegate,CMWebSocketDelegate,CMGoldMedalTableViewCellDelegate,CMSubscribeTableViewCellDelegate,SDCycleScrollViewDelegate,CMShowOtherCellDelegate> {
     //NSString *_buyNumber; //多少人购买
 }
 
@@ -46,18 +47,18 @@
 
 @property (nonatomic,strong) NSMutableArray *proictArr; //三个动态
 
-@property (strong, nonatomic) NSMutableArray *manyFulfilArr; //众筹宝
+@property (strong, nonatomic) NSMutableArray *manyFulfilArr; //众投宝
 
 @property (strong, nonatomic) CMWebSocket *webSocket; //webSocket
 
 @property (strong, nonatomic) NSArray *purchaseArr; //申购数据arr
-
+@property (strong, nonatomic) NSArray *NewProductArr; //S板
 @property (strong, nonatomic) NSArray *glodServiceArr; //金牌服务
 
 @property (strong, nonatomic) NSMutableArray *guanDianArr; //请求新观点
 @property (strong, nonatomic) SDCycleScrollView  *barScrollView; //请求新观点
 
-
+@property (assign, nonatomic) BOOL bankExits; //是否认证
 
 @end
 
@@ -70,14 +71,8 @@
     _barScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, CMScreen_width(),f_i5real(160))
                                                             delegate:self
                                                     placeholderImage:[UIImage imageNamed:@"title_log"]];
-    
- 
-    
     _barScrollView.autoScrollTimeInterval = 5.;// 自动滚动时间间隔
-  
-    
     _curTableView.tableHeaderView=_barScrollView;
-    
     _footerView = [CMHomeTableFootView initByNibForClassName];
     _curTableView.tableFooterView = _footerView;
     //请求轮播图数据
@@ -90,7 +85,7 @@
     //监听退出
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginSuccessful) name:@"exitLogin" object:nil];
     
-
+    _bankExits=NO;
 
 }
 
@@ -129,17 +124,58 @@
 -(void)addData{
     
     
-    //众筹宝
-    [self requestProductFundlist];
+    //众投宝
+    
+    if (CMIsLogin()) {
+        [self isHaveBankInformation];
+       
+    }
+    
     
     //[self requestPrictThree];
     
     //申购
     [self requestPurchase];
+    //新科版
+    [self requestNewProduct];
     //金牌服务
     [self requestGlodService];
     //新视点
     [self requestNewGuanDian];
+    
+}
+
+#pragma mark 判断是否认证
+-(void)isHaveBankInformation{
+    [[CMTokenTimer sharedCMTokenTimer] cm_cmtokenTimerRefreshSuccess:^{
+        [CMRequestAPI cm_tradeFetchAccountionfSuccess:^(CMAccountinfo *account) {
+            
+            [self hiddenProgressHUD];
+            
+            SaveDataToNSUserDefaults(account.userid, @"userid");
+            
+            if (account.bankcardisexists==YES) {
+                [self requestProductFundlist];
+                
+            }else{
+                _bankExits=NO;
+                [self.manyFulfilArr removeAllObjects];
+                [_curTableView reloadData];
+            }
+            
+       
+        } fail:^(NSError *error) {
+            [_curTableView endRefresh];
+            [self hiddenProgressHUD];
+            [self showHUDWithMessage:error.message hiddenDelayTime:2];
+        }];
+    } fail:^(NSError *error) {
+        [self hiddenProgressHUD];
+        [_curTableView endRefresh];
+        //[self showHUDWithMessage:@"请登录账户" hiddenDelayTime:2];
+    }];
+    
+    
     
 }
 
@@ -197,13 +233,17 @@
         [self.manyFulfilArr removeAllObjects];
         
         [self.manyFulfilArr addObjectsFromArray:fundlistArr];
+        _bankExits=YES;
         [self hiddenProgressHUD];
         [_curTableView reloadData];
 //        NSIndexPath *index = [NSIndexPath indexPathForRow:2 inSection:0];
 //        [_curTableView reloadRowsAtIndexPaths:@[index] withRowAnimation:UITableViewRowAnimationNone];
 //        [_curTableView endUpdates];
     } fail:^(NSError *error) {
-        MyLog(@"众筹产品请求失败");
+        MyLog(@"众投产品请求失败");
+        [_curTableView endRefresh];
+        [self hiddenProgressHUD];
+        [self showHUDWithMessage:@"网络异常，请重试" hiddenDelayTime:2.0];
     }];
     
     /*
@@ -241,7 +281,7 @@
         }
        
         [_curTableView beginUpdates];
-         [_curTableView reloadData];
+        [_curTableView reloadData];
         
     } fail:^(NSError *error) {
         MyLog(@"请求三个产品失败");
@@ -250,11 +290,21 @@
 //申购列表
 - (void)requestPurchase {
     [CMRequestAPI cm_applyFetchProductListOnPageIndex:0 pageSize:3 success:^(NSArray *productArr, BOOL isPage) {
-        
+        [self hiddenProgressHUD];
         self.purchaseArr = productArr;
         [_curTableView reloadData];
     } fail:^(NSError *error) {
         MyLog(@"请求申购列表");
+    }];
+}
+
+- (void)requestNewProduct {
+   [CMRequestAPI cm_homeShowOtherProductBannersSuccess:^(NSArray *bannersArr) {
+
+        self.NewProductArr = bannersArr;
+        [_curTableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
+    } fail:^(NSError *error) {
+         MyLog(@"请求新科列表");
     }];
 }
 //金牌理财师
@@ -262,7 +312,6 @@
     [CMRequestAPI cm_homeDefaultPageGlodServiceSuccess:^(NSArray *adminis) {
        
         self.glodServiceArr = adminis;
-        
         [_curTableView reloadData];
     } fail:^(NSError *error) {
         MyLog(@"金牌理财师请求失败");
@@ -270,18 +319,32 @@
 }
 
 #pragma mark - UITableViewDelegate && UITableViewDataSource
-
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 2;
+}
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-   
-    if (self.guanDianArr.count >4) {
-        return 5+self.purchaseArr.count+4;
-    } else{
-        return 5+self.purchaseArr.count+self.guanDianArr.count;
+   //+4+1+self.NewProductArr.count;
+    if (section==0) {
+        if (self.guanDianArr.count >4) {
+            return 5+self.purchaseArr.count+4;
+        } else{
+            return 5+self.purchaseArr.count+self.guanDianArr.count;
+        }//+1+self.NewProductArr.count;
+    } else {
+        if (self.NewProductArr.count>0) {
+           return 1;
+        } else {
+           return 0;
+        }
+        
     }
+    
     
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section==0) {
+        
     if (indexPath.row == 0) {
         if (self.proictArr.count == 0 ) {
             return 0;
@@ -290,24 +353,46 @@
         }
     } else if (indexPath.row == 1) {
        
-            return 230;
+        return 240;
      
     } else if (indexPath.row == 2) { //倍利宝
-        return 241;
+        if (self.manyFulfilArr.count>0) {
+            return 231;
+        } else {
+            return 0.001;
+        }
+        
+        
+        
     } else if (indexPath.row == 3) {
         return 39;
     } else if (indexPath.row > 3 && indexPath.row <= self.purchaseArr.count + 3) { //申购
         return 375;
-    } else if (indexPath.row == 4 + self.purchaseArr.count) { //金牌服务
+    }/*
+    else if ( indexPath.row ==4+self.purchaseArr.count) { //申购
+        
+        return 39;
+    }else if ( indexPath.row >4+self.purchaseArr.count&& indexPath.row <=4+self.purchaseArr.count+self.NewProductArr.count) { //申购
+        return 250;
+    }
+      *///+self.NewProductArr.count
+    else if (indexPath.row == 4 + self.purchaseArr.count) { //金牌服务
         return 240;
-    } else if (indexPath.row == 5 + self.purchaseArr.count) { //最新动态
+    }//self.NewProductArr.count
+    else if (indexPath.row == 5 + self.purchaseArr.count) { //最新动态
         return 181;
     } else {
         return 36;
     }
+        
+    } else {
+        return f_i5real(140);
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section==0) {
+        
     if (indexPath.row == 0) {
         if (self.proictArr.count == 0 ) {
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
@@ -319,13 +404,14 @@
             //产品
             CMEditionTableViewCell *editionCell = [tableView dequeueReusableCellWithIdentifier:@"CMEditionTableViewCell" forIndexPath:indexPath];
             editionCell.prictArr = self.proictArr;
+            
             editionCell.delegate = self;
             return editionCell;
         }
     } else if (indexPath.row == 1) {
         //四个选项
         CMOptionTableViewCell *optionCell = [tableView dequeueReusableCellWithIdentifier:@"CMOptionTableViewCell" forIndexPath:indexPath];
-        
+        optionCell.isHaveBank=_bankExits;
         optionCell.baseController=self;
         optionCell.delegate = self;
        
@@ -358,18 +444,15 @@
         qualityCell.selectionStyle = UITableViewCellSelectionStyleNone;
         return qualityCell;
     } else if (indexPath.row == 3) {
-        UITableViewCell *goldCell = [tableView dequeueReusableCellWithIdentifier:@"goldCell"];
+        CMClickViewCell *goldCell = [tableView dequeueReusableCellWithIdentifier:@"goldCell"];
         if (!goldCell) {
-            goldCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"goldCell"];
-            UILabel *moreLab = [[UILabel alloc] init];
-            moreLab.frame = CGRectMake(CGRectGetMaxX(self.view.frame)-60, 5, 50, 30);
-            moreLab.font = [UIFont systemFontOfSize:13];
-            moreLab.textColor = [UIColor cmTacitlyFontColor];
-            moreLab.text = @"更多";
-            [goldCell addSubview:moreLab];
+            
+          goldCell = [[NSBundle mainBundle] loadNibNamed:@"CMClickViewCell" owner:nil options:nil].firstObject;
+    
         }
-        goldCell.textLabel.text = @"申购";
-        goldCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        goldCell.rightLab.text=@"更多 >";
+        goldCell.leftLab.text = @"申购";
+        
         return goldCell;
     } else if (indexPath.row > 3 && indexPath.row <= self.purchaseArr.count + 3) { //申购
         CMSubscribeTableViewCell *subscribeCell = [tableView dequeueReusableCellWithIdentifier:@"CMSubscribeTableViewCell"];
@@ -379,9 +462,36 @@
         }
         subscribeCell.delegate = self;
         subscribeCell.product = self.purchaseArr[indexPath.row-4];
-        subscribeCell.selectionStyle = UITableViewCellSelectionStyleNone;
         return subscribeCell;
-    } else if (indexPath.row == 4 + self.purchaseArr.count) {
+    }
+    /*
+    else if ( indexPath.row ==4+self.purchaseArr.count){
+        
+        
+        CMClickViewCell *NewPreCell = [tableView dequeueReusableCellWithIdentifier:@"NewPreCell"];
+        if (!NewPreCell) {
+            
+            NewPreCell = [[NSBundle mainBundle] loadNibNamed:@"CMClickViewCell" owner:nil options:nil].firstObject;
+            
+        }
+        NewPreCell.rightLab.text=@"更多 >";
+        NewPreCell.leftLab.text = @"新科板";
+        
+        return NewPreCell;
+        
+
+    }else if ( indexPath.row>4+self.purchaseArr.count&& indexPath.row <=4+self.purchaseArr.count+self.NewProductArr.count){//新科版
+        CMNewProductCell *subscribeCell = [tableView dequeueReusableCellWithIdentifier:@"NewProductArr"];
+        
+        if (!subscribeCell) {
+            subscribeCell = [[NSBundle mainBundle] loadNibNamed:@"CMNewProductCell" owner:nil options:nil].firstObject;
+        }
+     
+        subscribeCell.purchaseModel=self.NewProductArr[indexPath.row-5-self.purchaseArr.count];
+        return subscribeCell;
+    }
+    */
+    else if (indexPath.row == 4 + self.purchaseArr.count) {
         CMGoldMedalTableViewCell *goldCell = [tableView dequeueReusableCellWithIdentifier:@"CMGoldMedalTableViewCell"];
         if (!goldCell) {
             goldCell = [[NSBundle mainBundle] loadNibNamed:@"CMGoldMedalTableViewCell" owner:nil options:nil].firstObject;
@@ -395,6 +505,7 @@
         //最新动态
         CMLatestTableViewCell *latestCell = [tableView dequeueReusableCellWithIdentifier:@"CMLatestTableViewCell" forIndexPath:indexPath];
         latestCell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
         if (self.guanDianArr.count > 0) {
             latestCell.notice = self.guanDianArr[0];
         }
@@ -404,19 +515,35 @@
         if (!tableCell) {
             tableCell = [[NSBundle mainBundle]loadNibNamed:@"CMTradeSearchCell" owner:nil options:nil].firstObject;
         }
+        
        if (self.guanDianArr.count >0) {
             CMNewShiModel *media = self.guanDianArr[indexPath.row - 5 - self.purchaseArr.count];
-                      tableCell.nameLab.text = media.title;
+           
+           tableCell.nameLab.text = media.title;
         }
-        
-       
         return tableCell;
+    }
+        
+    } else {
+        
+        CMShowOtherCell *editionCell = [tableView dequeueReusableCellWithIdentifier:@"CMShowOtherCell"];
+    
+        if (!editionCell) {
+            editionCell=[[CMShowOtherCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CMShowOtherCell"];
+        }
+        editionCell.barArray=self.NewProductArr;
+        editionCell.delegate=self;
+        return editionCell;
+        
     }
     
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    if (indexPath.section==0) {
+    
     if (indexPath.row == 3) { //申购更多
         [self showTabBarViewControllerType:1];
     } else if (indexPath.row > 3 && indexPath.row <=self.purchaseArr.count +3) { //申购详情
@@ -426,30 +553,56 @@
         webVC.urlStr = CMStringWithPickFormat(kCMMZWeb_url,CMStringWithPickFormat(@"/Products/Detail?pid=",CMStringWithFormat(product.productId)));
         webVC.showRefresh=YES;
         [self.navigationController pushViewController:webVC animated:YES];
-    } else if (indexPath.row >= 5+self.purchaseArr.count) { // 最新动态
+    }
+    /*
+    else if (indexPath.row ==4+self.purchaseArr.count){
+        
+      CMNewShowController *commWebVC = (CMNewShowController *)[[UIStoryboard mainStoryboard] viewControllerWithId:@"CMNewShowController"];
+    [self.navigationController pushViewController:commWebVC animated:YES];
+    
+    }else if ( indexPath.row>4+self.purchaseArr.count&& indexPath.row <=4+self.purchaseArr.count+self.NewProductArr.count){
+        
+        CMPurchaseProduct *product = self.NewProductArr[indexPath.row-5-self.purchaseArr.count];
+        CMCommWebViewController *webVC = (CMCommWebViewController *)[CMCommWebViewController initByStoryboard];
+        webVC.ProductId=product.productId;
+        webVC.urlStr = CMStringWithPickFormat(kCMMZWeb_url,CMStringWithPickFormat(@"/Products/Detail?pid=",CMStringWithFormat(product.productId)));
+        webVC.showRefresh=YES;
+        [self.navigationController pushViewController:webVC animated:YES];
+    }*/
+    else if (indexPath.row >= 5+self.purchaseArr.count) { // 最新动态
         CMNewShiModel *media = self.guanDianArr[indexPath.row- 5 - self.purchaseArr.count];
         CMCommWebViewController *commWebVC = (CMCommWebViewController *)[[UIStoryboard mainStoryboard] viewControllerWithId:@"CMCommWebViewController"];
         NSString *strUrl = CMStringWithPickFormat(kCMMZWeb_url,[NSString stringWithFormat:@"/Account/MessageDetail?nid=%ld",(long)media.mediaId])
         ;
         commWebVC.urlStr = strUrl;
         commWebVC.showRefresh=YES;
+        commWebVC.fromAd=YES;
+        [self.navigationController pushViewController:commWebVC animated:YES];
+    }
+        
+    } else {
+        
+        CMNewShowController *commWebVC = (CMNewShowController *)[[UIStoryboard mainStoryboard] viewControllerWithId:@"CMNewShowController"];
         [self.navigationController pushViewController:commWebVC animated:YES];
     }
 }
 
-
+#pragma mark
+-(void)showOtherProductList{
+    CMNewShowController *commWebVC = (CMNewShowController *)[[UIStoryboard mainStoryboard] viewControllerWithId:@"CMNewShowController"];
+    [self.navigationController pushViewController:commWebVC animated:YES];
+}
 #pragma mark - CMEditionTableViewCellDelegate
 //产品delegate CMEditionTableViewCellDelegate
 - (void)cm_editionTableViewProductId:(NSString *)productId nameTitle:(NSString *)name{
     CMProductDetailsViewController *productDetailsVC = (CMProductDetailsViewController *)[[UIStoryboard mainStoryboard] viewControllerWithId:@"CMProductDetailsViewController"];
     productDetailsVC.titleName = name;
     productDetailsVC.codeName = productId;
-    
     [self.navigationController pushViewController:productDetailsVC animated:YES];
 }
 
 #pragma mark - CMNewQualityCellDelegate
-//众筹宝
+//众投宝
 - (void)cm_newQualityProductId:(NSInteger)productid {
     CMCommWebViewController *webVC = (CMCommWebViewController *)[CMCommWebViewController initByStoryboard];
     NSString *webUrl = CMStringWithPickFormat(kCMMZWeb_url, [NSString stringWithFormat:@"/Products/Detail?pid=%ld",(long)productid]);
@@ -463,9 +616,7 @@
 -(void)cm_optionHeadMoreButtonEvent{
     CMBulletinViewController *bulletin = (CMBulletinViewController *)[CMBulletinViewController initByStoryboard];
     bulletin.selectIndex=2;
-    
     [self.navigationController pushViewController:bulletin animated:YES];
-    
 }
 
 
@@ -493,15 +644,11 @@
 }
 
 -(void)cm_checkImmediatelySubscribeEventWithPid:(NSInteger)productID{
-    
+
     CMCommWebViewController *webVC = (CMCommWebViewController *)[CMCommWebViewController initByStoryboard];
     webVC.urlStr = [NSString stringWithFormat:@"%@/Invest/Confirm?pid=%ld",kCMMZWeb_url,productID];
- 
     [self.navigationController pushViewController:webVC animated:YES];
 }
-
-
-
 #pragma mark - CMOptionTableViewCellDelegate 
 //四个选项
 - (void)cm_optionTableViewCellButTag:(NSInteger)btTag {
@@ -511,7 +658,8 @@
            
         {
             CMCommWebViewController *webVC = (CMCommWebViewController *)[CMCommWebViewController initByStoryboard];
-            webVC.urlStr = @"http://m.xinjingban.com/about/TradingGuideNew.aspx";
+           // webVC.urlStr = @"http://m.xinjingban.com/about/TradingGuideNew.aspx";
+            webVC.urlStr =  CMStringWithPickFormat(kCMMZWeb_url, @"/about/TradingGuideNew.aspx");
             [self.navigationController pushViewController:webVC animated:YES];
 
         //  CMAgencyMebersController *collectController = (CMAgencyMebersController *)[CMAgencyMebersController initByStoryboard];
@@ -523,7 +671,9 @@
         case 1://投资讲堂
         {
             CMCommWebViewController *webVC = (CMCommWebViewController *)[CMCommWebViewController initByStoryboard];
-            webVC.urlStr = @"http://m.xinjingban.com/invesment.aspx";
+         //   webVC.urlStr = @"http://m.xinjingban.com/invesment.aspx";
+            
+            webVC.urlStr =  CMStringWithPickFormat(kCMMZWeb_url, @"/invesment.aspx");
             [self.navigationController pushViewController:webVC animated:YES];
         }
             break;
@@ -538,14 +688,25 @@
             break;
         case 3://倍利宝
         {
-            CMBeiLiBaoController *webVC = (CMBeiLiBaoController *)[CMBeiLiBaoController initByStoryboard];
-            
-            [self.navigationController pushViewController:webVC animated:YES];
+            if (_bankExits==YES) {
+                CMBeiLiBaoController *webVC = (CMBeiLiBaoController *)[CMBeiLiBaoController initByStoryboard];
+                
+                [self.navigationController pushViewController:webVC animated:YES];
+            } else {
+               [self cm_homeLoginOrAccountMethods];
+            }
+          
         }
             break;
         case 4://开户 我的账户
         {
-            [self cm_homeLoginOrAccountMethods];
+            if (_bankExits==NO) {
+               [self cm_homeOptionMore];
+             
+            } else {
+             [self cm_homeLoginOrAccountMethods];
+            }
+            
         }
             break;
         default://更多
@@ -622,11 +783,10 @@
         newGuideVC.titName = @"新经板实力";//strength_serve_home
         newGuideVC.imageStr=@"strength_serve_home";
         newGuideVC.hidesBottomBarWhenPushed=YES;
-       // newGuideVC.hideTabBar=YES;
+       //newGuideVC.hideTabBar=YES;
         [self.navigationController pushViewController:newGuideVC animated:YES];
     } else {
         CMCommWebViewController *webVC = (CMCommWebViewController *)[CMCommWebViewController initByStoryboard];
-      
         webVC.urlStr = url;
         webVC.showRefresh=YES;
         [self.navigationController pushViewController:webVC animated:YES];
@@ -645,10 +805,26 @@
 }
 #pragma mark - 登陆成功后的通知
 - (void)loginSuccessful {
+    
     NSIndexPath *tmpIndexpath=[NSIndexPath indexPathForRow:1 inSection:0];
     [_curTableView beginUpdates];
     [_curTableView reloadRowsAtIndexPaths:@[tmpIndexpath] withRowAnimation:UITableViewRowAnimationNone];
     [_curTableView endUpdates];
+
+    
+    if (CMIsLogin()==YES) {
+        
+    [self isHaveBankInformation];
+        
+    }else{
+        
+        [self.manyFulfilArr removeAllObjects];
+        _bankExits=NO;
+        [_curTableView reloadData];
+    }
+    
+    
+    
 }
 
 #pragma mark - set get
@@ -666,7 +842,7 @@
     }
     return _proictArr;
 }
-//众筹宝
+//众投宝
 - (NSMutableArray *)manyFulfilArr {
     if (!_manyFulfilArr) {
         _manyFulfilArr = [NSMutableArray array];

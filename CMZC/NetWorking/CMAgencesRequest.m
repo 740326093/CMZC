@@ -19,7 +19,7 @@
     return _sharedRequestAPI;
 }
 
-
+/*
 + (void)GETWithURL:(NSString *)url params:(NSDictionary *)params success:(void(^)(id responseObj))success failure:(void(^)(NSError *error))failure{
     NSString *baseUrl=CMStringWithPickFormat(kCMNewMembersBase_URL,url);
     
@@ -61,7 +61,7 @@
     }];
     
 }
-
+*/
 + (void)PostWithURL:(NSString *)url params:(NSDictionary *)params success:(void(^)(id responseObj))success failure:(void(^)(NSError *error))failure{
     NSString *baseUrl=CMStringWithPickFormat(kCMNewMembersBase_URL,url);
     
@@ -71,18 +71,17 @@
     mgr.requestSerializer.timeoutInterval = 30.f;
     [mgr.requestSerializer didChangeValueForKey:@"timeoutInterval"];
     
-  //  mgr.requestSerializer = [AFJSONRequestSerializer serializer];
-    
   // mgr.responseSerializer= [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingMutableContainers];
 
   
-   // [mgr.requestSerializer setValue:@"application/json;encoding=utf-8" forHTTPHeaderField:@"Content-Type"];
+  // [mgr.requestSerializer setValue:@"application/json;encoding=utf-8" forHTTPHeaderField:@"Content-Type"];
    // [mgr.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
   // mgr.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/json", @"text/javascript", @"text/plain", @"text/html",nil];
     
    
     NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] requestWithMethod:@"POST" URLString:baseUrl parameters:params error:nil];
       mgr.responseSerializer = [AFHTTPResponseSerializer serializer];
+    //  mgr.requestSerializer = [AFJSONRequestSerializer serializer];
     NSURLSessionTask *task = [mgr dataTaskWithRequest:request
                                completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
                                    

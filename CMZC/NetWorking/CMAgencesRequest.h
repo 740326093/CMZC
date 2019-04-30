@@ -11,7 +11,7 @@
 @interface CMAgencesRequest : NSObject
 
 
-+ (void)GETWithURL:(NSString *)url params:(NSDictionary *)params success:(void(^)(id responseObj))success failure:(void(^)(NSError *error))failure;
+//+ (void)GETWithURL:(NSString *)url params:(NSDictionary *)params success:(void(^)(id responseObj))success failure:(void(^)(NSError *error))failure;
 
 /**
  *  发送一个Post请求

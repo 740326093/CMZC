@@ -85,8 +85,9 @@
     _applyTitleLab.text=applyModel.cpName;
     _applyAmountLab.text=applyModel.Amount_CX;
     _alreadAppliAmountLab.text=applyModel.Amount_SX;
+    
     _ApplyProgressView.progress=applyModel.progress;
-   
+  
     [_projectBtnState setTitle:@"分享" forState:UIControlStateNormal];
     [_projectBtnState setBackgroundColor:[UIColor clmHex:0xff6400]];
 }
@@ -95,6 +96,7 @@
     _applyTitleLab.text=RongZiModel.cpName;
     _applyAmountLab.text=RongZiModel.Amount;
     _alreadAppliAmountLab.text=RongZiModel.shengouAmount;
+    _ApplyProgressView.realProgress=YES;
     _ApplyProgressView.progress=RongZiModel.rongziJinDu;
     
     [_projectBtnState setTitle:RongZiModel.cpStatusText forState:UIControlStateNormal];
@@ -114,7 +116,7 @@
     _applyTitleLab.text=LingTouModel.cpTitle;
     _applyAmountLab.text=LingTouModel.Amount;
     _alreadAppliAmountLab.text=LingTouModel.LingTouAmount;
-    
+    _ApplyProgressView.realProgress=YES;
     _ApplyProgressView.progress=LingTouModel.LingTouPercent;
     
     [_projectBtnState setTitle:LingTouModel.ProdeuctStatus forState:UIControlStateNormal];

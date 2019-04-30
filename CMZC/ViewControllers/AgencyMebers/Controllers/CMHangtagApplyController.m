@@ -55,10 +55,7 @@
     
 }
 
--(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-   // [self getCodeNum];
-}
+
 - (IBAction)submitEventClick:(id)sender {
     if ([self checkDataValidity]) {
         [self submitMessage];

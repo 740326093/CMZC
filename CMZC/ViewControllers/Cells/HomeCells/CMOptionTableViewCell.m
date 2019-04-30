@@ -14,7 +14,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *optionalBtn; //自选
 @property (weak, nonatomic) IBOutlet UIButton *analystBtn; //分析师
 @property (weak, nonatomic) IBOutlet UIButton *noticeBtn; //公告
-@property (weak, nonatomic) IBOutlet UIButton *raiseMoneyBtn; //众筹宝
+@property (weak, nonatomic) IBOutlet UIButton *raiseMoneyBtn; //众投宝
 @property (weak, nonatomic) IBOutlet UIButton *moreBtn; //更多
 
 @property (weak, nonatomic) IBOutlet UICollectionView *curCollectionView;
@@ -33,17 +33,21 @@
      
    //注册
     _collectionflowLayout.itemSize = CGSizeMake(CMScreen_width()/3.0, 100);
+    _collectionflowLayout.footerReferenceSize=CGSizeMake(CMScreen_width(), 10);
     _curCollectionView.delegate = self;
     _curCollectionView.dataSource = self;
-    [_curCollectionView registerClass:[CMNewActionHeadView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"CMServeReusableView"];
     
+    [_curCollectionView registerClass:[CMNewActionHeadView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"CMServeReusableView"];
+    [_curCollectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"UICollectionReusableView"];
 
     [self requestTrends];
+
+    
 }
 #pragma mark - UICollectionViewDataSource && UICollectionViewDelegate
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 6;
+    return self.titLabNameArr.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -71,7 +75,14 @@
         serveView.titleArr=self.gongGaoArr;
         return serveView;
     }else{
-        return nil;
+        
+        UICollectionReusableView  *footView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"UICollectionReusableView" forIndexPath:indexPath];
+        
+        UIView *bgView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, CMScreen_width(), 10)];
+        
+        bgView.backgroundColor=[UIColor clmHex:0xefeff4];
+        [footView addSubview:bgView];
+        return footView;
     }
     
 }
@@ -140,6 +151,7 @@
 
 
 #pragma mark - set get
+/*
 - (NSArray *)titImageArr {
     return @[@"deal_home",
              @"invest_home",
@@ -163,5 +175,41 @@
               @"倍利宝",
               CMIsLogin()?@"我的账户":@"开户",
               @"更多"];
+}
+
+*/
+-(void)setIsHaveBank:(BOOL)isHaveBank{
+    
+    if (isHaveBank==YES) {
+        
+        self.titImageArr= @[@"deal_home",
+                              @"invest_home",
+                              @"security_home",
+                              @"many_home",
+                              @"register_home",
+                              @"more_home"];
+        
+        self.titLabNameArr= @[ @"交易指南",
+                               @"投资讲堂",
+                               @"安全保障",
+                               @"倍利宝",
+                               @"我的账户",
+                               @"更多"];
+        [_curCollectionView reloadData];
+    } else {
+        
+        self.titImageArr= @[@"deal_home",
+                              @"invest_home",
+                              @"security_home",
+                              @"register_home",
+                              @"more_home"];
+        
+        self.titLabNameArr= @[ @"交易指南",
+                               @"投资讲堂",
+                               @"安全保障",
+                               CMIsLogin()?@"我的账户":@"开户",
+                               @"更多"];
+         [_curCollectionView reloadData];
+    }
 }
 @end

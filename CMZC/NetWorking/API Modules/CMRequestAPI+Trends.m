@@ -78,8 +78,6 @@
             CMNewShiModel *not = [CMNewShiModel yy_modelWithDictionary:dict];
             [noticeModeArr addObject:not];
         }
-        
-        
         NSInteger total = page * 10;
         BOOL isPage = NO;
         if (total > [responseObject[@"total"] integerValue]) {
@@ -87,8 +85,6 @@
              if ([responseObject[@"data"][@"page"] integerValue]*noticeModeArr.count<total) {
                  isPage = NO;
             }
-            
-            
         }
         success(noticeModeArr,isPage);
         
@@ -96,9 +92,6 @@
         fail(error);
     }];
 
-    
-    
-    
 }
 
 + (void)cm_upLoadPic:(UIImage*)image
@@ -107,9 +100,7 @@
     
     
     
-    NSDictionary *arguments = @{@"content":[NSString base64WithString:image]
-                                
-                                };
+    NSDictionary *arguments = @{@"content":[NSString base64WithString:image]};
     
     [CMRequestAPI postDataFromURLScheme:KCMUpLoadImageURL argumentsDictionary:arguments success:^(id responseObject) {
         MyLog(@"上传图片+++%@",responseObject);

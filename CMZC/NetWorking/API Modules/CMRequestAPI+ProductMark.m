@@ -10,15 +10,11 @@
 
 #import "CMRequestAPI+ProductMark.h"
 #import "CMMarketList.h"
-
 #import "CMProductType.h"
 #import "CMProductComment.h"
 #import "CMProductNotion.h"
 #import "CMTopicList.h"
 #import "CMTopicReplies.h"
-
-
-
 @implementation CMRequestAPI (ProductMark)
 //行情列表
 + (void)cm_marketFetchProductMarketCcode:(NSString *)code sizePage:(NSInteger)page sorting:(NSString *)sort success:(void (^)(NSArray *, BOOL))success fail:(void (^)(NSError *))fail {
@@ -70,7 +66,7 @@
 }
 //添加自选
 + (void)cm_marketTransferAddCode:(NSString *)code success:(void (^)(BOOL))success fail:(void (^)(NSError *))fail {
-    NSDictionary *dict = @{
+    NSDictionary *dict = @{ 
                            @"pCode":code
                            };
     [CMRequestAPI postTradeFromURLScheme:kCMOptionalAddURL argumentsDictionary:dict success:^(id responseObject) {
@@ -142,6 +138,7 @@
                 NSArray *itemArr = [contStr componentsSeparatedByString:@","];
                 [contArr addObject:itemArr];
             }
+           
             success(contArr);
         }
     } fail:^(NSError *error) {
@@ -149,10 +146,56 @@
     }];
 }
 
++ (void)cm_marketFetchProductinfoPcode:(NSString *)pCode newOrHistoryData:(NSInteger)type andNum:(NSString*)num andPage:(NSInteger)page  success:(void(^)(NSArray *productArr,NSInteger totalNum))success   fail:(void(^)(NSError *error))fail
+{
+    
+
+    NSString *urlStr = [NSString stringWithFormat:@"%@%@/%ld_%@",kMProductContractNewDetailURL,pCode,type,num];
+   // NSDictionary *params=@{@"page":num,@"rows":@"10"};
+ //   type=1最新数据，type=2历史数据
+    [CMRequestAPI postOrdinaryFromURLScheme:urlStr argumentsDictionary:nil success:^(id responseObject) {
+        
+        
+        NSString *rowsStr = responseObject[@"data"][@"rows"];
+        
+        if (rowsStr.length >0) {
+            NSArray *prictArr = [rowsStr componentsSeparatedByString:@";"];
+            NSMutableArray *contArr = [NSMutableArray array];
+            for (NSString *contStr in prictArr) {
+                if (contStr.length == 0) {
+                    return ;
+                }
+                NSArray *itemArr = [contStr componentsSeparatedByString:@","];
+                [contArr addObject:itemArr];
+            }
+            
+         //   BOOL isHavePage=NO;
+            NSInteger total = [responseObject[@"data"][@"total"] integerValue];
+//            if (page * 10 < total) {
+//                isHavePage = YES;
+//            }
+            success(contArr,total);
+        }
+    } fail:^(NSError *error) {
+        fail(error);
+    }];
+
+
+
+
+
+
+}
+
+
+
+
 //产品行情分时行情
 + (void)cm_marketTransferMinutePcode:(NSString *)code deteTime:(NSString *)time success:(void (^)(NSArray *))success fail:(void (^)(NSError *))fail {
     NSString *urlStr = [NSString stringWithFormat:@"%@%@%@",kMProductMinuteURL,code,time];
+    
     [CMRequestAPI postOrdinaryFromURLScheme:urlStr argumentsDictionary:nil success:^(id responseObject) {
+        
         NSString *dataStr = responseObject[@"data"];
         if (dataStr.length != 0) {
             NSArray *proctArr = [dataStr componentsSeparatedByString:@";"];
@@ -162,7 +205,8 @@
                 [timeArr addObject:itemArr];
             }
             success(timeArr);
-        }
+       }
+       
     } fail:^(NSError *error) {
         fail(error);
     }];
@@ -188,9 +232,14 @@
 + (void)cm_marketFetchProductKlineDayCode:(NSString *)code productUrl:(NSString *)url success:(void (^)(NSArray *))success fail:(void (^)(NSError *))fail {
     //先写死。数据测试
       [CMRequestAPI getDataFromURLScheme:url argumentsDictionary:nil success:^(id responseObject) {
+          
         NSString *dataStr = responseObject[@"data"];
+        if (dataStr.length>0) {
         NSArray * dataArr = [dataStr componentsSeparatedByString:@";"];
-        success(dataArr);
+           success(dataArr);
+
+          }
+        
     } fail:^(NSError *error) {
         fail(error);
     }];
@@ -248,6 +297,7 @@
             CMProductNotion *com = [CMProductNotion yy_modelWithDictionary:dict];
             [comArr addObject:com];
         }
+        
         success(comArr);
     } fail:^(NSError *error) {
         fail(error);

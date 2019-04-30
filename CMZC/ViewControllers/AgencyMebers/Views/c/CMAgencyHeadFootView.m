@@ -119,7 +119,7 @@
                 
               
                 //存储以下当前时间
-                SaveDataToNSUserDefaults([NSDate date], kVerifyStarDateKey);
+               SaveDataToNSUserDefaults([NSDate date], kVerifyStareDateKey);
                 
                 //判断token
                 [[CMTokenTimer sharedCMTokenTimer] cm_cmtokenTimerRefreshSuccess:^{

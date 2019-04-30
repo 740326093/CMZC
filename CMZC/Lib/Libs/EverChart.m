@@ -81,7 +81,7 @@
     }
     
     CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextSetRGBFillColor(context, 22/255.0, 22/255.0, 22/255.0, 1.0);
+    CGContextSetRGBFillColor(context, 30/255.0, 30/255.0, 30/255.0, 1.0);
     CGContextFillRect (context, CGRectMake (0, 0, self.bounds.size.width,self.bounds.size.height));
 }
 
@@ -171,10 +171,30 @@
 
 -(void)initBtn{
     
-    
-    //TOOD5
-    
-    
+//    CGContextRef context = UIGraphicsGetCurrentContext();
+//    
+//    CGContextSetFillColorWithColor(context, kBtnBgColor.CGColor);
+//    CGContextSetStrokeColorWithColor(context, [UIColor whiteColor].CGColor);
+//    
+//    NSString *text = @"分时量";
+//    
+//    NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
+//    style.alignment = NSTextAlignmentCenter;
+//    NSDictionary *attributes = @{NSFontAttributeName:[UIFont systemFontOfSize:kYFontSizeFenShi],NSForegroundColorAttributeName:[UIColor whiteColor],NSParagraphStyleAttributeName:style};
+//    CGSize btnSize = [text sizeWithAttributes:attributes];
+//
+//    
+//    Section *sec2 = self.sections[1];
+//    float offset = 2;
+//    CGRect btn2Rect = CGRectMake(1, sec2.frame.origin.y + offset, sec2.paddingLeft , sec2.paddingTop - offset * 2);
+//    CGContextBeginPath(context);
+//    
+//    UIBezierPath *path2 = [UIBezierPath bezierPathWithRoundedRect:btn2Rect cornerRadius:3];
+//    CGContextAddPath(context, path2.CGPath);
+//    CGContextClosePath(context);
+//    CGContextFillPath(context);
+//    
+//    [text drawInRect:CGRectInset(btn2Rect, 0, (btn2Rect.size.height - btnSize.height)/2.0) withAttributes:attributes];
     
 }
 
@@ -191,8 +211,9 @@
         if(sec.hidden){
             continue;
         }
-//        plotWidth = (sec.frame.size.width-sec.paddingLeft)/(self.rangeTo-self.rangeFrom);
-        plotWidth = (sec.frame.size.width - sec.paddingLeft)/360; //控制显示的点个数
+    //  plotWidth = (sec.frame.size.width-sec.paddingLeft)/(self.rangeTo-self.rangeFrom);
+        plotWidth = (sec.frame.size.width - sec.paddingLeft)/range;
+        
         for(int sIndex=0;sIndex<sec.series.count;sIndex++){
             NSObject *serie = [sec.series objectAtIndex:sIndex];
             
@@ -311,7 +332,7 @@
     
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSetShouldAntialias(context, YES);
-    CGContextSetLineWidth(context, 1.0f);
+    CGContextSetLineWidth(context, 0.5f);
     
     for(int secIndex=0;secIndex<[self.sections count];secIndex++){
         Section *sec = [self.sections objectAtIndex:secIndex];
@@ -335,27 +356,27 @@
         if(sec.hidden){
             continue;
         }
-        
+
         //中间竖线(虚线)
         float interWidth = (sec.frame.size.width - sec.paddingLeft)/4.0;
         for (int i = 1; i< 4; i++) {
             
             if (i == 2) { //设置实线
                 CGContextSetLineDash(context, 0, 0, 0);
-                CGContextSetLineWidth(context, 0.8);
+                CGContextSetLineWidth(context, 0.5);
             }else{
                 //设置虚线
                 CGFloat dash[] = {1,1};
                 CGContextSetLineDash (context,20,dash,2);
                 CGContextSetLineWidth(context, 1);
             }
-            
+
             CGContextMoveToPoint(context, sec.frame.origin.x+sec.paddingLeft + interWidth * i, sec.frame.origin.y+sec.paddingTop);
             CGContextAddLineToPoint(context, sec.frame.origin.x+sec.paddingLeft + interWidth * i, sec.frame.size.height+sec.frame.origin.y);
             
             CGContextStrokePath(context);
         }
-        
+
     }
     
     for(int secIndex=0;secIndex<self.sections.count;secIndex++){
@@ -379,9 +400,9 @@
             NSString *format=[@"%." stringByAppendingFormat:@"%df",yaxis.decimal];
             
             float step = (float)(yaxis.max-yaxis.min)/yaxis.tickInterval;
-            
+
             float baseY = [self getLocalY:yaxis.baseValue withSection:secIndex withAxis:aIndex];
-            //float middleValue = yaxis.baseValue + 2 * step;
+          float middleValue = yaxis.baseValue + 2 * step;
             
             NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
             style.alignment = NSTextAlignmentRight;
@@ -389,18 +410,18 @@
             NSMutableParagraphStyle *style2 = [[NSMutableParagraphStyle alloc] init];
             style2.alignment = NSTextAlignmentLeft;
             
-            CGContextSetStrokeColorWithColor(context, [UIColor blackColor].CGColor);
-            
+            CGContextSetStrokeColorWithColor(context, [UIColor whiteColor].CGColor);
+
             //原点处的Y轴刻度
             if ([yAxisType isEqualToString:kFenShiLine]) {
                 
                 //显示分时图原点处左侧价格刻度
                 [[@"" stringByAppendingFormat:format,yaxis.baseValue] drawInRect:CGRectMake(20, baseY - kYFontSizeFenShi, sec.frame.origin.x + sec.paddingLeft - 1, kYFontSizeFenShi * 2) withAttributes:@{NSFontAttributeName:[UIFont fontWithName:KYFontName size:kYFontSizeFenShi],NSParagraphStyleAttributeName:style,NSForegroundColorAttributeName:kFenShiDownColor}];
                 
-                //显示分时图原点处右侧百分比
-                //                NSString *percentText = [NSString stringWithFormat:@"%.2f%%",(yaxis.baseValue - middleValue)/middleValue * 100];
-                //                [percentText drawInRect:CGRectMake(sec.frame.origin.x + sec.frame.size.width + 1, baseY - kYFontSizeFenShi, 40, kYFontSizeFenShi * 2) withAttributes:@{NSFontAttributeName:[UIFont fontWithName:KYFontName size:kYFontSizeFenShi],NSParagraphStyleAttributeName:style2,NSForegroundColorAttributeName:kFenShiDownColor}];
-                
+//                //显示分时图原点处右侧百分比
+//                NSString *percentText = [NSString stringWithFormat:@"%.2f%%",(yaxis.baseValue - middleValue)/middleValue * 100];
+//               [percentText drawInRect:CGRectMake(sec.frame.origin.x -20, baseY - kYFontSizeFenShi, 40, kYFontSizeFenShi * 2) withAttributes:@{NSFontAttributeName:[UIFont fontWithName:KYFontName size:kYFontSizeFenShi],NSParagraphStyleAttributeName:style2,NSForegroundColorAttributeName:kFenShiDownColor}];
+
             }
             
             if (yaxis.tickInterval%2 == 1) {
@@ -417,48 +438,65 @@
                 if(yaxis.baseValue + i*step <= yaxis.max && yaxis.max < MAXFLOAT){
                     float iy = [self getLocalY:(yaxis.baseValue + i*step) withSection:secIndex withAxis:aIndex];
                     
-                    UIColor *textColor = [UIColor blackColor];
-                    
+                    UIColor *textColor = [UIColor whiteColor];
+
                     //成交量显示缩写；
                     NSString *valueY = [@"" stringByAppendingFormat:format,yaxis.baseValue+i*step];
                     if ([yAxisType isEqualToString:kFenShiColumn]) {
+                        if(i==yaxis.tickInterval){
                         valueY = [self roundFloatDisplay:yaxis.baseValue+i*step];
+                        
                         textColor = kFenShiVolumeYFontColor;
+                        CGFloat offset = (i == yaxis.tickInterval) ? 0 : kYFontSizeFenShi/2 ;
+                
+                        //显示分时图左侧价格刻度
+                        [valueY drawInRect:CGRectMake(20, iy - offset, 35, kYFontSizeFenShi * 2) withAttributes:@{NSFontAttributeName:[UIFont fontWithName:KYFontName size:kYFontSizeFenShi],NSParagraphStyleAttributeName:style,NSForegroundColorAttributeName:textColor}];
+                        }
                     }else {
                         if (i == 1) {
                             textColor = kFenShiDownColor;
                         }else if(i == 2){
-                            textColor = [UIColor blackColor];
+                            textColor = [UIColor whiteColor];
                             CGContextSetLineDash (context,0,0,0);
-                            CGContextSetLineWidth(context, 0.8);
+                            CGContextSetLineWidth(context, 0.5);
                         }else if(i > 2){
                             textColor = kFenShiUpColor;
                         }
+                        
+                        //Y轴最大刻度，显示位置靠下
+                        CGFloat offset = (i == yaxis.tickInterval) ? 0 : kYFontSizeFenShi/2 ;
+                        
+                        
+                        
+                        //显示分时图左侧价格刻度
+                        [valueY drawInRect:CGRectMake(20, iy - offset, sec.frame.origin.x + sec.paddingLeft - 1, kYFontSizeFenShi * 2) withAttributes:@{NSFontAttributeName:[UIFont fontWithName:KYFontName size:kYFontSizeFenShi],NSParagraphStyleAttributeName:style,NSForegroundColorAttributeName:textColor}];
+                        
                     }
                     
                     //Y轴最大刻度，显示位置靠下
-                    CGFloat offset = (i == yaxis.tickInterval) ? 0 : kYFontSizeFenShi/2 ;
+//                    CGFloat offset = (i == yaxis.tickInterval) ? 0 : kYFontSizeFenShi/2 ;
+//
+//
+//
+//                    //显示分时图左侧价格刻度
+//                    [valueY drawInRect:CGRectMake(20, iy - offset, sec.frame.origin.x + sec.paddingLeft - 1, kYFontSizeFenShi * 2) withAttributes:@{NSFontAttributeName:[UIFont fontWithName:KYFontName size:kYFontSizeFenShi],NSParagraphStyleAttributeName:style,NSForegroundColorAttributeName:textColor}];
                     
-                    //显示分时图左侧价格刻度
-                    [valueY drawInRect:CGRectMake(20, iy - offset, sec.frame.origin.x + sec.paddingLeft - 1, kYFontSizeFenShi * 2) withAttributes:@{NSFontAttributeName:[UIFont fontWithName:KYFontName size:kYFontSizeFenShi],NSParagraphStyleAttributeName:style,NSForegroundColorAttributeName:textColor}];
-                    
-                    //显示分时图右侧百分比
-                    //                    if ([yAxisType isEqualToString:kFenShiLine]) {
-                    //
-                    //                        NSString *percentText = [NSString stringWithFormat:@"%.2f%%",(yaxis.baseValue + i * step - middleValue)/middleValue * 100];
-                    //
-                    //                        [percentText drawInRect:CGRectMake(sec.frame.origin.x + sec.frame.size.width + 1, iy - offset, 40, kYFontSizeFenShi * 2) withAttributes:@{NSFontAttributeName:[UIFont fontWithName:KYFontName size:kYFontSizeFenShi],NSParagraphStyleAttributeName:style2,NSForegroundColorAttributeName:textColor}];
-                    //
-                    //                    }
-                    
+//                    //显示分时图右侧百分比
+//                    if ([yAxisType isEqualToString:kFenShiLine]) {
+//
+//                        NSString *percentText = [NSString stringWithFormat:@"%.2f%%",(yaxis.baseValue + i * step - middleValue)/middleValue * 100];
+//
+//                        [percentText drawInRect:CGRectMake(sec.frame.origin.x -20, iy - offset, 40, kYFontSizeFenShi * 2) withAttributes:@{NSFontAttributeName:[UIFont fontWithName:KYFontName size:kYFontSizeFenShi],NSParagraphStyleAttributeName:style2,NSForegroundColorAttributeName:textColor}];
+//
+//                    }
+//
                     if(yaxis.baseValue + i*step < yaxis.max){
                         CGContextSetStrokeColorWithColor(context, kDashColor.CGColor);
                         CGContextMoveToPoint(context,sec.frame.origin.x+sec.paddingLeft,iy);
                         CGContextAddLineToPoint(context,sec.frame.origin.x+sec.frame.size.width,iy);
-                        
                     }
                     
-                    CGContextStrokePath(context);
+                       CGContextStrokePath(context);
                 }
             }
             for(int i=1; i <= yaxis.tickInterval;i++){
@@ -472,24 +510,28 @@
                     }
                     CGContextStrokePath(context);
                     
-                    UIColor *textColor = [UIColor blackColor];
+                    UIColor *textColor = [UIColor whiteColor];
                     
                     //成交量显示缩写；
                     NSString *valueY = [@"" stringByAppendingFormat:format,yaxis.baseValue+i*step];
+                    
                     if ([yAxisType isEqualToString:kFenShiColumn]) {
                         valueY = [self roundFloatDisplay:yaxis.baseValue+i*step];
                         textColor = kFenShiVolumeYFontColor;
+                        
+                  
+                        
                     }else {
                         if (i == 1) {
                             textColor = kFenShiDownColor;
                         }else if(i == 2){
-                            textColor = [UIColor blackColor];
+                            textColor = [UIColor whiteColor];
                         }else if(i > 2){
                             textColor = kFenShiUpColor;
                         }
                     }
                     
-                    [valueY drawInRect:CGRectMake(0, iy - 7, sec.frame.origin.x + sec.paddingLeft - 1, kYFontSizeFenShi * 2) withAttributes:@{NSFontAttributeName:[UIFont fontWithName:KYFontName size:kYFontSizeFenShi],NSParagraphStyleAttributeName:style,NSForegroundColorAttributeName:textColor}];
+                    [valueY drawInRect:CGRectMake(20, iy - 7, sec.frame.origin.x + sec.paddingLeft - 1, kYFontSizeFenShi * 2) withAttributes:@{NSFontAttributeName:[UIFont fontWithName:KYFontName size:kYFontSizeFenShi],NSParagraphStyleAttributeName:style,NSForegroundColorAttributeName:textColor}];
                     
                     if(yaxis.baseValue - i*step > yaxis.min){
                         CGContextSetStrokeColorWithColor(context, kDashColor.CGColor);
@@ -504,6 +546,7 @@
     }
     CGContextSetLineDash (context,0,NULL,0);
 }
+
 -(void)drawXAxis{
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSetShouldAntialias(context, NO);
@@ -762,7 +805,7 @@
         self.paddingLeft     = 0;
         self.rangeFrom       = 0;
         self.rangeTo         = 0;
-        self.range           = 480;
+        self.range           = 241;
         self.touchFlag       = 0;
         self.touchFlagTwo    = 0;
         NSMutableArray *rats = [[NSMutableArray alloc] init];
@@ -934,24 +977,28 @@
  */
 - (NSString *)roundFloatDisplay:(CGFloat)value{
     
+    
     NSString *unit = @"";
-    if (value > 100000) {
+    if (value >=1000000 ) {
+        value /= 1000000.0;
+        value/=100.0;
+        unit = @"亿";
+    } else if (value >= 10000) {
         value /= 10000.0;
         unit = @"万";
-    }
-    if (value > 100000) {
+    }else{
         value /= 10000.0;
-        unit = @"亿";
-    }
-    if (value > 100000) {
-        value /= 10000.0;
-        unit = @"万亿";
+        unit = @"万";
     }
     
     if ([unit isEqualToString:@""]) {
         return [NSString stringWithFormat:@"%d",(int)value];
     }
-    return [NSString stringWithFormat:@"%.1f%@",value,unit];
+    if(value>0){
+    return [NSString stringWithFormat:@"%.2f%@",value,unit];
+    }else{
+        
+        return @"";
+    }
 }
-
 @end

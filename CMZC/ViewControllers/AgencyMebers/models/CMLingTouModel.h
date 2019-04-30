@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 
 @interface CMLingTouModel : NSObject
-
 @property(nonatomic,copy)NSString *pid;
 @property(nonatomic,copy)NSString *cpTitle;
 @property(nonatomic,copy)NSString *Amount;

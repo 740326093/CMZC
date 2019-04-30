@@ -14,7 +14,7 @@
 #define kRefreshToken @"refresh_token"
 #define kTokenType @"tokenType"
 #define kExpiresIn @"expiresIn"
-
+#define kUserID @"userID"
 @implementation CMAccount
 
 - (id)initWithDict:(NSDictionary *)dict {
@@ -23,6 +23,7 @@
         self.refresh_token = dict[@"refresh_token"];
         self.token_type = dict[@"token_type"];
         self.expires_in = dict[@"expires_in"];
+        self.userId = dict[@"userId"];
     }
     return self;
 }
@@ -35,6 +36,7 @@
         self.refresh_token = [aDecoder decodeObjectForKey:kPassword];
         self.token_type = [aDecoder decodeObjectForKey:kTokenType];
         self.expires_in = [aDecoder decodeObjectForKey:kExpiresIn];
+        self.userId = [aDecoder decodeObjectForKey:kUserID];
     }
     return self;
 }
@@ -45,6 +47,7 @@
     [aCoder encodeObject:self.refresh_token forKey:kRefreshToken];
     [aCoder encodeObject:self.token_type forKey:kTokenType];
     [aCoder encodeObject:self.expires_in forKey:kExpiresIn];
+    [aCoder encodeObject:self.userId forKey:kUserID];
 }
 
 @end

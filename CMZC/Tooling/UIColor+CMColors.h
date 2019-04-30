@@ -104,4 +104,17 @@
  */
 + (UIColor *)cmMarkBlock;
 
+
+
++ (UIColor *)colorWithHex:(UInt32)hex andAlpha:(CGFloat)alpha;
+
+/**
+ *  给一个十六位进制的颜色
+ *
+ *  @param hex 十六进制的颜色
+ *
+ *  @return 颜色
+ */
++ (UIColor *)colorWithHex:(UInt32)hex;
+
 @end

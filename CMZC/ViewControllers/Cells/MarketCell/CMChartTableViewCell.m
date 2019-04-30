@@ -9,13 +9,10 @@
 #import "CMChartTableViewCell.h"
 #import "EverChart.h"
 #import "CMTradeDetailView.h"
-#import "SRWebSocket.h"
-#import "CMLineView.h"
 #import "CMTimer.h"
-
-
+#import "CMKDateView.h"
 @interface CMChartTableViewCell () {
-    BOOL _isFirst;
+
     NSString *_earlyMorning;
     
 }
@@ -26,11 +23,9 @@
 @property (strong, nonatomic) EverChart *fenshiChart;
 @property (weak, nonatomic) IBOutlet UIView *btomView;
 @property (strong, nonatomic) CMTradeDetailView *tradeDetail;
-@property (strong, nonatomic) SRWebSocket *webSocket;
+
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
-
-@property (strong, nonatomic) CMLineView *lineView;
 
 @property (strong, nonatomic) CMTimer *timer;
 
@@ -56,6 +51,9 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *twoGrowthLab;
 
+
+@property(nonatomic,strong)CMKDateView *kDateView;
+
 @end
 
 
@@ -67,9 +65,11 @@
 
 - (void)setProductArr:(NSArray *)productArr {
     NSString  *index = GetDataFromNSUserDefaults(@"keyIndex");
+    
     if ([index isEqualToString:@"0"]) {
         [self timeSharing];
     } else if ([index isEqualToString:@"1"]) {
+        
         [self dayKChart];
     } else if ([index isEqualToString:@"2"]) {
         [self weekKChart];
@@ -138,11 +138,13 @@
 //六个按钮的方法
 - (IBAction)timeSharingBtnClick:(UIButton *)sender {
     NSInteger btnTage = sender.tag;
+   
     switch (btnTage) {
         case 500://分时
             [self timeSharing];
             break;
         case 501://日K
+            
             [self dayKChart];
             break;
         case 502: //周K
@@ -271,26 +273,24 @@
 }
 //k线图
 - (void)initLineViewBtnTag:(NSInteger)tag {
-    
-    [_lineGraphView addSubview:self.errorLab];
+
     
     switch (tag) {
         case 2101:
-            self.lineView.req_type = @"d";
-            self.lineView.req_freq = [NSString stringWithFormat:@"%@%@",kMProductKlineDayURL,_code];
+    
+            self.kDateView.selectIndex=0;
+            
             break;
         case 2102:
-            self.lineView.req_type = @"w";
-            self.lineView.req_freq = [NSString stringWithFormat:@"%@%@",kMProductKlineWeekURL,_code];
+    
+            self.kDateView.selectIndex=1;
             break;
         default:
-            self.lineView.req_type = @"m";
-            self.lineView.req_freq = [NSString stringWithFormat:@"%@%@",kMProductKlineMonthURL,_code];
+   
+            self.kDateView.selectIndex=2;
             break;
     }
-    
-    [self.lineView start];
-    [self.lineView update];
+
 }
 
 
@@ -310,33 +310,49 @@
     //关闭后要将timer置为空
     _timer = nil;
 }
-
-
 - (void)setCode:(NSString *)code {
     _code = code;
     _tradeDetail.code = code;
-    //[self requestMinuteMarket];
+    self.kDateView.productCode=code;
+//    if(_code){
+//    [self requestMinuteMarket];
+//    }
 }
 
 - (void)requestMinuteMarket {
     [CMRequestAPI cm_marketTransferMinutePcode:_code deteTime:@"" success:^(NSArray *timeArr) {
+        
+      //  MyLog(@"+++%@",timeArr);
+        
         [self hideHubTacit];
+       
         [self renderChart:timeArr];
+      
     } fail:^(NSError *error) {
         MyLog(@"分时行情请求失败");
     }];
+    
 }
 
 
 - (void)setUp {
-    self.fenshiChart = [[EverChart alloc] initWithFrame:CGRectMake(-20, 0, CMScreen_width() - (CMScreen_width()/6*2)+50, 218)];
-    [self.timeShareChart addSubview:_fenshiChart];
+   
+    [self.timeShareChart addSubview:self.fenshiChart];
     //划线
     [self initFenShiChart];
     
-    
+   [_lineGraphView addSubview:self.kDateView];
     
 }
+-(EverChart*)fenshiChart{
+    if (!_fenshiChart) {
+       _fenshiChart = [[EverChart alloc] initWithFrame:CGRectMake(-20, 0, CMScreen_width() - (CMScreen_width()/6*2)+50, 218)];
+    }
+    
+    return _fenshiChart;
+    
+}
+
 //初始化分视图
 -(void)initFenShiChart {
     NSMutableArray *padding = [NSMutableArray arrayWithObjects:@"0",@"0",@"20",@"5", nil];
@@ -348,7 +364,7 @@
     [self.fenshiChart addSections:2 withRatios:secs];
     [[[self.fenshiChart sections] objectAtIndex:0] addYAxis:0];
     [[[self.fenshiChart sections] objectAtIndex:1] addYAxis:0];
-    
+  //  self.fenshiChart.range = 241;
     [self.fenshiChart getYAxis:0 withIndex:0].tickInterval = 4;//设置虚线数量
     [self.fenshiChart getYAxis:1 withIndex:0].tickInterval = 2;
     
@@ -362,7 +378,7 @@
     NSMutableArray *data = [[NSMutableArray alloc] init];
     [serie setObject:kFenShiAvgNameLine forKey:@"name"]; //用于标记线段名称
     [serie setObject:@"" forKey:@"label"]; //当选中时，Label 要显示的名称
-    //[serie setObject:data forKey:@"data"]; //均线数据 （当获取到实时数据后，就是对此字段赋值；然后实时刷新UI）
+   // [serie setObject:data forKey:@"data"]; //均线数据 （当获取到实时数据后，就是对此字段赋值；然后实时刷新UI）
     [serie setObject:kFenShiLine forKey:@"type"]; //标记当前绘图类型
     [serie setObject:@"0" forKey:@"yAxisType"]; //标记当前Y轴类型
     [serie setObject:@"0" forKey:@"section"]; //标记当前所属部分
@@ -431,18 +447,17 @@
         
         NSArray *dicArr = responseObject[i];
         [category addObject:dicArr[0]]; //当前时间
-        
 //        NSString *jun
         NSArray *item1 = @[dicArr[7],closeYesterday]; //均价
         NSArray *item2 = @[dicArr[1],closeYesterday]; //实时价格  没给。我就写了一个成交价格
-        NSString *volume;
-        if (i==0) {
-           volume  = [NSString stringWithFormat:@"%d",1]; //成交量
-        } else if (i == 1) {
-            volume  = [NSString stringWithFormat:@"%d",2]; //成交量
-        } else {
-            volume  = [NSString stringWithFormat:@"%d",[dicArr[5] intValue]];
-        }
+        //NSString *volume;
+//        if (i==0) {
+//           volume  = [NSString stringWithFormat:@"%d",1]; //成交量
+//        } else if (i == 1) {
+//            volume  = [NSString stringWithFormat:@"%d",2]; //成交量
+//        } else {
+        NSString *volume  = [NSString stringWithFormat:@"%d",[dicArr[5] intValue]];
+       // }
         
         NSArray *item3 = @[volume,dicArr[1],closeYesterday];
         
@@ -481,25 +496,24 @@
             visibleRect = CGRectMake(CGRectGetWidth(_scrollView.frame), 0, CGRectGetWidth(_scrollView.frame), CGRectGetHeight(_scrollView.frame));
             
             
-            [_lineGraphView addSubview:self.errorLab];
+           // [_lineGraphView addSubview:self.errorLab];
             
             switch (index) {
                 case 2101:
-                    self.lineView.req_type = @"d";
-                    self.lineView.req_freq = [NSString stringWithFormat:@"%@%@",kMProductKlineDayURL,_code];
+                   // self.lineView.req_type = @"d";
+                   // self.lineView.req_freq = [NSString stringWithFormat:@"%@%@",kMProductKlineDayURL,_code];
                     break;
                 case 2102:
-                    self.lineView.req_type = @"w";
-                    self.lineView.req_freq = [NSString stringWithFormat:@"%@%@",kMProductKlineWeekURL,_code];
+                   // self.lineView.req_type = @"w";
+                    //self.lineView.req_freq = [NSString stringWithFormat:@"%@%@",kMProductKlineWeekURL,_code];
                     break;
                 default:
-                    self.lineView.req_type = @"m";
-                    self.lineView.req_freq = [NSString stringWithFormat:@"%@%@",kMProductKlineMonthURL,_code];
+                   // self.lineView.req_type = @"m";
+                    //self.lineView.req_freq = [NSString stringWithFormat:@"%@%@",kMProductKlineMonthURL,_code];
                     break;
             }
             
-            [self.lineView start];
-            [self.lineView update];
+         
         }
             break;
     }
@@ -507,23 +521,15 @@
     
 }
 
-- (CMLineView *)lineView {
-    if (!_lineView) {
-        _lineView = [[CMLineView alloc] init];
-        if (iPhone5) {
-            _lineView.frame = CGRectMake(-10, 0, CMScreen_width(), 218);
-        } else {
-            _lineView.frame = CGRectMake(-40, 0, CMScreen_width(), 218);
-        }
-       
-        //_lineView.req_type = @"d";//传入数值是什么时间的k
-        //_lineView.req_freq = [NSString stringWithFormat:@"%@%@",kMProductKlineDayURL,_code];//默认日k
-        _lineView.kLineWidth = 5;
-        _lineView.kLinePadding = 0.5;
-        
+#pragma mark ====== k线图 ===========
+-(CMKDateView*)kDateView{
+    if (!_kDateView) {
+        _kDateView=[[CMKDateView alloc]initWithFrame:CGRectMake(0, 0, CMScreen_width(), 218)];
     }
-    return _lineView;
+    return _kDateView;
 }
+
+
 - (UILabel *)errorLab {
     if (!_errorLab) {
         _errorLab = [[UILabel alloc] init];

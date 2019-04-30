@@ -100,7 +100,7 @@
 
 
 
-//开启众筹
+//开启众投
 - (void)openClick {   MyLog(@"dianji");
     [self.navigationController popToRootViewControllerAnimated:NO];
     

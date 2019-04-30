@@ -47,18 +47,18 @@
     _curDayIncomeLab.text=AgenceMemberModel.YongJin_Today;
 
     if(AgenceMemberModel.OrgType==1){
-         _leadPrNam.text=@"融资项目(个)";
+         _leadPrNam.text=@"融资项目(个) >";
         
         _totalDesLab.text=@"累计融资额(万元)";
     }else if (AgenceMemberModel.OrgType==2){
-          _leadPrNam.text=@"承销项目(个)";
+          _leadPrNam.text=@"承销项目(个) >";
         _totalDesLab.text=@"累计承销额(万元)";
     }else if (AgenceMemberModel.OrgType==3){
-        _leadPrNam.text=@"领投项目(个)";
+        _leadPrNam.text=@"领投项目(个) >";
         _totalDesLab.text=@"累计领投额(万元)";
     }else{
         
-        _leadPrNam.text=@"承销项目(个)";
+        _leadPrNam.text=@"承销项目(个)>";
         _totalDesLab.text=@"累计承销额(万元)";
     }
     

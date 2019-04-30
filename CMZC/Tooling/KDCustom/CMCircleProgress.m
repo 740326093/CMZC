@@ -145,8 +145,8 @@
     
     if (_showProgressText) {
         //画文字
-        NSString *currentText = [NSString stringWithFormat:@"%ld%%",(NSInteger)(fakeProgress*100)];
-  
+        
+        NSString *currentText = [NSString stringWithFormat:@"%.2f%%",(_progress*100)];
         //段落格式
         NSMutableParagraphStyle *textStyle = [[NSMutableParagraphStyle defaultParagraphStyle] mutableCopy];
         textStyle.lineBreakMode = NSLineBreakByWordWrapping;
@@ -170,7 +170,13 @@
 //设置进度
 - (void)setProgress:(CGFloat)progress {
     
-    _progress = progress;
+    if (_realProgress) {
+        _progress=progress*0.01;
+        
+    }else{
+       _progress = progress;
+    }
+   
     fakeProgress = 0.0;
     
     if (NewTimer) {
@@ -220,4 +226,5 @@
     [[NSRunLoop currentRunLoop] addTimer:NewTimer forMode:NSRunLoopCommonModes];
     
 }
+
 @end

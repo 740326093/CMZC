@@ -59,7 +59,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I9J-dU-hqR">
-                                <rect key="frame" x="0.0" y="8.5" width="118.5" height="24"/>
+                                <rect key="frame" x="0.0" y="3.5" width="118.5" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="textColor" red="1" green="0.3921568627" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -95,7 +95,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dg4-HT-vLB">
-                                <rect key="frame" x="0.0" y="8.5" width="118" height="24"/>
+                                <rect key="frame" x="0.0" y="3.5" width="118" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="textColor" red="1" green="0.3921568627" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -126,11 +126,11 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N9m-XF-Ya2" customClass="CMCircleProgress">
-                                <rect key="frame" x="37" y="-2" width="45" height="45"/>
+                                <rect key="frame" x="32" y="-12" width="55" height="55"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="45" id="UEI-BE-6mG"/>
-                                    <constraint firstAttribute="width" constant="45" id="hvZ-JX-RH2"/>
+                                    <constraint firstAttribute="height" constant="55" id="UEI-BE-6mG"/>
+                                    <constraint firstAttribute="width" constant="55" id="hvZ-JX-RH2"/>
                                 </constraints>
                             </view>
                         </subviews>

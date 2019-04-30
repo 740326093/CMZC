@@ -19,7 +19,7 @@
 #import "CMSubscribeGuideViewController.h"//申购指南
 #import "CMCommWebViewController.h"
 #import "CMTabBarViewController.h"
-#import "CMHoldDetailsCMViewController.h"
+#import "CMHoldDetailsViewController.h"
 #import "CMCarryDetailsViewController.h" //提现页面
 
 
@@ -64,11 +64,7 @@ static NSString *const inquireIdentifer = @"CMInquireCollectionViewCell";
     [self performSelector:@selector(performTime) withObject:self afterDelay:0.0];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
-    
-}
+
 
 - (void)performTime {
     if (_itemIndex == 2) {
@@ -255,6 +251,7 @@ static NSString *const inquireIdentifer = @"CMInquireCollectionViewCell";
 }
 #pragma mark - CMBuyingCellDelegate
 - (void)cm_buyingCollectionView:(CMBuyingCollectionViewCell *)buyingVC {
+    
     [self skipTrustInquire];
 }
 - (void)cm_saleCollectionVC:(CMSaleCollectionViewCell *)saleVC {
@@ -267,7 +264,7 @@ static NSString *const inquireIdentifer = @"CMInquireCollectionViewCell";
 }
 #pragma mark - CMHoldCollectionViewDelegate
 - (void)cm_holdCollectionViewInquire:(CMHoldInquire *)inquire {
-    CMHoldDetailsCMViewController *holdDetailsVC = (CMHoldDetailsCMViewController *)[[UIStoryboard mainStoryboard] viewControllerWithId:@"CMHoldDetailsCMViewController"];
+    CMHoldDetailsViewController *holdDetailsVC = (CMHoldDetailsViewController *)[[UIStoryboard mainStoryboard] viewControllerWithId:@"CMHoldDetailsViewController"];
     holdDetailsVC.inquire = inquire;
     [self.navigationController pushViewController:holdDetailsVC animated:YES];
 }
