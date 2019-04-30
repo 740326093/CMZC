@@ -285,7 +285,8 @@ self.oldBtn=_sliderPassBtn;
         }
         
     } fail:^(NSError *error) {
-        
+        [self hiddenProgressHUD];
+        [self showHUDWithMessage:error.domain hiddenDelayTime:2];
     }];
     
     
@@ -299,13 +300,13 @@ self.oldBtn=_sliderPassBtn;
         [CMRequestAPI cm_toolFetchShortMessageLogin:_codePhoneFiled.text andSMSCode:_codeSmsTF.text success:^(CMAccount *account) {
             
             DeleteDataFromNSUserDefaults(@"accountName");
-            SaveDataToNSUserDefaults(_accountNumberTF.text, @"accountName");
+            SaveDataToNSUserDefaults(_codePhoneFiled.text, @"accountName");
             //网络请求
             [self hiddenAllProgressHUD];
             //存储当前账号
             //SaveDataToNSUserDefaults(_accountNumberTF.text, kAccountNumberKey);
-            account.userName = _accountNumberTF.text;
-            account.password = _passwordTF.text;
+            account.userName = _codePhoneFiled.text;
+            //account.password = _passwordTF.text;
             [[CMAccountTool sharedCMAccountTool] addAccount:account];
             
             [[NSNotificationCenter defaultCenter] postNotificationName:@"loginWin" object:self];
@@ -314,7 +315,8 @@ self.oldBtn=_sliderPassBtn;
             [self showMainViewController];
         } fail:^(NSError *error) {
             
-            
+            [self hiddenProgressHUD];
+            [self showHUDWithMessage:@"验证码错误！" hiddenDelayTime:2];
         }];
         
     }
