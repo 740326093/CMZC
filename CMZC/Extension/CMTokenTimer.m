@@ -14,15 +14,20 @@ singleton_implementation(CMTokenTimer);
 - (void)cm_cmtokenTimerRefreshSuccess:(void (^)())success fail:(void (^)(NSError *))fail {
     NSInteger surplus = [self getSurplusTime];
     NSInteger lastTimeInterval = (NSInteger)[GetDataFromNSUserDefaults(kVerifyStareDateKey)timeIntervalSince1970];
-   //if (surplus <= 300) {
-      // if (lastTimeInterval >0) {
+   if (surplus <= 300) {
+       if (lastTimeInterval >0) {
             [CMRequestAPI cm_toolFetchRefreshToken:[CMAccountTool sharedCMAccountTool].currentAccount.refresh_token success:^(BOOL isWin) {
-              //  DeleteDataFromNSUserDefaults(kVerifyStarDateKey);
-               // SaveDataToNSUserDefaults([NSDate date], kVerifyStarDateKey);
+            DeleteDataFromNSUserDefaults(kVerifyStareDateKey);
+             SaveDataToNSUserDefaults([NSDate date], kVerifyStareDateKey);
                 //刷新成功
-                MyLog(@"token时间过期。刷新时间");
-                success();
-            } fail:^(NSError *error) {
+                
+                if (isWin==YES) {
+                  MyLog(@"token时间过期。刷新时间");
+                    
+                    success();
+                }
+             
+            } fail:^(NSError *error,NSDictionary *errorDict) {
                 MyLog(@"令牌刷新失败");
                   [[CMAccountTool sharedCMAccountTool] removeAccount];
                 DeleteDataFromNSUserDefaults(@"name");
@@ -32,14 +37,14 @@ singleton_implementation(CMTokenTimer);
                 
                 fail(error);
             }];
-    //} else {
-        //   MyLog(@"没有登录账号");
-          // success();
-      // }
- //} else {
-   //    MyLog(@"token时间没过期");
-      //  success();
-   //}
+ } else {
+      MyLog(@"没有登录账号");
+        success();
+     }
+} else {
+     MyLog(@"token时间没过期");
+       success();
+}
 }
 
 //

@@ -109,14 +109,20 @@ self.oldBtn=_sliderPassBtn;
             account.userName = _accountNumberTF.text;
             account.password = _passwordTF.text;
             [[CMAccountTool sharedCMAccountTool] addAccount:account];
-            
+        
             [[NSNotificationCenter defaultCenter] postNotificationName:@"loginWin" object:self];
             //存储以下当前时间
            SaveDataToNSUserDefaults([NSDate date], kVerifyStareDateKey);
             [self showMainViewController];
-        } fail:^(NSError *error) {
+        } fail:^(NSError *error,NSDictionary *errorDict) {
+            
             [self hiddenProgressHUD];
-            [self showHUDWithMessage:@"账户名或者密码错误" hiddenDelayTime:2];
+            if (errorDict.allKeys>0) {
+              [self showHUDWithMessage:errorDict[@"error_description"] hiddenDelayTime:2];
+            }else{
+                [self showHUDWithMessage:error.message hiddenDelayTime:2];
+            }
+            
         }];
     }
 }
@@ -313,10 +319,14 @@ self.oldBtn=_sliderPassBtn;
             //存储以下当前时间
             SaveDataToNSUserDefaults([NSDate date], kVerifyStareDateKey);
             [self showMainViewController];
-        } fail:^(NSError *error) {
+        } fail:^(NSError *error,NSDictionary *errorDict) {
             
             [self hiddenProgressHUD];
-            [self showHUDWithMessage:@"验证码错误！" hiddenDelayTime:2];
+            if (errorDict.allKeys>0) {
+                [self showHUDWithMessage:errorDict[@"error_description"] hiddenDelayTime:2];
+            }else{
+                [self showHUDWithMessage:error.message hiddenDelayTime:2];
+            }
         }];
         
     }

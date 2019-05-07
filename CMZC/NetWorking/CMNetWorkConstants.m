@@ -13,7 +13,7 @@
 
 //#define kCM_URL @"http://192.168.1.82:8089" //本地测试api
 
-#define kCM_URL @"http://192.168.1.133:9001" //本地测试api
+#define kCM_URL @"http://192.168.1.225:9001" //本地测试api
 #define kCMWeb_URL @"http://192.168.1.225:8087" //线上M站地址
 
 //#define kCMWeb_URL @"http://testing.xinjingban.com"

@@ -59,6 +59,7 @@
             [self presentViewController:nav animated:YES completion:nil];
         }];
     } else {
+        
         [self loadWebViewData];
     }
  
@@ -137,11 +138,12 @@
     if (!CMIsLogin()) {
 //  NSString *url=[[NSBundle mainBundle]pathForResource:@"JavaScriptTest" ofType:@"html"];
 //        NSURLRequest *request =[NSURLRequest requestWithURL:[NSURL URLWithString:url]];
+        
        NSURLRequest *request =[NSURLRequest requestWithURL:[NSURL URLWithString:_urlStr]];
         //4.查看请求头
         [_webView loadRequest:request];
         _webView.scrollView.bounces = NO;
-        _webView.scalesPageToFit = YES;
+
     } else {
         
         [self LoadWebViewWithCookieAndUrl:_urlStr];
@@ -151,27 +153,51 @@
 
 -(void)LoadWebViewWithCookieAndUrl:(NSString*)urlStr{
     
-    NSString *external =[NSString stringWithFormat:@"%@%@",kCMExternalLinksURL,urlStr];
+   // NSString *external =[NSString stringWithFormat:@"%@%@",kCMExternalLinksURL,urlStr];
+  
+ 
     
+    NSURLRequest *request =[NSURLRequest requestWithURL:[NSURL URLWithString:urlStr]];
+
+    //[self loadCookieWith:request];
+    //4.查看请求头
+    // [self loadCookies];
     NSString *name = GetDataFromNSUserDefaults(@"name");
     NSString *value = GetDataFromNSUserDefaults(@"value");
+//    NSMutableURLRequest *mutableRequest = [request mutableCopy];
+//    NSString *cookieValue = [NSString stringWithFormat:@"%@=%@",name,value];
+//    [mutableRequest addValue:cookieValue forHTTPHeaderField:@"Cookie"];
+//
     
-    NSURLRequest *request =[NSURLRequest requestWithURL:[NSURL URLWithString:external]];
-    NSMutableURLRequest *mutableRequest = [request mutableCopy];
-    NSString *cookieValue = [NSString stringWithFormat:@"%@=%@",name,value];
     
-    [mutableRequest addValue:cookieValue forHTTPHeaderField:@"cookie"];
-    request = [mutableRequest copy];
-    //4.查看请求头
-    [self loadCookies];
+    
+             NSString *cookieString = [[NSString alloc] initWithFormat:@"%@=%@",name,value];
+               NSDictionary *setCookieDic = [NSDictionary dictionaryWithObject:cookieString forKey:@"Set-Cookie"];
+             NSArray *headeringCookie = [NSHTTPCookie cookiesWithResponseHeaderFields:setCookieDic forURL:[NSURL URLWithString:kCMMZWeb_url]];
+        
+               // 通过setCookies方法，完成设置，这样只要一访问URL为HOST的网页时，会自动附带上设置好的header
+               [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookies:headeringCookie  forURL:[NSURL URLWithString:kCMMZWeb_url]                 mainDocumentURL:nil];
+    
+
     [_webView loadRequest:request];
+    
   //  MyLog(@"allHTTPHeaderFields++%@",request.allHTTPHeaderFields);
     _webView.scrollView.bounces = NO;
-    _webView.scalesPageToFit = YES;
+
    
    
     
 }
+
+//-(void)loadCookieWith:(NSURLRequest*)request{
+//    NSString *name = GetDataFromNSUserDefaults(@"name");
+//    NSString *value = GetDataFromNSUserDefaults(@"value");
+//    NSMutableURLRequest *mutableRequest = [request mutableCopy];
+//    NSString *cookieValue = [NSString stringWithFormat:@"%@=%@",name,value];
+//    [mutableRequest addValue:cookieValue forHTTPHeaderField:@"Cookie"];
+//
+//}
+
 - (void)loadCookies{
     NSString *name = GetDataFromNSUserDefaults(@"name");
     NSString *value = GetDataFromNSUserDefaults(@"value");
@@ -179,22 +205,40 @@
     if (name==nil&&value==nil) {
         return ;
     }
-    NSMutableDictionary *cookieDict = [NSMutableDictionary dictionary];
-    [cookieDict setObject:name forKey:NSHTTPCookieName];
-    [cookieDict setObject:value forKey:NSHTTPCookieValue];
-    NSDictionary *prop1 = [NSDictionary dictionaryWithObjectsAndKeys:
+//    NSMutableDictionary *cookiePreperties = [NSMutableDictionary dictionary];
+//    [cookiePreperties setObject:name forKey:NSHTTPCookieName];
+//    [cookiePreperties setObject:value forKey:NSHTTPCookieValue];
+//
+ 
+    
+    NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies];
+    
+    NSMutableArray *mutcookies=[NSMutableArray arrayWithArray:cookies];
+    
+    
+//    NSMutableDictionary *cookiePreperties = [NSMutableDictionary dictionary];
+//    [cookiePreperties setObject:name forKey:NSHTTPCookieName];
+//    [cookiePreperties setObject:value forKey:NSHTTPCookieValue];
+//    [cookiePreperties setObject:kCMBase_URL forKey:NSHTTPCookieDomain];
+//    [cookiePreperties setObject:kCMBase_URL forKey:NSHTTPCookieOriginURL];
+//    [cookiePreperties setObject:@"/" forKey:NSHTTPCookiePath];
+//    [cookiePreperties setObject:@"0" forKey:NSHTTPCookieVersion];
+    NSDictionary *cookiePreperties = [NSDictionary dictionaryWithObjectsAndKeys:
                            name,NSHTTPCookieName,
                            value,NSHTTPCookieValue,
                            @"/",NSHTTPCookiePath,
                            @"0",NSHTTPCookieVersion,
-                           [NSURL URLWithString:_urlStr],NSHTTPCookieOriginURL,
-                           [NSDate dateWithTimeIntervalSinceNow:60],NSHTTPCookieExpires,
+                                      [NSURL URLWithString:_urlStr],NSHTTPCookieOriginURL,
+                                      [NSURL URLWithString:_urlStr],NSHTTPCookieOriginURL,
+                         [NSURL URLWithString:_urlStr],NSHTTPCookieOriginURL,
+                           [NSDate dateWithTimeIntervalSinceNow:60*60],NSHTTPCookieExpires,
                            nil];
-    NSHTTPCookie *cookie = [NSHTTPCookie cookieWithProperties:prop1];
-    [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookie:cookie];
-    [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookieAcceptPolicy:NSHTTPCookieAcceptPolicyAlways];
-    
-    
+    NSHTTPCookie *CustomCookie = [NSHTTPCookie cookieWithProperties:cookiePreperties];
+    [mutcookies insertObject:CustomCookie atIndex:0];
+    for (NSHTTPCookie *cookie in mutcookies) {
+        [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookie:cookie];
+    }
+ 
 }
 #pragma mark 分享
 -(void)shareView{
@@ -253,7 +297,7 @@
   // [self loadWebViewData];
    
     
-    if ([CMAccountTool sharedCMAccountTool].currentAccount.userName.length >0) {
+    if ([CMAccountTool sharedCMAccountTool].currentAccount.refresh_token.length >0) {
         [[CMTokenTimer sharedCMTokenTimer] cm_cmtokenTimerRefreshSuccess:^{
             
             [self loadWebViewData];
@@ -282,6 +326,8 @@
 
 #pragma mark - webDelegate
 - (void)webViewDidStartLoad:(UIWebView *)webView {
+    
+ 
     //包含登录页面
     if ([self.nextURL rangeOfString:CMStringWithPickFormat(kCMMZWeb_url,@"/Login")].location!=NSNotFound) {
 //
@@ -303,7 +349,7 @@
     [self hiddenProgressHUD];
    
     
-   
+  
     
     [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.getElementsByClassName('page-header navbar navbar-default navbar-static-top')[0].hidden=true"];
     [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.getElementsByClassName('live_headbg')[0].hidden=true"];
@@ -375,6 +421,10 @@
     _context[@"XJBapp"]=_JsModel;
     _JsModel.delegate=self;
 
+    
+    
+    
+    
   
 }
 
@@ -418,6 +468,29 @@
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+   
+//    NSDictionary *requestHeaders = request.allHTTPHeaderFields;
+//
+//if (!requestHeaders[@"Cookie"]) {
+//
+//    NSString *name = GetDataFromNSUserDefaults(@"name");
+//    NSString *value = GetDataFromNSUserDefaults(@"value");
+//    NSMutableURLRequest *mutableRequest = [request mutableCopy];
+//    NSString *cookieValue = [NSString stringWithFormat:@"%@=%@",name,value];
+//    [mutableRequest addValue:cookieValue forHTTPHeaderField:@"Cookie"];
+//
+//       [webView loadRequest:mutableRequest];
+//    return NO;
+//}
+
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     self.nextURL = request.URL.absoluteString;
@@ -489,7 +562,12 @@ if ([self.nextURL rangeOfString:@"pid"].location!=NSNotFound) {
         return NO;
     }
     
-    
+    if([self.nextURL rangeOfString:@"Login"].location!=NSNotFound){
+        [webView stopLoading];
+        UINavigationController *nav = [UIStoryboard loginStoryboard].instantiateInitialViewController;
+        [self presentViewController:nav animated:YES completion:nil];
+        return NO;
+    }
     if([self.nextURL rangeOfString:CMStringWithPickFormat(kCMMZWeb_url, @"/Login")].location!=NSNotFound){
         [webView stopLoading];
         UINavigationController *nav = [UIStoryboard loginStoryboard].instantiateInitialViewController;

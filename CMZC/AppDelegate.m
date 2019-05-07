@@ -123,9 +123,9 @@
         //            [vc removeFromSuperview];
         //        }
         NSString *classStr=NSStringFromClass([vc class]);
-        if (![classStr isEqualToString:@"UILayoutContainerView"]) {
-            [vc removeFromSuperview];
-        }
+       //if (![classStr isEqualToString:@"UILayoutContainerView"]) {
+          //  [vc removeFromSuperview];
+        //}
     }
     
 }

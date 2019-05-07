@@ -54,7 +54,7 @@
                              userName:(NSString *)number
                              password:(NSString *)password
                               success:(void(^)(CMAccount *account))success
-                                 fail:(void(^)(NSError *error))fail;
+                                 fail:(void(^)(NSError *error,NSDictionary *errorDict))fail;
 
 /**
  *  获取短信验证码
@@ -73,7 +73,7 @@
  */
 + (void)cm_toolFetchRefreshToken:(NSString *)refreshToken
                          success:(void(^)(BOOL isWin))success
-                            fail:(void(^)(NSError *error))fail;
+                            fail:(void(^)(NSError *error,NSDictionary *errorDict))fail;
 
 
 /**
@@ -96,7 +96,7 @@
 
 + (void)cm_toolFetchShortMessageLogin:(NSString*)number andSMSCode:(NSString*)code
                                     success:(void(^)(CMAccount *account))success
-                                       fail:(void(^)(NSError *error))fail;
+                                       fail:(void(^)(NSError *error,NSDictionary *errorDict))fail;
 
 @end
 

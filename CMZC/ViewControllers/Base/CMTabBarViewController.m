@@ -40,7 +40,7 @@
         if (CMIsLogin()) {
             return YES;
         } else {
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(presentTabBarIndex) name:@"loginWin" object:nil];
+          //  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(presentTabBarIndex) name:@"loginWin" object:nil];
             CMLoginViewController *loginVC = (CMLoginViewController *)[UIStoryboard loginStoryboard].instantiateInitialViewController;
             [self presentViewController:loginVC animated:YES completion:nil];
             return  NO;
@@ -57,9 +57,9 @@
     }
 }
 - (void) presentTabBarIndex {
-    UIWindow *window = [UIApplication sharedApplication].windows.firstObject;
-    CMTabBarViewController *tab = (CMTabBarViewController *)window.rootViewController;
-    tab.selectedIndex = 3;
+   // UIWindow *window = [UIApplication sharedApplication].windows.firstObject;
+   // CMTabBarViewController *tab = (CMTabBarViewController *)window.rootViewController;
+    self.selectedIndex = 3;
 }
 - (void)tabBarController:(UITabBarController *)tabBarController willBeginCustomizingViewControllers:(NSArray<__kindof UIViewController *> *)viewControllers {
     

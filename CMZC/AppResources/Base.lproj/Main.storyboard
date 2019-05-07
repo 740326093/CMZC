@@ -3689,7 +3689,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JAD-1f-NJY">
+                            <webView contentMode="scaleToFill" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JAD-1f-NJY">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" red="0.29019607843137252" green="0.31372549019607843" blue="0.32941176470588235" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </webView>
@@ -7961,52 +7961,52 @@
         <image name="CM_sina" width="30" height="30"/>
         <image name="CM_wechat" width="30" height="30"/>
         <image name="CM_wechat_timeline" width="30" height="30"/>
-        <image name="add_option_home" width="74" height="74"/>
-        <image name="add_optional_line" width="67" height="19"/>
+        <image name="add_option_home" width="149" height="149"/>
+        <image name="add_optional_line" width="135" height="39"/>
         <image name="agencyUpSuccess" width="69" height="69"/>
         <image name="agencylender" width="20" height="20"/>
-        <image name="attestation_trade" width="40" height="15"/>
+        <image name="attestation_trade" width="80" height="30"/>
         <image name="btn_Image_line" width="24" height="18"/>
-        <image name="buying_line" width="60" height="60"/>
-        <image name="consult_analys" width="40" height="40"/>
-        <image name="consulting_trade" width="30" height="30"/>
-        <image name="function_line" width="114" height="89"/>
+        <image name="buying_line" width="80" height="80"/>
+        <image name="consult_analys" width="80" height="80"/>
+        <image name="consulting_trade" width="20" height="20"/>
+        <image name="function_line" width="229" height="178"/>
         <image name="funds_trade" width="20" height="20"/>
         <image name="lenderImage" width="16" height="16"/>
-        <image name="mark_shen" width="12" height="12"/>
-        <image name="more_line" width="22" height="22"/>
-        <image name="nav_allSever_right" width="22" height="22"/>
+        <image name="mark_shen" width="25" height="25"/>
+        <image name="more_line" width="44" height="45"/>
+        <image name="nav_allSever_right" width="45" height="45"/>
         <image name="nav_homeTitle_left" width="72" height="26"/>
-        <image name="newProdeuct_shen" width="320" height="180"/>
-        <image name="new_holp_trade" width="27" height="13"/>
-        <image name="newest_bg_home" width="320" height="130"/>
-        <image name="position_shen" width="12" height="12"/>
-        <image name="query_line" width="22" height="22"/>
-        <image name="refresh_line" width="67" height="19"/>
-        <image name="refresh_line_thren" width="22" height="22"/>
-        <image name="register_home" width="43" height="43"/>
-        <image name="right_home" width="7" height="12"/>
-        <image name="round_shen" width="65" height="65"/>
-        <image name="sale_line" width="40" height="40"/>
-        <image name="select_trade" width="65" height="65"/>
+        <image name="newProdeuct_shen" width="641" height="361"/>
+        <image name="new_holp_trade" width="55" height="27"/>
+        <image name="newest_bg_home" width="641" height="261"/>
+        <image name="position_shen" width="25" height="25"/>
+        <image name="query_line" width="44" height="45"/>
+        <image name="refresh_line" width="135" height="39"/>
+        <image name="refresh_line_thren" width="45" height="45"/>
+        <image name="register_home" width="87" height="87"/>
+        <image name="right_home" width="15" height="25"/>
+        <image name="round_shen" width="131" height="131"/>
+        <image name="sale_line" width="81" height="80"/>
+        <image name="select_trade" width="131" height="131"/>
         <image name="server_title_name" width="11" height="11"/>
         <image name="service_serve" width="24" height="21"/>
         <image name="share_trade" width="20" height="20"/>
-        <image name="sigh_trade" width="14" height="14"/>
-        <image name="tab_home" width="25" height="23"/>
-        <image name="tab_home_select" width="25" height="23"/>
+        <image name="sigh_trade" width="29" height="29"/>
+        <image name="tab_home" width="51" height="47"/>
+        <image name="tab_home_select" width="51" height="47"/>
         <image name="tab_line" width="25" height="23"/>
         <image name="tab_line_select" width="25" height="23"/>
-        <image name="tab_sub" width="25" height="23"/>
-        <image name="tab_sub_select" width="25" height="23"/>
+        <image name="tab_sub" width="51" height="47"/>
+        <image name="tab_sub_select" width="51" height="47"/>
         <image name="tab_trade" width="25" height="23"/>
         <image name="tab_trade_select" width="25" height="23"/>
         <image name="timeImage" width="13" height="13"/>
-        <image name="title_log_acc" width="130" height="60"/>
-        <image name="upward_line" width="7" height="18"/>
+        <image name="title_log_acc" width="260" height="120"/>
+        <image name="upward_line" width="15" height="36"/>
         <image name="weChatImage" width="24" height="21"/>
-        <image name="weChat_id" width="140" height="140"/>
-        <image name="wechat_serve" width="150" height="150"/>
+        <image name="weChat_id" width="280" height="280"/>
+        <image name="wechat_serve" width="300" height="300"/>
         <image name="with_serve_serve" width="24" height="21"/>
     </resources>
 </document>

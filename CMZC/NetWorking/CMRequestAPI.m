@@ -92,6 +92,7 @@ typedef NS_ENUM(NSUInteger, CMHTTPRequestStatusCode) {
 - (void)postTradeFromURLScheme:(NSString *)urlScheme argumentsDictionary:(NSDictionary *)arguments success:(SuccessRequestBlock)success fail:(FailRequestBlock)fail {
     
     NSString *refreshToken = [CMAccountTool sharedCMAccountTool].currentAccount.access_token;
+    
     NSString *string = [NSString stringWithFormat:@"Bearer %@",refreshToken];
     NSString *urlStr = [NSString stringWithFormat:@"%@%@",kCMBaseApiURL,urlScheme];
     NSMutableURLRequest *request = [[AFJSONRequestSerializer serializer] requestWithMethod:@"POST" URLString:urlStr parameters:arguments error:nil];
@@ -99,17 +100,21 @@ typedef NS_ENUM(NSUInteger, CMHTTPRequestStatusCode) {
     //_manage.responseSerializer = [AFHTTPResponseSerializer serializer];
     NSURLSessionTask *task = [_manage dataTaskWithRequest:request
                                          completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+                                             
                                              if (error) {
                                                  MyLog(@" error : %@",error);
                                                  //请求失败
                                                  NSError *cmError = [NSError errorWithDomain:error.domain code:error.code message:[NSString errorMessageWithCode:error.code]];
                                                  fail(cmError);
                                              } else {
+                                                 
+                                                 
                                                  if ([responseObject[@"errcode"] integerValue] == 0) {
                                                      //请求成功
                                                      success(responseObject);
                                                      [self.NoNetworkView removeFromSuperview];
                                                  } else {
+                                                     
                                                      NSError *cmError = [NSError errorWithDomain:responseObject[@"errmsg"] code:[responseObject[@"errcode"] integerValue] message:[NSString errorMessageWithCode:[responseObject[@"errcode"] integerValue]]];
                                                      fail(cmError);
                                                  }

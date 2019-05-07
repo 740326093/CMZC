@@ -58,18 +58,31 @@
     
     //}
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginSuccessed) name:@"loginWin" object:nil];
+  //  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginSuccessed) name:@"loginWin" object:nil];
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(productPurchase) name:@"productPurchase" object:nil];
+ //[self addRequestDataMeans];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginSuccessed) name:@"loginWin" object:nil];
+    //添加下拉刷新
+[_curTableView addHeaderWithFinishBlock:^{
+        [self requestListWithPageNo:1];
+    }];
+    if (CMIsLogin()) {
+        [self addRequestDataMeans];
+    }
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(loginSuccessed) name:@"TiXianSuccess" object:nil];
-      [self addRequestDataMeans];
+    //
+    //
+    
 }
 
 - (void)loginSuccessed {
+    
     [_curTableView beginHeaderRefreshing];
+    
 }
 /*
 - (void)productPurchase {
@@ -86,10 +99,7 @@
     [self showDefaultProgressHUD];
     //显示菊花
     [self requestListWithPageNo:1];
-    //添加下拉刷新
-    [_curTableView addHeaderWithFinishBlock:^{
-        [self requestListWithPageNo:1];
-    }];
+   
     
     
 }
@@ -101,21 +111,24 @@
     //判断token
     [[CMTokenTimer sharedCMTokenTimer] cm_cmtokenTimerRefreshSuccess:^{
         [CMRequestAPI cm_tradeFetchAccountionfSuccess:^(CMAccountinfo *account) {
+             MyLog(@" account : %@",account);
             
-            [self hiddenProgressHUD];
-            [_curTableView endRefresh];
+            [self hiddenAllProgressHUD];
+
+           
             _tradeTitleView.tinfo = account;
             _tinfo = account;
             SaveDataToNSUserDefaults(account.userid, @"userid");
-            
+             [_curTableView endRefresh];
             [self cheackStatecheackStateWithUserId:account.userid];
         } fail:^(NSError *error) {
             [_curTableView endRefresh];
-            [self hiddenProgressHUD];
+            [self hiddenAllProgressHUD];
             [self showHUDWithMessage:error.message hiddenDelayTime:2];
         }];
     } fail:^(NSError *error) {
-        [self hiddenProgressHUD];
+        
+        [self hiddenAllProgressHUD];
         [_curTableView endRefresh];
         //[self showHUDWithMessage:@"请登录账户" hiddenDelayTime:2];
     }];
@@ -431,7 +444,7 @@
             if (_isHidebottom) {
                 [self.navigationController  popViewControllerAnimated:YES];
             }else{
-                 UIWindow *window = [UIApplication sharedApplication].windows.firstObject;
+            UIWindow *window = [UIApplication sharedApplication].windows.firstObject;
             CMTabBarViewController *tab = (CMTabBarViewController *)window.rootViewController;
             tab.selectedIndex = 0;
             }

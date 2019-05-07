@@ -80,7 +80,7 @@
     _tinfo = tinfo;
     if (tinfo != nil) {
         _loginView.hidden = YES;
-        
+ 
         _nameLab.text = [[CMAccountTool sharedCMAccountTool].currentAccount.userName stringByReplacingCharactersInRange:NSMakeRange(3, 4) withString:@"****"];
         _totalAssetsLab.text = [NSString stringWithFormat:@"%.2f",tinfo.totalassets];
         _marketLab.text = [NSString stringWithFormat:@"%.2f",tinfo.totalmarketvalue];

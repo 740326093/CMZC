@@ -19,6 +19,7 @@ singleton_implementation(CMAccountTool)
 - (instancetype)init {
     if (self = [super init]) {
         _accounts = [NSKeyedUnarchiver unarchiveObjectWithFile:kFilePath];
+        
         _currentAccount = [NSKeyedUnarchiver unarchiveObjectWithFile:kCurrentPath];
         if (_accounts == nil) {
             _accounts = [NSMutableArray array];
@@ -45,9 +46,9 @@ singleton_implementation(CMAccountTool)
     [NSKeyedArchiver archiveRootObject:_currentAccount toFile:kCurrentPath];
     [NSKeyedArchiver archiveRootObject:_accounts toFile:kFilePath];
 }
-//&&self.currentAccount.password.length>0 &&
+//&&self.currentAccount.password.length>0 &&&&self.currentAccount.userName.length>0
 - (BOOL)isLogin {
-    return (self.currentAccount&&self.currentAccount.userName.length>0&&self.currentAccount.access_token.length > 0);
+    return (self.currentAccount&&self.currentAccount.access_token.length > 0);
 }
 
 

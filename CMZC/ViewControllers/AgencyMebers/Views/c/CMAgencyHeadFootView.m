@@ -142,9 +142,11 @@
                     [self.delegate loginBtnEvent];
                 }
                 
-            } fail:^(NSError *error) {
-                
-                [self showHubView:self messageStr:@"账户名或者密码错误" time:2];
+            } fail:^(NSError *error,NSDictionary *errorDict) {
+                if (errorDict.allKeys>0) {
+                   [self showHubView:self messageStr:errorDict[@""] time:2];
+                }
+               
             }];
             
             
