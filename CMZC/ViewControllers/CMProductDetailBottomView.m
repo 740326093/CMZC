@@ -164,7 +164,7 @@
     
     
 }
-
+//||[ProductDetails.status isEqualToString:@"预约中"]||[ProductDetails.status isEqualToString:@"预定中"]
 -(void)setProductDetails:(CMProductDetails *)ProductDetails{
     _ProductDetails =ProductDetails;
     [self.subscribeStateBtn setTitle:ProductDetails.status forState:UIControlStateNormal];

@@ -91,13 +91,15 @@
         NSArray *arr= [cookieString componentsSeparatedByString:@";"];
         NSString *newString=arr.firstObject;
         NSArray *arr1= [newString componentsSeparatedByString:@"="];
-            
+       MyLog(@"++%@",newString);
            // if(cookie.name&&cookie.value){
            // SaveDataToNSUserDefaults(cookie.name, @"name");
            // SaveDataToNSUserDefaults(cookie.value, @"value");
            // }else{
                 SaveDataToNSUserDefaults(arr1.firstObject, @"name");
-                SaveDataToNSUserDefaults(arr1.lastObject, @"value");
+               SaveDataToNSUserDefaults(arr1.lastObject, @"value");
+              SaveDataToNSUserDefaults(newString, @"Set-Cookie");
+            
             //}
             //存储以下当前时间
             SaveDataToNSUserDefaults([NSDate date], kVerifyStareDateKey);
@@ -181,8 +183,8 @@
           MyLog(@"刷新token++++%@",responseObject)
         if (token.length>0) {
             //删除
-            DeleteDataFromNSUserDefaults(@"name");
-            DeleteDataFromNSUserDefaults(@"value");
+            //DeleteDataFromNSUserDefaults(@"name");
+           // DeleteDataFromNSUserDefaults(@"value");
             
             //获得cookies
             NSDictionary *fields = [(NSHTTPURLResponse *)task.response allHeaderFields];
@@ -193,17 +195,20 @@
             //保存到本地
             
             NSString *cookieString = [fields valueForKey:@"Set-Cookie"];
-            
+           
             NSArray *arr= [cookieString componentsSeparatedByString:@";"];
             NSString *newString=arr.firstObject;
-            NSArray *arr1= [newString componentsSeparatedByString:@"="];
+            
+            SaveDataToNSUserDefaults(newString, @"Set-Cookie");
+            
+           // NSArray *arr1= [newString componentsSeparatedByString:@"="];
             
 //            if(cookie.name&&cookie.value){
 //                SaveDataToNSUserDefaults(cookie.name, @"name");
 //                SaveDataToNSUserDefaults(cookie.value, @"value");
 //            }else{
-                SaveDataToNSUserDefaults(arr1.firstObject, @"name");
-                SaveDataToNSUserDefaults(arr1.lastObject, @"value");
+               // SaveDataToNSUserDefaults(arr1.firstObject, @"name");
+                //SaveDataToNSUserDefaults(arr1.lastObject, @"value");
         //    }
             
             
@@ -227,11 +232,11 @@
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         //请求失败
-        MyLog(@"error:%@",error);
+      
         if (error.code==-1011) {
             NSData *errorData = error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey];
             NSDictionary *body = [NSJSONSerialization JSONObjectWithData:errorData options:NSJSONReadingMutableContainers error:nil];
-            
+             MyLog(@"error:%@",body);
             if (body) {
                 
                 fail(error,body);
@@ -324,14 +329,15 @@
             
             NSArray *arr= [cookieString componentsSeparatedByString:@";"];
             NSString *newString=arr.firstObject;
-            NSArray *arr1= [newString componentsSeparatedByString:@"="];
+            SaveDataToNSUserDefaults(newString, @"Set-Cookie");
+           // NSArray *arr1= [newString componentsSeparatedByString:@"="];
             
 //            if(cookie.name&&cookie.value){
 //                SaveDataToNSUserDefaults(cookie.name, @"name");
 //                SaveDataToNSUserDefaults(cookie.value, @"value");
 //            }else{
-                SaveDataToNSUserDefaults(arr1.firstObject, @"name");
-                SaveDataToNSUserDefaults(arr1.lastObject, @"value");
+                //SaveDataToNSUserDefaults(arr1.firstObject, @"name");
+               // SaveDataToNSUserDefaults(arr1.lastObject, @"value");
            // }
             //存储以下当前时间
             SaveDataToNSUserDefaults([NSDate date], kVerifyStareDateKey);

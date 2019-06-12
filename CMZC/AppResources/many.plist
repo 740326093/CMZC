@@ -140,7 +140,7 @@
 				<key>titName</key>
 				<string>新经板项目申购门槛</string>
 				<key>countStr</key>
-				<string>单笔申购额不低于2万元</string>
+				<string>单笔申购额不低于1万元</string>
 			</dict>
 			<dict>
 				<key>titName</key>

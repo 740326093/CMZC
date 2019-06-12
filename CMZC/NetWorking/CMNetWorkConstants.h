@@ -341,3 +341,18 @@ extern NSString *const KCustomProductURL;
 extern NSString *const KGetPhoneSMSCodeURL;
 
 
+/**
+ 新手体验接口API
+ **/
+extern NSString *const KNewUserExpCodeURL;
+
+/**
+ 用户邀请接口API
+ **/
+extern NSString *const KUserInvationRecordURL;
+
+
+/**
+ app内部消息APi
+ **/
+extern NSString *const KAppMessageURL;

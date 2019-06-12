@@ -50,6 +50,7 @@
 #import "CMAgencyMebersController.h"
 //#import "CMSliderHeadTitleView.h"
 #import "CMNewShowController.h"
-
+#import "CMMyInviteController.h"
+#import "CMSwitchView.h"
 #import <VaptchaSDK/VaptchaSDK.h>
 #endif /* CMImportHeader_h */

@@ -10,6 +10,8 @@
 @interface CMShowOtherCell ()<SDCycleScrollViewDelegate>
 
 @property(nonatomic,strong)SDCycleScrollView *sdScrollView;
+
+@property(nonatomic,strong)UIImageView *palceImage;
 @end
 @implementation CMShowOtherCell
 
@@ -25,13 +27,20 @@
         UIView *lineView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, CMScreen_width(), 10)];
         lineView.backgroundColor=[UIColor clmHex:0xefeff4];
         [self addSubview:lineView];
-        [self addSubview:self.sdScrollView];
-        
+      [self addSubview:self.sdScrollView];
+       
+       
     }
     
     return self;
 }
-
+-(UIImageView*)palceImage{
+    
+    if (!_palceImage) {
+        _palceImage=[[UIImageView alloc]init];
+    }
+    return _palceImage;
+}
 -(SDCycleScrollView*)sdScrollView{
     if (!_sdScrollView) {
         _sdScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 10, CMScreen_width(),f_i5real(140))
@@ -46,7 +55,11 @@
 }
 -(void)setBarArray:(NSArray *)barArray{
     if (barArray.count>0) {
-        self.sdScrollView.barModelGrop=barArray;
+       self.sdScrollView.barModelGrop=barArray;
+        
+      
+        
+        
     }
 }
 -(void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didScrollToUrl:(NSString *)url{

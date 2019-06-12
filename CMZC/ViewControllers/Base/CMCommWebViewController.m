@@ -161,9 +161,9 @@
 
     //[self loadCookieWith:request];
     //4.查看请求头
-    // [self loadCookies];
-    NSString *name = GetDataFromNSUserDefaults(@"name");
-    NSString *value = GetDataFromNSUserDefaults(@"value");
+   //  [self loadCookies];
+   // NSString *name = GetDataFromNSUserDefaults(@"name");
+   // NSString *value = GetDataFromNSUserDefaults(@"value");
 //    NSMutableURLRequest *mutableRequest = [request mutableCopy];
 //    NSString *cookieValue = [NSString stringWithFormat:@"%@=%@",name,value];
 //    [mutableRequest addValue:cookieValue forHTTPHeaderField:@"Cookie"];
@@ -171,20 +171,27 @@
     
     
     
-             NSString *cookieString = [[NSString alloc] initWithFormat:@"%@=%@",name,value];
-               NSDictionary *setCookieDic = [NSDictionary dictionaryWithObject:cookieString forKey:@"Set-Cookie"];
+//             //NSString *cookieString = [[NSString alloc] initWithFormat:@"%@=%@",name,value];
+    if (GetDataFromNSUserDefaults(@"Set-Cookie")) {
+
+
+               NSDictionary *setCookieDic = [NSDictionary dictionaryWithObject:GetDataFromNSUserDefaults(@"Set-Cookie") forKey:@"Set-Cookie"];
              NSArray *headeringCookie = [NSHTTPCookie cookiesWithResponseHeaderFields:setCookieDic forURL:[NSURL URLWithString:kCMMZWeb_url]];
-        
+
                // 通过setCookies方法，完成设置，这样只要一访问URL为HOST的网页时，会自动附带上设置好的header
                [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookies:headeringCookie  forURL:[NSURL URLWithString:kCMMZWeb_url]                 mainDocumentURL:nil];
-    
-
-    [_webView loadRequest:request];
-    
-  //  MyLog(@"allHTTPHeaderFields++%@",request.allHTTPHeaderFields);
-    _webView.scrollView.bounces = NO;
-
+              [_webView loadRequest:request];
    
+  //  MyLog(@"allHTTPHeaderFields++%@",request.allHTTPHeaderFields);
+             _webView.scrollView.bounces = NO;
+
+   }else{
+
+        [self showHUDWithMessage:@"登录失效,请重新登录!" hiddenDelayTime:2];
+       DeleteDataFromNSUserDefaults(@"Set-Cookie");
+        DeleteDataFromNSUserDefaults(@"userid");
+
+   }
    
     
 }
@@ -210,29 +217,28 @@
 //    [cookiePreperties setObject:value forKey:NSHTTPCookieValue];
 //
  
-    
+NSURL *url= [NSURL URLWithString:self.urlStr];
+    MyLog(@"++%@",url.host);
     NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies];
     
     NSMutableArray *mutcookies=[NSMutableArray arrayWithArray:cookies];
     
-    
-//    NSMutableDictionary *cookiePreperties = [NSMutableDictionary dictionary];
-//    [cookiePreperties setObject:name forKey:NSHTTPCookieName];
-//    [cookiePreperties setObject:value forKey:NSHTTPCookieValue];
-//    [cookiePreperties setObject:kCMBase_URL forKey:NSHTTPCookieDomain];
-//    [cookiePreperties setObject:kCMBase_URL forKey:NSHTTPCookieOriginURL];
-//    [cookiePreperties setObject:@"/" forKey:NSHTTPCookiePath];
-//    [cookiePreperties setObject:@"0" forKey:NSHTTPCookieVersion];
-    NSDictionary *cookiePreperties = [NSDictionary dictionaryWithObjectsAndKeys:
-                           name,NSHTTPCookieName,
-                           value,NSHTTPCookieValue,
-                           @"/",NSHTTPCookiePath,
-                           @"0",NSHTTPCookieVersion,
-                                      [NSURL URLWithString:_urlStr],NSHTTPCookieOriginURL,
-                                      [NSURL URLWithString:_urlStr],NSHTTPCookieOriginURL,
-                         [NSURL URLWithString:_urlStr],NSHTTPCookieOriginURL,
-                           [NSDate dateWithTimeIntervalSinceNow:60*60],NSHTTPCookieExpires,
-                           nil];
+    NSMutableDictionary *cookiePreperties = [NSMutableDictionary dictionary];
+    [cookiePreperties setObject:name forKey:NSHTTPCookieName];
+    [cookiePreperties setObject:value forKey:NSHTTPCookieValue];
+    [cookiePreperties setObject:url.host forKey:NSHTTPCookieDomain];
+    [cookiePreperties setObject:@"/" forKey:NSHTTPCookiePath];
+    [cookiePreperties setObject:@"0" forKey:NSHTTPCookieVersion];
+//    NSDictionary *cookiePreperties = [NSDictionary dictionaryWithObjectsAndKeys:
+//                           name,NSHTTPCookieName,
+//                           value,NSHTTPCookieValue,
+//                           @"/",NSHTTPCookiePath,
+//                           @"0",NSHTTPCookieVersion,
+//                                      [NSURL URLWithString:_urlStr],NSHTTPCookieOriginURL,
+//                                      [NSURL URLWithString:_urlStr],NSHTTPCookieOriginURL,
+//                         [NSURL URLWithString:_urlStr],NSHTTPCookieOriginURL,
+//                           [NSDate dateWithTimeIntervalSinceNow:60*60],NSHTTPCookieExpires,
+//                           nil];
     NSHTTPCookie *CustomCookie = [NSHTTPCookie cookieWithProperties:cookiePreperties];
     [mutcookies insertObject:CustomCookie atIndex:0];
     for (NSHTTPCookie *cookie in mutcookies) {
@@ -349,7 +355,7 @@
     [self hiddenProgressHUD];
    
     
-  
+  //MyLog(@"+++++%@",[[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies]);
     
     [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.getElementsByClassName('page-header navbar navbar-default navbar-static-top')[0].hidden=true"];
     [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.getElementsByClassName('live_headbg')[0].hidden=true"];
@@ -484,12 +490,7 @@
 //}
 
     
-    
-    
-    
-    
-    
-    
+   // MyLog(@"+++++%@",[[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies]);
     
     
     
@@ -502,7 +503,7 @@ if ([self.nextURL rangeOfString:@"pid"].location!=NSNotFound) {
     
     
 }
-    if ([self.nextURL rangeOfString:@"RobFound_New.aspx"].location!=NSNotFound) {
+    if ([self.nextURL rangeOfString:@"RobFound_New"].location!=NSNotFound) {
         _showRefresh=YES;
         
         
@@ -542,7 +543,12 @@ if ([self.nextURL rangeOfString:@"pid"].location!=NSNotFound) {
          
          return NO;
      }
-    
+    if ([self.nextURL isEqualToString:CMStringWithPickFormat(kCMMZWeb_url,@"/Account/")]) {
+        [webView stopLoading];
+        [self.navigationController popToRootViewControllerAnimated:YES];
+        
+        return NO;
+    }
    
     if ([self.nextURL rangeOfString:CMStringWithPickFormat(kCMMZWeb_url,@"/Register")].location!=NSNotFound) {
         [webView stopLoading];
@@ -724,7 +730,7 @@ if ([self.nextURL rangeOfString:@"pid"].location!=NSNotFound) {
         case subStateBtnClick:
             
            // if (CMIsLogin()) {
-            _urlStr=[NSString stringWithFormat:@"%@/Invest/Confirm?pid=%ld",kCMMZWeb_url,(long)self.ProductDetails.productId];
+            _urlStr=[NSString stringWithFormat:@"%@/Invest/Confirm?pid=%ld&pcont=1",kCMMZWeb_url,(long)self.ProductDetails.productId];
                 [self loadWebViewData];
 //            } else {
 //                UINavigationController *nav = [UIStoryboard loginStoryboard].instantiateInitialViewController;

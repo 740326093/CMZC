@@ -24,7 +24,13 @@
 - (void)setNotice:(CMNewShiModel *)notice {
     
    // [_titleImage sd_setImageWithURL:[NSURL URLWithString:notice.picture] placeholderImage:[UIImage imageNamed:@"title_log"]];
-    _titleImage.image=[UIImage getImageFromUrl:[NSURL URLWithString:notice.picture] imgViewWidth:CMScreen_width() imgViewHeight:131];
+   
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        UIImage *image = [UIImage getImageFromUrl:[NSURL URLWithString:notice.picture] imgViewWidth:CMScreen_width() imgViewHeight:131];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            _titleImage.image=image;
+        });
+    });
     
    
     _titleLab.text = notice.title;

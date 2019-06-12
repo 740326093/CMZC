@@ -57,5 +57,10 @@
                               productType:(NSInteger)typeId
                                   success:(void(^)(NSArray *productArr,BOOL isPage))success
                                      fail:(void(^)(NSError *error))fail;
-
+/**
+ *  获得邀请数据
+ *
+ */
++ (void)cm_applyRequestInvationRecordSuccess:(void(^)(NSDictionary *recordDict))success
+                                     fail:(void(^)(NSError *error))fail;
 @end

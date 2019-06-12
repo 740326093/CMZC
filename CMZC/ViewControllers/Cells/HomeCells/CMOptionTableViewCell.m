@@ -180,7 +180,7 @@
 */
 -(void)setIsHaveBank:(BOOL)isHaveBank{
     
-    if (isHaveBank==YES) {
+   // if (isHaveBank==YES) {
         
         self.titImageArr= @[@"deal_home",
                               @"invest_home",
@@ -193,23 +193,24 @@
                                @"投资讲堂",
                                @"安全保障",
                                @"倍利宝",
-                               @"我的账户",
+                               //@"我的账户",
+                                CMIsLogin()?@"我的账户":@"开户",
                                @"更多"];
         [_curCollectionView reloadData];
-    } else {
-        
-        self.titImageArr= @[@"deal_home",
-                              @"invest_home",
-                              @"security_home",
-                              @"register_home",
-                              @"more_home"];
-        
-        self.titLabNameArr= @[ @"交易指南",
-                               @"投资讲堂",
-                               @"安全保障",
-                               CMIsLogin()?@"我的账户":@"开户",
-                               @"更多"];
-         [_curCollectionView reloadData];
-    }
+//    } else {
+//
+//        self.titImageArr= @[@"deal_home",
+//                              @"invest_home",
+//                              @"security_home",
+//                              @"register_home",
+//                              @"more_home"];
+//
+//        self.titLabNameArr= @[ @"交易指南",
+//                               @"投资讲堂",
+//                               @"安全保障",
+//                               CMIsLogin()?@"我的账户":@"开户",
+//                               @"更多"];
+//         [_curCollectionView reloadData];
+//    }
 }
 @end

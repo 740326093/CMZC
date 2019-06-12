@@ -5,16 +5,16 @@
 //  Created by 财毛 on 16/3/1.
 //  Copyright © 2016年 MAC. All rights reserved.
 //
-//#define kCM_URL @"http://api.xinjingban.com:80" //线上正式api
-//#define kCMWeb_URL @"http://m.xinjingban.com" //线上M站地址
+#define kCM_URL @"http://api.xinjingban.com:80" //线上正式api
+#define kCMWeb_URL @"http://m.xinjingban.com" //线上M站地址
 
 //#define kCM_URL @"http://testapi.xjb51.com" //线上正式api
 //#define kCMWeb_URL @"http://test.xjb51.com" //线上M站地址
 
 //#define kCM_URL @"http://192.168.1.82:8089" //本地测试api
 
-#define kCM_URL @"http://192.168.1.225:9001" //本地测试api
-#define kCMWeb_URL @"http://192.168.1.225:8087" //线上M站地址
+//#define kCM_URL @"http://192.168.1.225:9001" //本地测试api
+//#define kCMWeb_URL @"http://192.168.1.225:8087" //线上M站地址
 
 //#define kCMWeb_URL @"http://testing.xinjingban.com"
  // #define kCM_AgencentUrl @"http://192.168.1.217:8006" //本地机构会员
@@ -128,8 +128,7 @@ NSString *const KCustomProductURL=@"/api/product/putonglotterybysgid";
 //支持省份
 NSString *const kCMTradeProvinceListURL = @"/api/province/list";
 //支持的城市
-NSString *const kCMTradeCityListURL = @"/api/city/list";
-
+NSString *const kCMTradeCityListURL = @"/api/city/list";         
 #pragma mark - 行情
 //行情头部分类信息
 NSString *const kCMProductTypelistURL = @"/api/product/typelist";
@@ -194,4 +193,12 @@ NSString *const KShowOtherProductURL=@"/api/promo/luyanbanners";
 
 NSString *const KGetPhoneSMSCodeURL=@"/api/message/SendSMSCodeByVaptcha";
 
+//上线记得改为0
+NSString *const KNewUserExpCodeURL =@"/api/promo/getbannerinfo?zid=0";
+
+
+NSString *const KUserInvationRecordURL =@"/api/activity/getmycommission?hyid=";
+
+
+NSString *const KAppMessageURL =@"/api/message/mymessagerequest";
 

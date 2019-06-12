@@ -25,7 +25,7 @@
 @property (nonatomic,copy) CMPurchaseProduct *purchase;
 
 @property (strong, nonatomic) NSMutableArray *productDataArr;
-
+@property (strong, nonatomic) NSDictionary *userActiveDict;
 @end
 
 @implementation CMSubscribeViewController
@@ -48,6 +48,7 @@
     [self showDefaultProgressHUD];
     //显示菊花
     [self requestListWithPageNo:1];
+    [self newUserExpData];
     //添加下拉刷新
     [_curTableView addHeaderWithFinishBlock:^{
         [self requestListWithPageNo:1];
@@ -56,6 +57,8 @@
     [_curTableView addFooterWithFinishBlock:^{
         NSInteger page = _productDataArr.count / 10 + 1;
         [self requestListWithPageNo:page];
+        
+         [self newUserExpData];
     }];
     
     
@@ -82,7 +85,19 @@
     }];
 }
 
-
+//新手体验
+-(void)newUserExpData{
+    [CMRequestAPI cm_homeShowNewUserExpSuccess:^(NSDictionary *successDict) {
+        //  MyLog(@"+++%@",successDict);
+        
+        _subscribeView.activeContextLab.text=successDict[@"sname"];
+        
+        self.userActiveDict=successDict;
+    } fail:^(NSError *error) {
+        
+    }];
+    
+}
 #pragma mark - UITableViewDelegate && UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.productDataArr.count;
@@ -148,7 +163,7 @@
 -(void)cm_checkImmediatelySubscribeEventWithPid:(NSInteger)productID{
     
     CMCommWebViewController *webVC = (CMCommWebViewController *)[CMCommWebViewController initByStoryboard];
-    webVC.urlStr = [NSString stringWithFormat:@"%@/Invest/Confirm?pid=%ld",kCMMZWeb_url,productID];
+    webVC.urlStr = [NSString stringWithFormat:@"%@/Invest/Confirm?pid=%ld&pcont=1",kCMMZWeb_url,productID];
     [self.navigationController pushViewController:webVC animated:YES];
 }
 
@@ -171,11 +186,15 @@
 //            newGuideVC.imageStr=@"new_shou_yindao";
 //            [weakSelef.navigationController pushViewController:newGuideVC animated:YES];
             
-            CMCommWebViewController *webVC = (CMCommWebViewController *)[CMCommWebViewController initByStoryboard];
-          //  webVC.urlStr = @"http://m.xinjingban.com/Activity/NewPlate.aspx?pid=70363";
-            webVC.urlStr =CMStringWithPickFormat(kCMMZWeb_url, @"/activity/RobFound_New.aspx?pid=7242");
-            webVC.showRefresh=YES;
-            [weakSelef.navigationController pushViewController:webVC animated:YES];
+            NSString *activeUrl=weakSelef.userActiveDict[@"surl"];
+            if (activeUrl.length>0) {
+                CMCommWebViewController *webVC = (CMCommWebViewController *)[CMCommWebViewController initByStoryboard];
+                //  webVC.urlStr = @"http://m.xinjingban.com/Activity/NewPlate.aspx?pid=70363";
+                webVC.urlStr =activeUrl;
+                webVC.showRefresh=YES;
+                [weakSelef.navigationController pushViewController:webVC animated:YES];
+            }
+            
         //
         } else if(index == 1001) {
             //新手指引

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="CMBillingCell" id="KGk-i7-Jjw" customClass="CMBillingCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="49.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h9r-Q7-0Xd">
+                        <rect key="frame" x="10" y="48.5" width="300" height="1"/>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="Ja0-US-GGx"/>
+                        </constraints>
+                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2019年5月29日" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Quk-ms-WWY">
+                        <rect key="frame" x="10" y="15" width="114" height="20"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="结算佣金:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fD2-oS-jAw">
+                        <rect key="frame" x="186" y="15" width="70" height="20"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.00元" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aIz-IT-ohO">
+                        <rect key="frame" x="261" y="15" width="49" height="19.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <color key="textColor" red="1" green="0.3921568627" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="aIz-IT-ohO" firstAttribute="centerY" secondItem="Quk-ms-WWY" secondAttribute="centerY" id="9IV-L1-b7U"/>
+                    <constraint firstAttribute="bottom" secondItem="h9r-Q7-0Xd" secondAttribute="bottom" id="9zD-cH-SmW"/>
+                    <constraint firstItem="aIz-IT-ohO" firstAttribute="leading" secondItem="fD2-oS-jAw" secondAttribute="trailing" constant="5" id="Ffm-tH-8qh"/>
+                    <constraint firstAttribute="trailing" secondItem="aIz-IT-ohO" secondAttribute="trailing" constant="10" id="XTe-yp-X7U"/>
+                    <constraint firstItem="h9r-Q7-0Xd" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="Yhx-my-kLb"/>
+                    <constraint firstItem="Quk-ms-WWY" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="ctA-tx-iG8"/>
+                    <constraint firstAttribute="trailing" secondItem="h9r-Q7-0Xd" secondAttribute="trailing" constant="10" id="jUQ-5a-YxY"/>
+                    <constraint firstItem="aIz-IT-ohO" firstAttribute="centerY" secondItem="fD2-oS-jAw" secondAttribute="centerY" id="kgl-Rv-F3s"/>
+                    <constraint firstItem="Quk-ms-WWY" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="knq-GI-sfI"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="amounLab" destination="aIz-IT-ohO" id="3Mz-lm-sTX"/>
+                <outlet property="dateLab" destination="Quk-ms-WWY" id="nHa-ec-Bbc"/>
+            </connections>
+            <point key="canvasLocation" x="132.80000000000001" y="154.72263868065968"/>
+        </tableViewCell>
+    </objects>
+</document>

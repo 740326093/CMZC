@@ -102,7 +102,11 @@ typedef NS_ENUM(NSUInteger, CMHTTPRequestStatusCode) {
                                          completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
                                              
                                              if (error) {
-                                                 MyLog(@" error : %@",error);
+                                                
+                                                 
+                                                 NSData *errorData = error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey];
+                                                 NSDictionary *body = [NSJSONSerialization JSONObjectWithData:errorData options:NSJSONReadingMutableContainers error:nil];
+                                                 MyLog(@"error:%@",body);
                                                  //请求失败
                                                  NSError *cmError = [NSError errorWithDomain:error.domain code:error.code message:[NSString errorMessageWithCode:error.code]];
                                                  fail(cmError);

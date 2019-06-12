@@ -168,6 +168,16 @@
 
 //展示板barnner
 + (void)cm_homeShowOtherProductBannersSuccess:(void (^)(NSArray *))success fail:(void (^)(NSError *))fail;
+
+
+
+//新手体验活动
++ (void)cm_homeShowNewUserExpSuccess:(void (^)(NSDictionary *))success fail:(void (^)(NSError *))fail;
+
+
+//app内部消息
++ (void)cm_appMessageSuccess:(void (^)(NSArray *))success fail:(void (^)(NSError *))fail;
+
 @end
 
 

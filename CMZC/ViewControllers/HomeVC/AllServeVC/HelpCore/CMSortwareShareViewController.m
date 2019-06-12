@@ -6,7 +6,7 @@
 //  Copyright © 2016年 MAC. All rights reserved.
 //
 
-#define kCMShareTitle @"新经板-只赚不赔的“10倍股"
+#define kCMShareTitle @"新经板-只赚不赔的“10倍项目"
 #define kShare_url CMStringWithPickFormat(kCMMZWeb_url, @"/About/APPClient")//@"http://m.xinjingban.com/About/APPClient"
 
 #import "CMSortwareShareViewController.h"

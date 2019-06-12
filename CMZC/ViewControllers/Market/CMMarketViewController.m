@@ -297,7 +297,7 @@
 - (CMErrorView *)errorView {
     if (!_errorView) {
         float heightView = [UIApplication sharedApplication].statusBarFrame.size.height+self.navigationController.navigationBar.frame.size.height+40;
-        _errorView = [[CMErrorView alloc] initWithFrame:CGRectMake(0, heightView, CMScreen_width(), CMScreen_height()) bgImageName:@"chiyou_trade"];
+        _errorView = [[CMErrorView alloc] initWithFrame:CGRectMake(0, heightView, CMScreen_width(), CMScreen_height()) bgImageName:@"chiyou_trade" titleName:@""];
     }
     return _errorView;
 }

@@ -75,7 +75,20 @@
     [[NSUserDefaults standardUserDefaults] registerDefaults
      :dictionnary];
 
+    if(CMIsLogin()){
+        [[CMTokenTimer sharedCMTokenTimer] cm_cmtokenTimerRefreshSuccess:^{
+            
+           
+        } fail:^(NSError *error) {
+           
+        }];
     
+    }
+    [JPUSHService  registrationIDCompletionHandler:^(int resCode, NSString *registrationID) {
+        
+        MyLog(@"%@",registrationID);
+        
+    }];
         return YES;
 }
 -(void)SetNavigationBar{
@@ -246,6 +259,32 @@
     }
     
     
+}
+// 有外部app通过URL Scheme 的方法打开本应用
+
+-(BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options{
+    //NSString *test = url.host; // 这就是参数
+//    NSLog(@"host = %@",test);
+//    NSLog(@"url = %@", url);
+//    NSLog(@"url = %@", [url query] );
+    
+    NSURLComponents *urlComponents = [[NSURLComponents alloc] initWithString:url.absoluteString];
+    
+//    NSLog(@"%@",urlComponents.scheme);
+//    NSLog(@"%@",urlComponents.user);
+//    NSLog(@"%@",urlComponents.password);
+//    NSLog(@"%@",urlComponents.host);
+//    NSLog(@"%@",urlComponents.port);
+ //   NSLog(@"%@",urlComponents.query);
+    
+    //包含query的各个参数
+    NSLog(@"%@",urlComponents.queryItems);
+ 
+    [urlComponents.queryItems enumerateObjectsUsingBlock:^(NSURLQueryItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+    }];
+    
+    return YES;
 }
 -(void)pushWebviewWithURL:(NSString*)urlStr{
     if (urlStr!=nil) {

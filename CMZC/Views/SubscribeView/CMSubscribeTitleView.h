@@ -13,5 +13,6 @@ typedef void(^CMSubscribeTitleBlock)(NSInteger index);
 @interface CMSubscribeTitleView : UIView
 
 @property (nonatomic,copy)CMSubscribeTitleBlock titleBlock;
+@property (weak, nonatomic) IBOutlet UILabel *activeContextLab;
 
 @end

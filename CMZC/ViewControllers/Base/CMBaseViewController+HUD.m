@@ -35,8 +35,8 @@
 - (void)showHUDWithMessage:(NSString *)message hiddenDelayTime:(NSTimeInterval)delayTime {
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.mode = MBProgressHUDModeText;
-    hud.labelText = message;
-    
+    hud.detailsLabelText = message;
+    hud.detailsLabelFont = [UIFont systemFontOfSize:12.0];
     [hud hide:YES afterDelay:delayTime];
 }
 

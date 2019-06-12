@@ -135,11 +135,14 @@
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="activeContextLab" destination="5aT-cq-5Xb" id="NEh-Cu-mAo"/>
+            </connections>
             <point key="canvasLocation" x="465" y="301"/>
         </view>
     </objects>
     <resources>
-        <image name="make_shen" width="38" height="38"/>
-        <image name="newHand_shen" width="38" height="38"/>
+        <image name="make_shen" width="77" height="76"/>
+        <image name="newHand_shen" width="76" height="76"/>
     </resources>
 </document>

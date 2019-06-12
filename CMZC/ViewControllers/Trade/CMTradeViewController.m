@@ -51,8 +51,8 @@
     _curTableView.tableHeaderView = _tradeTitleView;
     _curTableView.tableFooterView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, CMScreen_width(), 10)];
     
-    _titLabNameArr = @[@"我的申购",@"我的基金",@"安全认证",@"我的收藏",@"我的消息",@"新手交易指南",@"设置"];
-    _titImageArr = @[@"subscribe_trade",@"funds_trade",@"bankCard_trade",@"collection_trade",@"message_trade",@"new_trade",@"set_trade"];
+    _titLabNameArr = @[@"我的申购",@"我的基金",@"安全认证",@"我的邀请",@"我的收藏",@"我的消息",@"新手交易指南",@"设置"];
+    _titImageArr = @[@"subscribe_trade",@"funds_trade",@"bankCard_trade",@"invate_trade",@"collection_trade",@"message_trade",@"new_trade",@"set_trade"];
     //判断一下是否登录
     //if (CMIsLogin()) {
     
@@ -111,7 +111,7 @@
     //判断token
     [[CMTokenTimer sharedCMTokenTimer] cm_cmtokenTimerRefreshSuccess:^{
         [CMRequestAPI cm_tradeFetchAccountionfSuccess:^(CMAccountinfo *account) {
-             MyLog(@" account : %@",account);
+           //  MyLog(@" account : %@",account);
             
             [self hiddenAllProgressHUD];
 
@@ -145,42 +145,57 @@
     return _titLabNameArr.count+2;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if(indexPath.row == 0){
-        return 70;
-    }
-    else if (indexPath.row == 1) {
+    if(indexPath.row ==0){
         return 190;
-    } else {
+    }
+    else if (indexPath.row > 0&&indexPath.row<=_titLabNameArr.count) {
         return 40;
+    } else {
+        return 70;
     }
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row == 0) {
-        CMAgencyMmbersCell *tableCell = [tableView dequeueReusableCellWithIdentifier:@"CMAgencyMmbersCell" forIndexPath:indexPath];
-        return tableCell;
-    
-    }
-   else if (indexPath.row == 1) {
+//        CMAgencyMmbersCell *tableCell = [tableView dequeueReusableCellWithIdentifier:@"CMAgencyMmbersCell" forIndexPath:indexPath];
+//        return tableCell;
+        
+        
         CMTradeMeansTableViewCell *tradeMeansCell = [tableView dequeueReusableCellWithIdentifier:@"CMTradeMeansTableViewCell" forIndexPath:indexPath];
-        
         tradeMeansCell.delegate = self;
-        
         return tradeMeansCell;
-    } else {
-        CMFunctionTableViewCell *tableCell = [tableView dequeueReusableCellWithIdentifier:@"CMFunctionTableViewCell" forIndexPath:indexPath];
-        [tableCell cm_functionTileLabNameStr:_titLabNameArr[indexPath.row-2]
-                              titleImageName:_titImageArr[indexPath.row - 2]];
+    }
+   else if (indexPath.row > 0&&indexPath.row<=_titLabNameArr.count) {
+       CMFunctionTableViewCell *tableCell = [tableView dequeueReusableCellWithIdentifier:@"CMFunctionTableViewCell" forIndexPath:indexPath];
+       [tableCell cm_functionTileLabNameStr:_titLabNameArr[indexPath.row-1]
+                             titleImageName:_titImageArr[indexPath.row - 1]];
+       
+       if (indexPath.row == 4) {
+           tableCell.tradeImage.hidden = NO;
+       } else {
+           tableCell.tradeImage.hidden = YES;
+       }
+       
+       
+       return tableCell;
         
-        if (indexPath.row == 7) {
-            tableCell.tradeImage.hidden = NO;
-        } else {
-            tableCell.tradeImage.hidden = YES;
-        }
-
-    
-        return tableCell;
+       
+    } else {
+        CMAgencyMmbersCell *tableCell = [tableView dequeueReusableCellWithIdentifier:@"CMAgencyMmbersCell" forIndexPath:indexPath];
+             return tableCell;
+//        CMFunctionTableViewCell *tableCell = [tableView dequeueReusableCellWithIdentifier:@"CMFunctionTableViewCell" forIndexPath:indexPath];
+//        [tableCell cm_functionTileLabNameStr:_titLabNameArr[indexPath.row-2]
+//                              titleImageName:_titImageArr[indexPath.row - 2]];
+//
+//        if (indexPath.row == 7) {
+//            tableCell.tradeImage.hidden = NO;
+//        } else {
+//            tableCell.tradeImage.hidden = YES;
+//        }
+//
+//
+//        return tableCell;
     }
 }
 
@@ -193,6 +208,116 @@
         [self presentViewController:loginVC animated:YES completion:nil];
         
     } else {
+        
+        
+        if (indexPath.row>_titLabNameArr.count) {
+            MyLog(@"机构会员标识+++%ld",_tinfo.bjigou);
+            //  CMAgencyMebersController *collectController = (CMAgencyMebersController *)[CMAgencyMebersController initByStoryboard];
+            // CMMebersIncomeController *collectController = (CMMebersIncomeController *)[CMMebersIncomeController initByStoryboard];
+            // commonalityVC = collectController;
+            //bjigou  机构会员标识0非机构会员 1会员审核状态 2机构会员
+            
+            switch (_tinfo.bjigou) {
+                case 0:{
+                    MyLog(@"++++++%@",_CheackStateModel);
+                    if (_CheackStateModel) {
+                        if (_CheackStateModel.Status==2) {
+                            CMAgencyCheckController *collectController = (CMAgencyCheckController *)[CMAgencyCheckController initByStoryboard];
+                            collectController.stateType=CMCheackFail;
+                            collectController.StateLab=_CheackStateModel.beizhu;
+                            [self.navigationController pushViewController:collectController animated:YES];
+                            return;
+                        }
+                        
+                    }
+                    CMAgencyMebersController *collectController = (CMAgencyMebersController *)[CMAgencyMebersController initByStoryboard];
+                    commonalityVC = collectController;
+                    
+                    
+                    
+                }
+                    break;
+                case 1:
+                {
+                    CMAgencyCheckController *collectController = (CMAgencyCheckController *)[CMAgencyCheckController initByStoryboard];
+                    collectController.stateType=CMCheacking;
+                    commonalityVC = collectController;
+                    
+                }
+                    break;
+                case 2:
+                {
+                    CMMebersIncomeController *collectController = (CMMebersIncomeController *)[CMMebersIncomeController initByStoryboard];
+                    commonalityVC = collectController;
+                }
+                    break;
+                    
+                default:
+                    break;
+            }
+        } else {
+            if (indexPath.row==1) {
+                CMMySubScribeController *SubScribeController = [[CMMySubScribeController alloc]init];
+                SubScribeController.hidesBottomBarWhenPushed=YES;
+                commonalityVC = SubScribeController;
+            }else if (indexPath.row==2){
+                [self pushCommWebViewVCUrlStr:CMStringWithPickFormat(kCMMZWeb_url, @"/Account/JijinList")];
+            } else if (indexPath.row==3){
+                //                if (_tinfo.bankcardisexists) {
+                //                    //判断是否绑定过银行卡
+                //                    CMMyBankCardViewController *bankCardVC = (CMMyBankCardViewController *)[[UIStoryboard mainStoryboard] viewControllerWithId:@"CMMyBankCardViewController"];
+                //                    commonalityVC = bankCardVC;
+                //                } else {
+                //没有绑定过银行卡。现在还没有m站地址
+                [self pushCommWebViewVCUrlStr:CMStringWithPickFormat(kCMMZWeb_url, @"/Account/SecurityCertification")];
+               
+                
+            }
+            
+            else if (indexPath.row==4){
+                CMMyInviteController *collectController = (CMMyInviteController *)[CMMyInviteController initByStoryboard];
+                commonalityVC = collectController;
+                //                }
+            }else if (indexPath.row==5){
+                
+                CMMyCollectController *collectController = (CMMyCollectController *)[CMMyCollectController initByStoryboard];
+                commonalityVC = collectController;
+            }else if (indexPath.row==6){
+                CMMessageViewController *statementVC = (CMMessageViewController *)[[UIStoryboard mainStoryboard] viewControllerWithId:@"CMMessageViewController"];
+                statementVC.block=^{
+                    [self.curTableView reloadData];
+                };
+                commonalityVC = statementVC;
+            }else if (indexPath.row==7){
+                CMStatementViewController *statementVC = (CMStatementViewController *)[[UIStoryboard mainStoryboard] viewControllerWithId:@"CMStatementViewController"];
+                statementVC.baserType = CMBaseViewDistinctionTypeDetails;
+                statementVC.title = @"新手交易指南";
+                commonalityVC = statementVC;
+            }else {
+                CMInstallViewController *installVC = (CMInstallViewController *)[[UIStoryboard mainStoryboard] viewControllerWithId:@"CMInstallViewController"];
+                commonalityVC = installVC;
+            }
+            
+            
+            
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        /*
         switch (indexPath.row) {
                 
             case 0: //我的申购
@@ -311,7 +436,7 @@
             default:
                 break;
         }
-        
+        */
         [self.navigationController pushViewController:commonalityVC animated:YES];
     }
 }
@@ -436,8 +561,9 @@
         if (buttonIndex == 1) {
             [[CMAccountTool sharedCMAccountTool] removeAccount];
             //删除
-            DeleteDataFromNSUserDefaults(@"name");
-            DeleteDataFromNSUserDefaults(@"value");
+           // DeleteDataFromNSUserDefaults(@"name");
+           // DeleteDataFromNSUserDefaults(@"value");
+            DeleteDataFromNSUserDefaults(@"Set-Cookie");
             DeleteDataFromNSUserDefaults(@"userid");
             _tradeTitleView.tinfo = nil;
             [[NSNotificationCenter defaultCenter] postNotificationName:@"exitLogin" object:nil];
@@ -487,7 +613,8 @@
                     //MyLog(@"审核状态++++++%@",messDict);
                     _CheackStateModel=[CMCheackStateModel  yy_modelWithDictionary:tmp[0]];
                     
-                 [_curTableView rectForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+                //[_curTableView rectForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+                    [_curTableView reloadData];
                     
                     
                 }

@@ -140,6 +140,23 @@
     }];
     
 }
+
+
++ (void)cm_applyRequestInvationRecordSuccess:(void(^)(NSDictionary *recordDict))success
+                                        fail:(void(^)(NSError *error))fail{
+    
+   
+    NSString *strUrl = [NSString stringWithFormat:@"%@%@",KUserInvationRecordURL,(NSString*)GetDataFromNSUserDefaults(@"userid")];
+    [CMRequestAPI getDataFromURLScheme:strUrl argumentsDictionary:nil success:^(id responseObject) {
+    
+        if (responseObject) {
+            success(responseObject);
+        }
+        
+    } fail:^(NSError *error) {
+        fail(error);
+    }];
+}
 @end
 
 

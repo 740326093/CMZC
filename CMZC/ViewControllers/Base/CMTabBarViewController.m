@@ -35,7 +35,7 @@
     
 }
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
-    if (viewController == [tabBarController.viewControllers objectAtIndex:3]) //assuming the index of uinavigationcontroller is 2
+    if (viewController == [tabBarController.viewControllers objectAtIndex:3]||viewController == [tabBarController.viewControllers objectAtIndex:2]) //assuming the index of uinavigationcontroller is 2
     {
         if (CMIsLogin()) {
             return YES;

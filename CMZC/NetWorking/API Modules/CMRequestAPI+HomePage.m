@@ -287,6 +287,7 @@
 
 //轮播图
 + (void)cm_homeShowOtherProductBannersSuccess:(void (^)(NSArray *))success fail:(void (^)(NSError *))fail {
+    
     [CMRequestAPI postDataFromURLScheme:KShowOtherProductURL argumentsDictionary:nil success:^(id responseObject) {
         NSArray *dataArr = responseObject[@"data"][@"rows"];
         NSMutableArray *transArr = [NSMutableArray array];
@@ -301,6 +302,53 @@
     
 }
 
++ (void)cm_homeShowNewUserExpSuccess:(void (^)(NSDictionary *))success fail:(void (^)(NSError *))fail{
+    
+    [CMRequestAPI  getDataFromURLScheme:KNewUserExpCodeURL argumentsDictionary:nil success:^(id responseObject) {
+      
+        
+      
+        if ([responseObject[@"errcode"]integerValue]==0) {
+            success(responseObject[@"data"]);
+        }
+        
+        
+    } fail:^(NSError *error) {
+        
+    }];
+    
+    
+    
+}
++ (void)cm_appMessageSuccess:(void (^)(NSArray *))success fail:(void (^)(NSError *))fail{
+    NSDictionary * dict = @{
+                 @"PageIndex":@"1",
+                 @"PageSize":@"10"
+                 };
+    
+    [CMRequestAPI getDataFromURLScheme:KAppMessageURL argumentsDictionary:dict success:^(id responseObject) {
+        
+        NSMutableArray *pointArr = [NSMutableArray array];
+        for (NSDictionary *dict in responseObject[@"data"][@"rows"]) {
+            CMMessage *point =[[CMMessage alloc]init];
+            point.message=dict[@"content"];
+            point.time=dict[@"time"];
+            point.url=dict[@"url"];
+            point.UserID=@"0";
+            point.isread=0;
+            point.page=@"";
+            [pointArr addObject:point];
+        }
+        
+        success(pointArr);
+    } fail:^(NSError *error) {
+        fail(error);
+    }];
+    
+   
+    
+    
+}
 @end
 
 

@@ -126,23 +126,24 @@
     
     //众投宝
     
-    if (CMIsLogin()) {
-        [self isHaveBankInformation];
-       
-    }
+//    if (CMIsLogin()) {
+//        [self isHaveBankInformation];
+//
+//
+//    }
     
     
     //[self requestPrictThree];
-    
+     [self requestProductFundlist];
     //申购
     [self requestPurchase];
-    //新科版
-    [self requestNewProduct];
+    
     //金牌服务
     [self requestGlodService];
     //新视点
     [self requestNewGuanDian];
-    
+    //新科版
+    [self requestNewProduct];
 }
 
 #pragma mark 判断是否认证
@@ -158,7 +159,7 @@
                 [self requestProductFundlist];
                 
             }else{
-                _bankExits=NO;
+                //_bankExits=NO;
                 [self.manyFulfilArr removeAllObjects];
                 [_curTableView reloadData];
             }
@@ -233,7 +234,7 @@
         [self.manyFulfilArr removeAllObjects];
         
         [self.manyFulfilArr addObjectsFromArray:fundlistArr];
-        _bankExits=YES;
+        //_bankExits=YES;
         [self hiddenProgressHUD];
         [_curTableView reloadData];
 //        NSIndexPath *index = [NSIndexPath indexPathForRow:2 inSection:0];
@@ -532,6 +533,7 @@
             editionCell=[[CMShowOtherCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CMShowOtherCell"];
         }
         editionCell.barArray=self.NewProductArr;
+        
         editionCell.delegate=self;
         return editionCell;
         
@@ -646,7 +648,7 @@
 -(void)cm_checkImmediatelySubscribeEventWithPid:(NSInteger)productID{
 
     CMCommWebViewController *webVC = (CMCommWebViewController *)[CMCommWebViewController initByStoryboard];
-    webVC.urlStr = [NSString stringWithFormat:@"%@/Invest/Confirm?pid=%ld",kCMMZWeb_url,productID];
+    webVC.urlStr = [NSString stringWithFormat:@"%@/Invest/Confirm?pid=%ld&pcont=1",kCMMZWeb_url,productID];
     [self.navigationController pushViewController:webVC animated:YES];
 }
 #pragma mark - CMOptionTableViewCellDelegate 
@@ -688,24 +690,24 @@
             break;
         case 3://倍利宝
         {
-            if (_bankExits==YES) {
+           // if (_bankExits==YES) {
                 CMBeiLiBaoController *webVC = (CMBeiLiBaoController *)[CMBeiLiBaoController initByStoryboard];
                 
                 [self.navigationController pushViewController:webVC animated:YES];
-            } else {
-               [self cm_homeLoginOrAccountMethods];
-            }
+           // } else {
+             //  [self cm_homeLoginOrAccountMethods];
+            //}
           
         }
             break;
         case 4://开户 我的账户
         {
-            if (_bankExits==NO) {
-               [self cm_homeOptionMore];
+           // if (_bankExits==NO) {
+            //   [self cm_homeOptionMore];
              
-            } else {
+           // } else {
              [self cm_homeLoginOrAccountMethods];
-            }
+           // }
             
         }
             break;
@@ -811,18 +813,18 @@
     [_curTableView reloadRowsAtIndexPaths:@[tmpIndexpath] withRowAnimation:UITableViewRowAnimationNone];
     [_curTableView endUpdates];
 
-    
-    if (CMIsLogin()==YES) {
-        
-    [self isHaveBankInformation];
-        
-    }else{
-        
-        [self.manyFulfilArr removeAllObjects];
-        _bankExits=NO;
-        [_curTableView reloadData];
-    }
-    
+//
+//    if (CMIsLogin()==YES) {
+//
+//    [self isHaveBankInformation];
+//
+//    }else{
+//
+//        [self.manyFulfilArr removeAllObjects];
+//        _bankExits=NO;
+//        [_curTableView reloadData];
+//    }
+//
     
     
 }

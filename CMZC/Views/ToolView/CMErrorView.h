@@ -15,7 +15,7 @@
  *  @param frame     坐标
  *  @param imageName 图片名字
  */
-- (instancetype)initWithFrame:(CGRect)frame bgImageName:(NSString *)imageName;
+- (instancetype)initWithFrame:(CGRect)frame bgImageName:(NSString *)imageName titleName:(NSString*)title;
 
 - (void)removeView;
 
