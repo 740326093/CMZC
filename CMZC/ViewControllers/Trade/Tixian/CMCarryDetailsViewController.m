@@ -155,7 +155,12 @@
     if (surplus <= 0) {
         [timer invalidate];//注销定时器
         //删除所保存的key的数据
+//        DeleteDataFromNSUserDe
+//        aults(kVerifyStarDatePassWordKey);
+        
         DeleteDataFromNSUserDefaults(kVerifyStarDatePassWordKey);
+        
+        
         [_gainNumberBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
     } else {
         NSString *secodsString = [NSString stringWithFormat:@"%ld秒",(long)surplus];
@@ -263,8 +268,8 @@
         CGFloat money = [textField.text floatValue];
         CMBankBlockList *bank =_blockList;
         CGFloat balance =bank.balance;// [bank.balance floatValue];
-        if (money < 50) {
-            [self showHUDWithMessage:@"提现金额不得小于50元" hiddenDelayTime:2];
+        if (money < 10) {
+            [self showHUDWithMessage:@"提现金额不得小于10元" hiddenDelayTime:2];
             _depositTextField.text = @"";
             return;
         }

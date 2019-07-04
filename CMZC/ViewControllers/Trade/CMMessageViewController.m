@@ -71,26 +71,17 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-  //  CMMessage *messge=_dataArr[indexPath.row];
-  //  CGFloat height = [messge.message getHeightIncomingWidth:CMScreen_width() -66-18 incomingFont:14];
-    
-    //return 70-14+height;
-    
+ 
     
     CMMessage *tMessage=_dataArr[indexPath.row];
-    CGRect rect=[tMessage.message boundingRectWithSize:CGSizeMake(190, MAXFLOAT) options:NSStringDrawingUsesFontLeading|NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName :[UIFont systemFontOfSize:14.0]} context:nil];
-    return rect.size.height+100;
+
+    return [tableView cellHeightForIndexPath:indexPath model:tMessage keyPath:@"messageModel" cellClass:[CMMessageTableViewCell class] contentViewWidth:kScreen_width];
     
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    CMMessageTableViewCell *messageCell = [tableView dequeueReusableCellWithIdentifier:@"CMMessageTableViewCell" forIndexPath:indexPath];
-//    CMMessage *messge=_dataArr[indexPath.row];
-//    messageCell.titleNameStr = messge.message;
-//    return messageCell;
-    
-    
+
     static NSString *cellId=@"indexPath";
     
     CMMessageTableViewCell *messageCell=[tableView dequeueReusableCellWithIdentifier:cellId];
@@ -111,7 +102,7 @@
     CMMessage *message=_dataArr[indexPath.row];
     message.isread=0;
     [CMMessageDao setNoReadBecomeIsRead:@"0"andBtnTag:message.messageId];
-    if (message.url!=nil) {
+    if (message.url!=nil&&message.url.length>0) {
         CMCommWebViewController *webVC = (CMCommWebViewController *)[CMCommWebViewController initByStoryboard];
         webVC.urlStr=message.url;
         [self.navigationController pushViewController:webVC animated:YES];

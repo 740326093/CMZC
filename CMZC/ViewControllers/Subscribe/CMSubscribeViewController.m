@@ -47,8 +47,12 @@
     //_curTableView.hidden = YES;
     [self showDefaultProgressHUD];
     //显示菊花
+    
+    
     [self requestListWithPageNo:1];
+    
     [self newUserExpData];
+    
     //添加下拉刷新
     [_curTableView addHeaderWithFinishBlock:^{
         [self requestListWithPageNo:1];
@@ -90,7 +94,13 @@
     [CMRequestAPI cm_homeShowNewUserExpSuccess:^(NSDictionary *successDict) {
         //  MyLog(@"+++%@",successDict);
         
-        _subscribeView.activeContextLab.text=successDict[@"sname"];
+        NSString *nameStr=[NSString stringWithFormat:@"%@",successDict[@"sname"]];
+        
+        if (![nameStr isKindOfClass:[NSNull class]] || ![nameStr isEqual:[NSNull null]] || nameStr != nil) {
+         
+                 _subscribeView.activeContextLab.text=successDict[@"sname"];
+        }
+  
         
         self.userActiveDict=successDict;
     } fail:^(NSError *error) {
@@ -117,7 +127,6 @@
     }
     subscribeCell.delegate = self;
     subscribeCell.product = self.productDataArr[indexPath.row];
-    subscribeCell.selectionStyle = UITableViewCellSelectionStyleNone;
     return subscribeCell;
 }
 

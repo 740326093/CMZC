@@ -46,6 +46,9 @@
 
 - (void)setProduct:(CMPurchaseProduct *)product {
    
+    
+    
+    
     _product = product;
     [_titPictureImage sd_setImageWithURL:[NSURL URLWithString:product.picture] placeholderImage:kCMDefault_imageName];
     _growthValueLab.attributedText = product.attributed;

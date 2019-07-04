@@ -14,4 +14,6 @@
 
 - (void)showTabBarViewControllerType:(NSInteger)tabIndex;
 
+
+-(BOOL)allowShowLocationAlert;
 @end

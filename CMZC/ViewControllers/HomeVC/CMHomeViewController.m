@@ -34,8 +34,12 @@
 #import "CMApp_Header.h"
 #import "CMClickViewCell.h"
 #import "CMShowOtherCell.h"
+
+
 //#import "CMNewProductCell.h"
-@interface CMHomeViewController ()<UITableViewDelegate,UITableViewDataSource,CMEditionTableViewCellDelegate,CMOptionTableViewCellDelegate,CMNewQualityCellDelegate,CMWebSocketDelegate,CMGoldMedalTableViewCellDelegate,CMSubscribeTableViewCellDelegate,SDCycleScrollViewDelegate,CMShowOtherCellDelegate> {
+
+
+@interface CMHomeViewController ()<UITableViewDelegate,UITableViewDataSource,CMEditionTableViewCellDelegate,CMOptionTableViewCellDelegate,CMNewQualityCellDelegate,CMWebSocketDelegate,CMGoldMedalTableViewCellDelegate,CMSubscribeTableViewCellDelegate,SDCycleScrollViewDelegate,CMShowOtherCellDelegate,UIAlertViewDelegate> {
     //NSString *_buyNumber; //多少人购买
 }
 
@@ -59,6 +63,8 @@
 @property (strong, nonatomic) SDCycleScrollView  *barScrollView; //请求新观点
 
 @property (assign, nonatomic) BOOL bankExits; //是否认证
+
+
 
 @end
 
@@ -97,8 +103,16 @@
     //开启websocket
     [self initWebSocket];
     [_barScrollView adjustWhenControllerViewWillAppera];
-     
+    
+    
+        
+    
+        
+    
 }
+
+
+
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     //关闭定时器
@@ -908,6 +922,9 @@
 
 */
 @end
+
+
+
 
 
 

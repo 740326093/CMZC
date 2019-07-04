@@ -47,8 +47,6 @@
 		0468FD031E67BA73001A6013 /* CMBeiLiBaoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0468FD021E67BA73001A6013 /* CMBeiLiBaoController.m */; };
 		0468FD071E67F486001A6013 /* CMBLBProductCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0468FD061E67F486001A6013 /* CMBLBProductCell.m */; };
 		04697D671E763836000AD8D9 /* CMMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 04697D651E763836000AD8D9 /* CMMessage.m */; };
-		04697D6D1E76386C000AD8D9 /* CMDataMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 04697D6A1E76386C000AD8D9 /* CMDataMessage.m */; };
-		04697D6E1E76386C000AD8D9 /* CMMessageDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 04697D6C1E76386C000AD8D9 /* CMMessageDao.m */; };
 		04697D711E763A7C000AD8D9 /* NSString+CMNSString.m in Sources */ = {isa = PBXBuildFile; fileRef = 04697D701E763A7C000AD8D9 /* NSString+CMNSString.m */; };
 		046999811E5D257D0003BD2D /* CMGuideController.m in Sources */ = {isa = PBXBuildFile; fileRef = 046999801E5D257D0003BD2D /* CMGuideController.m */; };
 		046999841E5D25960003BD2D /* CMGuideView.m in Sources */ = {isa = PBXBuildFile; fileRef = 046999831E5D25960003BD2D /* CMGuideView.m */; };
@@ -504,6 +502,8 @@
 		38FF3D3F1E2612D7007A81C5 /* CMTopicList.m in Sources */ = {isa = PBXBuildFile; fileRef = 38FF3D3E1E2612D7007A81C5 /* CMTopicList.m */; };
 		38FF3D421E2615A2007A81C5 /* CMTopicReplies.m in Sources */ = {isa = PBXBuildFile; fileRef = 38FF3D411E2615A2007A81C5 /* CMTopicReplies.m */; };
 		38FF3D451E262CFD007A81C5 /* CMTopicReplyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38FF3D441E262CFD007A81C5 /* CMTopicReplyViewController.m */; };
+		4C0C3CB522CDDC8B001CDD4E /* CMAppUpdate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0C3CB422CDDC8B001CDD4E /* CMAppUpdate.m */; };
+		4C0C3CB822CDE175001CDD4E /* CMVersionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0C3CB722CDE175001CDD4E /* CMVersionModel.m */; };
 		4C0DA45E229D2DA600B4D259 /* CMMyInviteController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0DA45D229D2DA600B4D259 /* CMMyInviteController.m */; };
 		4C0DA462229D3E0C00B4D259 /* CMSwitchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0DA461229D3E0C00B4D259 /* CMSwitchView.m */; };
 		4C1052E1229E13600017F0A7 /* CMCentCommissionDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1052E0229E13600017F0A7 /* CMCentCommissionDetailView.m */; };
@@ -512,6 +512,9 @@
 		4C1052E9229E1D2B0017F0A7 /* CMCentComCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C1052E7229E1D2B0017F0A7 /* CMCentComCell.xib */; };
 		4C1052ED229E20420017F0A7 /* CMBillingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1052EB229E20420017F0A7 /* CMBillingCell.m */; };
 		4C1052EE229E20420017F0A7 /* CMBillingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C1052EC229E20420017F0A7 /* CMBillingCell.xib */; };
+		4C127E4822CB062F00CBA638 /* NullSafe.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C127E4722CB062F00CBA638 /* NullSafe.m */; };
+		4C1B9D9E22B4791A00CB5024 /* CMMessageDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1B9D9A22B478CE00CB5024 /* CMMessageDao.m */; };
+		4C1B9D9F22B4791A00CB5024 /* CMDataMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1B9D9D22B4791A00CB5024 /* CMDataMessage.m */; };
 		4C20C29622A4BB57005F3971 /* CMCentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C20C29522A4BB57005F3971 /* CMCentModel.m */; };
 		4C20C29922A4CE8F005F3971 /* CMBillingModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C20C29822A4CE8F005F3971 /* CMBillingModel.m */; };
 		4C24D62C229E3BB80029B420 /* CMCentIntroductView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C24D62B229E3BB80029B420 /* CMCentIntroductView.m */; };
@@ -604,10 +607,6 @@
 		0468FD061E67F486001A6013 /* CMBLBProductCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMBLBProductCell.m; sourceTree = "<group>"; };
 		04697D651E763836000AD8D9 /* CMMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMMessage.m; sourceTree = "<group>"; };
 		04697D661E763836000AD8D9 /* CMMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMMessage.h; sourceTree = "<group>"; };
-		04697D691E76386C000AD8D9 /* CMDataMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMDataMessage.h; sourceTree = "<group>"; };
-		04697D6A1E76386C000AD8D9 /* CMDataMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMDataMessage.m; sourceTree = "<group>"; };
-		04697D6B1E76386C000AD8D9 /* CMMessageDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMMessageDao.h; sourceTree = "<group>"; };
-		04697D6C1E76386C000AD8D9 /* CMMessageDao.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMMessageDao.m; sourceTree = "<group>"; };
 		04697D6F1E763A7C000AD8D9 /* NSString+CMNSString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+CMNSString.h"; sourceTree = "<group>"; };
 		04697D701E763A7C000AD8D9 /* NSString+CMNSString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+CMNSString.m"; sourceTree = "<group>"; };
 		0469997F1E5D257D0003BD2D /* CMGuideController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CMGuideController.h; path = CMZC/AppResources/CMGuideController.h; sourceTree = "<group>"; };
@@ -1360,6 +1359,10 @@
 		38FF3D411E2615A2007A81C5 /* CMTopicReplies.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMTopicReplies.m; sourceTree = "<group>"; };
 		38FF3D431E262CFD007A81C5 /* CMTopicReplyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMTopicReplyViewController.h; sourceTree = "<group>"; };
 		38FF3D441E262CFD007A81C5 /* CMTopicReplyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMTopicReplyViewController.m; sourceTree = "<group>"; };
+		4C0C3CB322CDDC8B001CDD4E /* CMAppUpdate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CMAppUpdate.h; sourceTree = "<group>"; };
+		4C0C3CB422CDDC8B001CDD4E /* CMAppUpdate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CMAppUpdate.m; sourceTree = "<group>"; };
+		4C0C3CB622CDE175001CDD4E /* CMVersionModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CMVersionModel.h; sourceTree = "<group>"; };
+		4C0C3CB722CDE175001CDD4E /* CMVersionModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CMVersionModel.m; sourceTree = "<group>"; };
 		4C0DA45C229D2DA600B4D259 /* CMMyInviteController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CMMyInviteController.h; sourceTree = "<group>"; };
 		4C0DA45D229D2DA600B4D259 /* CMMyInviteController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CMMyInviteController.m; sourceTree = "<group>"; };
 		4C0DA460229D3E0C00B4D259 /* CMSwitchView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CMSwitchView.h; sourceTree = "<group>"; };
@@ -1374,6 +1377,11 @@
 		4C1052EA229E20420017F0A7 /* CMBillingCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CMBillingCell.h; sourceTree = "<group>"; };
 		4C1052EB229E20420017F0A7 /* CMBillingCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CMBillingCell.m; sourceTree = "<group>"; };
 		4C1052EC229E20420017F0A7 /* CMBillingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CMBillingCell.xib; sourceTree = "<group>"; };
+		4C127E4722CB062F00CBA638 /* NullSafe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NullSafe.m; sourceTree = "<group>"; };
+		4C1B9D9A22B478CE00CB5024 /* CMMessageDao.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMMessageDao.m; sourceTree = "<group>"; };
+		4C1B9D9B22B478E700CB5024 /* CMMessageDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMMessageDao.h; sourceTree = "<group>"; };
+		4C1B9D9C22B478FC00CB5024 /* CMDataMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMDataMessage.h; sourceTree = "<group>"; };
+		4C1B9D9D22B4791A00CB5024 /* CMDataMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMDataMessage.m; sourceTree = "<group>"; };
 		4C20C29422A4BB57005F3971 /* CMCentModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CMCentModel.h; sourceTree = "<group>"; };
 		4C20C29522A4BB57005F3971 /* CMCentModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CMCentModel.m; sourceTree = "<group>"; };
 		4C20C29722A4CE8F005F3971 /* CMBillingModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CMBillingModel.h; sourceTree = "<group>"; };
@@ -1524,7 +1532,7 @@
 		04697D611E76379E000AD8D9 /* myMessages */ = {
 			isa = PBXGroup;
 			children = (
-				04697D681E76384D000AD8D9 /* Sqlite */,
+				4C1B9D9922B478A900CB5024 /* sqlite */,
 				04697D641E7637DB000AD8D9 /* View */,
 				04697D631E7637C6000AD8D9 /* Model */,
 				04697D621E7637B2000AD8D9 /* Cotroller */,
@@ -1557,17 +1565,6 @@
 				3837A69F1D237C2A00D9143A /* CMMessageTableViewCell.m */,
 			);
 			name = View;
-			sourceTree = "<group>";
-		};
-		04697D681E76384D000AD8D9 /* Sqlite */ = {
-			isa = PBXGroup;
-			children = (
-				04697D691E76386C000AD8D9 /* CMDataMessage.h */,
-				04697D6A1E76386C000AD8D9 /* CMDataMessage.m */,
-				04697D6B1E76386C000AD8D9 /* CMMessageDao.h */,
-				04697D6C1E76386C000AD8D9 /* CMMessageDao.m */,
-			);
-			name = Sqlite;
 			sourceTree = "<group>";
 		};
 		046999851E5D2C130003BD2D /* 引导页 */ = {
@@ -2865,6 +2862,10 @@
 				3840C9E11CE48D4B0079D65B /* CMAppVersion.m */,
 				3819BF2C1E1CE2FB00053009 /* CMAdministrator.h */,
 				3819BF2D1E1CE2FB00053009 /* CMAdministrator.m */,
+				4C0C3CB322CDDC8B001CDD4E /* CMAppUpdate.h */,
+				4C0C3CB422CDDC8B001CDD4E /* CMAppUpdate.m */,
+				4C0C3CB622CDE175001CDD4E /* CMVersionModel.h */,
+				4C0C3CB722CDE175001CDD4E /* CMVersionModel.m */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -3155,6 +3156,17 @@
 			path = view;
 			sourceTree = "<group>";
 		};
+		4C1B9D9922B478A900CB5024 /* sqlite */ = {
+			isa = PBXGroup;
+			children = (
+				4C1B9D9C22B478FC00CB5024 /* CMDataMessage.h */,
+				4C1B9D9D22B4791A00CB5024 /* CMDataMessage.m */,
+				4C1B9D9B22B478E700CB5024 /* CMMessageDao.h */,
+				4C1B9D9A22B478CE00CB5024 /* CMMessageDao.m */,
+			);
+			name = sqlite;
+			sourceTree = "<group>";
+		};
 		4C20C29322A4BB29005F3971 /* model */ = {
 			isa = PBXGroup;
 			children = (
@@ -3169,6 +3181,7 @@
 		8E1778AE79EDAEEC7C517308 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4C127E4722CB062F00CBA638 /* NullSafe.m */,
 				04A8DAE4226AA2F0004B7150 /* Vaptcha */,
 				048ED8091EE796E900E666F2 /* WebKit.framework */,
 				049B4EE71EA4551A0053D5B7 /* JavaScriptCore.framework */,
@@ -3198,7 +3211,6 @@
 				38241A8E1C853F77005E5134 /* Sources */,
 				38241A8F1C853F77005E5134 /* Frameworks */,
 				38241A901C853F77005E5134 /* Resources */,
-				CD709F2D4A51284EEDDE424C /* [CP] Embed Pods Frameworks */,
 				012650B69234D86CEBBAEBA1 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
@@ -3512,9 +3524,20 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-CMZC/Pods-CMZC-resources.sh",
+				"${PODS_ROOT}/APNumberPad/APNumberPad/APNumberPad.bundle",
+				"${PODS_ROOT}/IQKeyboardManager/IQKeyBoardManager/Resources/IQKeyboardManager.bundle",
+				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
+				"${PODS_ROOT}/UMengUShare/UShareSDK/UMSocialSDK/UMSocialSDKPromptResources.bundle",
+				"${PODS_ROOT}/UMengUShare/UShareSDK/UMSocialUI/UMSocialSDKResources.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/APNumberPad.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/IQKeyboardManager.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/UMSocialSDKPromptResources.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/UMSocialSDKResources.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -3527,28 +3550,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CMZC-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		CD709F2D4A51284EEDDE424C /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CMZC/Pods-CMZC-frameworks.sh\"\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -3574,7 +3585,6 @@
 				04F631A21EA074D30032378C /* CMCollectCell.m in Sources */,
 				38081ABC1E20D48700EA4E13 /* CMoptionReleaseTableViewCell.m in Sources */,
 				38241B0B1C858630005E5134 /* UIColor+CMColors.m in Sources */,
-				04697D6D1E76386C000AD8D9 /* CMDataMessage.m in Sources */,
 				384591831CC0E05E008A519E /* CMMarketList.m in Sources */,
 				3859C6191C9A364D00A358CF /* CMTradeDetailView.m in Sources */,
 				386AFA7E1CB5EEEA00B678A9 /* CMAnalystPoint.m in Sources */,
@@ -3678,11 +3688,13 @@
 				382B5EAE1C8A884B00D2C79B /* CMAllServeViewController.m in Sources */,
 				3859C63E1C9A9F3100A358CF /* CMPingLTableViewCell.m in Sources */,
 				04A8DAEB226AA3CC004B7150 /* CMCodeAlert.m in Sources */,
+				4C127E4822CB062F00CBA638 /* NullSafe.m in Sources */,
 				382A3DE01C900A910020FA7F /* CMTradeViewController.m in Sources */,
 				386AFA891CB645CD00B678A9 /* CMRequestAPI+Product.m in Sources */,
 				3859C62F1C9A5ECA00A358CF /* CMDiscussTableViewCell.m in Sources */,
 				040FD93A2022FA0E002386AE /* CMAgencyMessageCell.m in Sources */,
 				383C485B1C8D7E3000CD9E2D /* TitleView.m in Sources */,
+				4C1B9D9E22B4791A00CB5024 /* CMMessageDao.m in Sources */,
 				38474EC11D10004B00E9117E /* CMCommentViewController.m in Sources */,
 				04DF76A52261D6B500793482 /* CMBeginNUmModel.m in Sources */,
 				0475C0911E690BD50011015E /* CMSafeKeepView.m in Sources */,
@@ -3753,6 +3765,7 @@
 				383FA9461C93F69C00DD4ABD /* CMRevokeTableViewCell.m in Sources */,
 				049791672021BB560021E9A1 /* CMAgencyMebersController.m in Sources */,
 				04A342D221269BF900C78F7E /* KLineTipBoardView.m in Sources */,
+				4C0C3CB522CDDC8B001CDD4E /* CMAppUpdate.m in Sources */,
 				3842354D1C9260DD001FD89E /* CMTurnoverViewController.m in Sources */,
 				04783CA01F2201250012F12A /* SDCycleScrollView.m in Sources */,
 				04A632172243191D00977796 /* CMPeiNumCell.m in Sources */,
@@ -3817,6 +3830,7 @@
 				382C5A721DAC78A700DCBC6F /* CMInvestorsView.m in Sources */,
 				049606572027EA9A002BA820 /* CMConcessionDetailCell.m in Sources */,
 				048C3BBD1FD6577700DB9880 /* CMMySubCell.m in Sources */,
+				4C1B9D9F22B4791A00CB5024 /* CMDataMessage.m in Sources */,
 				383AA8581E0D0E6000570D85 /* CMPurchaseTableViewCell.m in Sources */,
 				385F0AE21C9158140035CE22 /* CMTradeCollectionViewCell.m in Sources */,
 				38FC90031C92A52500A347EE /* CMExchangeDetailsViewController.m in Sources */,
@@ -3829,7 +3843,6 @@
 				38CCA2A61D9CFF7100DBFD1A /* CMProgressView.m in Sources */,
 				0453048520231A060024B06F /* CMMebersHeadView.m in Sources */,
 				383FA9191C93ADAA00DD4ABD /* CMSubscribeRecordViewController.m in Sources */,
-				04697D6E1E76386C000AD8D9 /* CMMessageDao.m in Sources */,
 				38241A9A1C853F77005E5134 /* AppDelegate.m in Sources */,
 				04BA7FF721539C25001B9FD6 /* EverChart.m in Sources */,
 				383199731CC492B800A74159 /* CMPurchaseProduct.m in Sources */,
@@ -3845,6 +3858,7 @@
 				0471A55A1E5FDCF900F001DE /* CMNewShiCell.m in Sources */,
 				38FF3D451E262CFD007A81C5 /* CMTopicReplyViewController.m in Sources */,
 				049548B72025971400811E10 /* CMMyApplyListView.m in Sources */,
+				4C0C3CB822CDE175001CDD4E /* CMVersionModel.m in Sources */,
 				383018301CA27FF400A50F59 /* CMMyBankCardViewController.m in Sources */,
 				3840C9DF1CE4655D0079D65B /* CMTimer.m in Sources */,
 				384EB0511C8E5B53001D311F /* CMMediaNewsView.m in Sources */,

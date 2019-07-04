@@ -356,3 +356,10 @@ extern NSString *const KUserInvationRecordURL;
  app内部消息APi
  **/
 extern NSString *const KAppMessageURL;
+
+
+
+/**
+ app版本更新APi
+ **/
+extern NSString *const KAppVersionUpdateURL;

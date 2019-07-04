@@ -25,62 +25,69 @@
     self=[super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         self.backgroundColor=[UIColor cmBackgroundGrey];
-        [self addSubview:self.timeLab];
-        [self addSubview:self.newsBackGround];
+        [self.contentView addSubview:self.timeLab];
+        [self.contentView addSubview:self.newsBackGround];
         [self.newsBackGround addSubview:self.messageLabel];
         [self.newsBackGround addSubview:self.linView];
         [self.newsBackGround addSubview:self.detailBtn];
         [self.newsBackGround addSubview:self.listImage];
-        [self addSubview:self.headIcon];
-        [self addSubview:self.redRead];
+        [self.contentView addSubview:self.headIcon];
+        [self.contentView addSubview:self.redRead];
+        
+        
+        self.timeLab.sd_layout
+        .topSpaceToView(self.contentView,10)
+        .heightIs(14)
+        .centerXEqualToView(self.contentView)
+        .leftEqualToView(self.contentView)
+        .rightEqualToView(self.contentView);
+        
+        self.newsBackGround.sd_layout
+        .topSpaceToView(self.timeLab,10)
+        .widthIs(f_i5real(self.newsBackGround.image.size.width))
+        .centerXEqualToView(self.contentView).offset(20)
+        .autoHeightRatio(0);
+        
+        self.messageLabel.sd_layout
+        .topSpaceToView(self.newsBackGround,8)
+        .leftSpaceToView(self.newsBackGround,20)
+        .rightSpaceToView(self.newsBackGround,20)
+        .autoHeightRatio(0);
+        
+        self.linView.sd_layout
+        .topSpaceToView(self.messageLabel,10)
+        .leftSpaceToView(self.newsBackGround,15)
+        .rightSpaceToView(self.newsBackGround, 15)
+        .heightIs(0.5);
+        
+        
+        self.detailBtn.sd_layout
+        .topSpaceToView(self.linView, 5)
+        .leftSpaceToView(self.newsBackGround, 20)
+        .widthIs(80)
+        .heightIs(18);
+        
+        self.listImage.sd_layout
+        .centerYEqualToView(self.detailBtn)
+        .rightSpaceToView(self.newsBackGround,15)
+        .widthIs(7)
+        .heightIs(11);
+        
+        
+        self.headIcon.sd_layout
+        .bottomEqualToView(self.contentView)
+        .leftSpaceToView(self.contentView, 10)
+        .widthIs(f_i5real(self.headIcon.image.size.width))
+        .heightIs(f_i5real(self.headIcon.image.size.height));
+        
+        self.redRead.sd_layout
+        .topEqualToView(self.headIcon)
+        .leftSpaceToView(self.headIcon, -5)
+        .widthIs(8)
+        .heightIs(8);
+        
     }
     return self;
-}
--(void)layoutSubviews{
-    [super layoutSubviews];
-    [self.timeLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self);
-        make.top.equalTo(self.mas_top).offset(10);
-        make.height.equalTo(@20);
-    }];
-    [self.newsBackGround mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.mas_equalTo(f_i5real(self.newsBackGround.image.size.height));
-        make.width.mas_equalTo(f_i5real(self.newsBackGround.image.size.width));
-        make.centerX.equalTo(self.mas_centerX).offset(15);
-        make.top.equalTo(self.timeLab.mas_bottom).offset(10);
-    }];
-    
-    [self.messageLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.newsBackGround.mas_left).offset(10);
-        make.right.equalTo(self.newsBackGround.mas_right).offset(-10);
-        make.top.equalTo(self.newsBackGround.mas_top).offset(10);
-    }];
-    
-    [self.linView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.equalTo(@0.5);
-        make.right.equalTo(self.newsBackGround.mas_right).offset(-15);
-        make.left.equalTo(self.newsBackGround.mas_left).offset(15);
-        make.top.equalTo(self.messageLabel.mas_bottom).offset(10);
-    }];
-    [self.detailBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.linView);
-        make.top.equalTo(self.linView.mas_bottom);
-    }];
-    [self.listImage mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.detailBtn);
-        make.right.equalTo(self.linView);
-    }];
-    [self.headIcon mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.mas_equalTo(f_i5real(self.headIcon.image.size.height));
-        make.width.mas_equalTo(f_i5real(self.headIcon.image.size.width));
-        make.right.equalTo(self.newsBackGround.mas_left).offset(-5);
-        make.bottom.equalTo(self.detailBtn.mas_bottom);
-    }];
-    [self.redRead mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.width.equalTo(@8);
-        make.top.equalTo(self.headIcon.mas_top);
-        make.left.equalTo(self.headIcon.mas_right).offset(-3);
-    }];
 }
 
 
@@ -89,11 +96,9 @@
     if (!_timeLab) {
         _timeLab=[[UILabel alloc]init];
         _timeLab.font=[UIFont systemFontOfSize:12.0];
-        _timeLab.textColor=[UIColor whiteColor];
-        _timeLab.backgroundColor=[UIColor clmHex:0xcecece];
+        _timeLab.textColor=[UIColor clmHex:0x666666];
         _timeLab.textAlignment=NSTextAlignmentCenter;
-        _timeLab.layer.masksToBounds=YES;
-        _timeLab.layer.cornerRadius=4.0;
+    
     }
     return _timeLab;
 }
@@ -114,6 +119,7 @@
         _messageLabel=[[UILabel alloc]init];
         _messageLabel.numberOfLines=0;
         _messageLabel.font=[UIFont systemFontOfSize:14.0];
+        _messageLabel.textColor=[UIColor colorWithHex:0x333333];
         _messageLabel.lineBreakMode = NSLineBreakByWordWrapping;
     }
     return _messageLabel;
@@ -170,41 +176,35 @@
 -(void)setMessageModel:(CMMessage *)messageModel{
     
     _timeLab.text=messageModel.time;
-    CGRect rect=[_timeLab.text boundingRectWithSize:CGSizeMake(MAXFLOAT, 20) options:NSStringDrawingUsesFontLeading|NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName :[UIFont systemFontOfSize:12.0]} context:nil];
-    [self.timeLab mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.width.mas_equalTo(rect.size.width+10);
-        make.top.equalTo(self.mas_top).offset(10);
-    }];
+
     
     _messageLabel.text=messageModel.message;
-    CGRect Messagerect=[_messageLabel.text boundingRectWithSize:CGSizeMake(190, MAXFLOAT) options:NSStringDrawingUsesFontLeading|NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName :[UIFont systemFontOfSize:14.0]} context:nil];
-    
-    [self.newsBackGround mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.height.mas_equalTo(Messagerect.size.height+50);
-    }];
+
     if (messageModel.isread==1) {
         self.redRead.hidden=NO;
     }else{
         self.redRead.hidden=YES;
     }
     
-    [self  layoutIfNeeded];
+  
+    NSDictionary *dict=[NSString dictionaryWithJsonString:messageModel.page];
+    if ([dict objectForKey:@"ext"]==nil&&[dict objectForKey:@"product"]==nil&&[dict objectForKey:@"page"]==nil) {
+        self.detailBtn.hidden=YES;
+        self.listImage.hidden=YES;
+        self.linView.hidden=YES;
+        [self.newsBackGround setupAutoHeightWithBottomViewsArray:@[self.messageLabel] bottomMargin:10];
+        
+    }else{
+        
+        self.detailBtn.hidden=NO;
+        self.listImage.hidden=NO;
+        self.linView.hidden=NO;
+        [self.newsBackGround setupAutoHeightWithBottomViewsArray:@[self.detailBtn] bottomMargin:10];
+    }
     
+    
+    [self setupAutoHeightWithBottomViewsArray:@[self.newsBackGround,self.timeLab] bottomMargin:10];
 }
-//类方法，返回的值用来计算cell的高度
-+ (CGFloat)heightWithModel:(CMMessage*)model{
-    CMMessageTableViewCell *cell = [[CMMessageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@""];
-    [cell setMessageModel:model];
-    [cell layoutIfNeeded];
-    //CGRect frame=cell.teSubTitle.frame;
-    
-    return 100;
-    
-    //return frame.origin.y + frame.size.height + 50;
-}
-//- (void)setTitleNameStr:(NSString *)titleNameStr {
-//    _titleLab.text = titleNameStr;
-//}
 
 
 @end

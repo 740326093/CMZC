@@ -18,6 +18,7 @@
 #import "UIImageView+WebCache.h"
 #import "MJRefresh.h"
 #import <YYModel.h>
+#import <SDAutoLayout.h>
 #import "CYLTableViewPlaceHolder.h"
 #import <Masonry.h>
 #import <FMDB.h>

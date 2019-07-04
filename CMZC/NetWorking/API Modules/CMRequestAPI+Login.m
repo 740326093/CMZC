@@ -91,7 +91,7 @@
         NSArray *arr= [cookieString componentsSeparatedByString:@";"];
         NSString *newString=arr.firstObject;
         NSArray *arr1= [newString componentsSeparatedByString:@"="];
-       MyLog(@"++%@",newString);
+      // MyLog(@"++%@",newString);
            // if(cookie.name&&cookie.value){
            // SaveDataToNSUserDefaults(cookie.name, @"name");
            // SaveDataToNSUserDefaults(cookie.value, @"value");
@@ -201,11 +201,11 @@
             
             SaveDataToNSUserDefaults(newString, @"Set-Cookie");
             
-           // NSArray *arr1= [newString componentsSeparatedByString:@"="];
+           NSArray *arr1= [newString componentsSeparatedByString:@"="];
             
 //            if(cookie.name&&cookie.value){
-//                SaveDataToNSUserDefaults(cookie.name, @"name");
-//                SaveDataToNSUserDefaults(cookie.value, @"value");
+              SaveDataToNSUserDefaults(arr1.firstObject, @"name");
+               SaveDataToNSUserDefaults(arr1.lastObject, @"value");
 //            }else{
                // SaveDataToNSUserDefaults(arr1.firstObject, @"name");
                 //SaveDataToNSUserDefaults(arr1.lastObject, @"value");
@@ -330,14 +330,14 @@
             NSArray *arr= [cookieString componentsSeparatedByString:@";"];
             NSString *newString=arr.firstObject;
             SaveDataToNSUserDefaults(newString, @"Set-Cookie");
-           // NSArray *arr1= [newString componentsSeparatedByString:@"="];
+           NSArray *arr1= [newString componentsSeparatedByString:@"="];
             
 //            if(cookie.name&&cookie.value){
-//                SaveDataToNSUserDefaults(cookie.name, @"name");
-//                SaveDataToNSUserDefaults(cookie.value, @"value");
+          //    SaveDataToNSUserDefaults(cookie.name, @"name");
+            //    SaveDataToNSUserDefaults(cookie.value, @"value");
 //            }else{
-                //SaveDataToNSUserDefaults(arr1.firstObject, @"name");
-               // SaveDataToNSUserDefaults(arr1.lastObject, @"value");
+                SaveDataToNSUserDefaults(arr1.firstObject, @"name");
+                SaveDataToNSUserDefaults(arr1.lastObject, @"value");
            // }
             //存储以下当前时间
             SaveDataToNSUserDefaults([NSDate date], kVerifyStareDateKey);

@@ -10,9 +10,9 @@
 #import "CMMessage.h"
 @interface CMMessageTableViewCell : UITableViewCell
 
-@property (nonatomic,copy) NSString *titleNameStr;
+
 
 @property(nonatomic,strong)CMMessage  *messageModel;
 
-+ (CGFloat)heightWithModel:(CMMessage*)model;
+
 @end

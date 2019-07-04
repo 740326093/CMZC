@@ -5,8 +5,25 @@
 //  Created by 财毛 on 16/3/1.
 //  Copyright © 2016年 MAC. All rights reserved.
 //
+
+
+
+//正式定义“isBulid”   测试注释就行 
+#define isBulid @"A"
+// 通过判断“isBulid”是否已经定义，区分后配置正式环境或测试环境。
+#ifdef isBulid
+// 正式环境
 #define kCM_URL @"http://api.xinjingban.com:80" //线上正式api
 #define kCMWeb_URL @"http://m.xinjingban.com" //线上M站地址
+#else
+// 测试环境
+#define kCM_URL @"http://192.168.1.225:9001" //本地测试api
+#define kCMWeb_URL @"http://192.168.1.225:8087" //线上M站地址
+#endif
+
+
+//#define kCM_URL @"http://api.xinjingban.com:80" //线上正式api
+//#define kCMWeb_URL @"http://m.xinjingban.com" //线上M站地址
 
 //#define kCM_URL @"http://testapi.xjb51.com" //线上正式api
 //#define kCMWeb_URL @"http://test.xjb51.com" //线上M站地址
@@ -202,3 +219,4 @@ NSString *const KUserInvationRecordURL =@"/api/activity/getmycommission?hyid=";
 
 NSString *const KAppMessageURL =@"/api/message/mymessagerequest";
 
+NSString *const KAppVersionUpdateURL=@"/api/appversions/getappversionsinfo?appType=2";

@@ -34,6 +34,9 @@
    // self.navigationController.delegate = self;
 }
 
+
+
+
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
     NSArray *arr = navigationController.viewControllers;
     if (arr.count >1) {
@@ -47,11 +50,61 @@
  
     
 }
--(void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
-  
 
+
+
+/**
+ *   是否允许弹窗
+ */
+-(BOOL)allowShowLocationAlert{
+    
+    NSDate *now = [NSDate date];
+    //当前时间的时间戳
+    NSTimeInterval nowStamp = [now timeIntervalSince1970];
+    //当天零点的时间戳
+    NSTimeInterval zeroStamp = [[[NSUserDefaults standardUserDefaults] objectForKey:@"zeroStamp"] doubleValue];
+    //一天的时间戳
+    NSTimeInterval oneDay = 60* 60 * 24;
+    
+    /**
+     "showedLocation"代表了是否当天是否提醒过开启定位，NO代表没有提醒过，YES代表已经提醒过
+     */
+    
+    if(nowStamp - zeroStamp> oneDay){
+        
+        zeroStamp = [self getTodayZeroStampWithDate:now];
+        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithDouble:zeroStamp] forKey:@"zeroStamp"];
+        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:@"showedLocation"];
+        return YES;
+        
+    }else{
+        
+        if ([[NSUserDefaults standardUserDefaults] objectForKey:@"showedLocation"]) {
+            return NO;
+            
+        }else{
+            return YES;
+        }
+        
+    }
+    
 }
+
+/**
+ * 获取当天零点时间戳
+ */
+- (double)getTodayZeroStampWithDate:(NSDate *)date{
+    
+    NSDateFormatter *dateFomater = [[NSDateFormatter alloc]init];
+    dateFomater.dateFormat = @"yyyy年MM月dd日";
+    NSString *original = [dateFomater stringFromDate:date];
+    NSDate *ZeroDate = [dateFomater dateFromString:original];
+    // 今天零点的时间戳
+    NSTimeInterval zeroStamp = [ZeroDate timeIntervalSince1970];
+    return zeroStamp;
+    
+}
+
 -(void)listenNetWorkingStatus{
     //1:创建网络监听者
     AFNetworkReachabilityManager *manager = [AFNetworkReachabilityManager manager];

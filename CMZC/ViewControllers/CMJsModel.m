@@ -20,4 +20,9 @@
     
     [self.delegate appLogin];
 }
+
+-(void)appLog{
+    
+    [self.delegate appLog];
+}
 @end

@@ -111,7 +111,7 @@
     //判断token
     [[CMTokenTimer sharedCMTokenTimer] cm_cmtokenTimerRefreshSuccess:^{
         [CMRequestAPI cm_tradeFetchAccountionfSuccess:^(CMAccountinfo *account) {
-           //  MyLog(@" account : %@",account);
+           //MyLog(@" account : %@",account);
             
             [self hiddenAllProgressHUD];
 
@@ -582,7 +582,10 @@
             for (NSHTTPCookie *tempCookie in cookies) {
                 [cookieStorage deleteCookie:tempCookie];
             }
-           
+               
+            
+              [[NSURLCache sharedURLCache] removeAllCachedResponses];
+
             
         }
     }

@@ -13,6 +13,7 @@
 //根据ib获得view
 + (instancetype)initByNibForClassName {
     NSString *nibName = NSStringFromClass([self class]);
+    
     return [[NSBundle mainBundle] loadNibNamed:nibName owner:nil options:nil].firstObject;
 }
 

@@ -59,7 +59,7 @@
 #pragma mark - SRWebSocketDelegate
 //发送请求
 - (void)webSocketDidOpen:(SRWebSocket *)webSocket{
-    NSLog(@"Websocket Connected");
+ //   NSLog(@"Websocket Connected");
     //self.title = @"Connected!";
     //发送消息
     [_webSocket send:@":range:desc::"];

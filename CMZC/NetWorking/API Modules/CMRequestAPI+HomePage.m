@@ -349,6 +349,24 @@
     
     
 }
+
++ (void)cm_appVersionSuccess:(void (^)(CMVersionModel *VersionModel))success fail:(void (^)(NSError *))fail{
+    
+    
+    [CMRequestAPI getDataFromURLScheme:KAppVersionUpdateURL argumentsDictionary:nil success:^(id responseObject) {
+        
+        CMVersionModel *model=[CMVersionModel  yy_modelWithDictionary:responseObject[@"data"]];
+      
+        
+        success(model);
+    } fail:^(NSError *error) {
+        fail(error);
+    }];
+    
+    
+}
+
+
 @end
 
 

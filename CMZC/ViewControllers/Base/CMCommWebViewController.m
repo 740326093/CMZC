@@ -29,8 +29,8 @@
 @property (nonatomic,copy) NSString *nextURL;
 @property (strong,nonatomic)CMProductDetails *ProductDetails;
 @property (copy,nonatomic) NSString *realUrl;
-@property (strong,nonatomic) CMProductDetailBottomView*DetailBottomView;
-@property(strong,nonatomic)CMBLBDetailBottomView *BLBDetailBottomView;
+//@property (strong,nonatomic) CMProductDetailBottomView*DetailBottomView;
+//@property(strong,nonatomic)CMBLBDetailBottomView *BLBDetailBottomView;
 @property (strong,nonatomic) JSContext *context;
 @property (strong,nonatomic) CMJsModel *JsModel;
 @property (assign,nonatomic) BOOL isNotFirstLoad;
@@ -88,7 +88,16 @@
  self.navigationController.navigationBar.titleTextAttributes=@{NSForegroundColorAttributeName: [UIColor whiteColor], NSFontAttributeName: [UIFont boldSystemFontOfSize:17.0]};
     self.realUrl=_urlStr;
     _webView.hidden=YES;
-    [self getProductDetaiWithProductID];
+   // [self getProductDetaiWithProductIDWithUrl:_urlStr];
+    
+   
+
+//
+    
+   
+    
+    
+    
 
 }
 
@@ -96,7 +105,7 @@
 - (void)leftBarBtnClick {
     if ([self.webView canGoBack]) {
         
-        if([self.nextURL rangeOfString:@"/Account/RechargeSuccess"].location!=NSNotFound||[self.nextURL rangeOfString:@"yintong.com.cn"].location!=NSNotFound||[self.nextURL rangeOfString:@"lianlianpay.com"].location!=NSNotFound){
+        if([self.nextURL rangeOfString:@"/Account/RechargeSuccess"].location!=NSNotFound||[self.nextURL rangeOfString:@"yintong.com.cn"].location!=NSNotFound||[self.nextURL rangeOfString:@"lianlianpay.com"].location!=NSNotFound||[_urlStr rangeOfString:self.nextURL].location!=NSNotFound||[self.nextURL rangeOfString:@"type=cmall"].location!=NSNotFound){
         
 //        if ([self.nextURL containsString:@"/Account/RechargeSuccess"]|| [self.nextURL containsString:@"yintong.com.cn"]|| [self.nextURL containsString:@"lianlianpay.com"]) {
             [self.navigationController popViewControllerAnimated:YES];
@@ -121,7 +130,7 @@
     [super viewWillDisappear:animated];
     [_webView stopLoading];
     [_progressView removeFromSuperview];
-    [[NSURLCache sharedURLCache]removeAllCachedResponses];
+  //  [[NSURLCache sharedURLCache]removeAllCachedResponses];
 }
 #pragma mark - NJKWebViewProgressDelegate
 -(void)webViewProgress:(NJKWebViewProgress *)webViewProgress updateProgress:(float)progress
@@ -141,6 +150,7 @@
         
        NSURLRequest *request =[NSURLRequest requestWithURL:[NSURL URLWithString:_urlStr]];
         //4.查看请求头
+         
         [_webView loadRequest:request];
         _webView.scrollView.bounces = NO;
 
@@ -175,8 +185,8 @@
     if (GetDataFromNSUserDefaults(@"Set-Cookie")) {
 
 
-               NSDictionary *setCookieDic = [NSDictionary dictionaryWithObject:GetDataFromNSUserDefaults(@"Set-Cookie") forKey:@"Set-Cookie"];
-             NSArray *headeringCookie = [NSHTTPCookie cookiesWithResponseHeaderFields:setCookieDic forURL:[NSURL URLWithString:kCMMZWeb_url]];
+NSDictionary *setCookieDic = [NSDictionary dictionaryWithObject:GetDataFromNSUserDefaults(@"Set-Cookie") forKey:@"Set-Cookie"];
+  NSArray *headeringCookie = [NSHTTPCookie cookiesWithResponseHeaderFields:setCookieDic forURL:[NSURL URLWithString:kCMMZWeb_url]];
 
                // 通过setCookies方法，完成设置，这样只要一访问URL为HOST的网页时，会自动附带上设置好的header
                [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookies:headeringCookie  forURL:[NSURL URLWithString:kCMMZWeb_url]                 mainDocumentURL:nil];
@@ -264,6 +274,14 @@ NSURL *url= [NSURL URLWithString:self.urlStr];
 -(void)pageShareView{
     
   //  MyLog(@"+++%@",self.realUrl);
+//    NSHTTPCookie *cookie;
+//    NSHTTPCookieStorage *storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+//    for (cookie in [storage cookies])
+//    {
+//        [storage deleteCookie:cookie];
+//    }
+//    //缓存web清除
+//    [[NSURLCache sharedURLCache] removeAllCachedResponses];
 
     CMShareView *shareView=[[CMShareView alloc]initWithFrame:CGRectMake(0, 0, CMScreen_width(), CMScreen_height())];
      shareView.contentUrl =self.realUrl;
@@ -315,20 +333,20 @@ NSURL *url= [NSURL URLWithString:self.urlStr];
     
 }
 
--(CMProductDetailBottomView*)DetailBottomView{
-    if (!_DetailBottomView) {
-        _DetailBottomView=[[CMProductDetailBottomView  alloc]initWithFrame:CGRectMake(0, CMScreen_height()-50, CMScreen_width(), 50)];
-        _DetailBottomView.delegate=self;
-    }
-    return _DetailBottomView;
-}
--(CMBLBDetailBottomView*)BLBDetailBottomView{
-    if (!_BLBDetailBottomView) {
-        _BLBDetailBottomView=[[CMBLBDetailBottomView  alloc]initWithFrame:CGRectMake(0, CMScreen_height()-50, CMScreen_width(), 50)];
-        _BLBDetailBottomView.delegate=self;
-    }
-    return _BLBDetailBottomView;
-}
+//-(CMProductDetailBottomView*)DetailBottomView{
+//    if (!_DetailBottomView) {
+//        _DetailBottomView=[[CMProductDetailBottomView  alloc]initWithFrame:CGRectMake(0, CMScreen_height()-50, CMScreen_width(), 50)];
+//        _DetailBottomView.delegate=self;
+//    }
+//    return _DetailBottomView;
+//}
+//-(CMBLBDetailBottomView*)BLBDetailBottomView{
+//    if (!_BLBDetailBottomView) {
+//        _BLBDetailBottomView=[[CMBLBDetailBottomView  alloc]initWithFrame:CGRectMake(0, CMScreen_height()-50, CMScreen_width(), 50)];
+//        _BLBDetailBottomView.delegate=self;
+//    }
+//    return _BLBDetailBottomView;
+//}
 
 #pragma mark - webDelegate
 - (void)webViewDidStartLoad:(UIWebView *)webView {
@@ -355,12 +373,15 @@ NSURL *url= [NSURL URLWithString:self.urlStr];
     [self hiddenProgressHUD];
    
     
-  //MyLog(@"+++++%@",[[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies]);
+
     
+
     [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.getElementsByClassName('page-header navbar navbar-default navbar-static-top')[0].hidden=true"];
     [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.getElementsByClassName('live_headbg')[0].hidden=true"];
     [webView stringByEvaluatingJavaScriptFromString:@"document.documentElements.getElementsByClassName('header')[0].hidden=true"];
      [webView stringByEvaluatingJavaScriptFromString:@"document.getElementsByClassName('header')[0].hidden=true"];
+    
+    [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.getElementsByTagName('header')[0].hidden=true"];
 //    [webView stringByEvaluatingJavaScriptFromString:@"document.getElementsByClassName('header ng-scope')[0].style.display='none'"];
 //
 
@@ -370,10 +391,10 @@ NSURL *url= [NSURL URLWithString:self.urlStr];
 
     
     
-    if (!webView.loading) {
-        [self performSelector:@selector(webViewHiddenNot:) withObject:webView afterDelay:1.5];
-  
-    }
+//    if (!webView.loading) {
+//        [self performSelector:@selector(webViewHiddenNot:) withObject:webView afterDelay:1.5];
+//
+//    }
 
     self.title = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
     self.shareTitle=self.title;
@@ -418,20 +439,53 @@ NSURL *url= [NSURL URLWithString:self.urlStr];
     _context = [webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
     
     //异常捕获
-    _context.exceptionHandler = ^(JSContext *con, JSValue *exception) {
+    self.context.exceptionHandler = ^(JSContext *con, JSValue *exception) {
         MyLog(@"%@", exception);
         con.exception = exception;
     };
+    [self hiddenAllProgressHUD];
+    _webView.hidden=NO;
+   self.JsModel=[[CMJsModel alloc]init];
+   self.context[@"XJBapp"]=_JsModel;
+    self.JsModel.delegate=self;
+    //__weak typeof(self) weakSelf = self;
+//    self.context[@"isApp"]=^{
+//
+//
+//        // 取出JS方法的参数
+//        NSArray *args = [JSContext currentArguments];
+//        for (id obj in args) {
+//            MyLog(@"%@",obj); // 打印JS方法接收到的所有参数
+//        }
+//        [weakSelf appLog];
+//    };
+  
     
-    _JsModel=[[CMJsModel alloc]init];
-    _context[@"XJBapp"]=_JsModel;
-    _JsModel.delegate=self;
+  //  MyLog(@"webViewDidFinishLoad+++%@+++++%@",[[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies], webView.request.URL.absoluteString);
+    
+    //为了解决js对象丢失想到的笨方法，，还没找到合适的
+    
+    if ([webView.request.URL.absoluteString rangeOfString:@"type=cmall"].location!=NSNotFound&&[webView.request.URL.absoluteString rangeOfString:@"code"].location!=NSNotFound) {
+        NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies];
+        for (NSHTTPCookie *tempCookie in cookies) {
+            if ([tempCookie.name rangeOfString:@"xjbcookie"].location!=NSNotFound) {
+                [self appLog];
+            }
+        }
+        
+    }
+        
+  
+    
+    
 
     
     
     
     
-  
+    
+    
+    
 }
 
 
@@ -441,6 +495,7 @@ NSURL *url= [NSURL URLWithString:self.urlStr];
 -(void)webViewHiddenNot:(id)objc{
     UIWebView *web=(UIWebView*)objc;
     [self hiddenAllProgressHUD];
+    /*
     if ([web.request.URL.path rangeOfString:@"/Products/Detail"].location!=NSNotFound) {
       
         if ([self.title rangeOfString:@"倍利宝"].location==NSNotFound) {
@@ -469,7 +524,7 @@ NSURL *url= [NSURL URLWithString:self.urlStr];
         
     }
 
-    
+    */
      _webView.hidden=NO;
 }
 
@@ -488,15 +543,16 @@ NSURL *url= [NSURL URLWithString:self.urlStr];
 //       [webView loadRequest:mutableRequest];
 //    return NO;
 //}
-
-    
-   // MyLog(@"+++++%@",[[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies]);
-    
+   
     
     
     self.nextURL = request.URL.absoluteString;
-    MyLog(@"+++%@",self.nextURL);
-    
+  //  MyLog(@"+++%@",self.nextURL);
+//    if ([self.nextURL rangeOfString:@"Products/NewFundListByCMall?type=cmall&page=fundlistbycmall&code="].location!=NSNotFound) {
+//      
+//        
+//        [self LoadWebViewWithCookieAndUrl:self.nextURL];
+//    }
      [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.getElementsByClassName('page-header navbar navbar-default navbar-static-top')[0].hidden=true"];
 if ([self.nextURL rangeOfString:@"pid"].location!=NSNotFound) {
     _showRefresh=NO;
@@ -508,8 +564,10 @@ if ([self.nextURL rangeOfString:@"pid"].location!=NSNotFound) {
         
         
     }
-    
-   
+//    if ([self.nextURL rangeOfString:@"/Products/Detail"].location!=NSNotFound) {
+//        [self getProductDetaiWithProductIDWithUrl:self.nextURL];
+//    }
+//
     if ([self.nextURL rangeOfString:CMStringWithPickFormat(kCMMZWeb_url,@"/Products/FundList")].location!=NSNotFound) {
         //跳转到登录
         [webView stopLoading];
@@ -629,6 +687,10 @@ if ([self.nextURL rangeOfString:@"pid"].location!=NSNotFound) {
 
 
    
+    
+    
+    
+   
     return YES;
 }
 
@@ -678,13 +740,13 @@ if ([self.nextURL rangeOfString:@"pid"].location!=NSNotFound) {
             }
             break;
         case TransferClick: //转让
-            self.BLBDetailBottomView.hidden=YES;
-            _urlStr=[NSString stringWithFormat:@"%@/Invest/Confirm?pid=%ld&pcont=1",kCMMZWeb_url,(long)self.ProductId];
+            //self.BLBDetailBottomView.hidden=YES;
+           // _urlStr=[NSString stringWithFormat:@"%@/Invest/Confirm?pid=%ld&pcont=1",kCMMZWeb_url,(long)self.ProductId];
             
             [self loadWebViewData];
             break;
         case RedeemClick: //赎回
-            self.BLBDetailBottomView.hidden=YES;
+           // self.BLBDetailBottomView.hidden=YES;
             _urlStr=[NSString stringWithFormat:@"%@/Account/FundSubcribeRedeem?productId=%ld",kCMMZWeb_url,(long)self.ProductId];
             [self loadWebViewData];
             break;
@@ -731,6 +793,9 @@ if ([self.nextURL rangeOfString:@"pid"].location!=NSNotFound) {
             
            // if (CMIsLogin()) {
             _urlStr=[NSString stringWithFormat:@"%@/Invest/Confirm?pid=%ld&pcont=1",kCMMZWeb_url,(long)self.ProductDetails.productId];
+            if([self.nextURL rangeOfString:@"type=cmall"].location!=NSNotFound){
+            _urlStr=[NSString stringWithFormat:@"%@/Invest/Confirm?pid=%ld&type=cmall",kCMMZWeb_url,(long)self.ProductDetails.productId];
+            }
                 [self loadWebViewData];
 //            } else {
 //                UINavigationController *nav = [UIStoryboard loginStoryboard].instantiateInitialViewController;
@@ -772,7 +837,13 @@ if ([self.nextURL rangeOfString:@"pid"].location!=NSNotFound) {
 
 
 
--(void)getProductDetaiWithProductID{
+-(void)getProductDetaiWithProductIDWithUrl:(NSString*)urlstr{
+    NSDictionary *urlParmeter=[self parameterWithURL:[NSURL URLWithString:urlstr]];
+    
+    if (urlParmeter[@"pid"]) {
+        self.ProductId=[urlParmeter[@"pid"]integerValue];
+    
+    }
     
     if (self.ProductId) {
     
@@ -793,7 +864,26 @@ if ([self.nextURL rangeOfString:@"pid"].location!=NSNotFound) {
         
     }];
         
-          }
+    }
+    
+    
+}
+
+
+-(NSDictionary *) parameterWithURL:(NSURL *) url {
+    
+    NSMutableDictionary *parm = [[NSMutableDictionary alloc]init];
+    
+    //传入url创建url组件类
+    NSURLComponents *urlComponents = [[NSURLComponents alloc] initWithString:url.absoluteString];
+    
+    //回调遍历所有参数，添加入字典
+    [urlComponents.queryItems enumerateObjectsUsingBlock:^(NSURLQueryItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [parm setObject:obj.value forKey:obj.name];
+    }];
+    
+    return parm;
+    
 }
 
 -(void)TradingGuideNewButton{
@@ -836,7 +926,17 @@ if ([self.nextURL rangeOfString:@"pid"].location!=NSNotFound) {
     UINavigationController *nav = [UIStoryboard loginStoryboard].instantiateInitialViewController;
     [self presentViewController:nav animated:YES completion:nil];
 }
+-(void)appLog{
+    
+MyLog(@"webViewDidFinishLoad+++++%@",[[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies]);
+[self cookieLogin];
+            
 
+    
+    
+    
+    
+}
 #pragma mark 调用相机和相册
 
 -(void)callCameraOrPhotosLibrary:(int)type{
@@ -854,6 +954,102 @@ if ([self.nextURL rangeOfString:@"pid"].location!=NSNotFound) {
  
 
     
+}
+-(void)cookieLogin{
+    
+    NSDictionary *dict = @{
+                           @"client_id":@"CC67712F-4614-40CF-824E-10D784C2A3D7",
+                           @"client_secret":@"c0aa7577b892ff2ff4ee0109f2932321",
+                           @"grant_type":@"password",
+                           @"platform":@"1"
+                           };
+    NSMutableDictionary *MutableDict=[NSMutableDictionary dictionaryWithDictionary:dict];
+    if ([JPUSHService registrationID]) {
+        
+        [MutableDict setObject:[JPUSHService registrationID] forKey:@"id"];
+    }
+    
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    configuration.HTTPMaximumConnectionsPerHost = 8;
+    AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:kCMBaseApiURL] sessionConfiguration:configuration];
+   manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/json", @"text/javascript", @"text/plain", @"text/html",nil];
+    
+    NSURLSessionDataTask *dataTask = [manager POST:kCMLoginURL parameters:MutableDict progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        if ([responseObject[@"errcode"] integerValue] == 0) {
+            //删除
+            DeleteDataFromNSUserDefaults(@"value");
+            DeleteDataFromNSUserDefaults(@"userid");
+            //获得cookies
+            NSDictionary *fields = [(NSHTTPURLResponse *)task.response allHeaderFields];
+            //  NSLog(@"fields :%@",fields);
+            //  NSArray *cookies = [NSHTTPCookie cookiesWithResponseHeaderFields:fields forURL:[NSURL URLWithString:kCMBaseApiURL]];
+            
+            //NSHTTPCookie *cookie = cookies.firstObject;
+            //  NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:[NSURL URLWithString:kCMBaseApiURL]];
+            DeleteDataFromNSUserDefaults(kVerifyStareDateKey);
+            
+            NSString *cookieString = [fields valueForKey:@"Set-Cookie"];
+            NSArray *arr= [cookieString componentsSeparatedByString:@";"];
+            NSString *newString=arr.firstObject;
+            NSArray *arr1= [newString componentsSeparatedByString:@"="];
+            MyLog(@"++%@",newString);
+            // if(cookie.name&&cookie.value){
+            // SaveDataToNSUserDefaults(cookie.name, @"name");
+            // SaveDataToNSUserDefaults(cookie.value, @"value");
+            // }else{
+            SaveDataToNSUserDefaults(arr1.firstObject, @"name");
+            SaveDataToNSUserDefaults(arr1.lastObject, @"value");
+            SaveDataToNSUserDefaults(newString, @"Set-Cookie");
+            SaveDataToNSUserDefaults([NSDate date], kVerifyStareDateKey);
+            //}
+            
+            CMAccount *loginAccount = [[CMAccount alloc] initWithDict:responseObject];
+             [[CMAccountTool sharedCMAccountTool] addAccount:loginAccount];
+            //存储以下当前时间
+            [CMRequestAPI cm_tradeFetchAccountionfSuccess:^(CMAccountinfo *account) {
+                MyLog(@" account : %@",account);
+               
+                SaveDataToNSUserDefaults(account.userid, @"userid");
+                loginAccount.userName=account.sj;
+                SaveDataToNSUserDefaults(account.sj, @"accountName");
+                [[CMAccountTool sharedCMAccountTool] addAccount:loginAccount];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"loginWin" object:self];
+            } fail:^(NSError *error) {
+                
+            }];
+            
+           
+         
+        } else {
+            NSError *cmError = [NSError errorWithDomain:responseObject[@"errmsg"] code:[responseObject[@"errcode"] integerValue] message:[NSString errorMessageWithCode:[responseObject[@"errcode"] integerValue]]];
+            
+        }
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
+        if (error.code==-1011) {
+            NSData *errorData = error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey];
+            NSDictionary *body = [NSJSONSerialization JSONObjectWithData:errorData options:NSJSONReadingMutableContainers error:nil];
+            
+            if (body) {
+                
+               
+            }
+        }else{
+            //请求失败
+            
+            NSError *cmError = [NSError errorWithDomain:error.domain code:error.code message:[NSString errorMessageWithCode:error.code]];
+           
+        }
+        
+        
+        
+    }];
+    
+    [dataTask resume];
+    
+
 }
 
 

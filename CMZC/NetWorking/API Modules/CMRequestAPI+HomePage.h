@@ -10,7 +10,7 @@
 #import "CMAppVersion.h"
 #import "CMAdministrator.h"
 #import "CMAnalystMode.h"
-
+#import "CMVersionModel.h"
 
 @interface CMRequestAPI (HomePage)
 
@@ -178,6 +178,10 @@
 //app内部消息
 + (void)cm_appMessageSuccess:(void (^)(NSArray *))success fail:(void (^)(NSError *))fail;
 
+
+
+//app版本更新
++ (void)cm_appVersionSuccess:(void (^)(CMVersionModel *VersionModel))success fail:(void (^)(NSError *))fail;
 @end
 
 

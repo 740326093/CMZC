@@ -19,4 +19,5 @@
 @property (nonatomic,assign) BOOL bankcardisexists; //用户是否绑定了银行卡
 @property (nonatomic,assign) NSInteger bjigou; //机构会员标识
 @property (nonatomic,copy) NSString *userid; //机构会员ID
+@property (nonatomic,copy) NSString *sj; //手机号
 @end

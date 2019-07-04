@@ -14,6 +14,9 @@
 JSExportAs(share, - (void)share:(NSString *)title describeContent:(NSString *)content interlnkageSite:(NSString *)siteUrl pictureStie:(NSString *)pictureUrl);
 -(void)callCameraOrPhotosLibrary:(int)type;
 -(void)appLogin;
+-(void)appLog;
+
+
 @end
 @interface CMJsModel : NSObject<CMWebModelDelegate>
 @property(nonatomic,weak) id<CMWebModelDelegate> delegate;

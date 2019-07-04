@@ -12,12 +12,16 @@
 #import "JPUSHService.h"
 #import "CMTabBarViewController.h"
 #import "CMTradeViewController.h"
-
+#import "CMAppUpdate.h"
 //#ifdef NSFoundationVersionNumber_iOS_9_x_Max
 //#import <UserNotifications/UserNotifications.h> // 这里是iOS10需要用到的框架
 //#endif
-@interface AppDelegate ()
+static NSString *UPDATEMODEL = @"updateModel";
+@interface AppDelegate ()<CMAppUpdateDelegate>
+@property (strong, nonatomic) UIAlertView *appUpdateAlert;
 @property(nonatomic,copy)NSDictionary *userDict;
+
+@property(nonatomic,assign)BOOL fromForeground;
 @end
 
 @implementation AppDelegate
@@ -141,6 +145,8 @@
         //}
     }
     
+    _fromForeground=YES;
+    
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
@@ -159,8 +165,71 @@
     }
     
     [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+    
+    CMAppUpdate *AppUpdate=[[CMAppUpdate alloc]init];
+    AppUpdate.updateDelegate=self;
 }
-
+-(void)isMustUpdateAPPVersion:(CMVersionModel*)VersionModel{
+    [_appUpdateAlert removeFromSuperview];
+    if(VersionModel.content.length<=0||VersionModel.content==nil){
+        VersionModel.content=@"发现需要升级的版本,现在去更新";
+    }
+    
+    if (VersionModel.updateStatus) {
+        
+        _appUpdateAlert=[[UIAlertView alloc]initWithTitle:@"新版本提示" message:VersionModel.content delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
+        [_appUpdateAlert show];
+        
+        objc_setAssociatedObject(_appUpdateAlert, &UPDATEMODEL, VersionModel, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        
+        
+    }else{
+        
+       if (_fromForeground==NO){
+        _appUpdateAlert=[[UIAlertView alloc]initWithTitle:@"新版本提示" message:VersionModel.content delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        
+        [_appUpdateAlert show];
+        
+        objc_setAssociatedObject(_appUpdateAlert, &UPDATEMODEL, VersionModel, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        }
+        
+    }
+    
+}
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    
+    
+    if (alertView.tag==101) {
+        if (buttonIndex==1) {
+            
+            NSString *urlStr = [self.userDict objectForKey:@"ext"];
+            [self pushWebviewWithURL:urlStr];
+            
+            
+            
+        }
+    } else {
+        
+  
+    CMVersionModel *versionModel=objc_getAssociatedObject(alertView, &UPDATEMODEL);
+    
+    if (versionModel.updateStatus) {
+        
+        
+        if (buttonIndex==0) {
+            [[UIApplication sharedApplication]openURL:[NSURL URLWithString:versionModel.downAddress]];
+        }
+        
+        
+    }else{
+        if (buttonIndex==1) {
+            [[UIApplication sharedApplication]openURL:[NSURL URLWithString:versionModel.downAddress]];
+        }
+        
+    }
+    
+      }
+}
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
@@ -245,21 +314,7 @@
     
 }
 
--(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    
-    
-    
-    if (buttonIndex==1) {
-        
-       NSString *urlStr = [self.userDict objectForKey:@"ext"];
-        [self pushWebviewWithURL:urlStr];
-        
-        
-       
-    }
-    
-    
-}
+
 // 有外部app通过URL Scheme 的方法打开本应用
 
 -(BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options{
