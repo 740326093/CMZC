@@ -572,9 +572,9 @@ if ([self.nextURL rangeOfString:@"pid"].location!=NSNotFound) {
         //跳转到登录
         [webView stopLoading];
 
-        if (!_isJPush) {
-          [self removeController];
-        }
+//        if (!_isJPush) {
+//          [self removeController];
+//        }
 
         
         CMBeiLiBaoController *webVC = (CMBeiLiBaoController *)[[UIStoryboard mainStoryboard] viewControllerWithId:@"CMBeiLiBaoController"];

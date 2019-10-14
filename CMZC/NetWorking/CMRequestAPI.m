@@ -135,13 +135,19 @@ typedef NS_ENUM(NSUInteger, CMHTTPRequestStatusCode) {
     
     NSString *urlStr = [NSString stringWithFormat:@"%@%@",kCMBaseApiURL,urlScheme];
     NSMutableURLRequest *request = [[AFJSONRequestSerializer serializer] requestWithMethod:@"POST" URLString:urlStr parameters:arguments error:nil];
+    
     NSURLSessionTask *task = [_manage dataTaskWithRequest:request
                                         completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
                                             
                                             if (error) {
                                                 MyLog(@" error : %@",error);
                                                 //请求失败
-                                             
+                                                NSData *errorData = error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey];
+                                                NSDictionary *body = [NSJSONSerialization JSONObjectWithData:errorData options:NSJSONReadingMutableContainers error:nil];
+                                                
+                                                
+                                                MyLog(@"错误+++%@",body);
+                                                
                                                 NSError *cmError = [NSError errorWithDomain:error.domain code:error.code message:[NSString errorMessageWithCode:error.code]];
                                                 fail(cmError);
                                             } else {

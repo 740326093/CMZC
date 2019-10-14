@@ -519,6 +519,8 @@
 		4C20C29922A4CE8F005F3971 /* CMBillingModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C20C29822A4CE8F005F3971 /* CMBillingModel.m */; };
 		4C24D62C229E3BB80029B420 /* CMCentIntroductView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C24D62B229E3BB80029B420 /* CMCentIntroductView.m */; };
 		4C24D62E229E3BCF0029B420 /* CMCentIntroductView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C24D62D229E3BCF0029B420 /* CMCentIntroductView.xib */; };
+		4CF83399235411CF00DEC5D9 /* CMWkWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF83398235411CF00DEC5D9 /* CMWkWebViewController.m */; };
+		4CF8339C235412E800DEC5D9 /* CMWeakScriptMessageDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF8339B235412E800DEC5D9 /* CMWeakScriptMessageDelegate.m */; };
 		8FBFC6CEF39ED3A8BE47E80A /* libPods-CMZC.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D88A9833A24E70854957B10F /* libPods-CMZC.a */; };
 /* End PBXBuildFile section */
 
@@ -1389,6 +1391,10 @@
 		4C24D62A229E3BB80029B420 /* CMCentIntroductView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CMCentIntroductView.h; sourceTree = "<group>"; };
 		4C24D62B229E3BB80029B420 /* CMCentIntroductView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CMCentIntroductView.m; sourceTree = "<group>"; };
 		4C24D62D229E3BCF0029B420 /* CMCentIntroductView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CMCentIntroductView.xib; sourceTree = "<group>"; };
+		4CF83397235411CF00DEC5D9 /* CMWkWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CMWkWebViewController.h; sourceTree = "<group>"; };
+		4CF83398235411CF00DEC5D9 /* CMWkWebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CMWkWebViewController.m; sourceTree = "<group>"; };
+		4CF8339A235412E800DEC5D9 /* CMWeakScriptMessageDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CMWeakScriptMessageDelegate.h; sourceTree = "<group>"; };
+		4CF8339B235412E800DEC5D9 /* CMWeakScriptMessageDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CMWeakScriptMessageDelegate.m; sourceTree = "<group>"; };
 		6B3B4874F8FE50CCE2944700 /* Pods-CMZC.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CMZC.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CMZC/Pods-CMZC.debug.xcconfig"; sourceTree = "<group>"; };
 		D88A9833A24E70854957B10F /* libPods-CMZC.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CMZC.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F899D42D5E6A7CEAC85CEFB2 /* Pods-CMZC.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CMZC.release.xcconfig"; path = "Pods/Target Support Files/Pods-CMZC/Pods-CMZC.release.xcconfig"; sourceTree = "<group>"; };
@@ -1931,6 +1937,10 @@
 				04BA9C2C1FDA70D100269697 /* CMChagePhoto.m */,
 				04BA9C211FDA3AB000269697 /* CMJsModel.h */,
 				04BA9C221FDA3AB000269697 /* CMJsModel.m */,
+				4CF83397235411CF00DEC5D9 /* CMWkWebViewController.h */,
+				4CF83398235411CF00DEC5D9 /* CMWkWebViewController.m */,
+				4CF8339A235412E800DEC5D9 /* CMWeakScriptMessageDelegate.h */,
+				4CF8339B235412E800DEC5D9 /* CMWeakScriptMessageDelegate.m */,
 			);
 			name = webView;
 			sourceTree = "<group>";
@@ -3586,6 +3596,7 @@
 				38081ABC1E20D48700EA4E13 /* CMoptionReleaseTableViewCell.m in Sources */,
 				38241B0B1C858630005E5134 /* UIColor+CMColors.m in Sources */,
 				384591831CC0E05E008A519E /* CMMarketList.m in Sources */,
+				4CF83399235411CF00DEC5D9 /* CMWkWebViewController.m in Sources */,
 				3859C6191C9A364D00A358CF /* CMTradeDetailView.m in Sources */,
 				386AFA7E1CB5EEEA00B678A9 /* CMAnalystPoint.m in Sources */,
 				04697D671E763836000AD8D9 /* CMMessage.m in Sources */,
@@ -3887,6 +3898,7 @@
 				0453047E202307160024B06F /* CMAgencyCheckController.m in Sources */,
 				386BF2571CAA624F00DB409E /* NSMutableAttributedString+AttributedString.m in Sources */,
 				38241A971C853F77005E5134 /* main.m in Sources */,
+				4CF8339C235412E800DEC5D9 /* CMWeakScriptMessageDelegate.m in Sources */,
 				049548B42025882900811E10 /* CMUnderwritingListController.m in Sources */,
 				4C1052E4229E138C0017F0A7 /* CMBillingDetailsView.m in Sources */,
 				383C1CEC1DA889F400C8C61B /* CMIntroduceDetailsCell.m in Sources */,
@@ -4043,7 +4055,7 @@
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/CMZC/AppResources/CMZHC_Header.pch";
 				INFOPLIST_FILE = CMZC/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4082,7 +4094,7 @@
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/CMZC/AppResources/CMZHC_Header.pch";
 				INFOPLIST_FILE = CMZC/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

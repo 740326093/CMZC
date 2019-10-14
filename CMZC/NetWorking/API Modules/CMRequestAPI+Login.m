@@ -82,8 +82,7 @@
            //  NSArray *cookies = [NSHTTPCookie cookiesWithResponseHeaderFields:fields forURL:[NSURL URLWithString:kCMBaseApiURL]];
   
              //NSHTTPCookie *cookie = cookies.firstObject;
-        //  NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:[NSURL URLWithString:kCMBaseApiURL]];
-            
+  
             
         NSString *cookieString = [fields valueForKey:@"Set-Cookie"];
         

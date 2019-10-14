@@ -31,8 +31,8 @@ singleton_implementation(CMTokenTimer);
                 MyLog(@"令牌刷新失败");
                   [[CMAccountTool sharedCMAccountTool] removeAccount];
                 DeleteDataFromNSUserDefaults(@"Set-Cookie");
-               //  DeleteDataFromNSUserDefaults(@"name");
-               // DeleteDataFromNSUserDefaults(@"value");
+                DeleteDataFromNSUserDefaults(@"name");
+                DeleteDataFromNSUserDefaults(@"value");
                 DeleteDataFromNSUserDefaults(@"userid");
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"exitLogin" object:nil];
                 

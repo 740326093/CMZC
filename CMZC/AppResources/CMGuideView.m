@@ -35,6 +35,7 @@
                 make.left.equalTo(img.mas_left).offset(45);
                 make.right.equalTo(img.mas_right).offset(-45);
                 make.height.equalTo(@60);
+                kDevice_Is_iPhoneX ?make.bottom.equalTo(img.mas_bottom).offset(-120):
                 make.bottom.equalTo(img.mas_bottom).offset(-80);
             }];
         }

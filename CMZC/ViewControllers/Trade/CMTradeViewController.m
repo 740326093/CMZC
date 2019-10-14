@@ -561,8 +561,8 @@
         if (buttonIndex == 1) {
             [[CMAccountTool sharedCMAccountTool] removeAccount];
             //删除
-           // DeleteDataFromNSUserDefaults(@"name");
-           // DeleteDataFromNSUserDefaults(@"value");
+            DeleteDataFromNSUserDefaults(@"name");
+           DeleteDataFromNSUserDefaults(@"value");
             DeleteDataFromNSUserDefaults(@"Set-Cookie");
             DeleteDataFromNSUserDefaults(@"userid");
             _tradeTitleView.tinfo = nil;

@@ -603,7 +603,7 @@
     }
 }
 
-#pragma mark
+#pragma mark  路演专区
 -(void)showOtherProductList{
     CMNewShowController *commWebVC = (CMNewShowController *)[[UIStoryboard mainStoryboard] viewControllerWithId:@"CMNewShowController"];
     [self.navigationController pushViewController:commWebVC animated:YES];
@@ -802,10 +802,15 @@
        //newGuideVC.hideTabBar=YES;
         [self.navigationController pushViewController:newGuideVC animated:YES];
     } else {
-        CMCommWebViewController *webVC = (CMCommWebViewController *)[CMCommWebViewController initByStoryboard];
-        webVC.urlStr = url;
-        webVC.showRefresh=YES;
-        [self.navigationController pushViewController:webVC animated:YES];
+//        CMCommWebViewController *webVC = (CMCommWebViewController *)[CMCommWebViewController initByStoryboard];
+//        webVC.urlStr = url;
+//        webVC.showRefresh=YES;
+//        [self.navigationController pushViewController:webVC animated:YES];
+        CMWkWebViewController *webVc=[[CMWkWebViewController alloc]init];
+        webVc.hidesBottomBarWhenPushed=YES;
+        webVc.urlString=url;
+      [self.navigationController pushViewController:webVc animated:YES];
+        
     }
 }
 
