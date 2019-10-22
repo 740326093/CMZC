@@ -273,18 +273,18 @@
             
         }
             break;
-        case 2:
-            //行情
-        {
-           // self.allType = CMAllServerViewTypeMarket;
-//            CMTabBarViewController *tab = (CMTabBarViewController *)window.rootViewController;
-//            tab.selectedIndex = 2;
-            CMMarketViewController*webVC = (CMMarketViewController *)[[UIStoryboard mainStoryboard] viewControllerWithId:@"CMMarketViewController"];
-            
-            [self.navigationController pushViewController:webVC animated:YES];
-        }
-            break;
-        case 3://倍利宝
+//        case 2:
+//            //行情
+//        {
+//           // self.allType = CMAllServerViewTypeMarket;
+////            CMTabBarViewController *tab = (CMTabBarViewController *)window.rootViewController;
+////            tab.selectedIndex = 2;
+//            CMMarketViewController*webVC = (CMMarketViewController *)[[UIStoryboard mainStoryboard] viewControllerWithId:@"CMMarketViewController"];
+//
+//            [self.navigationController pushViewController:webVC animated:YES];
+//        }
+//            break;
+        case 2://倍利宝
         {
            
                 //自选 http://m.xinjingban.com/Products/FundList
@@ -293,7 +293,7 @@
             [self.navigationController pushViewController:webVC animated:YES];
         }
             break;
-        case 5:
+        case 4:
         {
             //公告
             CMBulletinViewController *bulletinVC = (CMBulletinViewController *)[[UIStoryboard mainStoryboard] viewControllerWithId:@"CMBulletinViewController"];
@@ -302,7 +302,7 @@
             
         }
             break;
-        case 4:
+        case 3:
         {
          //分析师
             CMAnalystViewController *analystVC = (CMAnalystViewController *)[[UIStoryboard mainStoryboard] viewControllerWithId:@"CMAnalystViewController"];
@@ -417,14 +417,16 @@
              @"更多服务"];
 }
 //cell data
+//   @"option_trade_home"
 - (NSArray *)sourceDataArr {
     return @[@[@"strength_brand_home",@"safety_brand_home",@"media_brand_home"],
-             @[@"ask_trade_home",@"price_trade_home",@"option_trade_home",@"notice_trade_home",@"analyst_trade_home",@"trade_trade_home"],
+          @[@"ask_trade_home",@"price_trade_home",@"notice_trade_home",@"analyst_trade_home",@"trade_trade_home",@""],
              @[@"finan_listed_serve",@"finan_capital_serve",@"finan_economy_serve",@"finan_roadshow_serve",@"finan_apply_serve",@""],
              @[@"couple_serve_home",@"server_serve_home",@"shear_serve_home"]];
 }
 - (void)isLoginVC {
     UINavigationController *nav = [UIStoryboard loginStoryboard].instantiateInitialViewController;
+    nav.modalPresentationStyle=UIModalPresentationFullScreen;
     [self presentViewController:nav animated:YES completion:nil];
 }
 /*

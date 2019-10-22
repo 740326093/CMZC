@@ -769,6 +769,7 @@
     } else {
         //位登录。显示登录
         UINavigationController *nav = [UIStoryboard loginStoryboard].instantiateInitialViewController;
+        nav.modalPresentationStyle=UIModalPresentationFullScreen;
         [self presentViewController:nav animated:YES completion:nil];
     }
     
@@ -802,14 +803,14 @@
        //newGuideVC.hideTabBar=YES;
         [self.navigationController pushViewController:newGuideVC animated:YES];
     } else {
-//        CMCommWebViewController *webVC = (CMCommWebViewController *)[CMCommWebViewController initByStoryboard];
-//        webVC.urlStr = url;
-//        webVC.showRefresh=YES;
-//        [self.navigationController pushViewController:webVC animated:YES];
-        CMWkWebViewController *webVc=[[CMWkWebViewController alloc]init];
-        webVc.hidesBottomBarWhenPushed=YES;
-        webVc.urlString=url;
-      [self.navigationController pushViewController:webVc animated:YES];
+        CMCommWebViewController *webVC = (CMCommWebViewController *)[CMCommWebViewController initByStoryboard];
+        webVC.urlStr = url;
+        webVC.showRefresh=YES;
+        [self.navigationController pushViewController:webVC animated:YES];
+//        CMWkWebViewController *webVc=[[CMWkWebViewController alloc]init];
+//        webVc.hidesBottomBarWhenPushed=YES;
+//        webVc.urlString=url;
+//      [self.navigationController pushViewController:webVc animated:YES];
         
     }
 }

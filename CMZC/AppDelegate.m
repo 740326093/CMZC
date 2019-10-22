@@ -13,6 +13,8 @@
 #import "CMTabBarViewController.h"
 #import "CMTradeViewController.h"
 #import "CMAppUpdate.h"
+
+#import "CMNewNoticeController.h"
 //#ifdef NSFoundationVersionNumber_iOS_9_x_Max
 //#import <UserNotifications/UserNotifications.h> // 这里是iOS10需要用到的框架
 //#endif
@@ -456,16 +458,66 @@ static NSString *UPDATEMODEL = @"updateModel";
 //    NSString *localVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
     NSString *versionKey = [NSString stringWithFormat:@"isFirstRun"];
     BOOL isFirstRunThisVersion = [GetDataFromNSUserDefaults(versionKey) boolValue];
-    if (!isFirstRunThisVersion) {
-       
+    [self addOrRemoveController];
     
+    if (!isFirstRunThisVersion) {
         
         self.viewController = self.window.rootViewController;
         self.window.rootViewController=[[CMGuideController alloc]init];
         SaveDataToNSUserDefaults([NSNumber numberWithBool:YES], versionKey);
     }
     
+    
 }
-#
+
+
+-(void)addOrRemoveController{
+    
+    CMTabBarViewController *tabBar=(CMTabBarViewController*)self.window.rootViewController;
+
+    NSMutableArray *tabbarControllersArray=[NSMutableArray arrayWithArray:tabBar.viewControllers];
+    if (CMIsLogin()) {
+        
+        if (tabbarControllersArray.count!=4) {
+            
+        CMNewNoticeController *VC =  [CMNewNoticeController initByStoryboard];
+        UINavigationController *NaVC = [[UINavigationController alloc] initWithRootViewController:VC];
+        NaVC.tabBarItem.title = @"转让";
+        NaVC.tabBarItem.selectedImage = [UIImage imageNamed:@"tab_line_select"];
+        NaVC.tabBarItem.image = [UIImage imageNamed:@"tab_line"];
+        
+        [tabbarControllersArray insertObject:NaVC atIndex:2];
+            
+            
+        }
+        
+        tabBar.viewControllers=tabbarControllersArray;
+        
+        
+        self.window.rootViewController =tabBar;
+        
+        
+    } else {
+      
+        
+        if (tabbarControllersArray.count ==4) {
+            
+        
+        [tabbarControllersArray removeObjectAtIndex:2];
+            
+            
+        }
+        
+        tabBar.viewControllers=tabbarControllersArray;
+        
+        
+        self.window.rootViewController =tabBar;
+        
+        
+        
+    }
+    
+    
+}
 
 @end

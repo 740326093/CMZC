@@ -28,6 +28,7 @@
 #import "CMAgencyMebersController.h"
 #import "CMMebersIncomeController.h"
 #import "CMCheackStateModel.h"
+#import "CMNewNoticeController.h"
 @interface CMTradeViewController ()<UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate,CMTradeMeansTableViewCellDelegate,CMTradeTitleViewDelegate>{
     NSArray *_titImageArr;//头图片Image
     NSArray *_titLabNameArr;//名字lab
@@ -146,7 +147,8 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if(indexPath.row ==0){
-        return 190;
+        return 0.001;
+         // return 190;
     }
     else if (indexPath.row > 0&&indexPath.row<=_titLabNameArr.count) {
         return 40;
@@ -161,9 +163,16 @@
 //        CMAgencyMmbersCell *tableCell = [tableView dequeueReusableCellWithIdentifier:@"CMAgencyMmbersCell" forIndexPath:indexPath];
 //        return tableCell;
         
+//
+//        CMTradeMeansTableViewCell *tradeMeansCell = [tableView dequeueReusableCellWithIdentifier:@"CMTradeMeansTableViewCell" forIndexPath:indexPath];
+//        tradeMeansCell.delegate = self;
+       UITableViewCell *tradeMeansCell=[tableView dequeueReusableCellWithIdentifier:@"tradeMeansCell"];
+             if (!tradeMeansCell) {
+                 tradeMeansCell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"tradeMeansCell"];
+                 tradeMeansCell.selectionStyle=UITableViewCellSelectionStyleNone;
+             }
+            
         
-        CMTradeMeansTableViewCell *tradeMeansCell = [tableView dequeueReusableCellWithIdentifier:@"CMTradeMeansTableViewCell" forIndexPath:indexPath];
-        tradeMeansCell.delegate = self;
         return tradeMeansCell;
     }
    else if (indexPath.row > 0&&indexPath.row<=_titLabNameArr.count) {
@@ -205,6 +214,7 @@
     if (!CMIsLogin()) {
         //没有登录过。跳转到登录界面
         CMLoginViewController *loginVC = (CMLoginViewController *)[UIStoryboard loginStoryboard].instantiateInitialViewController;
+        loginVC.modalPresentationStyle=UIModalPresentationFullScreen;
         [self presentViewController:loginVC animated:YES completion:nil];
         
     } else {
@@ -446,6 +456,7 @@
     if (!CMIsLogin()) {
         //没有登录过。跳转到登录界面
         CMLoginViewController *loginVC = (CMLoginViewController *)[UIStoryboard loginStoryboard].instantiateInitialViewController;
+        loginVC.modalPresentationStyle=UIModalPresentationFullScreen;
         [self presentViewController:loginVC animated:YES completion:nil];
         
     } else {
@@ -472,6 +483,7 @@
 }
 - (void)cm_tradeViewControllerLogin:(CMTradeTitleView *)titleView {
     CMLoginViewController *loginVC = (CMLoginViewController *)[UIStoryboard loginStoryboard].instantiateInitialViewController;
+    loginVC.modalPresentationStyle=UIModalPresentationFullScreen;
     [self presentViewController:loginVC animated:YES completion:nil];
     
 }
@@ -523,6 +535,7 @@
     //跳转到界面
     if (index == 100) {
         CMLoginViewController *loginVC = (CMLoginViewController *)[UIStoryboard loginStoryboard].instantiateInitialViewController;
+        loginVC.modalPresentationStyle=UIModalPresentationFullScreen;
         [self presentViewController:loginVC animated:YES completion:nil];
         return;
     }
@@ -567,14 +580,36 @@
             DeleteDataFromNSUserDefaults(@"userid");
             _tradeTitleView.tinfo = nil;
             [[NSNotificationCenter defaultCenter] postNotificationName:@"exitLogin" object:nil];
-            if (_isHidebottom) {
-                [self.navigationController  popViewControllerAnimated:YES];
-            }else{
-            UIWindow *window = [UIApplication sharedApplication].windows.firstObject;
-            CMTabBarViewController *tab = (CMTabBarViewController *)window.rootViewController;
-            tab.selectedIndex = 0;
-            }
-           
+            
+            AppDelegate *app = [AppDelegate shareDelegate];
+               CMTabBarViewController *tabBar=(CMTabBarViewController*)app.window.rootViewController;
+
+                       NSMutableArray *tabbarControllersArray=[NSMutableArray arrayWithArray:tabBar.viewControllers];
+                   
+                           
+                           if (tabbarControllersArray.count ==4) {
+                               
+                       
+                           [tabbarControllersArray removeObjectAtIndex:2];
+                               
+                               
+                           }
+                           
+                           tabBar.viewControllers=tabbarControllersArray;
+                           
+                           
+                           app.window.rootViewController =tabBar;
+                  tabBar.selectedIndex = 0;
+                           
+        if (_isHidebottom) {
+               [self.navigationController  popViewControllerAnimated:YES];
+     }
+           // else{
+//            UIWindow *window = [UIApplication sharedApplication].windows.firstObject;
+//            CMTabBarViewController *tab = (CMTabBarViewController *)window.rootViewController;
+//            tab.selectedIndex = 0;
+//            }
+//
             NSHTTPCookieStorage *cookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
             NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies];
             

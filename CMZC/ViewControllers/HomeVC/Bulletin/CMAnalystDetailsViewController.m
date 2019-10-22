@@ -135,6 +135,7 @@
     if (!CMIsLogin()) {
         //位登录。显示登录
         UINavigationController *nav = [UIStoryboard loginStoryboard].instantiateInitialViewController;
+        nav.modalPresentationStyle=UIModalPresentationFullScreen;
         [self presentViewController:nav animated:YES completion:nil];
     } else {
         [_inputBoxTextField  resignFirstResponder];
@@ -227,6 +228,7 @@
         if (!CMIsLogin()) {
             //位登录。显示登录
             UINavigationController *nav = [UIStoryboard loginStoryboard].instantiateInitialViewController;
+            nav.modalPresentationStyle=UIModalPresentationFullScreen;
             [self presentViewController:nav animated:YES completion:nil];
         } else {
             [_inputBoxTextField becomeFirstResponder];

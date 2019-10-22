@@ -56,6 +56,7 @@
             [self loadWebViewData];
         } fail:^(NSError *error) {
             UINavigationController *nav = [UIStoryboard loginStoryboard].instantiateInitialViewController;
+            nav.modalPresentationStyle=UIModalPresentationFullScreen;
             [self presentViewController:nav animated:YES completion:nil];
         }];
     } else {
@@ -360,6 +361,7 @@ NSURL *url= [NSURL URLWithString:self.urlStr];
         //跳转到登录
         [webView stopLoading];
         UINavigationController *nav = [UIStoryboard loginStoryboard].instantiateInitialViewController;
+        nav.modalPresentationStyle=UIModalPresentationFullScreen;
         [self presentViewController:nav animated:YES completion:nil];
     }
 
@@ -629,12 +631,14 @@ if ([self.nextURL rangeOfString:@"pid"].location!=NSNotFound) {
     if([self.nextURL rangeOfString:@"Login"].location!=NSNotFound){
         [webView stopLoading];
         UINavigationController *nav = [UIStoryboard loginStoryboard].instantiateInitialViewController;
+        nav.modalPresentationStyle=UIModalPresentationFullScreen;
         [self presentViewController:nav animated:YES completion:nil];
         return NO;
     }
     if([self.nextURL rangeOfString:CMStringWithPickFormat(kCMMZWeb_url, @"/Login")].location!=NSNotFound){
         [webView stopLoading];
         UINavigationController *nav = [UIStoryboard loginStoryboard].instantiateInitialViewController;
+        nav.modalPresentationStyle=UIModalPresentationFullScreen;
         [self presentViewController:nav animated:YES completion:nil];
         return NO;
     }
@@ -736,6 +740,7 @@ if ([self.nextURL rangeOfString:@"pid"].location!=NSNotFound) {
             if (CMIsLogin()) {
             } else {
                 UINavigationController *nav = [UIStoryboard loginStoryboard].instantiateInitialViewController;
+                nav.modalPresentationStyle=UIModalPresentationFullScreen;
                 [self presentViewController:nav animated:YES completion:nil];
             }
             break;
@@ -769,6 +774,7 @@ if ([self.nextURL rangeOfString:@"pid"].location!=NSNotFound) {
          [self sendMesage];
          } else {
              UINavigationController *nav = [UIStoryboard loginStoryboard].instantiateInitialViewController;
+             nav.modalPresentationStyle=UIModalPresentationFullScreen;
                 [self presentViewController:nav animated:YES completion:nil];
            }
       
@@ -784,6 +790,7 @@ if ([self.nextURL rangeOfString:@"pid"].location!=NSNotFound) {
        if (CMIsLogin()) {
                 } else {
            UINavigationController *nav = [UIStoryboard loginStoryboard].instantiateInitialViewController;
+                    nav.modalPresentationStyle=UIModalPresentationFullScreen;
            [self presentViewController:nav animated:YES completion:nil];
        }
        
@@ -924,6 +931,7 @@ if ([self.nextURL rangeOfString:@"pid"].location!=NSNotFound) {
 -(void)appLogin{
     
     UINavigationController *nav = [UIStoryboard loginStoryboard].instantiateInitialViewController;
+    nav.modalPresentationStyle=UIModalPresentationFullScreen;
     [self presentViewController:nav animated:YES completion:nil];
 }
 -(void)appLog{

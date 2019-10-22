@@ -35,23 +35,27 @@
     
 }
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
+    
+    //||viewController == [tabBarController.viewControllers objectAtIndex:2]
+    
+    
     if (viewController == [tabBarController.viewControllers objectAtIndex:3]||viewController == [tabBarController.viewControllers objectAtIndex:2]) //assuming the index of uinavigationcontroller is 2
     {
+        
+        
+        
         if (CMIsLogin()) {
+            
+            
             return YES;
         } else {
           //  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(presentTabBarIndex) name:@"loginWin" object:nil];
             CMLoginViewController *loginVC = (CMLoginViewController *)[UIStoryboard loginStoryboard].instantiateInitialViewController;
+            loginVC.modalPresentationStyle=UIModalPresentationFullScreen;
             [self presentViewController:loginVC animated:YES completion:nil];
             return  NO;
         }
-    } else if (viewController == [tabBarController.viewControllers objectAtIndex:0]) {
-    // NSArray *contArr = self.navigationController.viewControllers;
-      // NSLog(@"%ld",(unsigned long)contArr.count);
-
-        return YES;
     }
-    
     else {
         return YES;
     }
@@ -59,6 +63,8 @@
 - (void) presentTabBarIndex {
    // UIWindow *window = [UIApplication sharedApplication].windows.firstObject;
    // CMTabBarViewController *tab = (CMTabBarViewController *)window.rootViewController;
+    
+    
     self.selectedIndex = 3;
 }
 - (void)tabBarController:(UITabBarController *)tabBarController willBeginCustomizingViewControllers:(NSArray<__kindof UIViewController *> *)viewControllers {
@@ -75,7 +81,8 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
+// 添加标签子控制器
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -83,6 +90,6 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
 }
-*/
+
 
 @end

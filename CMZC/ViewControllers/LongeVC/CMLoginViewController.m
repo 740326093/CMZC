@@ -19,7 +19,7 @@
 #define kVerifyMobilePhonePassWordKey @"kVerifyMobilePhonePassWord"
 
 #define kVerifyStarDatePassWordKey @"VerifyStarDatePassWord"
-
+#import "CMNewNoticeController.h"
 @interface CMLoginViewController ()<UITextFieldDelegate> {
    
 }
@@ -127,12 +127,44 @@ self.oldBtn=_sliderPassBtn;
     }
 }
 - (void)showMainViewController {
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+    AppDelegate *app = [AppDelegate shareDelegate];
+    CMTabBarViewController *tabBar=(CMTabBarViewController*)app.window.rootViewController;
+    NSMutableArray *tabbarControllersArray=[NSMutableArray arrayWithArray:tabBar.viewControllers];
+        if (tabbarControllersArray.count!=4) {
+                CMNewNoticeController *VC = [CMNewNoticeController initByStoryboard];
+                UINavigationController *NaVC = [[UINavigationController alloc] initWithRootViewController:VC];
+                NaVC.tabBarItem.title = @"转让";
+                NaVC.tabBarItem.selectedImage = [UIImage imageNamed:@"tab_line_select"];
+                NaVC.tabBarItem.image = [UIImage imageNamed:@"tab_line"];
+                [tabbarControllersArray insertObject:NaVC atIndex:2];
+                    
+                    
+                }
+                
+                tabBar.viewControllers=tabbarControllersArray;
+                
+                
+                app.window.rootViewController =tabBar;
+           
+                
+     
+         
+    /*
     AppDelegate *app = [AppDelegate shareDelegate];
     if ([app.window.rootViewController isKindOfClass:[UINavigationController class]]) {
-        app.window.rootViewController = app.viewController;
+        
+        
+        
+      app.window.rootViewController = app.viewController;
     } else {
+        
+        
         [self dismissViewControllerAnimated:YES completion:nil];
     }
+     
+     */
 }
 -(CMCodeAlert*)CodeAlert{
     if (!_CodeAlert) {

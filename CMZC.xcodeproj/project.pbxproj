@@ -519,6 +519,7 @@
 		4C20C29922A4CE8F005F3971 /* CMBillingModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C20C29822A4CE8F005F3971 /* CMBillingModel.m */; };
 		4C24D62C229E3BB80029B420 /* CMCentIntroductView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C24D62B229E3BB80029B420 /* CMCentIntroductView.m */; };
 		4C24D62E229E3BCF0029B420 /* CMCentIntroductView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C24D62D229E3BCF0029B420 /* CMCentIntroductView.xib */; };
+		4CB91D5C23584B9800B9C5B0 /* CMNewNoticeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB91D5B23584B9600B9C5B0 /* CMNewNoticeController.m */; };
 		4CF83399235411CF00DEC5D9 /* CMWkWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF83398235411CF00DEC5D9 /* CMWkWebViewController.m */; };
 		4CF8339C235412E800DEC5D9 /* CMWeakScriptMessageDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF8339B235412E800DEC5D9 /* CMWeakScriptMessageDelegate.m */; };
 		8FBFC6CEF39ED3A8BE47E80A /* libPods-CMZC.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D88A9833A24E70854957B10F /* libPods-CMZC.a */; };
@@ -1391,6 +1392,8 @@
 		4C24D62A229E3BB80029B420 /* CMCentIntroductView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CMCentIntroductView.h; sourceTree = "<group>"; };
 		4C24D62B229E3BB80029B420 /* CMCentIntroductView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CMCentIntroductView.m; sourceTree = "<group>"; };
 		4C24D62D229E3BCF0029B420 /* CMCentIntroductView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CMCentIntroductView.xib; sourceTree = "<group>"; };
+		4CB91D5A23584B9500B9C5B0 /* CMNewNoticeController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CMNewNoticeController.h; sourceTree = "<group>"; };
+		4CB91D5B23584B9600B9C5B0 /* CMNewNoticeController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CMNewNoticeController.m; sourceTree = "<group>"; };
 		4CF83397235411CF00DEC5D9 /* CMWkWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CMWkWebViewController.h; sourceTree = "<group>"; };
 		4CF83398235411CF00DEC5D9 /* CMWkWebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CMWkWebViewController.m; sourceTree = "<group>"; };
 		4CF8339A235412E800DEC5D9 /* CMWeakScriptMessageDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CMWeakScriptMessageDelegate.h; sourceTree = "<group>"; };
@@ -1626,6 +1629,8 @@
 			children = (
 				383C485D1C8D7FF200CD9E2D /* CMBulletinViewController.h */,
 				383C485E1C8D7FF200CD9E2D /* CMBulletinViewController.m */,
+				4CB91D5A23584B9500B9C5B0 /* CMNewNoticeController.h */,
+				4CB91D5B23584B9600B9C5B0 /* CMNewNoticeController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -3306,6 +3311,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -3845,6 +3851,7 @@
 				383AA8581E0D0E6000570D85 /* CMPurchaseTableViewCell.m in Sources */,
 				385F0AE21C9158140035CE22 /* CMTradeCollectionViewCell.m in Sources */,
 				38FC90031C92A52500A347EE /* CMExchangeDetailsViewController.m in Sources */,
+				4CB91D5C23584B9800B9C5B0 /* CMNewNoticeController.m in Sources */,
 				382A3DE41C9010A80020FA7F /* CMTradeTitleView.m in Sources */,
 				3842355A1C92755D001FD89E /* CMDayTradeTableViewCell.m in Sources */,
 				044551371E98D656000F70E7 /* CMAboutSecondCell.m in Sources */,
@@ -4061,6 +4068,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/CMZC/Lib/JP",
 				);
+				MARKETING_VERSION = 1.40;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -4100,6 +4108,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/CMZC/Lib/JP",
 				);
+				MARKETING_VERSION = 1.40;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

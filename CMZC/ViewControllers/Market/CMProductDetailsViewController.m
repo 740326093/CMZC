@@ -848,6 +848,7 @@
 - (void)pushTradeSonInterVCItemIndex:(NSInteger)index codeName:(NSString *)code{
     if (!CMIsLogin()) {
         UINavigationController *nav = [UIStoryboard loginStoryboard].instantiateInitialViewController;
+        nav.modalPresentationStyle=UIModalPresentationFullScreen;
         [self presentViewController:nav animated:YES completion:nil];
         
     } else {
@@ -901,6 +902,7 @@
         }];
     } else {
         UINavigationController *nav = [UIStoryboard loginStoryboard].instantiateInitialViewController;
+        nav.modalPresentationStyle=UIModalPresentationFullScreen;
         [self presentViewController:nav animated:YES completion:nil];
     }
     
@@ -915,6 +917,7 @@
         [self findBtnClick:nil];
     } else {
         UINavigationController *nav = [UIStoryboard loginStoryboard].instantiateInitialViewController;
+        nav.modalPresentationStyle=UIModalPresentationFullScreen;
         [self presentViewController:nav animated:YES completion:nil];
     }
     
@@ -1050,6 +1053,7 @@
     //没有登录。跳转到登录页
     //位登录。显示登录
     UINavigationController *nav = [UIStoryboard loginStoryboard].instantiateInitialViewController;
+    nav.modalPresentationStyle=UIModalPresentationFullScreen;
     [self presentViewController:nav animated:YES completion:nil];
     
 }

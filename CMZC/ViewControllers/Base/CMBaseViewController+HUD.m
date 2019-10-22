@@ -43,6 +43,7 @@
 - (void)showIsLoginViewController {
     if (!CMIsLogin()) {
         UIViewController *logingVC = [UIStoryboard loginStoryboard].instantiateInitialViewController;
+        logingVC.modalPresentationStyle=UIModalPresentationFullScreen;
         [self presentViewController:logingVC animated:YES completion:nil];
     }
 }
