@@ -8,7 +8,7 @@
 
 #import "CMThirdPartlyCommad.h"
 #import "CMApp_Header.h"
-
+#import <UMCommon/UMCommon.h>
 static BOOL isProduction = YES;
 //#ifdef NSFoundationVersionNumber_iOS_9_x_Max
 //#import <UserNotifications/UserNotifications.h> // 这里是iOS10需要用到的框架
@@ -82,8 +82,11 @@ singleton_implementation(CMThirdPartlyCommad)
 
 +(void)umsocialData{
     
-    [[UMSocialManager defaultManager]openLog:YES];
-  [[UMSocialManager defaultManager] setUmSocialAppkey:kUMSocial_Appkey];
+    //[[UMSocialManager defaultManager]openLog:YES];
+ // [[UMSocialManager defaultManager] setUmSocialAppkey:kUMSocial_Appkey];
+    
+    //[UMConfigure setLogEnabled:YES];
+    [UMConfigure initWithAppkey:kUMSocial_Appkey channel:@"App Store"];
     //  [UMSocialData setAppKey:kUMSocial_Appkey];
     //设置分享到QQ/Qzone的应用Id，和分享url 链接
   [[UMSocialManager defaultManager]setPlaform:UMSocialPlatformType_QQ appKey:kUMSocial_QQAppId appSecret:kUMSocail_QQAppKey redirectURL:kUMSocial_url];

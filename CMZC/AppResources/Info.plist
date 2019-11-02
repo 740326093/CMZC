@@ -71,6 +71,7 @@
 	<string>1</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
+		<string>weixinULAPI</string>
 		<string>caimao</string>
 		<string>xinjingban</string>
 		<string>wechat</string>

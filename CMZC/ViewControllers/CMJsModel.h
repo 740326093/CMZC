@@ -16,7 +16,7 @@ JSExportAs(share, - (void)share:(NSString *)title describeContent:(NSString *)co
 -(void)appLogin;
 -(void)appLog;
 
-
+-(void)getTitle:(NSString*)titleStr;
 @end
 @interface CMJsModel : NSObject<CMWebModelDelegate>
 @property(nonatomic,weak) id<CMWebModelDelegate> delegate;

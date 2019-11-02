@@ -9,7 +9,7 @@
 #ifndef CMApp_Header_h
 #define CMApp_Header_h
 //#import "UMSocial.h"
-#import <UMSocialCore/UMSocialCore.h>
+
 #import "UMSocialQQHandler.h"
 #import "UMSocialWechatHandler.h"
 //#import "UMSocialSinaSSOHandler.h"

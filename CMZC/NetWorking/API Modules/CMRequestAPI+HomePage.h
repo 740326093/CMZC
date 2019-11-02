@@ -174,6 +174,8 @@
 //新手体验活动
 + (void)cm_homeShowNewUserExpSuccess:(void (^)(NSDictionary *))success fail:(void (^)(NSError *))fail;
 
+//云财富产品
++ (void)cm_homeYCFProductListSuccess:(void (^)(NSDictionary *))success fail:(void (^)(NSError *))fail;
 
 //app内部消息
 + (void)cm_appMessageSuccess:(void (^)(NSArray *))success fail:(void (^)(NSError *))fail;

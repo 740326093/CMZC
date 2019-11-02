@@ -1,5 +1,5 @@
 source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, '7.0'
+platform :ios, '8.0'
 
 target ‘CMZC’ do
 
@@ -17,10 +17,22 @@ pod 'SocketRocket', '~> 0.5.0'
 pod 'hpple', '~> 0.2.0'
 pod 'Masonry', '~> 1.0.1'
 pod 'IQKeyboardManager'
-pod 'UMengUShare/UI'
-pod 'UMengUShare/Social/ReducedWeChat'
-pod 'UMengUShare/Social/ReducedQQ'
-pod 'UMengUShare/Social/ReducedSina'
+
+#pod 'UMengUShare/UI'
+#pod 'UMengUShare/Social/ReducedWeChat'
+#pod 'UMengUShare/Social/ReducedQQ'
+#pod 'UMengUShare/Social/ReducedSina'
+
+pod 'UMCCommon'
+pod 'UMCSecurityPlugins'
+pod 'UMCShare/UI'
+pod 'UMCShare/Social/ReducedWeChat'
+pod 'UMCShare/Social/ReducedSina'
+pod 'UMCShare/Social/ReducedQQ'
+#生产关闭
+#pod 'UMCCommonLog'
+
+
 pod 'JPush', '~> 3.0.5'
 pod 'SDAutoLayout'
 end

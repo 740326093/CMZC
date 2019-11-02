@@ -519,6 +519,10 @@
 		4C20C29922A4CE8F005F3971 /* CMBillingModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C20C29822A4CE8F005F3971 /* CMBillingModel.m */; };
 		4C24D62C229E3BB80029B420 /* CMCentIntroductView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C24D62B229E3BB80029B420 /* CMCentIntroductView.m */; };
 		4C24D62E229E3BCF0029B420 /* CMCentIntroductView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C24D62D229E3BCF0029B420 /* CMCentIntroductView.xib */; };
+		4C5DFBFE236D098E00A7420F /* CMHomeDQCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C5DFBFC236D098D00A7420F /* CMHomeDQCell.m */; };
+		4C5DFBFF236D098E00A7420F /* CMHomeDQCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C5DFBFD236D098E00A7420F /* CMHomeDQCell.xib */; };
+		4CA3C939236C3EBF00CD010B /* CMYCFPrModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CA3C938236C3EBF00CD010B /* CMYCFPrModel.m */; };
+		4CA3C93C236C456300CD010B /* CMYCFPrCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CA3C93B236C456300CD010B /* CMYCFPrCell.m */; };
 		4CB91D5C23584B9800B9C5B0 /* CMNewNoticeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB91D5B23584B9600B9C5B0 /* CMNewNoticeController.m */; };
 		4CF83399235411CF00DEC5D9 /* CMWkWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF83398235411CF00DEC5D9 /* CMWkWebViewController.m */; };
 		4CF8339C235412E800DEC5D9 /* CMWeakScriptMessageDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF8339B235412E800DEC5D9 /* CMWeakScriptMessageDelegate.m */; };
@@ -1392,6 +1396,13 @@
 		4C24D62A229E3BB80029B420 /* CMCentIntroductView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CMCentIntroductView.h; sourceTree = "<group>"; };
 		4C24D62B229E3BB80029B420 /* CMCentIntroductView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CMCentIntroductView.m; sourceTree = "<group>"; };
 		4C24D62D229E3BCF0029B420 /* CMCentIntroductView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CMCentIntroductView.xib; sourceTree = "<group>"; };
+		4C5DFBFB236D098C00A7420F /* CMHomeDQCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMHomeDQCell.h; sourceTree = "<group>"; };
+		4C5DFBFC236D098D00A7420F /* CMHomeDQCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMHomeDQCell.m; sourceTree = "<group>"; };
+		4C5DFBFD236D098E00A7420F /* CMHomeDQCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CMHomeDQCell.xib; sourceTree = "<group>"; };
+		4CA3C937236C3EBF00CD010B /* CMYCFPrModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CMYCFPrModel.h; sourceTree = "<group>"; };
+		4CA3C938236C3EBF00CD010B /* CMYCFPrModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CMYCFPrModel.m; sourceTree = "<group>"; };
+		4CA3C93A236C456300CD010B /* CMYCFPrCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CMYCFPrCell.h; sourceTree = "<group>"; };
+		4CA3C93B236C456300CD010B /* CMYCFPrCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CMYCFPrCell.m; sourceTree = "<group>"; };
 		4CB91D5A23584B9500B9C5B0 /* CMNewNoticeController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CMNewNoticeController.h; sourceTree = "<group>"; };
 		4CB91D5B23584B9600B9C5B0 /* CMNewNoticeController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CMNewNoticeController.m; sourceTree = "<group>"; };
 		4CF83397235411CF00DEC5D9 /* CMWkWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CMWkWebViewController.h; sourceTree = "<group>"; };
@@ -2881,6 +2892,8 @@
 				4C0C3CB422CDDC8B001CDD4E /* CMAppUpdate.m */,
 				4C0C3CB622CDE175001CDD4E /* CMVersionModel.h */,
 				4C0C3CB722CDE175001CDD4E /* CMVersionModel.m */,
+				4CA3C937236C3EBF00CD010B /* CMYCFPrModel.h */,
+				4CA3C938236C3EBF00CD010B /* CMYCFPrModel.m */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -3073,6 +3086,11 @@
 				04AB12BF2228BAB00051A578 /* CMNewProductCell.xib */,
 				049BC21A222F51CB00386621 /* CMShowOtherCell.h */,
 				049BC21B222F51CB00386621 /* CMShowOtherCell.m */,
+				4CA3C93A236C456300CD010B /* CMYCFPrCell.h */,
+				4CA3C93B236C456300CD010B /* CMYCFPrCell.m */,
+				4C5DFBFB236D098C00A7420F /* CMHomeDQCell.h */,
+				4C5DFBFC236D098D00A7420F /* CMHomeDQCell.m */,
+				4C5DFBFD236D098E00A7420F /* CMHomeDQCell.xib */,
 			);
 			path = HomeCells;
 			sourceTree = "<group>";
@@ -3513,6 +3531,7 @@
 				38241B0E1C85864B005E5134 /* Tooling in Resources */,
 				38704AF11D99220400BE4702 /* logo_anim_030@2x.png in Resources */,
 				4C1052E9229E1D2B0017F0A7 /* CMCentComCell.xib in Resources */,
+				4C5DFBFF236D098E00A7420F /* CMHomeDQCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3540,24 +3559,22 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-CMZC/Pods-CMZC-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-CMZC/Pods-CMZC-resources.sh",
 				"${PODS_ROOT}/APNumberPad/APNumberPad/APNumberPad.bundle",
 				"${PODS_ROOT}/IQKeyboardManager/IQKeyBoardManager/Resources/IQKeyboardManager.bundle",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
-				"${PODS_ROOT}/UMengUShare/UShareSDK/UMSocialSDK/UMSocialSDKPromptResources.bundle",
-				"${PODS_ROOT}/UMengUShare/UShareSDK/UMSocialUI/UMSocialSDKResources.bundle",
+				"${PODS_ROOT}/UMCShare/UMShare/UMSocialUI/UMSocialSDKResources.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/APNumberPad.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/IQKeyboardManager.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/UMSocialSDKPromptResources.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/UMSocialSDKResources.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CMZC/Pods-CMZC-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CMZC/Pods-CMZC-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		57F6B88FD02D8EDDC58EDD97 /* [CP] Check Pods Manifest.lock */ = {
@@ -3594,6 +3611,7 @@
 				04BA7FF22153989E001B9FD6 /* EverLineModel.m in Sources */,
 				4C1052ED229E20420017F0A7 /* CMBillingCell.m in Sources */,
 				04AB12C72228CCEA0051A578 /* CMProductPullView.m in Sources */,
+				4CA3C939236C3EBF00CD010B /* CMYCFPrModel.m in Sources */,
 				38FF3D3F1E2612D7007A81C5 /* CMTopicList.m in Sources */,
 				38CCA2241D9CE8AA00DBFD1A /* CMSubscribeDetailsViewController.m in Sources */,
 				04783CA11F2201250012F12A /* UIView+SDExtension.m in Sources */,
@@ -3666,6 +3684,7 @@
 				382C5A771DACC04300DCBC6F /* CMProductDetails.m in Sources */,
 				382A3DDC1C9009E10020FA7F /* CMTradeMeansTableViewCell.m in Sources */,
 				04E2CA60206345940066F47B /* CMYongJinDetailListModel.m in Sources */,
+				4CA3C93C236C456300CD010B /* CMYCFPrCell.m in Sources */,
 				383FA9271C93C8D500DD4ABD /* CMSubscribeGuideTableViewCell.m in Sources */,
 				384279EB1CFEDB29008730AC /* CMProductComment.m in Sources */,
 				384C312E1CB894A300E8C948 /* CMTradeToolModes.m in Sources */,
@@ -3820,6 +3839,7 @@
 				384EEEE41CB75158000078F9 /* CMBankBlockList.m in Sources */,
 				0496065A2027EE11002BA820 /* CMConcessionHeadView.m in Sources */,
 				3861F52A1CB3A07800224261 /* CMTrustTableViewCell.m in Sources */,
+				4C5DFBFE236D098E00A7420F /* CMHomeDQCell.m in Sources */,
 				049F71AC202A8D55002C3E07 /* CMPickerView.m in Sources */,
 				04E2CA63206382850066F47B /* CMLingTouModel.m in Sources */,
 				383AE59F1C9D455D005CB2C3 /* CMPointTableViewCell.m in Sources */,
@@ -4068,7 +4088,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/CMZC/Lib/JP",
 				);
-				MARKETING_VERSION = 1.40;
+				MARKETING_VERSION = 1.41;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -4108,7 +4128,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/CMZC/Lib/JP",
 				);
-				MARKETING_VERSION = 1.40;
+				MARKETING_VERSION = 1.41;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

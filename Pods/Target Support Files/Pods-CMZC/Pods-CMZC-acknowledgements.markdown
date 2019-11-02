@@ -296,9 +296,19 @@ THE SOFTWARE.
 
 
 
-## UMengUShare
+## UMCCommon
 
-Copyright 2011 - 2017 UMeng.com. All rights reserved.
+Copyright 2011 - 2019 umeng.com. All rights reserved.
+
+
+## UMCSecurityPlugins
+
+Copyright 2011 - 2018 umeng.com. All rights reserved.
+
+
+## UMCShare
+
+Copyright 2011 - 2018 umeng.com. All rights reserved.
 
 
 ## YYModel

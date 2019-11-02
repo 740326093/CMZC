@@ -25,4 +25,10 @@
     
     [self.delegate appLog];
 }
+-(void)getTitle:(NSString*)titleStr{
+    
+    [self.delegate getTitle:titleStr];
+}
+
+
 @end

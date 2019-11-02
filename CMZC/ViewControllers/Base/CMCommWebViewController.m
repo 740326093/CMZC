@@ -124,6 +124,28 @@
     [self.navigationController.navigationBar addSubview:_progressView];
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(refreshWebView) name:@"loginWin" object:nil];
+    
+   
+    
+       if ([self.urlStr rangeOfString:@"58ycf.com"].location!=NSNotFound||[self.urlStr rangeOfString:@".ifastps"].location!=NSNotFound) {
+           
+//           [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@""]
+//                                               forBarPosition:UIBarPositionAny
+//                                                   barMetrics:UIBarMetricsDefault];
+//
+//             [[UINavigationBar appearance] setShadowImage:[UIImage new]];
+//             [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName, nil]];
+//             [[UINavigationBar appearance] setBarTintColor:[UIColor clmHex:0xedeef2]];
+//
+           
+           
+           //self.navigationController.navigationBar.barTintColor=[UIColor clmHex:0xedeef2];
+          //[self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor clmHex:0x333333]}];
+           
+        
+          // [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+       }
+    
 }
 
 
@@ -132,6 +154,10 @@
     [_webView stopLoading];
     [_progressView removeFromSuperview];
   //  [[NSURLCache sharedURLCache]removeAllCachedResponses];
+//    self.navigationController.navigationBar.barTintColor=[UIColor cmThemeOrange];
+//      [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+//    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    
 }
 #pragma mark - NJKWebViewProgressDelegate
 -(void)webViewProgress:(NJKWebViewProgress *)webViewProgress updateProgress:(float)progress
@@ -481,7 +507,26 @@ NSURL *url= [NSURL URLWithString:self.urlStr];
     
     
 
-    
+    if ([webView.request.URL.absoluteString rangeOfString:@".58ycf.com"].location!=NSNotFound) {
+             
+           [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.getElementsByClassName('title')[0].hidden=true"];
+           self.title=[webView stringByEvaluatingJavaScriptFromString:@"document.getElementsByTagName('title')[0].innerText"];
+    NSString *LCtitleFounction=@"function getLCTitle(){var titleStr =document.getElementsByClassName('headerCt')[0].innerText;window.XJBapp.getTitle(titleStr);}";
+     [webView stringByEvaluatingJavaScriptFromString:LCtitleFounction];
+      [webView stringByEvaluatingJavaScriptFromString:@"getLCTitle()"];
+            
+         }
+         if ([webView.request.URL.absoluteString rangeOfString:@"ifastps"].location!=NSNotFound) {
+              NSString *LCtitleFounction=@"function getLCTitle() {setTimeout(function(){var titleStr =document.getElementsByClassName('mint-header-title')[0].innerText;XJBapp.getTitle(titleStr);},1000);}";
+          
+          [webView stringByEvaluatingJavaScriptFromString:LCtitleFounction];
+             
+           [webView stringByEvaluatingJavaScriptFromString:@"getLCTitle()"];
+             
+              NSString *jsFounction=@"function hideOther(){setTimeout(function(){var headers = document.getElementsByClassName('mint-header');var lastHeader=headers[headers.length-1];lastHeader.remove(); }, 1000);}";
+             [webView stringByEvaluatingJavaScriptFromString:jsFounction];
+             [webView stringByEvaluatingJavaScriptFromString:@"hideOther()"];
+              }
     
     
     
@@ -490,7 +535,19 @@ NSURL *url= [NSURL URLWithString:self.urlStr];
     
 }
 
-
+-(void)getTitle:(NSString*)titleStr{
+    
+    if (titleStr.length>0) {
+        
+       self.title=titleStr;
+       if(self.title.length>12){
+            self.title=[NSString stringWithFormat:@"%@...",[self.title substringToIndex:11]];
+        }
+    }
+    
+    
+    
+}
 
 
 //隐藏底部footer

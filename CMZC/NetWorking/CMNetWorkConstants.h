@@ -363,3 +363,6 @@ extern NSString *const KAppMessageURL;
  app版本更新APi
  **/
 extern NSString *const KAppVersionUpdateURL;
+
+extern NSString *const KAppYCFPrURL;
+

@@ -34,7 +34,7 @@
     
     NSString * incomeString = [product.income substringToIndex:product.income.length-1];
     _subprogress.text = incomeString;
-    _subQiXian.text = [NSString stringWithFormat:@"%@可转让",product.deadline];
+    _subQiXian.text = [NSString stringWithFormat:@"%@",product.deadline];
     
     [_appleBtn setTitle:product.status forState:UIControlStateNormal];
     if (product.isNextPage) {

@@ -67,7 +67,7 @@
     _titleLab.text = product.title;
     NSString * incomeString = [product.income substringToIndex:product.income.length-1];
     _incomeLab.text = incomeString;
-    _openingDeadlineLab.text = [NSString stringWithFormat:@"%@可转让",product.deadline];
+    _openingDeadlineLab.text = [NSString stringWithFormat:@"%@",product.deadline];
  
     [_applyBtn setTitle:product.status forState:UIControlStateNormal];
     [_applyBtn setBackgroundColor:product.statusColor];

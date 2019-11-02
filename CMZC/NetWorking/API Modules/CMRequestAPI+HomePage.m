@@ -52,7 +52,7 @@
 //                           };
     [CMRequestAPI postDataFromURLScheme:kCMHomeFundlistURL argumentsDictionary:nil success:^(id responseObject) {
         
-MyLog(@"++++++++%@+++++",responseObject);
+//MyLog(@"++++++++%@+++++",responseObject);
         NSArray *contArr = responseObject[@"data"][@"rows"];
         NSMutableArray *dataArr = [NSMutableArray array];
         for (NSDictionary *dic in contArr) {
@@ -349,7 +349,22 @@ MyLog(@"++++++++%@+++++",responseObject);
     
     
 }
-
++ (void)cm_homeYCFProductListSuccess:(void (^)(NSDictionary *))success fail:(void (^)(NSError *))fail{
+    
+      
+      [CMRequestAPI getDataFromURLScheme:KAppYCFPrURL argumentsDictionary:nil success:^(id responseObject) {
+          
+         
+          
+          if ([responseObject[@"errcode"]integerValue]==0) {
+              success(responseObject[@"data"]);
+          }
+      } fail:^(NSError *error) {
+          fail(error);
+      }];
+    
+    
+}
 + (void)cm_appVersionSuccess:(void (^)(CMVersionModel *VersionModel))success fail:(void (^)(NSError *))fail{
     
     

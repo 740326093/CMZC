@@ -443,6 +443,17 @@ static NSString *UPDATEMODEL = @"updateModel";
     }
     return result;
 }
+-(BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray<id<UIUserActivityRestoring>> * _Nullable))restorationHandler
+{
+    NSLog(@"---%@",userActivity.webpageURL);
+    return YES;
+}
+
+
+- (void)scene:(UIScene *)scene continueUserActivity:(NSUserActivity *)userActivity API_AVAILABLE(ios(13.0)){
+    NSLog(@"---%@",userActivity.webpageURL);
+    
+}
 - (void)networkDidReceiveMessage:(NSNotification *)notification {
     
     
@@ -458,7 +469,7 @@ static NSString *UPDATEMODEL = @"updateModel";
 //    NSString *localVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
     NSString *versionKey = [NSString stringWithFormat:@"isFirstRun"];
     BOOL isFirstRunThisVersion = [GetDataFromNSUserDefaults(versionKey) boolValue];
-    [self addOrRemoveController];
+    //[self addOrRemoveController];
     
     if (!isFirstRunThisVersion) {
         

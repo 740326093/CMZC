@@ -581,34 +581,34 @@
             _tradeTitleView.tinfo = nil;
             [[NSNotificationCenter defaultCenter] postNotificationName:@"exitLogin" object:nil];
             
-            AppDelegate *app = [AppDelegate shareDelegate];
-               CMTabBarViewController *tabBar=(CMTabBarViewController*)app.window.rootViewController;
-
-                       NSMutableArray *tabbarControllersArray=[NSMutableArray arrayWithArray:tabBar.viewControllers];
-                   
-                           
-                           if (tabbarControllersArray.count ==4) {
-                               
-                       
-                           [tabbarControllersArray removeObjectAtIndex:2];
-                               
-                               
-                           }
-                           
-                           tabBar.viewControllers=tabbarControllersArray;
-                           
-                           
-                           app.window.rootViewController =tabBar;
-                  tabBar.selectedIndex = 0;
+//            AppDelegate *app = [AppDelegate shareDelegate];
+//               CMTabBarViewController *tabBar=(CMTabBarViewController*)app.window.rootViewController;
+//
+//                       NSMutableArray *tabbarControllersArray=[NSMutableArray arrayWithArray:tabBar.viewControllers];
+//
+//
+//                           if (tabbarControllersArray.count ==4) {
+//
+//
+//                           [tabbarControllersArray removeObjectAtIndex:2];
+//
+//
+//                           }
+//
+//                           tabBar.viewControllers=tabbarControllersArray;
+//
+//
+//                           app.window.rootViewController =tabBar;
+//                  tabBar.selectedIndex = 0;
                            
         if (_isHidebottom) {
                [self.navigationController  popViewControllerAnimated:YES];
      }
-           // else{
-//            UIWindow *window = [UIApplication sharedApplication].windows.firstObject;
-//            CMTabBarViewController *tab = (CMTabBarViewController *)window.rootViewController;
-//            tab.selectedIndex = 0;
-//            }
+            else{
+            UIWindow *window = [UIApplication sharedApplication].windows.firstObject;
+            CMTabBarViewController *tab = (CMTabBarViewController *)window.rootViewController;
+            tab.selectedIndex = 0;
+            }
 //
             NSHTTPCookieStorage *cookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
             NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies];

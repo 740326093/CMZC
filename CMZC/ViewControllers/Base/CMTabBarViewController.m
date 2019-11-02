@@ -42,11 +42,7 @@
     if (viewController == [tabBarController.viewControllers objectAtIndex:3]||viewController == [tabBarController.viewControllers objectAtIndex:2]) //assuming the index of uinavigationcontroller is 2
     {
         
-        
-        
         if (CMIsLogin()) {
-            
-            
             return YES;
         } else {
           //  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(presentTabBarIndex) name:@"loginWin" object:nil];
