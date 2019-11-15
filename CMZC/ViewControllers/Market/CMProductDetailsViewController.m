@@ -1149,7 +1149,7 @@
 //    [UIView animateWithDuration:0.25 animations:^{
 //        _bottomLayoutConstraint.constant = 0.0f;
 //    }];
-    MyLog(@"+++%@",[touches allObjects])
+    //MyLog(@"+++%@",[touches allObjects])
     
 }
 

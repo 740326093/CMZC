@@ -13,7 +13,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(void)DingQiBaoEnterPayControllerWithPageIndex:(NSInteger)pageIndex;
 -(void)DingQiBaoEnterProductDetailControllerWithPageIndex:(NSInteger)pageIndex;
--(void)enterDingQibaoProductController;
 
 
 @end

@@ -15,6 +15,7 @@
 #import "AppDelegate.h"
 #import "CMAccount.h"
 #import "CMCodeAlert.h"
+
 //找回密码获取手机验证码的通知Key
 #define kVerifyMobilePhonePassWordKey @"kVerifyMobilePhonePassWord"
 
@@ -44,6 +45,9 @@
 @property (strong, nonatomic) NSTimer *verifyPhoneTimer;//开启一个用手机注册获得验证码时间的定时器
 
 @property (strong, nonatomic) CMCodeAlert *CodeAlert;
+
+
+
 @end
 
 @implementation CMLoginViewController
@@ -74,7 +78,7 @@ self.oldBtn=_sliderPassBtn;
         [_verifyPhoneTimer fire];
     }
     
-      [VPSDKManager setVaptchaSDKVid:VPSDKAppKey scene:@"01"];
+     // [VPSDKManager setVaptchaSDKVid:VPSDKAppKey scene:@"01"];
     
     
 }
@@ -166,14 +170,14 @@ self.oldBtn=_sliderPassBtn;
      
      */
 }
--(CMCodeAlert*)CodeAlert{
-    if (!_CodeAlert) {
-        _CodeAlert=[[CMCodeAlert alloc]init];
-        _CodeAlert.delagete=self;
-    }
-    
-    return _CodeAlert;
-}
+//-(CMCodeAlert*)CodeAlert{
+//    if (!_CodeAlert) {
+//        _CodeAlert=[[CMCodeAlert alloc]init];
+//        _CodeAlert.delagete=self;
+//    }
+//
+//    return _CodeAlert;
+//}
 #pragma mark - UITextFieldDelegate
 //将要开始输入
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
@@ -193,6 +197,7 @@ self.oldBtn=_sliderPassBtn;
     
 }
 
+#pragma mark  手势验证
 
 #pragma mark - touch
 //- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
@@ -291,7 +296,8 @@ self.oldBtn=_sliderPassBtn;
         [self.view endEditing:YES];
        
         //弹出手势框
-        
+        self.CodeAlert=[[CMCodeAlert alloc]init];
+        self.CodeAlert.delagete=self;
         
         
         [self.view.window addSubview:self.CodeAlert];

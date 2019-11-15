@@ -64,7 +64,8 @@
 @property (assign, nonatomic) BOOL bankExits; //是否认证
 @property (strong, nonatomic) NSMutableArray *YcfPrArray;
 
-
+@property (copy, nonatomic) NSString  *activeName;
+@property (copy, nonatomic) NSString  *activeUrl;
 @end
 
 @implementation CMHomeViewController
@@ -73,9 +74,7 @@
     [super viewDidLoad];
     
 
-    _barScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, CMScreen_width(),f_i5real(160))
-                                                            delegate:self
-                                                    placeholderImage:[UIImage imageNamed:@"title_log"]];
+    _barScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, CMScreen_width(),f_i5real(160))     delegate:self  placeholderImage:[UIImage imageNamed:@"title_log"]];
     _barScrollView.autoScrollTimeInterval = 5.;// 自动滚动时间间隔
     _curTableView.tableHeaderView=_barScrollView;
     _footerView = [CMHomeTableFootView initByNibForClassName];
@@ -348,14 +347,13 @@
 -(void)ycfPrListRequest{
     
     [CMRequestAPI cm_homeYCFProductListSuccess:^(NSDictionary *success){
-         
-     
-        
         [self.YcfPrArray removeAllObjects];
+        
+        self.activeUrl=success[@"activiteUrl"];
+        self.activeName=success[@"activiteName"];
         for (NSDictionary  *modeDict in success[@"rows"]) {
            [ self.YcfPrArray addObject:[CMYCFPrModel yy_modelWithDictionary:modeDict]];
         }
-        //  NSLog(@"+++%@",self.YcfPrArray);
           [_curTableView reloadSections:[NSIndexSet indexSetWithIndex:3] withRowAnimation:UITableViewRowAnimationNone];
               [_curTableView endRefresh];
       } fail:^(NSError *error) {
@@ -709,7 +707,7 @@
                    goldCell = [[NSBundle mainBundle] loadNibNamed:@"CMClickViewCell" owner:nil options:nil].firstObject;
                    
                }
-               goldCell.rightLab.text=@"银行新客产品加息5% >";
+               goldCell.rightLab.text=self.activeName;
                goldCell.leftLab.text = @"活期精选";
                 return goldCell;
            } else {
@@ -838,7 +836,10 @@
     */
     if (indexPath.section==3) {
            if (indexPath.row == 0) { //申购更多
-               
+           
+                         CMCommWebViewController *webVC = (CMCommWebViewController *)[CMCommWebViewController initByStoryboard];
+                         webVC.urlStr = self.activeUrl;
+                         [self.navigationController pushViewController:webVC animated:YES];
            }
        }
     if (indexPath.section==4) {
@@ -886,6 +887,8 @@
      webVC.urlStr = model.url;
      [self.navigationController pushViewController:webVC animated:YES];
 }
+
+
 #pragma mark  路演专区
 -(void)showOtherProductList{
     CMNewShowController *commWebVC = (CMNewShowController *)[[UIStoryboard mainStoryboard] viewControllerWithId:@"CMNewShowController"];
@@ -922,13 +925,13 @@
 
 #pragma mark - CMGoldMedalTableViewCellDelegate
 - (void)cm_goldMedalAnalystsId:(NSInteger)analystsId {
-//    CMAnalystDetailsViewController  *analystVC = (CMAnalystDetailsViewController *)[CMAnalystDetailsViewController initByStoryboard];
-//    analystVC.analystsId = analystsId;
-//    [self.navigationController pushViewController:analystVC animated:YES];
+    //    CMAnalystDetailsViewController  *analystVC = (CMAnalystDetailsViewController *)[CMAnalystDetailsViewController initByStoryboard];
+    //    analystVC.analystsId = analystsId;
+    //    [self.navigationController pushViewController:analystVC animated:YES];
     [self cm_homeOptionAnalyst];
 }
 -(void)cm_goldOrganizationEnter{
-  
+    
     CMCommWebViewController *webVC = (CMCommWebViewController *)[CMCommWebViewController initByStoryboard];
     webVC.urlStr = CMStringWithPickFormat(kCMMZWeb_url, @"/About/GoldService");
     [self.navigationController pushViewController:webVC animated:YES];
@@ -943,34 +946,34 @@
 }
 
 -(void)cm_checkImmediatelySubscribeEventWithPid:(NSInteger)productID{
-
+    
     CMCommWebViewController *webVC = (CMCommWebViewController *)[CMCommWebViewController initByStoryboard];
     webVC.urlStr = [NSString stringWithFormat:@"%@/Invest/Confirm?pid=%ld&pcont=1",kCMMZWeb_url,productID];
     [self.navigationController pushViewController:webVC animated:YES];
 }
-#pragma mark - CMOptionTableViewCellDelegate 
+#pragma mark - CMOptionTableViewCellDelegate
 //四个选项
 - (void)cm_optionTableViewCellButTag:(NSInteger)btTag {
     
     switch (btTag) {
         case 0://交易指南
-           
+            
         {
             CMCommWebViewController *webVC = (CMCommWebViewController *)[CMCommWebViewController initByStoryboard];
-           // webVC.urlStr = @"http://m.xinjingban.com/about/TradingGuideNew.aspx";
+            // webVC.urlStr = @"http://m.xinjingban.com/about/TradingGuideNew.aspx";
             webVC.urlStr =  CMStringWithPickFormat(kCMMZWeb_url, @"/about/TradingGuideNew.aspx");
             [self.navigationController pushViewController:webVC animated:YES];
-
-        //  CMAgencyMebersController *collectController = (CMAgencyMebersController *)[CMAgencyMebersController initByStoryboard];
-//            //   CMMebersIncomeController *collectController = (CMMebersIncomeController *)[CMMebersIncomeController initByStoryboard];
-       //[self.navigationController pushViewController:collectController animated:YES];
+            
+            //  CMAgencyMebersController *collectController = (CMAgencyMebersController *)[CMAgencyMebersController initByStoryboard];
+            //            //   CMMebersIncomeController *collectController = (CMMebersIncomeController *)[CMMebersIncomeController initByStoryboard];
+            //[self.navigationController pushViewController:collectController animated:YES];
         }
-
+            
             break;
         case 1://投资讲堂
         {
             CMCommWebViewController *webVC = (CMCommWebViewController *)[CMCommWebViewController initByStoryboard];
-         //   webVC.urlStr = @"http://m.xinjingban.com/invesment.aspx";
+            //   webVC.urlStr = @"http://m.xinjingban.com/invesment.aspx";
             
             webVC.urlStr =  CMStringWithPickFormat(kCMMZWeb_url, @"/invesment.aspx");
             [self.navigationController pushViewController:webVC animated:YES];
@@ -987,24 +990,24 @@
             break;
         case 3://倍利宝
         {
-           // if (_bankExits==YES) {
-                CMBeiLiBaoController *webVC = (CMBeiLiBaoController *)[CMBeiLiBaoController initByStoryboard];
-                
-                [self.navigationController pushViewController:webVC animated:YES];
-           // } else {
-             //  [self cm_homeLoginOrAccountMethods];
+            // if (_bankExits==YES) {
+            CMBeiLiBaoController *webVC = (CMBeiLiBaoController *)[CMBeiLiBaoController initByStoryboard];
+            
+            [self.navigationController pushViewController:webVC animated:YES];
+            // } else {
+            //  [self cm_homeLoginOrAccountMethods];
             //}
-          
+            
         }
             break;
         case 4://开户 我的账户
         {
-           // if (_bankExits==NO) {
+            // if (_bankExits==NO) {
             //   [self cm_homeOptionMore];
-             
-           // } else {
-             [self cm_homeLoginOrAccountMethods];
-           // }
+            
+            // } else {
+            [self cm_homeLoginOrAccountMethods];
+            // }
             
         }
             break;
@@ -1015,22 +1018,22 @@
 }
 //注册或者我的账户按钮
 - (void)cm_homeLoginOrAccountMethods {
-//    UINavigationController *nav = [UIStoryboard loginStoryboard].instantiateInitialViewController;
-//    [self presentViewController:nav animated:YES completion:nil];
+    //    UINavigationController *nav = [UIStoryboard loginStoryboard].instantiateInitialViewController;
+    //    [self presentViewController:nav animated:YES completion:nil];
     
     if (CMIsLogin()) {
         //已登录显示账户
-//        UIWindow *window = [UIApplication sharedApplication].windows.firstObject;
-//        CMTabBarViewController *tab = (CMTabBarViewController *)window.rootViewController;
-//        tab.selectedIndex = 3;
+        //        UIWindow *window = [UIApplication sharedApplication].windows.firstObject;
+        //        CMTabBarViewController *tab = (CMTabBarViewController *)window.rootViewController;
+        //        tab.selectedIndex = 3;
         [self presentTabBarIndex];
         
     } else {
         //位登录。显示登录
         //位登录。显示登录
-       // [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(presentTabBarIndex) name:@"loginWin" object:nil];
-//        UINavigationController *nav = [UIStoryboard loginStoryboard].instantiateInitialViewController;
-//        [self presentViewController:nav animated:YES completion:nil];
+        // [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(presentTabBarIndex) name:@"loginWin" object:nil];
+        //        UINavigationController *nav = [UIStoryboard loginStoryboard].instantiateInitialViewController;
+        //        [self presentViewController:nav animated:YES completion:nil];
         CMRegisterViewController *registerController=(CMRegisterViewController*)[[UIStoryboard loginStoryboard]viewControllerWithId:@"CMRegisterViewController"];
         [self.navigationController pushViewController:registerController animated:YES];
     }
@@ -1048,7 +1051,7 @@
         CMOptionalViewController *optionalVC = (CMOptionalViewController *)[CMOptionalViewController initByStoryboard];
         //optionalVC.name = @"财猫";
         [self.navigationController pushViewController:optionalVC animated:YES];
-
+        
     } else {
         //位登录。显示登录
         UINavigationController *nav = [UIStoryboard loginStoryboard].instantiateInitialViewController;
@@ -1072,28 +1075,28 @@
 //新观点
 - (void)cm_homeOptionBulletin {
     CMBulletinViewController *bulletin = (CMBulletinViewController *)[CMBulletinViewController initByStoryboard];
-      bulletin.selectIndex=1;
+    bulletin.selectIndex=1;
     [self.navigationController pushViewController:bulletin animated:YES];
 }
-//跳转到web站 
+//跳转到web站
 - (void)cm_commWebViewURL:(NSString *)url {
     if ([url isEqualToString:CMStringWithPickFormat(kCMMZWeb_url, @"/About/Description")]) {
-
+        
         CMMoneyViewController  *newGuideVC=[[CMMoneyViewController alloc]init];
         newGuideVC.titName = @"新经板实力";//strength_serve_home
         newGuideVC.imageStr=@"strength_serve_home";
         newGuideVC.hidesBottomBarWhenPushed=YES;
-       //newGuideVC.hideTabBar=YES;
+        //newGuideVC.hideTabBar=YES;
         [self.navigationController pushViewController:newGuideVC animated:YES];
     } else {
         CMCommWebViewController *webVC = (CMCommWebViewController *)[CMCommWebViewController initByStoryboard];
         webVC.urlStr = url;
         webVC.showRefresh=YES;
         [self.navigationController pushViewController:webVC animated:YES];
-//        CMWkWebViewController *webVc=[[CMWkWebViewController alloc]init];
-//        webVc.hidesBottomBarWhenPushed=YES;
-//        webVc.urlString=url;
-//      [self.navigationController pushViewController:webVc animated:YES];
+        //        CMWkWebViewController *webVc=[[CMWkWebViewController alloc]init];
+        //        webVc.hidesBottomBarWhenPushed=YES;
+        //        webVc.urlString=url;
+        //      [self.navigationController pushViewController:webVc animated:YES];
         
     }
 }
@@ -1111,24 +1114,24 @@
 #pragma mark - 登陆成功后的通知
 - (void)loginSuccessful {
     
-   // NSIndexPath *tmpIndexpath=[NSIndexPath indexPathForRow:1 inSection:0];
+    // NSIndexPath *tmpIndexpath=[NSIndexPath indexPathForRow:1 inSection:0];
     [_curTableView beginUpdates];
-   // [_curTableView reloadRowsAtIndexPaths:@[tmpIndexpath] withRowAnimation:UITableViewRowAnimationNone];
-   [_curTableView reloadSections:[NSIndexSet indexSetWithIndex:2] withRowAnimation:UITableViewRowAnimationNone];
+    // [_curTableView reloadRowsAtIndexPaths:@[tmpIndexpath] withRowAnimation:UITableViewRowAnimationNone];
+    [_curTableView reloadSections:[NSIndexSet indexSetWithIndex:2] withRowAnimation:UITableViewRowAnimationNone];
     [_curTableView endUpdates];
-
-//
-//    if (CMIsLogin()==YES) {
-//
-//    [self isHaveBankInformation];
-//
-//    }else{
-//
-//        [self.manyFulfilArr removeAllObjects];
-//        _bankExits=NO;
-//        [_curTableView reloadData];
-//    }
-//
+    
+    //
+    //    if (CMIsLogin()==YES) {
+    //
+    //    [self isHaveBankInformation];
+    //
+    //    }else{
+    //
+    //        [self.manyFulfilArr removeAllObjects];
+    //        _bankExits=NO;
+    //        [_curTableView reloadData];
+    //    }
+    //
     
     
 }
@@ -1189,10 +1192,10 @@
             [self.proictArr addObject:marketIndexArr];
         }
     }
-   
+    
     [_curTableView beginUpdates];
-//    NSIndexPath *index = [NSIndexPath indexPathForRow:0 inSection:0];
-//    [_curTableView reloadRowsAtIndexPaths:@[index] withRowAnimation:UITableViewRowAnimationNone];
+    //    NSIndexPath *index = [NSIndexPath indexPathForRow:0 inSection:0];
+    //    [_curTableView reloadRowsAtIndexPaths:@[index] withRowAnimation:UITableViewRowAnimationNone];
     
     [_curTableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
     [_curTableView endUpdates];
@@ -1209,15 +1212,17 @@
 }
 
 /*
-#pragma mark - Navigation
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ 
+ 
+ }
+ 
+ */
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
-    
-}
 
-*/
 @end
 
 

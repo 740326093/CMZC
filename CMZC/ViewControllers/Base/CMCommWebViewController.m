@@ -138,12 +138,17 @@
 //             [[UINavigationBar appearance] setBarTintColor:[UIColor clmHex:0xedeef2]];
 //
            
-           
-           //self.navigationController.navigationBar.barTintColor=[UIColor clmHex:0xedeef2];
-          //[self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor clmHex:0x333333]}];
+           UIButton *leftBarBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+              leftBarBtn.frame = CGRectMake(0, 0, 30, 40);
+              [leftBarBtn setImage:[UIImage imageNamed:@"right_btm"] forState:UIControlStateNormal];
+              [leftBarBtn addTarget:self action:@selector(leftBarBtnClick) forControlEvents:UIControlEventTouchUpInside];
+              UIBarButtonItem *btnItem = [[UIBarButtonItem alloc] initWithCustomView:leftBarBtn];
+              self.navigationItem.leftBarButtonItem = btnItem;
+           self.navigationController.navigationBar.barTintColor=[UIColor clmHex:0xedeef2];
+          [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor clmHex:0x333333]}];
            
         
-          // [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+           [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
        }
     
 }
@@ -154,9 +159,9 @@
     [_webView stopLoading];
     [_progressView removeFromSuperview];
   //  [[NSURLCache sharedURLCache]removeAllCachedResponses];
-//    self.navigationController.navigationBar.barTintColor=[UIColor cmThemeOrange];
-//      [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
-//    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    self.navigationController.navigationBar.barTintColor=[UIColor cmThemeOrange];
+      [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
 }
 #pragma mark - NJKWebViewProgressDelegate

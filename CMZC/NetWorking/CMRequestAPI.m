@@ -143,6 +143,9 @@ typedef NS_ENUM(NSUInteger, CMHTTPRequestStatusCode) {
                                                 MyLog(@" error : %@",error);
                                                 //请求失败
                                                 NSData *errorData = error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey];
+                                                if (errorData==nil) {
+                                                    return ;
+                                                }
                                                 NSDictionary *body = [NSJSONSerialization JSONObjectWithData:errorData options:NSJSONReadingMutableContainers error:nil];
                                                 
                                                 

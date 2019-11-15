@@ -301,11 +301,6 @@ THE SOFTWARE.
 Copyright 2011 - 2019 umeng.com. All rights reserved.
 
 
-## UMCSecurityPlugins
-
-Copyright 2011 - 2018 umeng.com. All rights reserved.
-
-
 ## UMCShare
 
 Copyright 2011 - 2018 umeng.com. All rights reserved.

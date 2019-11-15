@@ -99,13 +99,13 @@ static NSString *UPDATEMODEL = @"updateModel";
 }
 -(void)SetNavigationBar{
     
-    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"UINavigationBar"]
-                                      forBarPosition:UIBarPositionAny
-                                          barMetrics:UIBarMetricsDefault];
-    
-    [[UINavigationBar appearance] setShadowImage:[UIImage new]];
-    [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName, nil]];
-    [[UINavigationBar appearance] setBarTintColor:[UIColor cmThemeCheng]];
+//    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"UINavigationBar"]
+//                                      forBarPosition:UIBarPositionAny
+//                                          barMetrics:UIBarMetricsDefault];
+//    
+//    [[UINavigationBar appearance] setShadowImage:[UIImage new]];
+//    [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName, nil]];
+//    [[UINavigationBar appearance] setBarTintColor:[UIColor cmThemeCheng]];
     
   
 }

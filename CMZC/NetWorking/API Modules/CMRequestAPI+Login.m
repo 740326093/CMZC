@@ -258,7 +258,7 @@
     
     
     
-    NSDictionary *dict = @{@"phone":number,@"token":token,@"type":@"xjbapp",@"scene":@"01",@"vid":@"5cba7267fc650e1d04e504c1"};
+    NSDictionary *dict = @{@"phone":number,@"token":token,@"type":@"xjbapp",@"scene":@"1",@"vid":VPSDKAppKey};
     
     [CMRequestAPI postDataFromURLScheme:KGetPhoneSMSCodeURL argumentsDictionary:dict success:^(id responseObject) {
         //MyLog(@"获取短信+++%@",responseObject);

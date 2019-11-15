@@ -24,7 +24,7 @@ pod 'IQKeyboardManager'
 #pod 'UMengUShare/Social/ReducedSina'
 
 pod 'UMCCommon'
-pod 'UMCSecurityPlugins'
+#pod 'UMCSecurityPlugins'
 pod 'UMCShare/UI'
 pod 'UMCShare/Social/ReducedWeChat'
 pod 'UMCShare/Social/ReducedSina'

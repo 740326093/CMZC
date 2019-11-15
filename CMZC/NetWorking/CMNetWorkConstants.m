@@ -9,7 +9,7 @@
 
 
 //正式定义“isBulid”   测试注释就行 
- //#define isBulid @"A"
+//#define isBulid @"A"
 // 通过判断“isBulid”是否已经定义，区分后配置正式环境或测试环境。
 #ifdef isBulid
 // 正式环境

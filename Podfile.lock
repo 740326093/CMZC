@@ -38,7 +38,6 @@ PODS:
   - SDWebImage/Core (3.7.6)
   - SocketRocket (0.5.1)
   - UMCCommon (2.1.1)
-  - UMCSecurityPlugins (1.0.6)
   - UMCShare/Core (6.9.6):
     - UMCCommon
   - UMCShare/Social/ReducedQQ (6.9.6):
@@ -71,7 +70,6 @@ DEPENDENCIES:
   - SDWebImage (~> 3.7.4)
   - SocketRocket (~> 0.5.0)
   - UMCCommon
-  - UMCSecurityPlugins
   - UMCShare/Social/ReducedQQ
   - UMCShare/Social/ReducedSina
   - UMCShare/Social/ReducedWeChat
@@ -96,7 +94,6 @@ SPEC REPOS:
     - SDWebImage
     - SocketRocket
     - UMCCommon
-    - UMCSecurityPlugins
     - UMCShare
     - YYModel
 
@@ -117,10 +114,9 @@ SPEC CHECKSUMS:
   SDWebImage: c325cf02c30337336b95beff20a13df489ec0ec9
   SocketRocket: d57c7159b83c3c6655745cd15302aa24b6bae531
   UMCCommon: 971f324a5a99c9d662ae040a815e7e3d7ef8b2a8
-  UMCSecurityPlugins: 0831a08f3988f3cea9f1d3a7626cd9bee4fef150
   UMCShare: e0cef55c0fd6051254c8cda1d0630eb578b27bad
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: 94aa4710187fc5e8e3e354798af48e0cf03538e3
+PODFILE CHECKSUM: 5833f74ed76cef99a0093f9d83d635f0b4645a43
 
 COCOAPODS: 1.8.4

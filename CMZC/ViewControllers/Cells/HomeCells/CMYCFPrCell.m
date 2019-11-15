@@ -211,11 +211,5 @@
     
 }
 
--(void)goDingQiBao{
-    if ([self.delegate respondsToSelector:@selector(enterDingQibaoProductController)]) {
-        [self.delegate enterDingQibaoProductController];
-    }
-    
-}
 
 @end

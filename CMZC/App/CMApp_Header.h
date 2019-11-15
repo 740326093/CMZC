@@ -21,8 +21,8 @@
 #define kUMSocial_url @"http://mz.58cm.com/About/APPClient"
 
 #define kCMWebHeader_Url @"http://mz.58cm.com/"
-
-static NSString *const VPSDKAppKey= @"5cba7267fc650e1d04e504c1";
+  //5cba7267fc650e1d04e504c1    5dce39de8713b71e70a41eb9    新的5dce3a0b8713b71e70a41eba
+static NSString *const VPSDKAppKey= @"5dce3a0b8713b71e70a41eba";
 
 //qq
 #define kUMSocial_QQAppId @"1105314915" //qq appid

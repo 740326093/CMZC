@@ -32,6 +32,9 @@
    
     //这个地方。千万不能写dele 如果写要做一下判断。 因为iOS7上是不支持的。就是因为这个搞了我一天。真傻比。
    // self.navigationController.delegate = self;
+    self.navigationController.navigationBar.barTintColor=[UIColor cmThemeOrange];
+       [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 }
 
 
